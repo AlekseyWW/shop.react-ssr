@@ -36,6 +36,7 @@ const assetDir = process.env.CLIENT_OUTPUT;
 console.log('====================================');
 console.log('path', path);
 console.log('process', process.cwd());
+console.log('assetDir', assetDir);
 console.log('====================================');
 app.use('/assets', express.static(path.resolve(process.cwd(), assetDir)));
 // Setup the public directory so that we can serve static assets.
