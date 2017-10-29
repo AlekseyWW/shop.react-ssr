@@ -36,9 +36,9 @@ const assetDir = process.env.CLIENT_OUTPUT;
 console.log('====================================');
 console.log('path', path);
 console.log('process', process.cwd());
-console.log('assetDir', assetDir);
+console.log('assetDir', assetDir, process.env, process.env.CLIENT_OUTPUT);
 console.log('====================================');
-app.use('/assets', express.static(path.resolve(process.cwd(), assetDir)));
+app.use('/assets', express.static(path.resolve(process.cwd(), 'build/assets')));
 // Setup the public directory so that we can serve static assets.
 app.use(express.static(path.resolve(process.cwd(), './public')));
 // Pass any get request through the SSR middleware before sending it back
