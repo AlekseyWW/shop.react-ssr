@@ -1,0 +1,17 @@
+get-min-width($width) {
+	'(min-width:' + $width +'px)'
+}
+
+get-max-width($width) {
+	'(max-width:' + $width +'px)'
+}
+
+get-min-and-max-width($minWidth, $maxWidth) {
+	get-min-width($minWidth) +  ' and ' + get-max-width($maxWidth)
+}
+
+get-grid-width($breakpoint, $count) {
+	$gridWidth = $grid[$breakpoint].width
+	$columnWidth = ($gridWidth / $columns)
+	unit($columnWidth * $count, 'px')
+}

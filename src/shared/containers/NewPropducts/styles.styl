@@ -1,0 +1,26 @@
+@import '../../styles/common.styl'
+
+.NewProducts {
+	& {
+		grid-width()
+		margin 0 auto
+		clearfix()
+		margin-bottom 32px
+		@media $phone {
+			padding 0 16px
+		}
+	}
+	&__title {
+		font-weight bold
+		font-size 40px
+		margin-bottom 58px
+		text-align center	
+	}
+	&__list {
+		margin-right -20px
+		clearfix()
+		@media $phone {
+			margin 0
+		}
+	}
+}

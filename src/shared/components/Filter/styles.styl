@@ -1,0 +1,40 @@
+@import '../../styles/common.styl'
+
+.Filter {
+	& {
+		display flex
+		justify-content space-between
+		font-size 12px
+		margin-bottom 24px
+		padding 0 10px
+		padding-top 8px
+	}
+	&__sorting {
+		display flex
+	}
+	&__filters {
+		& {
+			font-size 12px
+		}
+		&__item {
+			display inline-block
+			position relative
+			padding-left 12px
+			padding-right 8px
+			&:before, &:after {
+				content ''
+				position absolute
+				width 8px
+				height 1px
+				background-color #191919
+				transform-origin center
+				left 0
+				top 7px
+				transform rotate(45deg)
+			}
+			&:after {
+				transform rotate(-45deg)
+			}
+		}
+	}
+}

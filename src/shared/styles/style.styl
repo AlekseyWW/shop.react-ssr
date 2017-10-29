@@ -1,0 +1,59 @@
+/*** --- Reset CSS --- ***/
+@import 'reset.styl'
+@import 'common.styl'
+
+
+/*** --- Webfonts --- ***/
+webfont('Geometria-Light', 'Geometria-Light-webfont.eot', $regular);
+// webfont('OpenSans', 'OpenSans-Bold', $bold);
+// webfont('OpenSans', 'OpenSans-Semibold', $black);
+
+
+/*** --- Document --- ***/
+html,
+body {
+	height 100%
+	background $bgColor
+	color $textColor
+	font normal $fontSize/$lineHeight $fontFamily
+	-webkit-text-size-adjust 100%
+	// smooth-font()
+}
+
+.page__inner {
+	padding-bottom 100px
+}
+/*** --- Links --- ***/
+a {
+	color $linkColor
+	text-decoration none
+}
+
+
+/*** --- Page --- ***/
+.page {
+	position relative
+	overflow hidden
+	min-width 320px
+	min-height 100%
+}
+
+
+
+
+/*** --- Link --- ***/
+.link {
+	color $linkColor
+	transition color $duration
+	&:hover {
+		color $linkHoverColor
+		faster()
+		.link__icon {
+			fill $linkColor
+			faster()
+		}
+	}
+	&__icon {
+		transition fill $duration
+	}
+}

@@ -1,0 +1,42 @@
+@import '../../styles/common.styl'
+
+.Header {
+	background #000
+	color #FFF
+	font-size 15px
+	&__container {
+		container()
+		padding 5px 0
+		display flex
+		justify-content space-between
+	}
+	&__contacts {
+		display flex
+		justify-content space-between
+		&__item {
+			margin-right 25px
+			&:last-child {
+				margin-right 0
+			}
+		}
+	}
+	&__nav {
+		display flex
+		justify-content space-between
+		&__item {
+			padding 0 10px
+			position relative
+			&:after {
+				content '|'
+				position absolute
+				right 0
+				top 0
+			}
+			&:last-child {
+				&:after {
+					display none
+				}
+			}
+		}
+	}
+}

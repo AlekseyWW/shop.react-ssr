@@ -1,0 +1,84 @@
+@import '../../styles/common.styl'
+
+.Menu {
+	background #FFF
+	color #000
+	border-bottom 1px solid $borderColor
+	&__container {
+		container()
+		padding 15px 0
+		display flex
+		justify-content space-between
+		align-items center
+	}
+	&__nav {
+		display flex
+		justify-content space-between
+		&__item {
+			margin-right 10px
+			font-size 14px
+			color $textColor
+			border-bottom 1px solid transparent
+			&:last-child {
+				margin-right 0
+			}
+			&:hover {
+				color $linkHoverColor
+			}
+			&_active {
+				border-bottom 1px solid $textColor
+				cursor default
+				&:hover {
+					color $textColor
+				}
+			}
+		}
+	}
+	&__logo {
+		font-size 30px
+		position absolute
+		left 50%
+		width 200px
+		text-align center
+		margin-left -100px
+		color $textColor
+		&__item {
+			padding 0 10px
+			position relative
+			color $textColor
+			&:after {
+				content '|'
+				position absolute
+				right 0
+				top 0
+			}
+			&:last-child {
+				&:after {
+					display none
+				}
+			}
+			&:hover {
+				color $linkHoverColor
+			}
+		}
+	}
+	&__user {
+		display flex
+		justify-content space-between
+		&__item {
+			padding 0 10px
+			position relative
+			&:after {
+				content '|'
+				position absolute
+				right 0
+				top 0
+			}
+			&:last-child {
+				&:after {
+					display none
+				}
+			}
+		}
+	}
+}

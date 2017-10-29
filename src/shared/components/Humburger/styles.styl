@@ -1,0 +1,40 @@
+.Humburger {
+	& {
+		position relative
+		display inline-block
+		cursor pointer
+		height 24px
+		width 24px
+		&:before {
+			content ''
+			position absolute
+			top -2px
+			left -6px
+			bottom -2px
+			right -6px
+		}
+		&_open {
+			.Humburger__line {
+				background $linkColor
+			}
+		}
+	}
+	&__line {
+		position absolute
+		display block
+		width 24px
+		height 2px
+		background $textColor
+		left 50%
+		margin-left -12px
+		&:first-child {
+			top 4px
+		}
+		&:nth-child(2) {
+			top 11px
+		}
+		&:last-child {
+			top 18px
+		}
+	}
+}

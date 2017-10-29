@@ -1,0 +1,57 @@
+@import '../../styles/common.styl'
+
+.ProductList {
+	& {
+		margin-bottom 32px
+	}
+	&__container {
+		margin-bottom 0px
+	}
+	&__nav {
+		font-size 12px
+		display -webkit-flex
+		display -moz-flex
+		display -ms-flex
+		display -o-flex
+		display flex
+		&__title {
+			display inline-block
+			margin-right 8px
+		}
+		&__pages {
+			margin 0 auto
+			span {
+				margin-right 5px
+				&:last-child {
+					margin-right 0
+				}
+			}
+			display flex
+			&__item {
+				margin-right 10px
+				cursor pointer
+				a {
+					color $textColor
+					outline none
+				}
+				&:last-child {
+					margin-right 0
+				}
+				&_active {
+					a {
+						color tomato
+					}
+				}
+			}
+		}
+		&__button {
+			display inline-block
+			span {
+				margin-right 5px
+				&:last-child {
+					margin-right 0
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,99 @@
+// placeholder color
+placeholder($color) {
+	&::placeholder {
+		color $color
+		opacity 1
+	}
+}
+
+// font smoothing
+smooth-font() {
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+}
+
+// faster transition
+faster() {
+	transition-duration ($duration/2)
+}
+
+// clearfix
+clearfix() {
+	&:after {
+		display block
+		content ''
+		height 0
+		overflow hidden
+		clear both
+	}
+}
+
+// fullsize
+fullsize() {
+	position absolute
+	left 0
+	top 0
+	width 100%
+	height 100%
+}
+
+// font-face
+webfont($family, $file, $weight = normal, $style = normal) {
+	@font-face {
+		font-family $family
+		src url('/fonts/'+$file+'.eot')
+		src url('/fonts/'+$file+'.eot?#iefix') format('embedded-opentype'),
+			url('/fonts/'+$file+'.woff') format('woff'),
+			url('/fonts/'+$file+'.ttf') format('truetype'),
+			url('/fonts/'+$file+'.svg'+$file) format('svg')
+		font-weight $weight
+		font-style $style
+	}
+}
+
+// cursor grab
+cursor-grab() {
+	cursor move
+	cursor grab
+}
+
+// cursor grabbing
+cursor-grabbing() {
+	cursor move
+	cursor grabbing
+}
+// grid
+grid-width-default($count, $property, $addGaps) {
+	{$property}: get-grid-width('default', $count, $addGaps)
+}
+grid-width-notebook($count, $property, $addGaps) {
+	{$property}: get-grid-width('notebook', $count, $addGaps)
+}
+grid-width-tablet($count, $property, $addGaps) {
+	{$property}: get-grid-width('tablet', $count, $addGaps)
+}
+grid-width-vertical-tablet($count, $property, $addGaps) {
+	{$property}: get-grid-width('verticalTablet', $count, $addGaps)
+}
+grid-width($count = $columns, $property = width, $addGaps = 0) {
+	@media $withoutPhone {
+		grid-width-default($count, $property, $addGaps)
+	}
+	@media $tabletWithoutPhone {
+		grid-width-tablet($count, $property, $addGaps)
+	}
+	@media $verticalTabletWithoutPhone {
+		grid-width-vertical-tablet($count, $property, $addGaps)
+	}
+}
+/*** --- Container --- ***/
+container() {
+	grid-width()
+	margin 0 auto
+	&__block {
+		margin-bottom 50px
+		&:last-child {
+			margin-bottom 0
+		}
+	}
+}

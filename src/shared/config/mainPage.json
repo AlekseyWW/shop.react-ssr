@@ -1,0 +1,74 @@
+{
+	"promo": [
+		{
+			"id": 1,
+			"title": "Спеши в newstep store!*",
+			"text": "При предъявлении студенческого скидка 5&nbsp;% ждет тебя!",
+			"note": "*скидка предоставляется при показе зачётки",
+			"img": "/promo.jpg"
+		}
+	],
+	"categories": [
+		{
+			"id": 2,
+			"sm": false,
+			"items": [
+				{
+					"id": 1,
+					"name": "shorts",
+					"title": "Рубашки",
+					"img": "ct-1.jpg"
+				},
+				{
+					"id": 2,
+					"name": "shorts",
+					"title": "Аксессуары",
+					"img": "ct-7.jpg"
+				}
+
+			] 
+		},
+		{
+			"id": 3,
+			"sm": true,
+			"items": [
+				{
+					"id": 1,
+					"name": "shorts",
+					"title": "Куртки",
+					"img": "ct-6.jpg"
+				},
+				{
+					"id": 3,
+					"name": "shorts",
+					"title": "Рюкзаки",
+					"img": "ct-5.jpg"
+				},
+				{
+					"id": 4,
+					"name": "shorts",
+					"title": "Джинсы",
+					"img": "ct-4.jpg"
+				}
+			] 
+		},
+		{
+			"id": 4,
+			"sm": false,
+			"items": [
+				{
+					"id": 5,
+					"name": "shorts",
+					"title": "Костюмы",
+					"img": "ct-3.jpg"
+				},
+				{
+					"id": 6,
+					"name": "shorts",
+					"title": "Топсайдеры",
+					"img": "ct-2.jpg"
+				}
+			] 
+		}
+	]
+}

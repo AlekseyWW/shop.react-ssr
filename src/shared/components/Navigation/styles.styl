@@ -1,0 +1,42 @@
+.Navigation {
+	& {
+		display flex
+		position relative
+		align-content center
+	}
+	&__item {
+		position relative
+		margin-right 24px
+		vertical-align middle
+		display block
+		&:last-child {
+			margin-bottom 0
+		}
+		&__title {
+			display block
+		}
+	}
+	&__content {
+		position absolute
+		background #FFF
+		top 100%
+		left -16px
+		width 300px
+		padding 16px
+		display none
+		&_visible {
+			display block
+		}
+	}
+	&__title {
+		margin-bottom 8px
+		vertical-align middle
+		display block
+		&:last-child {
+			margin-bottom 0
+		}
+		&_main {
+			margin 0
+		}
+	}
+}

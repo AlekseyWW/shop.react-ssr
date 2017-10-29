@@ -1,0 +1,18 @@
+{
+	"default": {
+		"width": 1200,
+		"gap": 30
+	},
+	"notebook": {
+		"width": 940,
+		"gap": 30
+	},
+	"tablet": {
+		"width": 940,
+		"gap": 20
+	},
+	"verticalTablet": {
+		"width": 720,
+		"gap": 15
+	}
+}

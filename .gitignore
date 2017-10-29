@@ -1,0 +1,10 @@
+node_modules
+public/assets/
+*.log
+.env
+coverage/
+build/
+.cache-loader
+.idea
+.idea/*
+.DS_Store

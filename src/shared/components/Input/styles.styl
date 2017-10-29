@@ -1,0 +1,45 @@
+@import '../../styles/common.styl'
+$fontSize = 18px
+$paddingTop = $fontSize*0.9
+.Input {
+	& {
+		position relative
+		border-bottom 1px solid $textColor
+		box-sizing border-box
+		line-height 1.2
+		font-size 16px
+		width 155px
+		height 25px
+		border-radius 5px
+		border 1px solid #979797
+		box-sizing border-box
+		background-color #F5F5F5
+	}
+	&__input {
+		border 0
+		outline: none
+		padding 0
+		background none
+	}
+	&__icon {
+		margin-right 8px
+	}
+	&__placeholder {
+		position absolute
+		display block
+		bottom 2px
+		left 8px
+		transform translateZ(0)
+		transform-origin 0 0
+		pointer-events none
+		transition transform $duration
+		will-change: transform
+		line-height 1
+	}
+	&_focused, &_value {
+		.Input__placeholder {
+			transform scale(0.75) translateY(-($fontSize*1.2)) translateZ(0)
+			faster()
+		}
+	}
+}

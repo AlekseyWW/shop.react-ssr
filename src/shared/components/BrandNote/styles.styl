@@ -1,0 +1,26 @@
+.BrandNote {
+	& {
+		box-sizing border-box
+		grid-width(2)
+		grid-width(0.5, padding-right)
+		float left
+		padding-top 3px
+	}
+	&__title {
+		display block
+		font-size 28px
+		text-transform uppercase
+		font-weight $bold
+		line-height (29/28)
+		margin-bottom 16px
+		&:last-child {
+			margin-bottom 0
+		}
+	}
+	&__text {
+		display block
+		color $secondTextColor
+		font-size 14px
+		line-height (20/14)
+	}
+}

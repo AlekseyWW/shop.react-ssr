@@ -1,0 +1,82 @@
+.HeaderInfo {
+	background #000
+	color #FFF
+	font-size 12px
+	&__brands {
+		display flex
+		align-items center
+		&__item {
+			margin-right 10px
+			color #4e4e4d
+			&:last-child {
+				margin-right 0
+			}
+		}
+		&__icon {
+			vertical-align middle
+		}
+	}
+	&__container {
+		container()
+		padding 10px 0
+		display flex
+		justify-content space-between
+	}
+	&__contacts {
+		display flex
+		justify-content space-between
+		&__item {
+			margin-right 25px
+			font-size 14px
+			&:last-child {
+				margin-right 0
+			}
+		}
+	}
+	&__nav {
+		display flex
+		justify-content space-between
+		&__item {
+			padding 0 10px
+			position relative
+			line-height 1
+			&:after {
+				content '|'
+				position absolute
+				right 0
+				top 0
+			}
+			&:last-child {
+				&:after {
+					display none
+				}
+			}
+		}
+	}
+	&__icon {
+		padding-right 5px
+		display inline-block
+		line-height 1
+		margin-bottom -2px
+		svg {
+		}
+	}
+	&__worktime {
+		span {
+			position relative
+			display inline-block
+		}
+		&__start {
+			&:after {
+					content: '\2014'
+					position relative
+					display inline-block
+					// width 35px
+					// height 1px
+					// border-top: 0.6px solid #ffffff
+					vertical-align top
+					margin 0 3px
+				}
+		}
+	}
+}

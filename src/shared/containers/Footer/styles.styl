@@ -1,0 +1,116 @@
+.Footer {
+	& {
+		background-color #4E4E4D
+		padding 40px 0 60px
+		color #F5F5F5;
+	}
+	&__container {
+		container()
+		display flex
+		justify-content space-between
+	}
+	&__column {
+		&:first-child {
+			grid-width(2.5)
+		}
+		&:nth-child(2){
+			grid-width(4.5)
+		}
+		&:last-child {
+			grid-width(3.2)
+		}
+	}
+	&__phone{
+		font-size 20px
+		margin-bottom 24px
+		div {
+			&:last-child {
+				margin-bottom 10px
+			}
+		}
+	}
+	&__logo {
+		margin-bottom 24px
+		&__img {
+			fill: #F5F5F5;
+		}
+	}
+	&__address {
+
+	}
+	&__social {
+		margin-bottom 32px
+		&__title {
+			margin-bottom 10px
+			font-size 20px
+		}
+		&__icons {
+		}
+		&__icon {
+			display inline-block
+			margin-right 16px
+			&:last-child {
+				margin-right 0
+			}
+			svg {
+				fill #F5F5F5
+			}
+		}
+	}
+	&__buyer {
+		&__title {
+			font-size 20px
+			margin-bottom 20px
+			text-transform uppercase
+		}
+	}
+	&__links {
+		display flex
+		&__column {
+			width 50%
+			padding-right 40px
+			&:last-child {
+				padding-right 0
+			}
+		}
+	}
+	&__link {
+
+	}
+	&__feedback {
+		&__title {
+			font-size 20px
+			margin-bottom 16px
+		}
+		&__field {
+			width 250px !important
+			height 36px !important
+			border-radius 0 !important
+			border 0 !important
+			background #F5F5F5
+			span {
+				font-size 18px
+				bottom 7px
+			}
+		}
+		&__input {
+			display flex
+			color #676766
+			margin-bottom 16px
+		}
+		&__button {
+			border 0
+			border-left 1px solid #4E4E4D
+			height 36px
+			background #F5F5F5
+		}
+		&__text {
+			font-size 15px
+			margin-bottom 16px
+		}
+		&__note {
+			font-size 20px
+			text-transform uppercase
+		}
+	}
+}
