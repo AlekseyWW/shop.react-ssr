@@ -31,7 +31,12 @@ app.use((req, res, next) => {
 // as if they're coming form the root of the site.
 //      For example: app.use('/assets', express.static(....))
 //        -- will serve the files in the directory = require(websiteUrl/assets/
+
 const assetDir = process.env.CLIENT_OUTPUT;
+console.log('====================================');
+console.log('path', path);
+console.log('process', process.cwd());
+console.log('====================================');
 app.use('/assets', express.static(path.resolve(process.cwd(), assetDir)));
 // Setup the public directory so that we can serve static assets.
 app.use(express.static(path.resolve(process.cwd(), './public')));
