@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 //        -- will serve the files in the directory = require(websiteUrl/assets/
 
 const assetDir = process.env.CLIENT_OUTPUT;
-app.use('/assets', express.static(path.resolve(process.cwd(), 'build/assets')));
+app.use('/assets', express.static(path.resolve(process.cwd(), assetDir)));
 // Setup the public directory so that we can serve static assets.
 app.use(express.static(path.resolve(process.cwd(), './public')));
 // Pass any get request through the SSR middleware before sending it back
