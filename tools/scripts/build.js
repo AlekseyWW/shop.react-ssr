@@ -30,8 +30,11 @@ const serverConfig = createWebpackConfig({
 });
 const clientOut = process.env.CLIENT_OUTPUT;
 const serverOut = process.env.SERVER_OUTPUT;
-const buildPath = path.resolve(ROOT, 'build/assets');
-const serverPath = path.resolve(ROOT, 'build');
+console.log('====================================');
+console.log(clientOut, serverOut);
+console.log('====================================');
+const buildPath = path.resolve(ROOT, clientOut);
+const serverPath = path.resolve(ROOT, serverOut);
 
 measureFileSizesBeforeBuild(buildPath)
   .then(previousFileSizes => {
