@@ -42,6 +42,10 @@ class MainPage extends Component {
 	}
 	render() {
 		const { categories, sex, isLoaded, isLoading, products } = this.props;
+		const currentProducts = _.filter(products, {top: true})
+		console.log('====================================');
+		console.log(currentProducts);
+		console.log('====================================');
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />
@@ -56,7 +60,7 @@ class MainPage extends Component {
 					(<div>
 						<Promo content={text.promo} />
 						<Category categories={categories} />
-						{ isLoaded && !isLoading && <NewPropducts products={products} /> }
+						{ isLoaded && !isLoading && <NewPropducts products={currentProducts} /> }
 						<BrandList />
 					</div>
 					)
