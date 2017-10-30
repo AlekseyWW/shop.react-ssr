@@ -43,9 +43,6 @@ class MainPage extends Component {
 	render() {
 		const { categories, sex, isLoaded, isLoading, products } = this.props;
 		const currentProducts = _.filter(products, {top: true})
-		console.log('====================================');
-		console.log(currentProducts);
-		console.log('====================================');
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />

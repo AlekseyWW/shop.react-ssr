@@ -5,11 +5,13 @@
 		color #F5F5F5;
 	}
 	&__container {
-		container()
+		grid-width()
+		margin 0 auto
 		display flex
 		justify-content space-between
 	}
 	&__column {
+		display block
 		&:first-child {
 			grid-width(2.5)
 		}

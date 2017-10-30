@@ -133,7 +133,7 @@ export default class ProgressPlugin {
       });
 
       compilation.plugin('optimize-chunk-assets', (chunks, callback) => {
-        display('Optimizing chunks');
+        display('Optimizing chunks!');
         callback();
       });
 

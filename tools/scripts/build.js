@@ -30,9 +30,6 @@ const serverConfig = createWebpackConfig({
 });
 const clientOut = process.env.CLIENT_OUTPUT;
 const serverOut = process.env.SERVER_OUTPUT;
-console.log('====================================');
-console.log(clientOut, serverOut);
-console.log('====================================');
 const buildPath = path.resolve(ROOT, clientOut);
 const serverPath = path.resolve(ROOT, serverOut);
 

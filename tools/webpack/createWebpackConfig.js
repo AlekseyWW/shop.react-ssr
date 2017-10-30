@@ -152,7 +152,7 @@ export default function createWebpackConfig(options) {
 		loader: 'stylus-loader',
 		options: {
 			sourceMap: true,
-			minimize: false,
+			minimize: true,
 			import: path.resolve('src/shared/styles/common.styl'),
 		},
 	};
@@ -226,11 +226,7 @@ export default function createWebpackConfig(options) {
 					global: true,
 					process: false,
 				},
-		performance: _IS_DEV_
-			? false
-			: {
-					hints: 'warning',
-				},
+		performance: false,
 
 		resolve: {
 			// look for files in the descendants of src/ then node_modules
@@ -351,8 +347,8 @@ export default function createWebpackConfig(options) {
 											modules: false,
 											localIdentName: LOCAL_IDENT,
 											import: 3,
-											minimize: false,
-											sourceMap: true,
+											minimize: true,
+											sourceMap: false,
 										},
 									},
 									{
