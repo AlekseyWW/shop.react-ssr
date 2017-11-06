@@ -20,7 +20,7 @@ const getProductInfoError = error => ({
 
 export const getProductInfo = productId => (dispatch) => {
 	dispatch(getProductInfoStart(productId));
-	get(
+	return get(
 		`/products/${productId}`,
 		{},
 		response => dispatch(getProductInfoSuccess(productId, response)),
@@ -49,35 +49,44 @@ const getProductsError = error => {
 	})
 };
 
-// export const getProducts = data => (dispatch) => {
-// 	dispatch(getProductsStart());
-// 	get(
-// 		'/products',
-// 		data,
-// 		response => dispatch(getProductsSuccess(
-// 			response.products,
-// 			response.all_count,
-// 			response.title,
-// 			response.config)),
-// 		error => dispatch(getProductsError(error.message))
-// 	);
-// };
-export const getProducts = (data) => {
-	return dispatch => {
-		dispatch(getProductsStart());
-		return axios
-		.get('https://private-fc561-eshopexample.apiary-mock.com/products')
-		.then(res => {
-			/* istanbul ignore next */
-			const { data } = res;
-			/* istanbul ignore next */
-			return dispatch(getProductsSuccess(
-				data.products,
-				data.all_count,
-				data.title,
-				data.config
-			));
-		})
-		.catch(err => dispatch(getProductsError(err)));
-	};
+export const getProducts = data => (dispatch) => {
+	dispatch(getProductsStart());
+	return get(
+		'/products',
+		data,
+		response => dispatch(getProductsSuccess(
+			response.products,
+			response.all_count,
+			response.title,
+			response.config)),
+		error => dispatch(getProductsError(error.message))
+	);
+};
+
+const getPromoProductsStart = () => ({
+	type: types.GET_PRODUCTS_START
+});
+
+const getPromoProductsSuccess = (products) => (dispatch) => {
+	dispatch({
+		type: types.GET_PROMO_PRODUCTS_SUCCESS,
+		products
+	});
+};
+
+const getPromoProductsError = error => {
+	return ({
+		type: types.GET_PROMO_PRODUCTS_FAILURE,
+		error
+	})
+};
+
+export const getPromoProducts = data => (dispatch) => {
+	dispatch(getPromoProductsStart());
+	return get(
+		'/products/promo',
+		data,
+		response => dispatch(getPromoProductsSuccess(response)),
+		error => dispatch(getPromoProductsError(error.message))
+	);
 };

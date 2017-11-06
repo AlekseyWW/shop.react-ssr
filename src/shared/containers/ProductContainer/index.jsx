@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import ProductView from 'components/ProductView/';
 import ProductForm from 'components/ProductForm/';
 
-import './styles.styl';
+import style from './styles.styl';
 
 const Product = ({ product, addToCart }) => (
-	<div className="Product">
-		<div className="Product__content">
-			<ProductView img={product.img} />
+	<div className={style.Product}>
+		<div className={style.Product__content}>
+			<ProductView product={product} />
 			<ProductForm addToCart={addToCart} product={product} />
 		</div>
 	</div>

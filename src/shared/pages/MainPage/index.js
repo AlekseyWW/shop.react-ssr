@@ -20,29 +20,29 @@ class MainPage extends Component {
 		categories: PropTypes.array.isRequired
 	};
 	static fetchData({ store, params }) {
-		const productConfig = {
-			offset: 0,
-			count: 12,
-			sortBy: 'date',
-			sex: params.sex || '',
-			categories: '',
-			subCategoryId: '',
-			filter: {
-				categories: 'all',
-				brands: '',
-				priceFrom: '',
-				priceTo: ''
-			}
-		};
-		return store.dispatch(productsAction.getProducts(productConfig));
+		// const productConfig = {
+		// 	offset: 0,
+		// 	count: 12,
+		// 	sortBy: 'date',
+		// 	sex: params.sex || '',
+		// 	categories: '',
+		// 	subCategoryId: '',
+		// 	filter: {
+		// 		categories: 'all',
+		// 		brands: '',
+		// 		priceFrom: '',
+		// 		priceTo: ''
+		// 	}
+		// };
+		return store.dispatch(productsAction.getPromoProducts());
 	}
 	componentDidMount() {
 		const { isLoading, isLoaded, getProducts } = this.props;
 		if (!isLoading && !isLoaded) getProducts();
 	}
 	render() {
-		const { categories, sex, isLoaded, isLoading, products } = this.props;
-		const currentProducts = _.filter(products, {top: true})
+		const { categories, sex, isLoaded, isLoading, promoProducts } = this.props;
+		// const currentProducts = _.filter(promoProducts, {top: true})
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />
@@ -50,14 +50,14 @@ class MainPage extends Component {
 					(<div>
 						<Promo content={text.promo} />
 						<Category categories={categories} />
-						{ isLoaded && !isLoading && <NewPropducts products={products} /> }
+						{ isLoaded && !isLoading && <NewPropducts products={promoProducts} /> }
 						<BrandList />
 					</div>
 					) :
 					(<div>
 						<Promo content={text.promo} />
 						<Category categories={categories} />
-						{ isLoaded && !isLoading && <NewPropducts products={currentProducts} /> }
+						{ isLoaded && !isLoading && <NewPropducts products={promoProducts} /> }
 						<BrandList />
 					</div>
 					)
@@ -69,12 +69,13 @@ class MainPage extends Component {
 }
 MainPage.defaultProps = {
 	sex: '',
+	promoProducts: []
 };
 
 MainPage.propTypes = {
 	sex: PropTypes.string,
 	isLoading: PropTypes.bool.isRequired,
-	products: PropTypes.array.isRequired,
+	promoProducts: PropTypes.array,
 	isLoaded: PropTypes.bool.isRequired,
 	getProducts: PropTypes.func.isRequired,
 	categories: PropTypes.array.isRequired
@@ -82,9 +83,9 @@ MainPage.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
 	const { sex } = ownProps.match.params;
-	const { products, isLoading, isLoaded } = state.products;
+	const { promoProducts, isLoading, isLoaded } = state.products;
 	const { items } = state.category.promoCategories;
-	return { sex, categories: items, products, isLoading, isLoaded };
+	return { sex, categories: items, promoProducts, isLoading, isLoaded };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -104,7 +105,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	};
 	
 	return ({
-		getProducts: () => dispatch(productsAction.getProducts(productConfig)),
+		getProducts: () => dispatch(productsAction.getPromoProducts(productConfig)),
 		getBrands: () => dispatch(brandsAction())
 	});
 };

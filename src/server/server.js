@@ -47,7 +47,6 @@ export default ({ clientStats }) => {
 			}
 			return matches;
 		}, []);
-
 		// No such route, send 404 status
 		if (matches.length === 0) {
 			status = 404;

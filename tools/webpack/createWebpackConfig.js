@@ -128,8 +128,10 @@ export default function createWebpackConfig(options) {
 		modules: true,
 		localIdentName: LOCAL_IDENT,
 		import: 3,
-		minimize: false,
-		sourceMap: true,
+		minimize: _IS_DEV_ ? false : {
+			discardComments: { removeAll: true },
+		},
+		sourceMap: _IS_DEV_,
 	};
 
 	const postCSSLoaderRule = {
@@ -137,7 +139,7 @@ export default function createWebpackConfig(options) {
 		options: {
 			// https://webpack.js.org/guides/migrating/#complex-options
 			ident: 'postcss',
-			sourceMap: true,
+			sourceMap: _IS_DEV_,
 			plugins: () => [
 				require('postcss-flexbugs-fixes'),
 				require('postcss-cssnext')({
@@ -151,8 +153,8 @@ export default function createWebpackConfig(options) {
 	const stylysLoaderRule = {
 		loader: 'stylus-loader',
 		options: {
-			sourceMap: true,
-			minimize: true,
+			sourceMap: _IS_DEV_,
+			minimize: _IS_DEV_ ? false : true,
 			import: path.resolve('src/shared/styles/common.styl'),
 		},
 	};
@@ -226,7 +228,11 @@ export default function createWebpackConfig(options) {
 					global: true,
 					process: false,
 				},
-		performance: false,
+		performance: _IS_DEV_
+			? false
+			: {
+					hints: 'warning',
+				},
 
 		resolve: {
 			// look for files in the descendants of src/ then node_modules
@@ -270,14 +276,15 @@ export default function createWebpackConfig(options) {
 						loader: 'url-loader',
 						options: {
 							limit: 10000,
-							name: 'fonts/[name].[ext]',
+							name: '/fonts/[name].[ext]',
 						},
 					},
 				},
 				// url loader to inline small svgs
 				{
 					test: /\.svg$/,
-					loader: 'svg-sprite-loader'
+					loader: 'svg-sprite-loader',
+					exclude: path.resolve(SRC_DIR + '/shared/styles/fonts'),
 				},
 				{
 					test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -286,7 +293,7 @@ export default function createWebpackConfig(options) {
 						{
 							loader: 'file-loader',
 							options: {
-								name: 'fonts/[name].[ext]',
+								name: '/fonts/[name].[ext]',
 							},
 						},
 					],
@@ -347,8 +354,8 @@ export default function createWebpackConfig(options) {
 											modules: false,
 											localIdentName: LOCAL_IDENT,
 											import: 3,
-											minimize: true,
-											sourceMap: false,
+											minimize: !_IS_DEV_,
+											sourceMap: _IS_DEV_,
 										},
 									},
 									{
@@ -364,8 +371,8 @@ export default function createWebpackConfig(options) {
 										modules: false,
 										localIdentName: LOCAL_IDENT,
 										import: 3,
-										minimize: false,
-										sourceMap: true,
+										minimize: _IS_DEV_ ? false : true,
+										sourceMap: _IS_DEV_,
 									},
 								},
 								{
@@ -419,7 +426,7 @@ export default function createWebpackConfig(options) {
 				__SERVER__: JSON.stringify(_IS_SERVER_),
 				'process.env.NODE_ENV': JSON.stringify(options.env),
 				'process.env.TARGET': JSON.stringify(webpackTarget),
-				'process.env.API_URL': JSON.stringify('https://private-fc561-eshopexample.apiary-mock.com/'),
+				'process.env.API_URL': JSON.stringify('http://private-0b0d2-onlineshop2.apiary-mock.com/'),
 			}),
 			_IS_DEV_
 				? new WriteFilePlugin({

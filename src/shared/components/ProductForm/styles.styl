@@ -2,20 +2,134 @@
 
 .ProductForm {
 	& {
-		grid-width(3)
+		grid-width(4.5)
 		float left
 		clearfix()
-		padding 20px
-		background #FFF
 		box-sizing border-box
+	}
+	&__head {
+		margin-bottom 15px
 	}
 	&__title {
 		font-size 22px
+		margin-bottom 8px
 		font-weight bold
-		margin-bottom 20px
+		text-transform uppercase
+		line-height 1
+	}
+	&__subline {
+		font-size 20px
+		line-height 1
 	}
 	&__price {
-		font-size 22px
+		font-size 20px
 		font-weight bold
+		margin-bottom 12px
+		&__value {
+			color: #BD2D21
+			display inline-block
+			margin-right 2px
+			padding 0 5px
+			&:last-child {
+				margin-right 0
+			}
+		}
+		&__old {
+			color #000;
+			position relative
+			display inline-block
+			padding 0 5px
+			&:before {
+				content ''
+				position absolute
+				top 50%
+				left 0
+				width 100%
+				margin-top -1px
+				height 2px
+				background-color #808080
+			}
+		}
+	}
+	&__action {
+		margin-bottom 25px
+	}
+	&__select {
+		display inline-block
+		margin-right 50px
+	}
+	&__callback {
+		& {
+			margin-bottom 20px
+		}
+		&__title {
+			grid-width(1.5)
+			display inline-block
+			vertical-align top
+			line-height 1.2
+		}
+		&__inner {
+			grid-width(3)
+			padding-left 10px
+			box-sizing border-box
+			display inline-block
+			vertical-align top
+		}
+		&__text {
+			display inline-block
+			line-height 1.2
+		}
+		&__phone {
+			font-weight bold
+			display block
+			margin-bottom 12px
+		}
+		&__note {
+			display inline-block
+			font-size 9px
+			line-height 1.2
+		}
+	}
+	&__info {
+		& {
+			
+		}
+		&__block {
+			margin-bottom 16px
+		}
+		&__title {
+			line-height 1
+			padding-bottom 8px
+			margin-bottom 8px
+			font-size 14px
+			border-bottom: 1px solid #808080
+		}
+		&__text {
+			font-size 12px
+			line-height (15/12)
+		}
+	}
+	&__colors {
+		display flex
+		margin-bottom 16px
+	}
+	&__color {
+		width 65px
+		height 65px
+		box-sizing border-box
+		display inline-block
+		font-size 0
+		margin-right 8px
+		padding 8px
+		display flex
+		align-items center
+		background #ffffff
+		&:last-child {
+			margin-right 0
+		}
+		img {
+			width 100%
+			display block
+		}
 	}
 }

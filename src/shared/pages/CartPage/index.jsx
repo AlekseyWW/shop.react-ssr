@@ -69,9 +69,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	getCart: () => dispatch(cartAction.getCart()),
-	addToCart: id => dispatch(cartAction.addToCart(id)),
-	removeFromCart: id => dispatch(cartAction.removeFromCart(id))
+	// getCart: () => dispatch(cartAction.getCart()),
+	// addToCart: id => dispatch(cartAction.addToCart(id)),
+	// removeFromCart: id => dispatch(cartAction.removeFromCart(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

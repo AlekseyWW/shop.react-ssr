@@ -6,13 +6,13 @@ import { ShadowIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
-const ProductCard = ({ sm, description, price, img, name }) => {
+const ProductCard = ({ sm, description, price, img, name, slug }) => {
 	const className = classNames({
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
 	});
 	return (
-		<Link className={className} to={`/products/${name}`}>
+		<Link className={className} to={`/products/Nike-Air-Max`}>
 			<div className={style.ProductCard__image}>
 				<img src={img} alt="item" />
 				<div className={style.ProductCard__shadow} />
@@ -36,7 +36,7 @@ ProductCard.defaultProps = {
 	description: '',
 	img: '',
 	name: '',
-	name: ''
+	slug: ''
 };
 
 ProductCard.propTypes = {
@@ -44,7 +44,7 @@ ProductCard.propTypes = {
 	description: PropTypes.string,
 	name: PropTypes.string,
 	price: PropTypes.string,
-	name: PropTypes.string,
+	slug: PropTypes.string,
 	img: PropTypes.string
 };
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { Heading } from 'chramework';
 import { object, func } from 'prop-types';
 import { fetchPosts, fetchPostsIfNeeded } from '../../state/modules/posts';
 import Post from 'components/Post';

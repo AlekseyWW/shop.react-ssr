@@ -43,8 +43,8 @@ webfont($family, $file, $weight = normal, $style = normal) {
 		font-family $family
 		src url('/fonts/'+$file+'.eot')
 		src url('/fonts/'+$file+'.eot?#iefix') format('embedded-opentype'),
-			url('/fonts/'+$file+'.woff') format('woff'),
-			url('/fonts/'+$file+'.ttf') format('truetype'),
+			url('/fonts/'+$file+'.woff') format('application/font-woff'),
+			url('/fonts/'+$file+'.ttf') format('application/octet-stream'),
 			url('/fonts/'+$file+'.svg'+$file) format('svg')
 		font-weight $weight
 		font-style $style

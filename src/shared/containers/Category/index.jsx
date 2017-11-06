@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as categoryAction from 'actions/category';
 import CategoryRow from 'components/CategoryRow';
+import { chunk } from 'lodash';
 
 import style from './styles.styl';
 
@@ -13,10 +14,12 @@ class Category extends Component {
 	}
 	render() {
 		const { isLoaded, isLoading, items, getCategories } = this.props;
+		const categories = chunk(items, 3);
 		return (
 			<div className={style.Category}>
 				<div className={style.Category__list}>
-					{ items.map(row => <CategoryRow key={row.id} {...row} />) }
+					{categories[1] && <CategoryRow items={categories[1]}/>}
+					{categories[0] && <CategoryRow items={categories[0]} sm/>}
 				</div>
 			</div>
 		);

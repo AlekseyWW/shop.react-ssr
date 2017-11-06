@@ -11,18 +11,14 @@ const initialState = {
 	offset: 0,
 	title: '',
 	items: [],
+	promoProducts: [],
 	config: {
 		offset: 0,
 		count: 0,
-		sortBy: 'date',
+		brandname: [],
+		size: [],
 		sex: '',
-		categories: '',
-		subCategoryId: '',
-		filter: {
-			brands: '',
-			priceFrom: '',
-			priceTo: ''
-		}
+		sort: ''
 	}
 };
 export default function products(state = initialState, action) {
@@ -60,6 +56,25 @@ export default function products(state = initialState, action) {
 				isLoaded: false,
 				error: action.error,
 				products: []
+			};
+
+		case types.GET_PROMO_PRODUCTS_SUCCESS:
+			return {
+				...state,
+				isLoading: false,
+				isLoaded: true,
+				promoProducts: action.products,
+				error: null
+			};
+
+
+		case types.GET_PROMO_PRODUCTS_FAILURE:
+			return {
+				...state,
+				isLoading: false,
+				isLoaded: false,
+				error: action.error,
+				promoProducts: []
 			};
 
 		case types.GET_PRODUCT_INFO_START:

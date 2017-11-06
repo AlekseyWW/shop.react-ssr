@@ -12,12 +12,14 @@ class ProductPage extends Component {
 		const { isLoaded, isLoading, getProductInfo } = this.props;
 		if (!isLoaded && !isLoading) getProductInfo();
 	}
+	static fetchData({ store, params }) {
+		return store.dispatch(productsAction.getProductInfo(params.productId));
+	}
 	render() {
-		const { product, addToCart } = this.props;
+		const { product, addToCart, isLoaded } = this.props;
 		return (
 			<div className="ProductPage">
-				<PageInfo mod="sm" />
-				<ProductContainer product={product} addToCart={addToCart} />
+				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} /> : 'загрузка'}
 			</div>
 		);
 	}

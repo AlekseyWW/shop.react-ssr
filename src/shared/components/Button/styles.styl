@@ -1,0 +1,29 @@
+.Button {
+	& {
+		display inline-block
+		margin-bottom 10px
+		width 190px
+		height 25px
+		background-color #BD2D21
+		border-radius: 6px
+		border 0
+		text-transform uppercase
+		color #ffffff
+		font-size 13px
+		box-sizing border-box
+		&:last-child {
+			margin-bottom 0
+		}
+	}
+	&_disabled {
+		background-color #676766
+	}
+	&_small {
+		font-size 11.5px
+		height 19px
+		background-color #676766
+		text-transform: none
+		width auto
+		padding-bottom 1px
+	}
+}

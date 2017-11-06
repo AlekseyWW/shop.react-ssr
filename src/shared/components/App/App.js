@@ -4,7 +4,6 @@ import Helmet from 'react-helmet';
 import Switch from 'react-router-dom/Switch';
 import uuid from 'uuid';
 // internal
-import 'chramework/dist/main.css';
 import Layout from 'containers/Layout';
 import NotFound from '../NotFound';
 import routes from '../../routes';
@@ -22,6 +21,7 @@ function App() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="msapplication-TileColor" content="#2b2b2b" />
 				<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2" />
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.3/css/swiper.min.css" />
 			</Helmet>
 			<Layout>
 				<Switch>

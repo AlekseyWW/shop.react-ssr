@@ -18,7 +18,7 @@ const getCategoriesError = error => ({
 
 export const getCategories = () => (dispatch) => {
 	dispatch(getCategoriesStart());
-	get(
+	return get(
 		'/categories',
 		{ },
 		response => dispatch(getCategoriesSuccess(response)),
@@ -44,11 +44,11 @@ const getPromoCategoriesError = error => ({
 
 export const getPromoCategories = () => (dispatch) => {
 	dispatch(getPromoCategoriesStart());
-	axios.get('https://private-fc561-eshopexample.apiary-mock.com/categories/promo')
-	.then(res => {
-		const { data } = res;
-		return dispatch(getPromoCategoriesSuccess(data));
-	})
-	.catch(error => dispatch(getPromoCategoriesError(error.message)));
+	return get(
+		'/categories/promo',
+		{ },
+		response => dispatch(getPromoCategoriesSuccess(response)),
+		error => dispatch(getPromoCategoriesError(error.message))
+	);
 };
 

@@ -3,6 +3,7 @@ import Home from 'pages/Home';
 import Menu from 'pages/Menu';
 import MainPage from 'pages/MainPage';
 import CatalogPage from 'pages/CatalogPage';
+import ProductPage from 'pages/ProductPage';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -32,5 +33,10 @@ export default [
 		path: '/catalog/:categoryId/:subCategoryId',
 		exact: true,
 		component: CatalogPage,
+	},
+	{
+		path: '/products/:productId',
+		exact: true,
+		component: ProductPage,
 	},
 ];

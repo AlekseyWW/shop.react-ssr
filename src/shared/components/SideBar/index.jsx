@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import BarFilter from 'components/BarFilter/';
+import Button from 'components/Button/';
 import { Link } from 'react-router-dom';
 
 import style from './styles.styl';
@@ -223,7 +224,7 @@ const SideBar = ({ categories, brands, getProducts, categoryId, subCategoryId, t
 				<BarFilter brands={sizesArray} onSubmit={getProducts} sm />
 			</div>
 
-			<button className={style.SideBar__button} type="submit">Применить</button>
+			<Button text="применить"className={style.SideBar__button} />
 		</div>
 	</div>
 );

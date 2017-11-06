@@ -18,7 +18,7 @@ class Catalog extends Component {
 			getBrands,
 			config
 		} = this.props;
-		if (!isLoading && !isLoaded) getProducts(config);
+		if (!isLoading) getProducts(config);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}
 	static fetchData({ store, params }) {
@@ -56,7 +56,8 @@ class Catalog extends Component {
 			categories,
 			brands,
 			title,
-			getProducts
+			getProducts,
+			isLoaded
 		} = this.props;
 		return (
 			<MainBlock
@@ -68,6 +69,7 @@ class Catalog extends Component {
 				countView={countView}
 				categories={categories}
 				brands={brands.brands}
+				isLoaded={isLoaded}
 				getProducts={getProducts}
 			/>
 		);

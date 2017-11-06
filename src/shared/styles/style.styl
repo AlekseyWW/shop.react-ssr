@@ -4,7 +4,7 @@
 
 
 /*** --- Webfonts --- ***/
-webfont('Geometria-Light', 'Geometria-Light-webfont.eot', $regular);
+webfont('Geometria-Light', 'Geometria-Light', $regular);
 
 /*** --- Document --- ***/
 html,
@@ -14,7 +14,7 @@ body {
 	color $textColor
 	font normal $fontSize/$lineHeight $fontFamily
 	-webkit-text-size-adjust 100%
-	// smooth-font()
+	smooth-font()
 }
 
 .page__inner {

@@ -8,9 +8,11 @@ const CategoryRow = ({ sm, items }) => (
 		{ items.map(item => <CategoryItem key={item.id} {...item} sm={sm} />)}
 	</div>
 );
-
+CategoryRow.defaultProps = {
+	sm: false
+}
 CategoryRow.propTypes = {
-	sm: PropTypes.bool.isRequired,
+	sm: PropTypes.bool,
 	items: PropTypes.array.isRequired
 };
 
