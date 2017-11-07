@@ -51,7 +51,7 @@ class ProductView extends Component {
 			<div className={style.ProductView}>
 				<div className={style.ProductView__image}>
 					<Swiper className={style.ProductView__container} {...params} ref={el => {this.swiper = el}} loop>
-						{product.colors[0].img.map( photo =>(
+						{product.colors[0].images.map(photo =>(
 							<div  key={uuid.v4()}  className={style.ProductView__slide}>
 								<img src={photo} alt="img" />
 							</div>)
@@ -65,7 +65,7 @@ class ProductView extends Component {
 					</div>
 				</div>
 				<div className={style.ProductView__pagination}>
-					{product.colors[0].img.map( (photo, index) =>{
+					{product.colors[0].images.map( (photo, index) =>{
 						const styl = classNames({
 							[`${style.ProductView__pagination__item}`]: true,
 							[`${style.ProductView__pagination__item_active}`]: this.state.activeSlide === index

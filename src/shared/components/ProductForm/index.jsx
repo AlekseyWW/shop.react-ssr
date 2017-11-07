@@ -22,7 +22,7 @@ const ProductForm = ({ addToCart, product }) => {
 					<div className={style.ProductForm__colors}>
 						{product.colors.map(color => (
 							<div key={color.name} className={style.ProductForm__color}>
-								<img src={color.img[0]} />
+								<img src={color.images[0]} />
 							</div>
 						))}
 					</div>
