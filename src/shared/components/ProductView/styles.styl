@@ -3,7 +3,7 @@
 .ProductView {
 	& {
 		grid-width(7.5)
-		padding-right 20px
+		padding-right 40px
 		float left
 		position relative
 		box-sizing border-box
@@ -18,6 +18,9 @@
 	}
 	img {
 		width 100%
+	}
+	&__image {
+		position relative
 	}
 	&__slide {
 		width 100%
@@ -51,6 +54,34 @@
 			}
 			&_active {
 				border: 1px solid red
+			}
+		}
+	}
+	&__navigation {
+		& {
+			width 100%
+			display flex
+			justify-content space-between
+			padding 0 16px
+			position absolute
+			top 50%
+			margin-top -14px
+			left 0
+			box-sizing border-box
+			height 0
+		}
+		&__item {
+			width 24px
+			height 24px
+			border: 2px solid transparent
+			border-top-color: #ccc
+			border-right-color: #ccc
+			transform rotate(45deg)
+			cursor pointer
+			&:first-child {
+				border-color: transparent
+				border-bottom-color: #ccc
+				border-left-color: #ccc
 			}
 		}
 	}

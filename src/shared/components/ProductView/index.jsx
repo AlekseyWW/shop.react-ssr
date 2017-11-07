@@ -18,6 +18,16 @@ class ProductView extends Component {
 			this.setState({activeSlide: index})
 		}
 	}
+	slideNext = () => {
+		if (this.swiper) {
+			this.swiper.swiper.slideNext()
+		}
+	}
+	slidePrev = () => {
+		if (this.swiper) {
+			this.swiper.swiper.slidePrev()
+		}
+	}
 	render() {
 		const { product } = this.props;
 		const params = {
@@ -33,18 +43,27 @@ class ProductView extends Component {
 				},
 			},
 			on: {
-				slideChange: swiper => { this.setState({activeSlide:this.swiper.swiper.activeIndex}); },
+				slideChange: swiper => {
+					if (this.swiper) this.setState({activeSlide: this.swiper.swiper.activeIndex}); },
 			}
 		}
 		return (
 			<div className={style.ProductView}>
-				<Swiper className={style.ProductView__container} {...params} ref={el => {this.swiper = el}}>
-					{product.colors[0].img.map( photo =>(
-						<div  key={uuid.v4()}  className={style.ProductView__slide}>
-							<img src={photo} alt="img" />
-						</div>)
-					)}
-				</Swiper>
+				<div className={style.ProductView__image}>
+					<Swiper className={style.ProductView__container} {...params} ref={el => {this.swiper = el}} loop>
+						{product.colors[0].img.map( photo =>(
+							<div  key={uuid.v4()}  className={style.ProductView__slide}>
+								<img src={photo} alt="img" />
+							</div>)
+						)}
+					</Swiper>
+					<div className={style.ProductView__navigation}>
+						<div className={style.ProductView__navigation__item} onClick={() => this.slidePrev()}>
+						</div>
+						<div className={style.ProductView__navigation__item} onClick={() => this.slideNext()}>
+						</div>
+					</div>
+				</div>
 				<div className={style.ProductView__pagination}>
 					{product.colors[0].img.map( (photo, index) =>{
 						const styl = classNames({
