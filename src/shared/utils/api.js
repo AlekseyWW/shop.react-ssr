@@ -1,7 +1,6 @@
 import axios from 'axios';
 // Request to API
 const apiUrl = process.env.API_URL;
-
 const request = (method, url, data, successHandler, errorHandler, headers) => axios({
 	method,
 	baseURL: apiUrl,

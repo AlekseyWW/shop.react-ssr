@@ -3,13 +3,19 @@
 	float left
 	box-sizing border-box
 	padding 20px
-	height 737px
+	// height 737px
 	color #FFF
 	font-size 40px
 	line-height 1
+	grid-width(7.4, height)
 	&_sm {
 		width 33.33%
-		height 468px
+		// height 468px
+		grid-width(4.6, height)
+	}
+	@media $verticalTablet {
+		font-size 32px
+		padding 16px
 	}
 	&__inner {
 		background-position 50% 50%
@@ -19,6 +25,9 @@
 		height 100%
 		box-sizing border-box
 		display flex
+		@media $verticalTablet {
+			padding 16px
+		}
 	}
 	&_left-bottom {
 		.CategoryItem__inner {

@@ -12,10 +12,9 @@ const ProductCard = ({ sm, description, price, img, name, slug }) => {
 		[`${style.ProductCard_sm}`]: sm
 	});
 	return (
-		<Link className={className} to={`/products/Nike-Air-Max`}>
+		<Link className={className} to={`/products/${slug}`}>
 			<div className={style.ProductCard__image}>
 				<img src={img} alt="item" />
-				<div className={style.ProductCard__shadow} />
 			</div>
 			<span className={style.ProductCard__name}>
 				{name}
@@ -32,7 +31,7 @@ const ProductCard = ({ sm, description, price, img, name, slug }) => {
 
 ProductCard.defaultProps = {
 	sm: false,
-	price: '',
+	price: 0,
 	description: '',
 	img: '',
 	name: '',
@@ -43,7 +42,7 @@ ProductCard.propTypes = {
 	sm: PropTypes.bool,
 	description: PropTypes.string,
 	name: PropTypes.string,
-	price: PropTypes.string,
+	price: PropTypes.number,
 	slug: PropTypes.string,
 	img: PropTypes.string
 };

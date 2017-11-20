@@ -7,6 +7,9 @@ import style from './styles.styl';
 import deliveryText from './delivery.json';
 
 const ProductForm = ({ addToCart, product }) => {
+	console.log('====================================');
+	console.log(product);
+	console.log('====================================');
 	return (
 		<div className={style.ProductForm}>
 			<div className={style.ProductForm__container}>
@@ -22,7 +25,7 @@ const ProductForm = ({ addToCart, product }) => {
 					<div className={style.ProductForm__colors}>
 						{product.colors.map(color => (
 							<div key={color.name} className={style.ProductForm__color}>
-								<img src={color.images[0]} />
+								<img src={color.thumb} />
 							</div>
 						))}
 					</div>
@@ -48,9 +51,7 @@ const ProductForm = ({ addToCart, product }) => {
 					{product.characteristics && (
 						<div className={style.ProductForm__info__block}>
 							<p className={style.ProductForm__info__title}>{product.characteristics.title ? product.characteristics.title : 'Характеристики'}</p>
-							{product.characteristics.items.map(item => (
-								<p key={item} className={style.ProductForm__info__text}>{item}</p>
-							))}
+
 						</div>
 					)}
 					<div className={style.ProductForm__info__block}>

@@ -15,4 +15,5 @@ export const REQUIRED_ENV_VARS = [
 	'CLIENT_OUTPUT',
 	'PUBLIC_PATH',
 	'PORT',
+	'API_URL'
 ];

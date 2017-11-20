@@ -25,9 +25,6 @@
 			.ProductCard__image {
 				background-color #C3C3C3
 				width auto
-				padding 0 14px
-				padding-bottom 32px
-				height 212px
 				display flex
 				justify-content flex-end
 				flex-direction column
@@ -77,6 +74,9 @@
 		&:last-child {
 			margin-bottom 0
 		}
+		@media $tablet {
+			font-size 22px
+		}
 	}
 	&__price {
 		display block
@@ -84,14 +84,14 @@
 		font-size 48px
 		&:last-child {
 			margin-bottom 0
-		}		
+		}
+		@media $tablet {
+			font-size 32px
+		}
 	}
 	&__image {
 		position relative
-		width 260px
 		margin 0 auto
-		padding-bottom 16px
-		margin-bottom 16px
 		img {
 			max-width 100%
 		}

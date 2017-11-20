@@ -68,6 +68,7 @@ const SERVER_OUTPUT = path.resolve(ROOT, SERVER_OUT);
 
 const CLIENT_OUT = process.env.CLIENT_OUTPUT || 'build/assets';
 const CLIENT_OUTPUT = path.resolve(ROOT, CLIENT_OUT);
+
 const defaults = {
 	target: 'client',
 	env: process.env.NODE_ENV,
@@ -425,8 +426,8 @@ export default function createWebpackConfig(options) {
 				__DEV__: JSON.stringify(_IS_DEV_),
 				__SERVER__: JSON.stringify(_IS_SERVER_),
 				'process.env.NODE_ENV': JSON.stringify(options.env),
+				'process.env.API_URL': JSON.stringify(process.env.API_URL),
 				'process.env.TARGET': JSON.stringify(webpackTarget),
-				'process.env.API_URL': JSON.stringify('http://private-0b0d2-onlineshop2.apiary-mock.com/'),
 			}),
 			_IS_DEV_
 				? new WriteFilePlugin({

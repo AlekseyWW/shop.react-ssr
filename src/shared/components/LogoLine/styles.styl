@@ -7,18 +7,35 @@
 		container()
 		padding 15px 0
 		display flex
-		justify-content space-between
 		align-items center
+		@media $verticalTablet {
+			justify-content space-between
+		}
+	}
+	&__content {
+		flex 1
+		display flex
+		justify-content space-between
+		flex-wrap: wrap
+		@media $verticalTablet {
+			justify-content flex-end
+		}
 	}
 	&__nav {
 		display flex
 		justify-content space-between
 		align-items center
+		@media $verticalTablet {
+			display none
+		}
 		&__item {
 			margin-right 35px
 			font-size 15px
 			color $textColor
 			border-bottom 1px solid transparent
+			@media $tablet {
+				margin-right 16px
+			}
 			&:last-child {
 				margin-right 0
 			}
@@ -62,6 +79,9 @@
 	&__search {
 		display inline-block
 		vertical-align middle
+		@media $tablet {
+			display none
+		}
 	}
 	&__action {
 		display inline-block
