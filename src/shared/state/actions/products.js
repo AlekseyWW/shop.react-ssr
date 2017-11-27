@@ -51,7 +51,7 @@ const getProductsError = error => {
 
 export const getProducts = (data, category = false) => (dispatch) => {
 	dispatch(getProductsStart());
-	const url = category ? `/products/${category}` : '/products';
+	const url = category ? `/categories/${category}/products` : '/products';
 	return get(
 		url,
 		data,
