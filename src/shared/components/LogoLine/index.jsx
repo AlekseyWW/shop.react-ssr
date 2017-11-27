@@ -12,7 +12,9 @@ const LogoLine = () => {
 	return (
 		<div className={style.LogoLine}>
 			<div className={style.LogoLine__container}>
-				<LogoIcon width={210} height={79} className={style.LogoLine__logo} fill="#676766"/>
+				<NavLink to="/">
+					<LogoIcon width={210} height={79} className={style.LogoLine__logo} fill="#676766"/>
+				</NavLink>
 				<div className={style.LogoLine__content}>
 					<div className={style.LogoLine__nav}>
 						<NavLink to="/catalog" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>

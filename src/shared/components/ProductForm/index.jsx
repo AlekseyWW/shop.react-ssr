@@ -7,9 +7,6 @@ import style from './styles.styl';
 import deliveryText from './delivery.json';
 
 const ProductForm = ({ addToCart, product }) => {
-	console.log('====================================');
-	console.log(product);
-	console.log('====================================');
 	return (
 		<div className={style.ProductForm}>
 			<div className={style.ProductForm__container}>
@@ -22,6 +19,7 @@ const ProductForm = ({ addToCart, product }) => {
 					{product.oldPrice && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>}
 				</div>
 				<div className={style.ProductForm__action}>
+					{product.colors.length > 1 &&
 					<div className={style.ProductForm__colors}>
 						{product.colors.map(color => (
 							<div key={color.name} className={style.ProductForm__color}>
@@ -29,11 +27,14 @@ const ProductForm = ({ addToCart, product }) => {
 							</div>
 						))}
 					</div>
-					<div className={style.ProductForm__selectSize}>
-						<Button className={style.ProductForm__select} text="Выберите размер" disabled />
-						<Button text="Подобрать размер" small disabled/>
+					}
+					<div className={style.ProductForm__buttons}>
+						<div className={style.ProductForm__selectSize}>
+							<Button className={style.ProductForm__select} text="Выберите размер" disabled />
+							<Button text="Подобрать размер" small disabled/>
+						</div>
+						<Button className={style.ProductForm__button} onClick={addToCart} text="Добавить в корзину" />
 					</div>
-					<Button className={style.ProductForm__button} onClick={addToCart} text="Добавить в корзину" />
 				</div>
 				<div className={style.ProductForm__callback}>
 					<div className={style.ProductForm__callback__title}>Свяжитесь с нами:</div>

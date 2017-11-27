@@ -49,10 +49,11 @@ const getProductsError = error => {
 	})
 };
 
-export const getProducts = data => (dispatch) => {
+export const getProducts = (data, category = false) => (dispatch) => {
 	dispatch(getProductsStart());
+	const url = category ? `/products/${category}` : '/products';
 	return get(
-		'/products',
+		url,
 		data,
 		response => dispatch(getProductsSuccess(
 			response.products,

@@ -6,9 +6,15 @@
 		float left
 		clearfix()
 		box-sizing border-box
+		@media $phone {
+			padding 0 16px
+		}
 	}
 	&__head {
 		margin-bottom 15px
+		@media $phone {
+			display none
+		}
 	}
 	&__title {
 		font-size 22px
@@ -25,6 +31,9 @@
 		font-size 20px
 		font-weight bold
 		margin-bottom 12px
+		@media $phone {
+			display none
+		}
 		&__value {
 			color: #BD2D21
 			display inline-block
@@ -58,6 +67,12 @@
 		display inline-block
 		margin-right 50px
 	}
+	&__buttons {
+		
+		@media $phone {
+			display none
+		}
+	}
 	&__callback {
 		& {
 			margin-bottom 20px
@@ -74,6 +89,9 @@
 			box-sizing border-box
 			display inline-block
 			vertical-align top
+			@media $phone {
+				padding-left 0
+			}
 		}
 		&__text {
 			display inline-block

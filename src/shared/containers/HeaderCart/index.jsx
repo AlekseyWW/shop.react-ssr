@@ -21,8 +21,8 @@ class HeaderCart extends Component {
 		added: PropTypes.array.isRequired
 	}
 	componentDidMount() {
-		const { isFetching, isFetched, getCart } = this.props;
-		if (!isFetching && !isFetched) getCart();
+		// const { isFetching, isFetched, getCart } = this.props;
+		// if (!isFetching && !isFetched) getCart();
 	}
 	render() {
 		return <CartBlock added={this.props.added} />;

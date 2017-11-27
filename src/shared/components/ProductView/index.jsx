@@ -34,6 +34,7 @@ class ProductView extends Component {
 			containerClass: style.ProductView__container,
 			wrapperClass: style.ProductView__wrapper,
 			slidesPerView: 1,
+			loop: true,
 			centeredSlides: true,
 			grabCursor: true,
 			pagination: {
@@ -49,6 +50,16 @@ class ProductView extends Component {
 		}
 		return (
 			<div className={style.ProductView}>
+				<div className={style.ProductView__header}>
+					<div className={style.ProductView__head}>
+						<p className={style.ProductView__title}>{product.title}</p>
+						<p className={style.ProductView__subline}>{product.name}</p>
+					</div>
+					<div className={style.ProductView__price}>
+						<p className={style.ProductView__price__value}>{product.price}</p>
+						{product.oldPrice && <p className={style.ProductView__price__old}>{product.oldPrice}</p>}
+					</div>
+				</div>
 				<div className={style.ProductView__image}>
 					<Swiper className={style.ProductView__container} {...params} ref={el => {this.swiper = el}}>
 						{product.colors[0].img.map(photo =>(

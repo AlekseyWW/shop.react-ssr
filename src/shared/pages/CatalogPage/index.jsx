@@ -18,33 +18,40 @@ class Catalog extends Component {
 			getBrands,
 			config
 		} = this.props;
-		if (!isLoading) getProducts(config);
+		const productConfig = {
+			offset: 0,
+			count: 12,
+			sort: 'date',
+			sex: this.props.sex || '',
+			brand: [],
+			size: []
+		};
+		const category = this.props.subCategoryId ? this.props.subCategoryId : this.props.categoryId;
+		console.log('====================================');
+		console.log(category);
+		console.log('====================================');
+		if (!isLoading && !isLoaded) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}
 	static fetchData({ store, params }) {
 		const productConfig = {
 			offset: 0,
 			count: 12,
-			sortBy: 'date',
+			sort: 'date',
 			sex: params.sex || '',
-			categories: params.categoryId || '',
-			subCategoryId: params.subCategoryId || '',
-			filter: {
-				categories: 'all',
-				brands: '',
-				priceFrom: '',
-				priceTo: ''
-			}
+			brand: [],
+			size: []
 		};
-		return store.dispatch(productsAction.getProducts(productConfig));
+		const category = params.subCategoryId ? params.subCategoryId : params.categoryId
+		return store.dispatch(productsAction.getProducts(productConfig, category));
 	}
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.categoryId !== this.props.categoryId) {
-			const config = { ...this.props.config };
-			config.categories = nextProps.categoryId;
-			config.subCategoryId = nextProps.categoryId;
-			this.props.getProducts(config);
-		}
+		// if (nextProps.categoryId !== this.props.categoryId) {
+		// 	const config = { ...this.props.config };
+		// 	config.categories = nextProps.categoryId;
+		// 	config.subCategoryId = nextProps.categoryId;
+		// 	this.props.getProducts(config);
+		// }
 	}
 	render() {
 		const {
@@ -121,7 +128,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	getProducts: productConfig => dispatch(productsAction.getProducts(productConfig)),
+	getProducts: (productConfig, category) => dispatch(productsAction.getProducts(productConfig, category)),
 	getBrands: () => dispatch(brandsAction())
 });
 

@@ -18,14 +18,14 @@ const BarItem = ({ category, isActive, subCategoryId }) => {
 	})
 	return (
 		<div>
-			<Link to={`/catalog/${category.name}`} key={category.id} className={styles}>{category.name}</Link>
+			<Link to={`/catalog/${category.slug}`} key={category.id} className={styles}>{category.name}</Link>
 			<div className={subStyles}>
 				{ category.items.map(item => {
 						const itemStyles = classNames({
 							[`${style.SideBar__filter__list__item}`]: true,
-							[`${style.SideBar__filter__list__item_active}`]: subCategoryId === item.name,
+							[`${style.SideBar__filter__list__item_active}`]: subCategoryId === item.slug,
 						});
-						return <Link to={`/catalog/${category.name}/${item.name}`} key={item.id} className={itemStyles}>{item.name}</Link>
+						return <Link to={`/catalog/${category.slug}/${item.slug}`} key={item.id} className={itemStyles}>{item.name}</Link>
 					})
 				}
 				</div>
@@ -208,7 +208,7 @@ const SideBar = ({ categories, brands, getProducts, categoryId, subCategoryId, t
 					{title}
 				</div>
 				<div className={style.SideBar__filter__list}>
-					{ categories.map(category => <BarItem category={category} to={`/catalog/${category.name}`} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.name} subCategoryId={subCategoryId} />) }
+					{ categories.map(category => <BarItem category={category} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.slug} subCategoryId={subCategoryId} />) }
 				</div>
 			</div>
 			<div className={style.SideBar__filter__item}>

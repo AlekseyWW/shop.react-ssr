@@ -6,7 +6,7 @@ import { ShadowIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
-const ProductCard = ({ sm, description, price, img, name, slug }) => {
+const ProductCard = ({ sm, category, price, img, name, slug }) => {
 	const className = classNames({
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
@@ -20,7 +20,7 @@ const ProductCard = ({ sm, description, price, img, name, slug }) => {
 				{name}
 			</span>
 			<span className={style.ProductCard__description}>
-				{description}
+				{category.name}
 			</span>
 			<span className={style.ProductCard__price}>
 				{price}.-
@@ -32,7 +32,7 @@ const ProductCard = ({ sm, description, price, img, name, slug }) => {
 ProductCard.defaultProps = {
 	sm: false,
 	price: 0,
-	description: '',
+	category: {},
 	img: '',
 	name: '',
 	slug: ''
@@ -40,7 +40,7 @@ ProductCard.defaultProps = {
 
 ProductCard.propTypes = {
 	sm: PropTypes.bool,
-	description: PropTypes.string,
+	category: PropTypes.object,
 	name: PropTypes.string,
 	price: PropTypes.number,
 	slug: PropTypes.string,

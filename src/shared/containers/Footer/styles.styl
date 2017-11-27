@@ -9,6 +9,10 @@
 		margin 0 auto
 		display flex
 		justify-content space-between
+		@media $phone {
+			padding 0 24px
+			flex-direction column
+		}
 	}
 	&__column {
 		display block
@@ -73,6 +77,9 @@
 			padding-right 40px
 			&:last-child {
 				padding-right 0
+			}
+			@media $phone {
+				padding-right 16px
 			}
 		}
 	}
