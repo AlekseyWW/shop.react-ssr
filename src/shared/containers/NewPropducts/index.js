@@ -15,8 +15,12 @@ const NewProducts = ({ products }) => (
 	</div>
 );
 
+NewProducts.defaultProps = {
+    products: [],
+};
+
 NewProducts.propTypes = {
-	products: PropTypes.array.isRequired
+    products: PropTypes.array,
 };
 
 export default NewProducts;
