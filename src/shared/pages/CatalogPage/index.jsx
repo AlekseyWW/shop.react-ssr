@@ -30,7 +30,7 @@ class Catalog extends Component {
 		console.log('====================================');
 		console.log(category);
 		console.log('====================================');
-		if (!isLoading && !isLoaded) getProducts(productConfig, category);
+		if (!isLoading) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}
 	static fetchData({ store, params }) {
@@ -46,12 +46,12 @@ class Catalog extends Component {
 		return store.dispatch(productsAction.getProducts(productConfig, category));
 	}
 	componentWillReceiveProps(nextProps) {
-		// if (nextProps.categoryId !== this.props.categoryId) {
-		// 	const config = { ...this.props.config };
-		// 	config.categories = nextProps.categoryId;
-		// 	config.subCategoryId = nextProps.categoryId;
-		// 	this.props.getProducts(config);
-		// }
+		 if (nextProps.categoryId !== this.props.categoryId) {
+		 	const config = { ...this.props.config };
+		 	config.categories = nextProps.categoryId;
+		 	config.subCategoryId = nextProps.categoryId;
+		 	this.props.getProducts(config);
+		 }
 	}
 	render() {
 		const {
@@ -84,14 +84,15 @@ class Catalog extends Component {
 }
 
 Catalog.defaultProps = {
-	subCategoryId: ''
+	subCategoryId: '',
+    products: [],
 };
 
 Catalog.propTypes = {
 	isLoading: PropTypes.bool.isRequired,
 	getProducts: PropTypes.any.isRequired,
 	getBrands: PropTypes.any.isRequired,
-	products: PropTypes.array.isRequired,
+	products: PropTypes.array,
 	categories: PropTypes.array.isRequired,
 	brands: PropTypes.object.isRequired,
 	categoryId: PropTypes.string.isRequired,
