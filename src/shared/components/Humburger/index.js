@@ -5,9 +5,6 @@ import style from './styles.styl';
 
 const Humburger = ({ isMenuOpen, onClick }) => {
 	const blockClass = classNames([style.Humburger, isMenuOpen ? style.Humburger_open : 'sss']);
-	console.log('------------------------------------');
-	console.log(isMenuOpen);
-	console.log('------------------------------------');
 	return (
 		<div className={blockClass} onClick={onClick}>
 			<span className={style.Humburger__line} />

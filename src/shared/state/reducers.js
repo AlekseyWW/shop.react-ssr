@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import postsReducer from './modules/posts';
+import { reducer as formReducer } from 'redux-form';
 import brandsReducer from './modules/brands';
 import cartReducer from './modules/cart';
 import categoryReducer from './modules/category';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   posts: postsReducer,
   router: routerReducer,
+  form: formReducer
 });
 
 export default rootReducer;

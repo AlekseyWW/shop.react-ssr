@@ -6,6 +6,7 @@ import * as productsAction from 'actions/products';
 import brandsAction from 'actions/brands';
 import MainBlock from 'containers/MainBlock/';
 import PageInfo from 'containers/PageInfo/';
+import qs from 'query-string';
 
 
 class Catalog extends Component {
@@ -14,43 +15,68 @@ class Catalog extends Component {
 			isLoading,
 			isLoaded,
 			getProducts,
+			subCategoryId,
 			brands,
+			brand,
+			slug,
+			size,
 			getBrands,
-			config
 		} = this.props;
 		const productConfig = {
 			offset: 0,
 			count: 12,
 			sort: 'date',
-			sex: this.props.sex || '',
-			brand: [],
-			size: []
+			brand,
+			size,
 		};
-		const category = this.props.subCategoryId ? this.props.subCategoryId : this.props.categoryId;
-		console.log('====================================');
-		console.log(category);
-		console.log('====================================');
-		if (!isLoading) getProducts(productConfig, category);
+		const category = this.props.subCategoryId || this.props.categoryId;
+		if ((!isLoading && !isLoaded) || slug !== category) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}
-	static fetchData({ store, params }) {
+	static fetchData({ store, params, query }) {
 		const productConfig = {
 			offset: 0,
 			count: 12,
 			sort: 'date',
-			sex: params.sex || '',
-			brand: [],
-			size: []
+			...query
 		};
-		const category = params.subCategoryId ? params.subCategoryId : params.categoryId
+		const category = params.subCategoryId || params.categoryId;
 		return store.dispatch(productsAction.getProducts(productConfig, category));
 	}
+	componentDidUpdate(prevProps) {
+		const category = this.props.subCategoryId || this.props.categoryId;
+		const newCategory = prevProps.subCategoryId || prevProps.categoryId;
+		if (category !== newCategory) {
+			const {
+				brand,
+				size,
+			} = this.props;
+			const productConfig = {
+				offset: 0,
+				count: 12,
+				sort: 'date',
+				brand,
+				size,
+			};
+			this.props.getProducts(config, category);
+		}
+	}
 	componentWillReceiveProps(nextProps) {
-		 if (nextProps.categoryId !== this.props.categoryId) {
-		 	const config = { ...this.props.config };
-		 	config.categories = nextProps.categoryId;
-		 	config.subCategoryId = nextProps.categoryId;
-		 	this.props.getProducts(config);
+		const category = this.props.subCategoryId || this.props.categoryId;
+		const newCategory = nextProps.subCategoryId || nextProps.categoryId;
+		if (category !== newCategory) {
+			const {
+				brand,
+				size,
+			} = this.props;
+			const productConfig = {
+				offset: 0,
+				count: 12,
+				sort: 'date',
+				brand,
+				size,
+			};
+			this.props.getProducts(config, nextProps.categoryId);
 		 }
 	}
 	render() {
@@ -62,10 +88,17 @@ class Catalog extends Component {
 			countView,
 			categories,
 			brands,
+			sizes,
 			title,
 			getProducts,
 			isLoaded
 		} = this.props;
+		const historyPush = query => {
+			this.props.history.push({
+				pathname: subCategoryId ? `/catalog/${categoryId}/${subCategoryId}` : `/catalog/${categoryId}`,
+				search: `${qs.stringify(query)}`
+			})
+		}
 		return (
 			<MainBlock
 				title={title}
@@ -76,8 +109,11 @@ class Catalog extends Component {
 				countView={countView}
 				categories={categories}
 				brands={brands.brands}
+				sizes={sizes}
 				isLoaded={isLoaded}
 				getProducts={getProducts}
+				historyPush={historyPush}
+				subCategoryId={subCategoryId}
 			/>
 		);
 	}
@@ -85,7 +121,10 @@ class Catalog extends Component {
 
 Catalog.defaultProps = {
 	subCategoryId: '',
-    products: [],
+	products: [],
+	brand: '',
+	categoryId: '',
+	size: '',
 };
 
 Catalog.propTypes = {
@@ -95,34 +134,39 @@ Catalog.propTypes = {
 	products: PropTypes.array,
 	categories: PropTypes.array.isRequired,
 	brands: PropTypes.object.isRequired,
-	categoryId: PropTypes.string.isRequired,
+	brand: PropTypes.string,
+	size: PropTypes.string,
+	sizes: PropTypes.array.isRequired,
+	categoryId: PropTypes.string,
 	title: PropTypes.string.isRequired,
 	subCategoryId: PropTypes.string,
-	config: PropTypes.object.isRequired,
 	allCount: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
-	const { categoryId, subCategoryId, sex } = ownProps.match.params;
+	const { brand, size } = qs.parse(ownProps.location.search);
+	const { categoryId, subCategoryId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
 	const brands = state.brands;
 	let category = _.find(categories, { slug: categoryId });
 	let subCategories = _.map(categories, 'items');
 	subCategories = _.reduce(subCategories, (sum, n) => ([...sum, ...n]), []);
 	if (!category) category = _.find(subCategories, { slug: categoryId });
-	const { isLoaded, isLoading, products, allCount, countView, config } = state.products;
+	const { isLoaded, isLoading, products, allCount, sizes, countView, category: slug } = state.products;
 	const title = category ? category.title || category.name : '';
 	return {
-		sex,
 		isLoaded,
 		isLoading,
 		products,
-		categoryId,
 		subCategoryId,
+		categoryId,
 		allCount,
 		categories,
-		config,
 		brands,
+		sizes,
+		brand,
+		size,
+		slug,
 		countView,
 		title: title || 'Каталог'
 	};

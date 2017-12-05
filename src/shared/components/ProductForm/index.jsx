@@ -6,7 +6,7 @@ import Button from 'components/Button';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
 
-const ProductForm = ({ addToCart, product }) => {
+const ProductForm = ({ addToCart, product, setSlider }) => {
 	return (
 		<div className={style.ProductForm}>
 			<div className={style.ProductForm__container}>
@@ -21,8 +21,8 @@ const ProductForm = ({ addToCart, product }) => {
 				<div className={style.ProductForm__action}>
 					{product.colors.length > 1 &&
 					<div className={style.ProductForm__colors}>
-						{product.colors.map(color => (
-							<div key={color.name} className={style.ProductForm__color}>
+						{product.colors.map((color,id) => (
+							<div key={color.name} className={style.ProductForm__color} onClick={() => setSlider(id)}>
 								<img src={color.thumb} />
 							</div>
 						))}
@@ -71,6 +71,7 @@ const ProductForm = ({ addToCart, product }) => {
 
 ProductForm.propTypes = {
 	addToCart: PropTypes.func.isRequired,
+	setSlider: PropTypes.func.isRequired,
 	product: PropTypes.object.isRequired
 };
 

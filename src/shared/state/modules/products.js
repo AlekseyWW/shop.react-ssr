@@ -11,15 +11,9 @@ const initialState = {
 	offset: 0,
 	title: '',
 	items: [],
-	promoProducts: [],
-	config: {
-		offset: 0,
-		count: 0,
-		brandname: [],
-		size: [],
-		sex: '',
-		sort: ''
-	}
+	category: '',
+	sizes: [],
+	promoProducts: []
 };
 export default function products(state = initialState, action) {
 	switch (action.type) {
@@ -43,8 +37,8 @@ export default function products(state = initialState, action) {
 				isLoaded: true,
 				products: action.products,
 				allCount: action.allCount,
-				title: action.title,
-				config: { ...state.config, ...action.config },
+				sizes: action.sizes,
+				category: action.category,
 				error: null
 			};
 

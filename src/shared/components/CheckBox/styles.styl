@@ -5,7 +5,17 @@
 		display none
 	}
 	&__input:checked + &__label {
-		color $linkHoverColor
+		&:after {
+			content: ''
+			position absolute
+			top 50%
+			margin-top -3px
+			left 3px
+			width 6px
+			height 6px
+			background-color #BD2D21
+			border-radius: 2px
+		}
 	}
 	&__label {
 		& {

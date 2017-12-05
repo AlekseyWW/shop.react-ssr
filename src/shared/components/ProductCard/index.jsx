@@ -6,24 +6,26 @@ import { ShadowIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
-const ProductCard = ({ sm, category, price, img, name, slug }) => {
+const ProductCard = ({ sm, category, img, slug, name, price, product }) => {
 	const className = classNames({
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
 	});
+	const url = name ? `/products/${slug ? slug : product.slug}#color=${name}` : `/products/${slug ? slug : product.slug}`
 	return (
-		<Link className={className} to={`/products/${slug}`}>
+		<Link className={className} to={url}>
 			<div className={style.ProductCard__image}>
 				<img src={img} alt="item" />
 			</div>
 			<span className={style.ProductCard__name}>
-				{name}
+				{product.name ? product.name : name}
 			</span>
 			<span className={style.ProductCard__description}>
-				{category.name}
+				{category && category.name }
+				{product.category && product.category.name }
 			</span>
 			<span className={style.ProductCard__price}>
-				{price}.-
+				{price ? price : product.price}.-
 			</span>
 		</Link>
 	);
@@ -32,7 +34,7 @@ const ProductCard = ({ sm, category, price, img, name, slug }) => {
 ProductCard.defaultProps = {
 	sm: false,
 	price: 0,
-	category: {},
+	product: {},
 	img: '',
 	name: '',
 	slug: ''
@@ -40,10 +42,10 @@ ProductCard.defaultProps = {
 
 ProductCard.propTypes = {
 	sm: PropTypes.bool,
-	category: PropTypes.object,
-	name: PropTypes.string,
 	price: PropTypes.number,
+	product: PropTypes.object,
 	slug: PropTypes.string,
+	name: PropTypes.string,
 	img: PropTypes.string
 };
 

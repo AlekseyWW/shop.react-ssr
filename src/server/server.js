@@ -37,11 +37,12 @@ export default ({ clientStats }) => {
 		const matches = routes.reduce((matches, route) => {
 			const match = matchPath(req.url, route.path, route);
 			if (match && match.isExact) {
+				const params = (match.params && match.params.categoryId) ? { ...match.params, categoryId: match.params.categoryId.split("?")[0] } : match.params;
 				matches.push({
 					route,
 					match,
 					promise: route.component.fetchData
-					? route.component.fetchData({ store, params: match.params })
+						? route.component.fetchData({ store, params: params, query: req.query})
 					: Promise.resolve(),
 				});
 			}

@@ -18,11 +18,11 @@ const getProductInfoError = error => ({
 	error
 });
 
-export const getProductInfo = productId => (dispatch) => {
+export const getProductInfo = (productId, data) => (dispatch) => {
 	dispatch(getProductInfoStart(productId));
 	return get(
 		`/products/${productId}`,
-		{},
+		{...data},
 		response => dispatch(getProductInfoSuccess(productId, response)),
 		error => dispatch(getProductInfoError(error.message))
 	);
@@ -32,13 +32,13 @@ const getProductsStart = () => ({
 	type: types.GET_PRODUCTS_START
 });
 
-const getProductsSuccess = (products, allCount, title, config) => (dispatch) => {
+const getProductsSuccess = (products, allCount, sizes, category) => (dispatch) => {
 	dispatch({
 		type: types.GET_PRODUCTS_SUCCESS,
 		products,
 		allCount,
-		title,
-		config
+		sizes,
+		category
 	});
 };
 
@@ -51,15 +51,16 @@ const getProductsError = error => {
 
 export const getProducts = (data, category = false) => (dispatch) => {
 	dispatch(getProductsStart());
-	const url = category ? `/categories/${category}/products` : '/products';
+	const url = category ? `/categories/${category}/colors` : '/colors';
 	return get(
 		url,
 		data,
 		response => dispatch(getProductsSuccess(
-			response.products,
+			response.colors,
 			response.all_count,
-			response.title,
-			response.config)),
+			response.sizes,
+			category
+		)),
 		error => dispatch(getProductsError(error.message))
 	);
 };

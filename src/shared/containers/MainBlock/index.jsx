@@ -12,7 +12,9 @@ const MainBlock = ({
 	countView,
 	categories,
 	brands,
+	sizes,
 	getProducts,
+	historyPush,
 	title,
 	subCategoryId
 }) => (
@@ -22,9 +24,11 @@ const MainBlock = ({
 				title={title}
 				categories={categories}
 				brands={brands}
+				sizes={sizes}
 				getProducts={getProducts}
 				categoryId={categoryId}
 				subCategoryId={subCategoryId}
+				historyPush={historyPush}
 			/>
 			<div className={style.MainBlock__content}>
 				<ProductList products={products} categoryId={categoryId} allCount={allCount} countView={countView}/>
@@ -46,8 +50,10 @@ MainBlock.propTypes = {
 	allCount: PropTypes.number.isRequired,
 	countView: PropTypes.number.isRequired,
 	categories: PropTypes.array.isRequired,
+	historyPush: PropTypes.func.isRequired,
 	getProducts: PropTypes.func.isRequired,
-	brands: PropTypes.array.isRequired
+	brands: PropTypes.array.isRequired,
+	sizes: PropTypes.array.isRequired
 };
 
 export default MainBlock;

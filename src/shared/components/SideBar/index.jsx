@@ -32,60 +32,7 @@ const BarItem = ({ category, isActive, subCategoryId }) => {
 		</div>
 	);
 }
-const brandsArray = [
-	{
-		"name": 'adidas Consortium',
-		"id": 1
-	},
-	{
-		"name": 'adidas Originals',
-		"id": 2
-	},
-	{
-		"name": 'adidas Spezial',
-		"id": 3
-	},
-	{
-		"name": 'adidas x Raf Simons',
-		"id": 4
-	},
-	{
-		"name": 'ASICS Diadora',
-		"id": 5
-	},
-	{
-		"name": 'Converse',
-		"id": 6
-	},
-	{
-		"name": 'Diadora Heritage Filling Pieces',
-		"id": 7
-	},
-	{
-		"name": 'Jordan',
-		"id": 8
-	},
-	{
-		"name": 'New Balance',
-		"id": 9
-	},
-	{
-		"name": 'Nike',
-		"id": 10
-	},
-	{
-		"name": 'Puma ',
-		"id": 11
-	},
-	{
-		"name": 'Reebok',
-		"id": 12
-	},
-	{
-		"name": 'Vans',
-		"id": 13
-	}
-];
+
 const sizesArray = [
 	{
 		"name": "33 EU",
@@ -200,7 +147,7 @@ const sizesArray = [
 		"id": 26
 	}
 ];
-const SideBar = ({ categories, brands, getProducts, categoryId, subCategoryId, title }) => (
+const SideBar = ({ categories, brands, getProducts, categoryId, sizes, subCategoryId, title, historyPush }) => (
 	<div className={style.SideBar}>
 		<div className={style.SideBar__filter}>
 			<div className={style.SideBar__filter__item}>
@@ -212,28 +159,26 @@ const SideBar = ({ categories, brands, getProducts, categoryId, subCategoryId, t
 				</div>
 			</div>
 			<div className={style.SideBar__filter__item}>
-				<div className={style.SideBar__filter__label}>
-					Бренд
-				</div>
-				<BarFilter brands={brandsArray} onSubmit={getProducts} />
+				<BarFilter brands={brands} sizes={sizes} onSubmit={(data) => {
+					const query = {};
+					Object.keys(data).forEach(element => {
+						query[element] = data[element].join(',')
+					});
+					historyPush(query);
+					getProducts(query, subCategoryId || categoryId);
+				} } />
 			</div>
-			<div className={style.SideBar__filter__item}>
-				<div className={style.SideBar__filter__label}>
-					Размер
-				</div>
-				<BarFilter brands={sizesArray} onSubmit={getProducts} sm />
-			</div>
-
-			<Button text="применить"className={style.SideBar__button} />
 		</div>
 	</div>
 );
 SideBar.propTypes = {
 	categories: PropTypes.array.isRequired,
 	getProducts: PropTypes.func.isRequired,
+	historyPush: PropTypes.func.isRequired,
 	categoryId: PropTypes.string.isRequired,
 	subCategoryId: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
+	sizes: PropTypes.array.isRequired,
 	brands: PropTypes.array.isRequired
 };
 

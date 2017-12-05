@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import Swiper from 'react-id-swiper';
 import classNames from 'classnames';
+import _ from 'lodash';
 import uuid from 'uuid';
 import style from './styles.styl';
 
@@ -29,12 +30,11 @@ class ProductView extends Component {
 		}
 	}
 	render() {
-		const { product } = this.props;
+		const { product, activeSlider } = this.props;
 		const params = {
 			containerClass: style.ProductView__container,
 			wrapperClass: style.ProductView__wrapper,
 			slidesPerView: 1,
-			loop: true,
 			centeredSlides: true,
 			grabCursor: true,
 			pagination: {
@@ -48,6 +48,8 @@ class ProductView extends Component {
 					if (this.swiper) this.setState({activeSlide: this.swiper.swiper.activeIndex}); },
 			}
 		}
+		const currentColor = activeSlider !== null ? product.colors[activeSlider] : _.find(product.colors, {current: true});
+		this.swiper && this.swiper.swiper.update();
 		return (
 			<div className={style.ProductView}>
 				<div className={style.ProductView__header}>
@@ -62,7 +64,7 @@ class ProductView extends Component {
 				</div>
 				<div className={style.ProductView__image}>
 					<Swiper className={style.ProductView__container} {...params} ref={el => {this.swiper = el}}>
-						{product.colors[0].img.map(photo =>(
+						{currentColor && currentColor.img.map(photo =>(
 							<div  key={uuid.v4()}  className={style.ProductView__slide}>
 								<img src={photo} alt="img" />
 							</div>)
@@ -76,7 +78,7 @@ class ProductView extends Component {
 					</div>
 				</div>
 				<div className={style.ProductView__pagination}>
-					{product.colors[0].img.map( (photo, index) =>{
+					{currentColor && currentColor.img.length > 1 &&currentColor.img.map( (photo, index) =>{
 						const styl = classNames({
 							[`${style.ProductView__pagination__item}`]: true,
 							[`${style.ProductView__pagination__item_active}`]: this.state.activeSlide === index
