@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import HtmlParser from 'react-html-parser';
 import style from './styles.styl';
 
@@ -12,8 +13,11 @@ const PromoItem = ({ title, text, note, link, img }) => {
 			<div className={style.PromoItem__inner}>
 				<div className={style.PromoItem__content}>
 					<p className={style.PromoItem__title}>{HtmlParser(title)}</p>
-					<p className={style.PromoItem__text}>{HtmlParser(text)}</p>
-					<p className={style.PromoItem__note} >{HtmlParser(note)}</p>
+					<p className={style.PromoItem__button} >
+						<NavLink to="/catalog" className={style.PromoItem__button__item} activeClassName={style.LogoLine__nav__item_active}>
+							Каталог
+						</NavLink>
+					</p>
 				</div>
 			</div>
 		</div>

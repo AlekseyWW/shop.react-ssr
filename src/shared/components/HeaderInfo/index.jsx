@@ -23,17 +23,17 @@ const HeaderInfo = ({ data }) => {
 	return (
 		<div className={style.HeaderInfo__container}>
 			<div className={style.HeaderInfo__contacts}>
-				<p className={textStyle}>
+				<a href={data.contacts.location.url} className={textStyle} target="_blank">
 					<MapMarker className={style.HeaderInfo__icon} />
-					{ data.contacts.location}
-				</p>
+					{data.contacts.location.text}
+				</a>
 				<p className={workTimeStyle}>
 					<ClockIcon className={style.HeaderInfo__icon} />
 					<span className={style.HeaderInfo__worktime__start}>{ data.contacts.workTime.start }</span>
 					<span>{ data.contacts.workTime.end }</span>
 				</p>
 			</div>
-			<div className={style.HeaderInfo__brands}>
+			{/* <div className={style.HeaderInfo__brands}>
 				{brands.map(item => {
 					const viewBox = IconsArray[item.icon].default.viewBox.split(' ');
 					const width = Number(viewBox[2]);
@@ -47,19 +47,19 @@ const HeaderInfo = ({ data }) => {
 				<div className={style.HeaderInfo__brands__item}>
 					<span>{'& more'}</span>
 				</div>
-			</div>
+			</div> */}
 			<div className={style.HeaderInfo__nav}>
-				<p className={textStyle}>
+				<a href={data.contacts.phone.url} className={textStyle}>
 					<PhoneIcon className={style.HeaderInfo__icon} />
 					<span>
-						{ data.contacts.phone}
+						{data.contacts.phone.text}
 					</span>
-				</p>
-				<p className={textStyle}>
+				</a>
+				{/* <p className={textStyle}>
 					<span>
 						{ data.help.name}
 					</span>
-				</p>
+				</p> */}
 			</div>
 		</div>
 	)

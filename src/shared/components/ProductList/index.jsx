@@ -12,7 +12,7 @@ const ProductList = ({ products, categoryId, allCount, countView }) => (
 		<div className={style.ProductList__container}>
 			{ products.map(product => <ProductCard key={product.id} {...product} sm/>)}
 		</div>
-		<div className={style.ProductList__nav}>
+		{/* <div className={style.ProductList__nav}>
 			<ReactPaginate
 				previousLabel={'Пред.'}
 				nextLabel={'След.'}
@@ -29,7 +29,7 @@ const ProductList = ({ products, categoryId, allCount, countView }) => (
 				nextClassName={style.ProductList__nav__pages__item}
 				subContainerClassName={'pages pagination'}
 			/>
-		</div>
+		</div> */}
 	</div>
 );
 

@@ -15,12 +15,12 @@ class Product extends Component {
 		})
 	}
 	render() {
-		const { product, addToCart } = this.props;
+		const { product, addToCart, color } = this.props;
 		return (
 			<div className={style.Product}>
 				<div className={style.Product__content}>
-					<ProductView product={product} activeSlider={this.state.activeSlider}/>
-					<ProductForm addToCart={addToCart} product={product} setSlider={id => this.setSlider(id)}/>
+					<ProductView product={product} activeSlider={this.state.activeSlider} color={color}/>
+					<ProductForm addToCart={addToCart} product={product} setSlider={id => this.setSlider(id)} color={color}/>
 				</div>
 			</div>
 		);
@@ -29,6 +29,7 @@ class Product extends Component {
 
 Product.propTypes = {
 	product: PropTypes.object.isRequired,
+	color: PropTypes.string.isRequired,
 	addToCart: PropTypes.func.isRequired
 };
 

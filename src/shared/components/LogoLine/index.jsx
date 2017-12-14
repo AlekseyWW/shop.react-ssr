@@ -18,9 +18,9 @@ const LogoLine = () => {
 				<div className={style.LogoLine__content}>
 					<div className={style.LogoLine__nav}>
 						<NavLink to="/catalog" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
-							Магазин
+							Каталог
 						</NavLink>
-						<NavLink to="/delivery" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
+						{/* <NavLink to="/delivery" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Оплата и доставка
 						</NavLink>
 						<NavLink to="/news" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
@@ -28,7 +28,7 @@ const LogoLine = () => {
 						</NavLink>
 						<NavLink to="/login" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Вход/Регистрация
-						</NavLink>
+						</NavLink> */}
 					</div>
 					<div className={style.LogoLine__inner}>
 						<div className={style.LogoLine__social}>
@@ -42,19 +42,19 @@ const LogoLine = () => {
 								<WhatsupIcon />
 							</div>
 						</div>
-						<div className={style.LogoLine__search}>
+						{/* <div className={style.LogoLine__search}>
 							<div className={style.LogoLine__search}>
 								<Input placeholder="Поиск" Icon={GlassIcon} />
 							</div>
-						</div>
-						<div className={style.LogoLine__action}>
+						</div> */}
+						{/* <div className={style.LogoLine__action}>
 							<div className={style.LogoLine__action__item}>
 								<HurtIcon />
 							</div>
 							<div className={style.LogoLine__action__item}>
 								<HeaderCart />
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

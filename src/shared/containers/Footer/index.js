@@ -1,29 +1,31 @@
 import React from 'react';
 import Input from 'components/Input';
 import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon } from 'components/Icon';
-
+import data from 'config/header.json';
 import style from './styles.styl';
 
 const Footer = () => (
 	<div className={style.Footer}>
 		<div className={style.Footer__container}>
 			<div className={style.Footer__column}>
-				<div className={style.Footer__phone}>
-					<div>телефон</div>
-					<div>+7 (918) 524-47-54</div>
-				</div>
 				<div className={style.Footer__logo}>
 					<LogoIcon width={160} height={60} className={style.Footer__logo__img} />
 				</div>
-				<div className={style.Footer__address}>
-					344022, Ростов-на-Дону, ул.Пушкинская,  225 Режим работы с 10.00-20.00 ежедневно
+			</div>
+			<div className={style.Footer__column}>
+				<div className={style.Footer__phone}>
+					{/* <div>телефон</div> */}
+					<a href={data.contacts.phone.url}>{data.contacts.phone.text}</a>
+					<a href={data.contacts.location.url} target="_blank">{data.contacts.location.text}</a>
 				</div>
+				{/* <div className={style.Footer__address}>
+				</div> */}
 			</div>
 			<div className={style.Footer__column}>
 				<div className={style.Footer__social}>
-					<div className={style.Footer__social__title}>
+					{/* <div className={style.Footer__social__title}>
 						социальный сети
-					</div>
+					</div> */}
 					<div className={style.Footer__social__icons}>
 						<div className={style.Footer__social__icon}>
 							<InstagramIcon />
@@ -36,7 +38,7 @@ const Footer = () => (
 						</div>
 					</div>
 				</div>
-				<div className={style.Footer__buyer}>
+				{/* <div className={style.Footer__buyer}>
 					<div className={style.Footer__buyer__title}>
 						Покупателю
 					</div>
@@ -74,9 +76,9 @@ const Footer = () => (
 						</div>
 					</div>
 					
-				</div>
+				</div> */}
 			</div>
-			<div className={style.Footer__column}>
+			{/* <div className={style.Footer__column}>
 				<div className={style.Footer__feedback}>
 					<div className={style.Footer__feedback__title}>
 					рассылка
@@ -92,7 +94,7 @@ const Footer = () => (
 					магазин женских и&nbsp;мужских кроссовок  2017
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	</div>
 );

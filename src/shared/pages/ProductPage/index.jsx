@@ -15,13 +15,13 @@ class ProductPage extends Component {
 	}
 	static fetchData({ store, params, query }) {
 		const color = query ? query : '';
-		return store.dispatch(productsAction.getProductInfo(color));
+		return store.dispatch(productsAction.getProductInfo(params.productId, color));
 	}
 	render() {
-		const { product, addToCart, isLoaded } = this.props;
+		const { product, addToCart, isLoaded, color } = this.props;
 		return (
 			<div className="ProductPage">
-				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} /> : 'загрузка'}
+				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : 'загрузка'}
 			</div>
 		);
 	}
@@ -46,19 +46,24 @@ const mapStateToProps = (state, ownProps) => {
 	const { items } = state.products;
 	const product = _.find(items, { id: productId }) || {};
 	const { isLoaded, isLoading } = product;
+	const { color } = qs.parse(ownProps.location.hash);
+	console.log('====================================');
+	console.log('color', color);
+	console.log('====================================');
 	return {
 		productId,
 		product,
 		isLoading,
-		isLoaded
+		isLoaded,
+		color
 	};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const { productId } = ownProps.match.params;
-	const { color } = qs.parse(ownProps.location.search);
+	const { color } = qs.parse(ownProps.location.hash);
 	return {
-		getProductInfo: () => dispatch(productsAction.getProductInfo(productId, color)),
+		getProductInfo: () => dispatch(productsAction.getProductInfo(productId, { color })),
 		addToCart: () => dispatch(cartAction.addToCart(productId))
 	};
 };

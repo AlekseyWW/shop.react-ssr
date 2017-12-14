@@ -30,6 +30,9 @@ class Catalog extends Component {
 			size,
 		};
 		const category = this.props.subCategoryId || this.props.categoryId;
+		console.log('====================================');
+		console.log(slug === '',  slug !== category);
+		console.log('====================================');
 		if ((!isLoading && !isLoaded) || slug !== category) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}

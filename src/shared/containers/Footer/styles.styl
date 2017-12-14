@@ -1,7 +1,7 @@
 .Footer {
 	& {
 		background-color #4E4E4D
-		padding 40px 0 60px
+		padding 16px 0
 		color #F5F5F5;
 	}
 	&__container {
@@ -9,6 +9,7 @@
 		margin 0 auto
 		display flex
 		justify-content space-between
+		align-items center
 		@media $phone {
 			padding 0 24px
 			flex-direction column
@@ -20,15 +21,26 @@
 			grid-width(2.5)
 		}
 		&:nth-child(2){
-			grid-width(4.5)
+			flex 1
 		}
 		&:last-child {
 			grid-width(3.2)
 		}
+		a {
+			margin-right 16px
+			&:last-child {
+				margin-right 0
+			}
+		}
 	}
-	&__phone{
+	&__phone {
 		font-size 20px
-		margin-bottom 24px
+		display flex
+		justify-content space-between
+		// margin-bottom 24px
+		a {
+			color #FFFFFF
+		}
 		div {
 			&:last-child {
 				margin-bottom 10px
@@ -36,16 +48,19 @@
 		}
 	}
 	&__logo {
-		margin-bottom 24px
+		// margin-bottom 24px
 		&__img {
 			fill: #F5F5F5;
+			width 100px;
+			display block
 		}
 	}
-	&__address {
-
+	&__address a{
+		color #ffffff
 	}
 	&__social {
-		margin-bottom 32px
+		// margin-bottom 32px
+		text-align right
 		&__title {
 			margin-bottom 10px
 			font-size 20px

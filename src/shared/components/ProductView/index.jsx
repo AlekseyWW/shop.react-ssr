@@ -30,7 +30,7 @@ class ProductView extends Component {
 		}
 	}
 	render() {
-		const { product, activeSlider } = this.props;
+		const { product, activeSlider, color } = this.props;
 		const params = {
 			containerClass: style.ProductView__container,
 			wrapperClass: style.ProductView__wrapper,
@@ -48,8 +48,11 @@ class ProductView extends Component {
 					if (this.swiper) this.setState({activeSlide: this.swiper.swiper.activeIndex}); },
 			}
 		}
-		const currentColor = activeSlider !== null ? product.colors[activeSlider] : _.find(product.colors, {current: true});
+		const currentColor = activeSlider !== null ? product.colors[activeSlider] : _.find(product.colors, { name: color }) || product.colors[1];
 		this.swiper && this.swiper.swiper.update();
+		console.log('====================================');
+		console.log(currentColor);
+		console.log('====================================');
 		return (
 			<div className={style.ProductView}>
 				<div className={style.ProductView__header}>
@@ -78,7 +81,7 @@ class ProductView extends Component {
 					</div>
 				</div>
 				<div className={style.ProductView__pagination}>
-					{currentColor && currentColor.img.length > 1 &&currentColor.img.map( (photo, index) =>{
+					{currentColor && currentColor.img.length > 1 && currentColor.img.map( (photo, index) =>{
 						const styl = classNames({
 							[`${style.ProductView__pagination__item}`]: true,
 							[`${style.ProductView__pagination__item_active}`]: this.state.activeSlide === index

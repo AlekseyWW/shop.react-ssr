@@ -28,7 +28,7 @@ let BarFilter = (props) => {
 					/>))}
 				</div>
 			</div>
-			<div className={style.BarFilter__item}>
+			{/* <div className={style.BarFilter__item}>
 				<div className={style.BarFilter__label}>
 					Размеры
 				</div>
@@ -43,7 +43,7 @@ let BarFilter = (props) => {
 						className={sm ? style.BarFilter__itemSm : ''}
 					/>))}
 				</div>
-			</div>
+			</div> */}
 			<Button text="применить" className={style.SideBar__button} type="submit" />
 		</form>
 	);

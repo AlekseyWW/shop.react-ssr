@@ -1,12 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import htmlParser from 'react-html-parser';
 import Button from 'components/Button';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
 
-const ProductForm = ({ addToCart, product, setSlider }) => {
+const ProductForm = ({ addToCart, product, setSlider, color }) => {
 	return (
 		<div className={style.ProductForm}>
 			<div className={style.ProductForm__container}>
@@ -15,25 +16,25 @@ const ProductForm = ({ addToCart, product, setSlider }) => {
 					<p className={style.ProductForm__subline}>{product.name}</p>
 				</div>
 				<div className={style.ProductForm__price}>
-					<p className={style.ProductForm__price__value}>{product.price}</p>
-					{product.oldPrice && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>}
+					<p className={style.ProductForm__price__value}>{product.oldPrice} руб.</p>
+					{/* {product.oldPrice && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>} */}
 				</div>
 				<div className={style.ProductForm__action}>
 					{product.colors.length > 1 &&
 					<div className={style.ProductForm__colors}>
 						{product.colors.map((color,id) => (
-							<div key={color.name} className={style.ProductForm__color} onClick={() => setSlider(id)}>
+							<NavLink key={color.name} className={style.ProductForm__color} to={`/products/${product.slug}#color=${color.name}`}>
 								<img src={color.thumb} />
-							</div>
+							</NavLink>
 						))}
 					</div>
 					}
 					<div className={style.ProductForm__buttons}>
-						<div className={style.ProductForm__selectSize}>
+						{/* <div className={style.ProductForm__selectSize}>
 							<Button className={style.ProductForm__select} text="Выберите размер" disabled />
 							<Button text="Подобрать размер" small disabled/>
-						</div>
-						<Button className={style.ProductForm__button} onClick={addToCart} text="Добавить в корзину" />
+						</div> */}
+						<Button className={style.ProductForm__button} onClick={addToCart} text="Оформить заявку" />
 					</div>
 				</div>
 				<div className={style.ProductForm__callback}>
@@ -44,7 +45,7 @@ const ProductForm = ({ addToCart, product, setSlider }) => {
 						<span className={style.ProductForm__callback__note}>Информация о наличии товаров обновляется каждые 30 минут. Ассортимент товара их их цена в магазине могут отличаться от информации на сайте.</span>
 					</div>
 				</div>
-				<div className={style.ProductForm__info}>
+				{/* <div className={style.ProductForm__info}>
 					<div className={style.ProductForm__info__block}>
 						<p className={style.ProductForm__info__title}>Описание</p>
 						<p className={style.ProductForm__info__text}>{product.description}</p>
@@ -63,7 +64,7 @@ const ProductForm = ({ addToCart, product, setSlider }) => {
 						<p className={style.ProductForm__info__title}>Доставка и возврат</p>
 						<p className={style.ProductForm__info__text}>{htmlParser(deliveryText.text)}</p>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	)
