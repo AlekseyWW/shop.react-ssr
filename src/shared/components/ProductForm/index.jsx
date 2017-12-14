@@ -16,8 +16,8 @@ const ProductForm = ({ addToCart, product, setSlider, color }) => {
 					<p className={style.ProductForm__subline}>{product.name}</p>
 				</div>
 				<div className={style.ProductForm__price}>
-					<p className={style.ProductForm__price__value}>{product.oldPrice} руб.</p>
-					{/* {product.oldPrice && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>} */}
+					<p className={style.ProductForm__price__value}>{product.isSale ? product.price : product.oldPrice } руб.</p>
+					{product.isSale && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>}
 				</div>
 				<div className={style.ProductForm__action}>
 					{product.colors.length > 1 &&
