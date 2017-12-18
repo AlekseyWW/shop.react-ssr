@@ -7,6 +7,7 @@ import cartReducer from './modules/cart';
 import categoryReducer from './modules/category';
 import dataReducer from './modules/data';
 import productsReducer from './modules/products';
+import modal from './modules/modal';
 
 const rootReducer = combineReducers({
   brands: brandsReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   posts: postsReducer,
   router: routerReducer,
+  modal,
   form: formReducer
 });
 

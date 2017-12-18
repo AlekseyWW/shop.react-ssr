@@ -47,9 +47,6 @@ const mapStateToProps = (state, ownProps) => {
 	const product = _.find(items, { id: productId }) || {};
 	const { isLoaded, isLoading } = product;
 	const { color } = qs.parse(ownProps.location.hash);
-	console.log('====================================');
-	console.log('color', color);
-	console.log('====================================');
 	return {
 		productId,
 		product,

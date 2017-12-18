@@ -32,15 +32,15 @@ const LogoLine = () => {
 					</div>
 					<div className={style.LogoLine__inner}>
 						<div className={style.LogoLine__social}>
-							<div className={style.LogoLine__social__item}>
+							<a href="http://instagram.com/sneaker_topcheg" target="_blank"  className={style.LogoLine__social__item}>
 								<InstagramIcon />
-							</div>
-							<div className={style.LogoLine__social__item}>
+							</a>
+							<a href="https://vk.com/newstep.store" target="_blank" className={style.LogoLine__social__item}>
 								<VkIcon/>
-							</div>
-							<div className={style.LogoLine__social__item}>
+							</a>
+							<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.LogoLine__social__item}>
 								<WhatsupIcon />
-							</div>
+							</a>
 						</div>
 						{/* <div className={style.LogoLine__search}>
 							<div className={style.LogoLine__search}>

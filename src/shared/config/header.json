@@ -16,5 +16,9 @@
 	"help": {
 		"name": "Помощь",
 		"help": "help"
+	},
+	"social": {
+		"inst": "http://instagram.com/sneaker_topcheg",
+		"vk": "https://vk.com/newstep.store"
 	}
 }

@@ -50,9 +50,6 @@ class ProductView extends Component {
 		}
 		const currentColor = activeSlider !== null ? product.colors[activeSlider] : _.find(product.colors, { name: color }) || product.colors[1];
 		this.swiper && this.swiper.swiper.update();
-		console.log('====================================');
-		console.log(currentColor);
-		console.log('====================================');
 		return (
 			<div className={style.ProductView}>
 				<div className={style.ProductView__header}>
@@ -61,8 +58,8 @@ class ProductView extends Component {
 						<p className={style.ProductView__subline}>{product.name}</p>
 					</div>
 					<div className={style.ProductView__price}>
-						<p className={style.ProductView__price__value}>{product.price}</p>
-						{product.oldPrice && <p className={style.ProductView__price__old}>{product.oldPrice}</p>}
+						<p className={style.ProductForm__price__value}>{product.isSale ? product.price : product.oldPrice} руб.</p>
+						{product.isSale && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>}
 					</div>
 				</div>
 				<div className={style.ProductView__image}>

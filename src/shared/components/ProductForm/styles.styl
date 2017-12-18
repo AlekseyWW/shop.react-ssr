@@ -16,6 +16,17 @@
 			display none
 		}
 	}
+	&__input {
+		display block
+		border 0
+		border-bottom 1px solid $textColor
+		box-shadow: 0
+		margin-bottom 24px
+		border-radius 0
+		&:last-child {
+			margin-bottom 0
+		}
+	}
 	&__title {
 		font-size 22px
 		margin-bottom 8px
@@ -77,7 +88,7 @@
 	&__buttons {
 		
 		@media $phone {
-			display none
+			// display none
 		}
 	}
 	&__callback {
@@ -155,5 +166,43 @@
 			width 100%
 			display block
 		}
+	}
+}
+
+.Modal {
+	& {
+		display block
+	}
+	&_after {
+		display block
+	}
+	&_before {
+		display block
+	}
+	&__overlay {
+		display block
+		position fixed
+		top 0
+		left 0
+		bottom 0
+		right 0
+		&_after {
+			display block
+		}
+		&_before {
+			display block
+		}
+	}
+	&__title {
+	
+	}
+	&__description {
+	
+	}
+	&__form {
+		
+	}
+	&__input {
+	
 	}
 }

@@ -27,15 +27,15 @@ const Footer = () => (
 						социальный сети
 					</div> */}
 					<div className={style.Footer__social__icons}>
-						<div className={style.Footer__social__icon}>
+						<a href="http://instagram.com/sneaker_topcheg" target="_blank" className={style.Footer__social__icon}>
 							<InstagramIcon />
-						</div>
-						<div className={style.Footer__social__icon}>
+						</a>
+						<a href="https://vk.com/newstep.store" target="_blank" className={style.Footer__social__icon}>
 							<VkIcon/>
-						</div>
-						<div className={style.Footer__social__icon}>
+						</a>
+						<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.Footer__social__icon}>
 							<WhatsupIcon />
-						</div>
+						</a>
 					</div>
 				</div>
 				{/* <div className={style.Footer__buyer}>

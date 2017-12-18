@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
 import { NavLink } from 'react-router-dom';
 import htmlParser from 'react-html-parser';
 import Button from 'components/Button';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
+import ModalExample from '../../components/ModalExample';
+import { actions } from '../../state/modules/modal.js';
 
 class ProductForm extends Component {
 	state = {
 		modalIsOpen: false
+	}
+	componentDidMount() {
+		// Modal.setAppElement('#app');
 	}
 	openModal() {
 		this.setState({ modalIsOpen: true });
@@ -47,7 +52,36 @@ class ProductForm extends Component {
 							<Button className={style.ProductForm__select} text="Выберите размер" disabled />
 							<Button text="Подобрать размер" small disabled/>
 						</div> */}
-							<Button className={style.ProductForm__button} onClick={addToCart} text="Оформить заявку" onClick={() => this.openModal()}/>
+							<Button
+								className={style.ProductForm__button}
+								text="Оформить заявку"
+								onClick={() => {
+									this.props.openModal({
+										modalType: ModalExample,
+										modalProps: {
+											title: product.name,
+											text: (
+												<form className={style.Modal__form}>
+													<input className={style.ProductForm__input} type="text" placeholder="Ваш телефон" />
+													<input className={style.ProductForm__input} type="text" placeholder="Ваше имя" />
+												</form>
+											),
+											subTitle: 'Оставьте свои контактные данные и наш консульатнт вам перезвонит',
+											hasClose: false,
+											buttons: [
+												{
+													text: 'Отправить',
+													intent: 'success',
+													className: style.ProductForm__button,
+													onClick: () => {
+														alert('Ок =)');
+														this.props.closeModal();
+													}
+												}
+											]
+										}
+									});
+								}}/>
 						</div>
 					</div>
 					<div className={style.ProductForm__callback}>
@@ -79,19 +113,6 @@ class ProductForm extends Component {
 					</div>
 				</div> */}
 				</div>
-				<Modal
-					isOpen={this.state.modalIsOpen}
-					onRequestClose={() =>this.closeModal()}
-					aria={{
-						labelledby: "heading",
-						describedby: "full_description"
-					}}>
-					<button onClick={() => this.closeModal()}>x</button>
-					<h1 id="heading"></h1>
-					<div id="full_description">
-						<p> Введите свой номер телефона.</p>
-					</div>
-				</Modal>
 
 			</div>
 		)
@@ -104,4 +125,10 @@ ProductForm.propTypes = {
 	product: PropTypes.object.isRequired
 };
 
-export default ProductForm;
+const mapDispatchToProps = dispatch => {
+	return {
+		openModal: modalParams => dispatch(actions.openModal(modalParams)),
+		closeModal: () => dispatch(actions.closeModal())
+	};
+};
+export default connect(null, mapDispatchToProps)(ProductForm);

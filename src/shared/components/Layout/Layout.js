@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from 'components/Header/';
+import ModalContainer from 'components/ModalContainer/';
 
 class Layout extends Component {
 	state = {
@@ -17,6 +18,7 @@ class Layout extends Component {
 			<div>
 				<Header toogleMenu={() => this.toogleMenu()} isMenuOpen={this.state.isMenuOpen} />
 				<main className="container">{children}</main>
+				<ModalContainer />
 			</div>
 		);
 	}

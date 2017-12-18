@@ -128,10 +128,17 @@
 			&:last-child {
 				margin-right 0
 			}
+			&:hover {
+				svg {
+					fill #000
+					faster()
+				}
+			}
 		}
 		svg {
 			vertical-align middle
 			fill #676766
+			transition fill $duration
 		}
 	}
 }

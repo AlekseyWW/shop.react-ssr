@@ -35,7 +35,7 @@ import {
 	ASSET_FILES,
 } from './constants';
 
-const LOCAL_IDENT = '[local]-[hash:base62:8]';
+const LOCAL_IDENT = '[local]';
 
 dotenv.config();
 process.traceDeprecation = true;
@@ -348,7 +348,6 @@ export default function createWebpackConfig(options) {
 					use: _IS_CLIENT_
 						? ExtractCssChunks.extract({
 								use: [
-									cacheLoader,
 									{
 										loader: 'css-loader',
 										options: {
@@ -388,7 +387,6 @@ export default function createWebpackConfig(options) {
 					use: _IS_CLIENT_
 						? ExtractCssChunks.extract({
 								use: [
-									cacheLoader,
 									{
 										loader: 'css-loader',
 										options: cssLoaderOptions,
@@ -401,7 +399,6 @@ export default function createWebpackConfig(options) {
 								].filter(Boolean),
 							})
 						: [
-								cacheLoader,
 								{
 									loader: 'css-loader/locals',
 									options: cssLoaderOptions,
