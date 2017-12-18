@@ -79,7 +79,7 @@ class ProductForm extends Component {
 													className: style.ProductForm__button,
 													onClick: () => {
 														post(
-															`/products/${id}/request`,
+															`/colors/${id}/request`,
 															{
 																name: this.name.value,
 																phone: this.name.value,
