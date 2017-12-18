@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import htmlParser from 'react-html-parser';
 import Button from 'components/Button';
+import _ from 'lodash';
 import { post } from 'utils/api';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
@@ -27,6 +28,8 @@ class ProductForm extends Component {
 	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
+		console.log(color, _.find(product.colors, {name: color}));
+		const id = _.find(product.colors, { name: color }) ? _.find(product.colors, { name: color }).id : 0
 		return (
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>
@@ -76,7 +79,7 @@ class ProductForm extends Component {
 													className: style.ProductForm__button,
 													onClick: () => {
 														post(
-															`/products/${product.id}/request`,
+															`/products/${id}/request`,
 															{
 																name: this.name.value,
 																phone: this.name.value,
