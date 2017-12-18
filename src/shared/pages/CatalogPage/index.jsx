@@ -74,7 +74,7 @@ class Catalog extends Component {
 			} = this.props;
 			const productConfig = {
 				offset: 0,
-				count: 12,
+				count: 1000,
 				sort: 'date',
 				brand,
 				size,

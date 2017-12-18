@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import htmlParser from 'react-html-parser';
 import Button from 'components/Button';
+import { post } from 'utils/api';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
 import ModalExample from '../../components/ModalExample';
@@ -62,8 +63,8 @@ class ProductForm extends Component {
 											title: product.name,
 											text: (
 												<form className={style.Modal__form}>
-													<input className={style.ProductForm__input} type="text" placeholder="Ваш телефон" />
-													<input className={style.ProductForm__input} type="text" placeholder="Ваше имя" />
+													<input name="phone" className={style.ProductForm__input} type="text" placeholder="Ваш телефон" ref={(el) => this.phone = el} />
+													<input name="name" className={style.ProductForm__input} type="text" placeholder="Ваше имя" ref={(el) => this.name = el} />
 												</form>
 											),
 											subTitle: 'Оставьте свои контактные данные и наш консульатнт вам перезвонит',
@@ -74,8 +75,15 @@ class ProductForm extends Component {
 													intent: 'success',
 													className: style.ProductForm__button,
 													onClick: () => {
-														alert('Ок =)');
-														this.props.closeModal();
+														post(
+															`/products/${product.id}/request`,
+															{
+																name: this.name.value,
+																phone: this.name.value,
+															},
+															response => this.props.closeModal(),
+															error => console.log(error)
+														);
 													}
 												}
 											]
