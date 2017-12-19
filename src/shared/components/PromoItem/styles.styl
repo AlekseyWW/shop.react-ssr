@@ -18,19 +18,28 @@
 			padding 0 16px
 		}
 	}
+	&__icon {
+		fill #ffffff
+		padding-left 16px
+		vertical-align middle
+		transition fill $duration
+		&:hover {
+			fill #EFC825
+			faster()
+		}
+	}
 	&__content {
-		// width 560px
+		width 60%
 		@media $phone {
 			width auto
 		}
 	}
 	&__title {
 		font-weight bold
-		margin-bottom 16px
+		margin-bottom 40px
 		color #EFC825
-		font-size 28px
+		font-size 48px
 		line-height 1.2
-		text-align center
 		@media $phone {
 			font-size 22px
 		}
@@ -38,7 +47,7 @@
 	&__text {
 		margin-bottom 50px
 		font-size 30px
-		width 300px
+		// width 300px
 		line-height 1.2
 		@media $phone {
 			font-size 20px
