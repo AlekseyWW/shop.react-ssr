@@ -24,22 +24,19 @@ class Catalog extends Component {
 		} = this.props;
 		const productConfig = {
 			offset: 0,
-			count: 12,
+			count: 1000,
 			sort: 'date',
 			brand,
 			size,
 		};
 		const category = this.props.subCategoryId || this.props.categoryId;
-		console.log('====================================');
-		console.log(slug === '',  slug !== category);
-		console.log('====================================');
 		if ((!isLoading && !isLoaded) || slug !== category) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}
 	static fetchData({ store, params, query }) {
 		const productConfig = {
 			offset: 0,
-			count: 12,
+			count: 1000,
 			sort: 'date',
 			...query
 		};
