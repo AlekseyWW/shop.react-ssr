@@ -10,11 +10,14 @@ import { post } from 'utils/api';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
 import ModalExample from '../../components/ModalExample';
+import { InstagramIcon } from 'components/Icon';
+import InstagramEmbed from 'react-instagram-embed'
 import { actions } from '../../state/modules/modal.js';
 
 class ProductForm extends Component {
 	state = {
-		modalIsOpen: false
+		modalIsOpen: false,
+		status: 'order'
 	}
 	componentDidMount() {
 		// Modal.setAppElement('#app');
@@ -28,14 +31,26 @@ class ProductForm extends Component {
 	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
-		console.log(color, _.find(product.colors, {name: color}));
-		const id = _.find(product.colors, { name: color }) ? _.find(product.colors, { name: color }).id : 0
+		const id = _.find(product.colors, { name: color }) ? _.find(product.colors, { name: color }).id : 0;
+		const propsModal = {
+			title: product.name,
+			status: 'deliver',
+			text: (
+				<a href="http://instagram.com/sneaker_topcheg" target="_blank" className={style.ProductForm__instagramm}>
+					<InstagramIcon />
+				</a>
+			),
+			subTitle: 'Ваша заявка принята, ожидайте звонок личного консультанта! А пока загляните к нам в инстаграмм ',
+			hasClose: true,
+			buttons: []
+		}
 		return (
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>
 					<div className={style.ProductForm__head}>
 						<p className={style.ProductForm__title}>{product.title}</p>
 						<p className={style.ProductForm__subline}>{product.name}</p>
+						
 					</div>
 					<div className={style.ProductForm__price}>
 						<p className={style.ProductForm__price__value}>{product.isSale ? product.price : product.oldPrice} руб.</p>
@@ -65,14 +80,15 @@ class ProductForm extends Component {
 										modalType: ModalExample,
 										modalProps: {
 											title: product.name,
+											status: 'order',
 											text: (
 												<form className={style.Modal__form}>
 													<input name="phone" className={style.ProductForm__input} type="text" placeholder="Ваш телефон" ref={(el) => this.phone = el} />
 													<input name="name" className={style.ProductForm__input} type="text" placeholder="Ваше имя" ref={(el) => this.name = el} />
 												</form>
 											),
-											subTitle: 'Оставьте свои контактные данные и наш консульатнт вам перезвонит',
-											hasClose: false,
+											subTitle: 'Оставьте свои контактные данные и&nbsp;получите подарок к&nbsp;покупке!',
+											hasClose: true,
 											buttons: [
 												{
 													text: 'Отправить',
@@ -85,7 +101,7 @@ class ProductForm extends Component {
 																name: this.name.value,
 																phone: this.name.value,
 															},
-															response => this.props.closeModal(),
+															response => this.props.setStatusModal(propsModal),
 															error => console.log(error)
 														);
 													}
@@ -140,7 +156,8 @@ ProductForm.propTypes = {
 const mapDispatchToProps = dispatch => {
 	return {
 		openModal: modalParams => dispatch(actions.openModal(modalParams)),
-		closeModal: () => dispatch(actions.closeModal())
+		closeModal: () => dispatch(actions.closeModal()),
+		setStatusModal: (status) => dispatch(actions.setStatusModal(status))
 	};
 };
 export default connect(null, mapDispatchToProps)(ProductForm);

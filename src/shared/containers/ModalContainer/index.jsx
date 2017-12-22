@@ -22,10 +22,9 @@ class ModalContainer extends Component {
 		})
 	}
 	render() {
-		const { modalType, modalProps: { hasClose = true } } = this.props;
+		const { modalType, modalProps: { hasClose = true }, status } = this.props;
 
 		const SpecificModal = modalType;
-
 		return (
 			<TransitionGroup>
 				{modalType && (
@@ -45,7 +44,7 @@ class ModalContainer extends Component {
 									</button>
 								)}
 								<div className="ModalContainer__inner">
-									<SpecificModal {...this.props} />
+									<SpecificModal {...this.props} status={status} />
 								</div>
 							</div>
 						</div>

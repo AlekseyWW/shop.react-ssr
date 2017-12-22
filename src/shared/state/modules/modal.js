@@ -4,6 +4,7 @@ export const types = {
     INSERT_MODAL: "INSERT_MODAL",
     SHOW_MODAL: "SHOW_MODAL",
     HIDE_MODAL: "HIDE_MODAL",
+    SET_STATUS_MODAL: "SET_STATUS_MODAL",
     REMOVE_MODAL: "REMOVE_MODAL"
 };
 
@@ -20,6 +21,11 @@ export default function modal(state = initialState, action) {
                 modalType: action.modalType,
                 modalProps: action.modalProps
             };
+        case types.SET_STATUS_MODAL:
+            return {
+                ...state,
+                modalProps: { ...state.modalProps, ...action.status}
+            };
 
         case types.HIDE_MODAL:
             return initialState;
@@ -35,6 +41,14 @@ export const actions = {
         return {
             type: types.SHOW_MODAL,
             ...modalParams
+        };
+    },
+    setStatusModal: status => {
+        // lockScroll();
+        console.log(status);
+        return {
+            type: types.SET_STATUS_MODAL,
+            status
         };
     },
     closeModal: () => {

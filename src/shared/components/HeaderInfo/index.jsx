@@ -50,9 +50,12 @@ const HeaderInfo = ({ data }) => {
 			</div> */}
 			<div className={style.HeaderInfo__nav}>
 				<a href={data.contacts.phone.url} className={textStyle}>
-					<PhoneIcon className={style.HeaderInfo__icon} />
+					<span>звонок по&nbsp;россии бесплатный  </span>
 					<span>
-						{data.contacts.phone.text}
+						<PhoneIcon className={style.HeaderInfo__icon} />
+						<span>
+							{data.contacts.phone.text}
+						</span>
 					</span>
 				</a>
 				{/* <p className={textStyle}>

@@ -3,6 +3,7 @@
 		display inline-block
 		margin-bottom 10px
 		width 190px
+		max-width 100%
 		height 25px
 		background-color #BD2D21
 		border-radius: 6px
@@ -11,8 +12,21 @@
 		color #ffffff
 		font-size 13px
 		box-sizing border-box
+		cursor pointer
+		transition background-color $duration, transform $duration
+		transform translateZ(0)
+		will-change: transform
+		padding 5px 24px
 		&:last-child {
 			margin-bottom 0
+		}
+		&:hover {
+			background-color darken(#BD2D21, 15%)
+			// faster()
+		}
+		&:active {
+			transform scale(0.96) translateZ(0)
+			// faster()
 		}
 	}
 	&_disabled {

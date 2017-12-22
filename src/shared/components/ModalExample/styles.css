@@ -4,8 +4,11 @@
 	line-height: 1.47;
 	color: #2f2f36;
 }
-.ModalExample__header {
+.ModalExample__subTitle {
     margin-bottom: 50px;
+}
+.ModalExample__text {
+    margin-bottom: 24px;
 }
 .ModalExample__header h1 {
    font-size: 32px;
@@ -13,20 +16,42 @@
    font-weight: bold;
    margin-bottom: 16px;
 }
-@media screen and (max-width: 768px) {
-    .ModalExample__header h1 {
-        font-size: 24px;
-    }
+.ModalExample {
+	position: relative;
+	display: flex;
+	padding: 24px;
+	width: 800px;
+}
+
+.ModalExample__image {
+	width: 100%;
+	display: block;
+}
+.ModalExample__photo {
+	width: 60%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.ModalExample__inner {
+	background-color: #fff;
+	padding-left: 24px;
+	padding-top: 50px;
 }
 .ModalExample__header h2 {
    font-size: 18px;
    line-height: 1.2;
+}
+.ModalExample__header {
+	position: relative;
 }
 .ModalExample__header:last-child {
 	margin-bottom: 0;
 }
 .ModalExample__body {
 	margin-bottom: 30px;
+	position: relative;
+	background: #FFFFFF;
+	
 }
 .ModalExample__body:last-child {
 	margin-bottom: 0;
@@ -39,4 +64,54 @@
 .ModalExample__buttons .Button:last-child {
 	margin-right: 0;
 	margin-bottom: 0;
+}
+.ModalExample__photo-mob {
+	display: none;
+}
+@media screen and (max-width: 880px) {
+	.ModalExample__header h1 {
+		font-size: 24px;
+    }
+	.ModalExample {
+		padding: 16px;
+		width: 600px;
+	}
+	.ModalExample__subTitle {
+		margin-bottom: 24px;
+	}
+	.ModalExample__inner {
+		padding-top: 24px;
+	}
+}
+@media screen and (max-width: 700px) {
+	.ModalExample__header h1 {
+		font-size: 24px;
+    }
+	.ModalExample {
+		padding: 16px;
+		display: block;
+		overflow: hidden;
+		width: auto;
+	}
+	.ModalExample__header {
+		margin-bottom: 24px;
+	}
+	.ModalExample__inner {
+		padding-left: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: transparent;
+		padding: 16px;
+	}
+	.ModalExample__photo {
+		margin: 0;
+		margin-left: auto;
+		display: none;
+	}
+	.ModalExample__photo-mob {
+		display: block;
+		margin-bottom: 24px;
+		width: 100%;
+	}
 }

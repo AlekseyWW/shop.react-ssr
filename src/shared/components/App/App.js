@@ -8,6 +8,7 @@ import Layout from 'containers/Layout';
 import NotFound from '../NotFound';
 import routes from '../../routes';
 import '../../styles/style.styl';
+
 function App() {
 	return (
 		<div>
