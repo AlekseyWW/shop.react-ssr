@@ -99,9 +99,6 @@ class Catalog extends Component {
 				search: `${qs.stringify(query)}`
 			})
 		}
-		console.log('====================================');
-		console.log(this.props.location.search);
-		console.log('====================================');
 		return (
 			<MainBlock
 				title={title}

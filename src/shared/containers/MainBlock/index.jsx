@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SideBar from 'components/SideBar/';
 import ProductList from 'components/ProductList/';
 
+
 import style from './styles.styl';
 
 const MainBlock = ({
@@ -21,17 +22,7 @@ const MainBlock = ({
 }) => (
 	<div className={style.MainBlock}>
 		<div className={style.MainBlock__container}>
-			<SideBar
-				title={title}
-				categories={categories}
-				brands={brands}
-				sizes={sizes}
-				getProducts={getProducts}
-				categoryId={categoryId}
-				subCategoryId={subCategoryId}
-				historyPush={historyPush}
-				historyLocation={historyLocation}
-			/>
+			{/* <SideBar /> */}
 			<div className={style.MainBlock__content}>
 				<ProductList products={products} categoryId={categoryId} allCount={allCount} countView={countView}/>
 			</div>

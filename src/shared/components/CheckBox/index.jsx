@@ -24,7 +24,6 @@ const CheckBox = ({ input, item, className, index }) => {
 					} else {
 						newValue.splice(newValue.indexOf(item.name ? item.name : item), 1);
 					}
-
 					return input.onChange(newValue);
 				}}
 			/>

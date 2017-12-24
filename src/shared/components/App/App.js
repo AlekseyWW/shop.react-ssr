@@ -2,9 +2,12 @@ import React from 'react';
 import Route from 'react-router-dom/Route';
 import Helmet from 'react-helmet';
 import Switch from 'react-router-dom/Switch';
+import Layout from 'containers/Layout';
 import uuid from 'uuid';
 // internal
-import Layout from 'containers/Layout';
+
+
+import slideMenu from 'components/SlideMenu';
 import NotFound from '../NotFound';
 import routes from '../../routes';
 import '../../styles/style.styl';
@@ -28,7 +31,7 @@ function App() {
 				<Switch>
 					{routes.map(route => (
 						// pass in the initialData from the server for this specific route
-						<Route {...route} key={uuid.v4()} />
+						<Route {...route} component={slideMenu(route.component)} key={uuid.v4()} />
 					))}
 					<Route component={NotFound} />
 				</Switch>

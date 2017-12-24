@@ -17,16 +17,21 @@ const ProductCard = ({ sm, category, img, slug, name, price, product }) => {
 			<div className={style.ProductCard__image}>
 				<img src={img} alt="item" />
 			</div>
-			<span className={style.ProductCard__name}>
-				{product.name ? product.name : name}
-			</span>
-			<span className={style.ProductCard__description}>
-				{category && category.name }
-				{product.category && product.category.name }
-			</span>
-			<span className={style.ProductCard__price}>
-				{price ? price : product.price}.-
-			</span>
+			<div className={style.ProductCard__content}>
+				<div className={style.ProductCard__inner}>
+					<span className={style.ProductCard__name}>
+						{product.name ? product.name : name}
+					</span>
+					<span className={style.ProductCard__description}>
+						{category && category.name }
+						{product.category && product.category.name }
+					</span>
+				</div>
+				<span className={style.ProductCard__price}>
+					{product.oldPrice && <span>{product.oldPrice}&nbsp;&#8381;</span> }
+					{product.price && <span>{product.price}&nbsp;&#8381;</span>}
+				</span>
+			</div>
 		</Link>
 	);
 };

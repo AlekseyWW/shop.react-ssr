@@ -3,8 +3,10 @@
 .MainBlock {
 	& {
 		background #EBECEC
-		padding-top 56px
-		padding-bottom 56px
+		padding 56px 0
+		@media $verticalTablet {
+			padding 32px 0
+		}
 	}
 	&__container {
 		container()
@@ -14,7 +16,7 @@
 		grid-width(9.5)
 		float left
 		@media $verticalTablet {
-			width auto
+			width 100%
 		}
 	}
 }

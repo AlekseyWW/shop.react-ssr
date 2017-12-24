@@ -3,6 +3,9 @@
 .LogoLine {
 	background #EBECEC
 	color #000
+	@media $verticalTablet {
+		padding-top 37px
+	}
 	&__container {
 		container()
 		padding 15px 0
@@ -12,7 +15,7 @@
 			justify-content space-between
 		}
 		@media $phone {
-			padding 15px 24px
+			padding 16px
 		}
 	}
 	&__content {
@@ -58,10 +61,13 @@
 	&__logo {
 		margin-right 40px
 		cursor pointer
+		display block
 		@media $phone {
 			width 100px
 			height auto
 		}
+		width 140px
+		height 53px
 	}
 	&__inner {
 		vertical-align middle
@@ -117,9 +123,12 @@
 	}
 	&__social {
 		& {
-			margin-right 32px
+			// margin-right 32px
 			display inline-block
 			vertical-align middle
+			@media $phone {
+				margin-right: 0
+			}
 		}
 		&__item {
 			display inline-block

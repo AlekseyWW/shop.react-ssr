@@ -1,0 +1,83 @@
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 20px;
+  right: 36px;
+  top: 22px;
+  display: none;
+}
+
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #FFF;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #4e4e4d;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+  display: none;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+}
+.bm-item-list .SideBar  {
+    display: block;
+    width: 100%;
+    padding: 0;
+}
+.bm-item-list .SideBar__filter {
+    padding: 0;
+}
+.bm-item-list .SideBar__filter__list__item {
+    color: #FFFFFF;
+    display: inline-block;
+}
+.bm-item-list .SideBar__filter__list__item_active {
+    border-bottom: 1px solid #FFFFFF;
+}
+.bm-item-list .BarFilter__item {
+    color: #FFFFFF;
+}
+.bm-item-list .SideBar__filter__sublist {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.bm-item-list .SideBar__filter__title  {
+    margin: 0;
+    padding-left: 0;
+    margin-bottom: 16px;
+}
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+@media screen and (max-width: 992px) {
+    .bm-burger-button {
+        display: block;
+    }
+    .bm-menu {
+        display: block;
+    }
+}

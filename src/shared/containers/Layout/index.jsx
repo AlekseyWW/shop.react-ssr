@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from 'containers/Header/';
 import Footer from 'containers/Footer/';
 import ModalContainer from 'containers/ModalContainer/';
+
 import style from './styles.styl';
 
 class Layout extends Component {
