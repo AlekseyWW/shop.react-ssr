@@ -99,7 +99,7 @@ class ProductForm extends Component {
 															`/colors/${id}/request`,
 															{
 																name: this.name.value,
-																phone: this.name.value,
+																phone: this.phone.value,
 															},
 															response => this.props.setStatusModal(propsModal),
 															error => console.log(error)
