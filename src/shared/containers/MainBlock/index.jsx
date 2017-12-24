@@ -22,7 +22,7 @@ const MainBlock = ({
 }) => (
 	<div className={style.MainBlock}>
 		<div className={style.MainBlock__container}>
-			{/* <SideBar /> */}
+			<SideBar />
 			<div className={style.MainBlock__content}>
 				<ProductList products={products} categoryId={categoryId} allCount={allCount} countView={countView}/>
 			</div>
