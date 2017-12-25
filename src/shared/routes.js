@@ -4,6 +4,7 @@ import Menu from 'pages/Menu';
 import MainPage from 'pages/MainPage';
 import CatalogPage from 'pages/CatalogPage';
 import ProductPage from 'pages/ProductPage';
+import SuccessPage from 'pages/SuccessPage';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -38,5 +39,10 @@ export default [
 		path: '/products/:productId',
 		exact: true,
 		component: ProductPage,
+	},
+	{
+		path: '/success',
+		exact: true,
+		component: SuccessPage,
 	},
 ];

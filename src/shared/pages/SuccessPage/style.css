@@ -1,0 +1,147 @@
+.SuccessPage__text {
+	font-size: 15px;
+	font-weight: 300;
+	line-height: 1.47;
+	color: #2f2f36;
+	
+}
+.SuccessPage__subTitle {
+    margin-bottom: 24px;
+}
+.SuccessPage__text {
+    margin-bottom: 24px;
+}
+.SuccessPage__header h1 {
+   font-size: 32px;
+   line-height: 1;
+   font-weight: bold;
+   margin-bottom: 16px;
+}
+.SuccessPage {
+	position: relative;
+	display: flex;
+	padding: 24px;
+	width: 800px;
+	margin: 0 auto;
+}
+.SuccessPage__instagramm {
+	width: 50px;
+	height: 50px;
+	display: block;
+	margin: 0 auto;
+}
+.SuccessPage__instagramm svg {
+	width: 100%;
+	height: 100%;
+	transition: fill 0.35s;
+}
+SuccessPage__instagramm:hover svg {
+	fill: #BD2D21;
+	transition: fill 0.175s;
+}
+
+.SuccessPage__image {
+	width: 100%;
+	display: block;
+}
+.SuccessPage__photo {
+	width: 70%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.SuccessPage__inner {
+	background-color: #fff;
+	padding-left: 24px;
+	padding-top: 16px;
+	padding-right: 24px;
+}
+.SuccessPage__header h2 {
+   font-size: 18px;
+   line-height: 1.2;
+}
+.SuccessPage__header {
+	position: relative;
+}
+.SuccessPage__header:last-child {
+	margin-bottom: 0;
+}
+.SuccessPage__body {
+	margin-bottom: 30px;
+	position: relative;
+	background: #FFFFFF;
+	
+}
+.SuccessPage__body:last-child {
+	margin-bottom: 0;
+}
+.SuccessPage__buttons .Button {
+	margin-right: 20px;
+	margin-bottom: 20px;
+	vertical-align: top;
+}
+.SuccessPage__buttons .Button:last-child {
+	margin-right: 0;
+	margin-bottom: 0;
+}
+.SuccessPage__photo-mob {
+	display: none;
+}
+@media screen and (max-width: 992px) {
+	.SuccessPage {
+		flex-direction: column-reverse;
+	}
+	.SuccessPage__photo {
+		width: 100%;
+	}
+	.SuccessPage__inner {
+		margin-bottom: 16px;
+	}
+}
+@media screen and (max-width: 880px) {
+	.SuccessPage__header h1 {
+		font-size: 24px;
+    }
+	.SuccessPage {
+		padding: 16px;
+		width: 600px;
+	}
+	.SuccessPage__subTitle {
+		margin-bottom: 24px;
+	}
+	.SuccessPage__inner {
+		padding-top: 24px;
+	}
+}
+@media screen and (max-width: 700px) {
+	.SuccessPage__header h1 {
+		font-size: 24px;
+    }
+	.SuccessPage {
+		padding: 16px;
+		/* display: block; */
+		overflow: hidden;
+		width: auto;
+	}
+	.SuccessPage__header {
+		margin-bottom: 24px;
+	}
+	.SuccessPage__inner {
+		padding-left: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: transparent;
+		padding: 16px;
+		margin-bottom: 0;
+	}
+	.SuccessPage__photo {
+		margin: 0;
+		margin-left: auto;
+		/* display: none; */
+	}
+	.SuccessPage__photo-mob {
+		/* display: block; */
+		margin-bottom: 24px;
+		width: 100%;
+	}
+}

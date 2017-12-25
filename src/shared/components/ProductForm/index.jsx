@@ -10,6 +10,7 @@ import { post } from 'utils/api';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
 import ModalExample from '../../components/ModalExample';
+import { withRouter } from 'react-router';
 import { InstagramIcon } from 'components/Icon';
 import InstagramEmbed from 'react-instagram-embed'
 import { actions } from '../../state/modules/modal.js';
@@ -17,7 +18,8 @@ import { actions } from '../../state/modules/modal.js';
 class ProductForm extends Component {
 	state = {
 		modalIsOpen: false,
-		status: 'order'
+		status: 'order',
+		error: null
 	}
 	componentDidMount() {
 		// Modal.setAppElement('#app');
@@ -28,6 +30,11 @@ class ProductForm extends Component {
 
 	closeModal() {
 		this.setState({ modalIsOpen: false });
+	}
+	onSuccess() {
+		this.setState({error: null})
+		this.props.closeModal()
+		this.props.history.replace('/success')
 	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
@@ -44,6 +51,9 @@ class ProductForm extends Component {
 			hasClose: true,
 			buttons: []
 		}
+		console.log('====================================');
+		console.log(this.state.error);
+		console.log('====================================');
 		return (
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>
@@ -83,6 +93,11 @@ class ProductForm extends Component {
 											status: 'order',
 											text: (
 												<form className={style.Modal__form}>
+													{this.state.error &&
+														<div className={style.Modal__error}>
+															{this.state.error}
+														</div>
+													}
 													<input name="phone" className={style.ProductForm__input} type="text" placeholder="Ваш телефон" ref={(el) => this.phone = el} />
 													<input name="name" className={style.ProductForm__input} type="text" placeholder="Ваше имя" ref={(el) => this.name = el} />
 												</form>
@@ -95,13 +110,21 @@ class ProductForm extends Component {
 													intent: 'success',
 													className: style.ProductForm__button,
 													onClick: () => {
+														if (!this.phone.value) {
+															alert('Вы не указали телефон')
+															return false;
+														}
+														if (!this.name.value) {
+															alert('Вы не указали имя')
+															return false;
+														}
 														post(
 															`/colors/${id}/request`,
 															{
 																name: this.name.value,
 																phone: this.phone.value,
 															},
-															response => this.props.setStatusModal(propsModal),
+															response => this.onSuccess(),
 															error => console.log(error)
 														);
 													}
@@ -115,9 +138,9 @@ class ProductForm extends Component {
 					<div className={style.ProductForm__callback}>
 						<div className={style.ProductForm__callback__title}>Свяжитесь с нами:</div>
 						<div className={style.ProductForm__callback__inner}>
-							<span className={style.ProductForm__callback__text}>Оформить заказ по телфону и уточнить наличие товара</span>
+							<span className={style.ProductForm__callback__text}>Оформить заказ по телефону и уточнить наличие товара</span>
 							<a href="tel:88005112008" className={style.ProductForm__callback__phone}>8-(800)-511-20-08</a>
-							<span className={style.ProductForm__callback__note}>Информация о наличии товаров обновляется каждые 30 минут. Ассортимент товара их их цена в магазине могут отличаться от информации на сайте.</span>
+							<span className={style.ProductForm__callback__note}>Информация о наличии товаров обновляется каждые 30 минут. Ассортимент товара их цена в магазине могут отличаться от информации на сайте.</span>
 						</div>
 					</div>
 					{/* <div className={style.ProductForm__info}>
@@ -160,4 +183,4 @@ const mapDispatchToProps = dispatch => {
 		setStatusModal: (status) => dispatch(actions.setStatusModal(status))
 	};
 };
-export default connect(null, mapDispatchToProps)(ProductForm);
+export default withRouter(connect(null, mapDispatchToProps)(ProductForm));
