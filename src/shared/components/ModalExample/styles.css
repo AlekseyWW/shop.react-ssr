@@ -5,7 +5,7 @@
 	color: #2f2f36;
 }
 .ModalExample__subTitle {
-    margin-bottom: 50px;
+    margin-bottom: 8px;
 }
 .ModalExample__text {
     margin-bottom: 24px;
@@ -28,14 +28,14 @@
 	display: block;
 }
 .ModalExample__photo {
-	width: 60%;
+	width: 70%;
 	box-sizing: border-box;
 	overflow: hidden;
 }
 .ModalExample__inner {
 	background-color: #fff;
 	padding-left: 24px;
-	padding-top: 50px;
+	padding-top: 16px;
 }
 .ModalExample__header h2 {
    font-size: 18px;
@@ -68,6 +68,17 @@
 .ModalExample__photo-mob {
 	display: none;
 }
+@media screen and (max-width: 992px) {
+	.ModalExample {
+		flex-direction: column-reverse;
+	}
+	.ModalExample__photo {
+		width: 100%;
+	}
+	.ModalExample__inner {
+		margin-bottom: 16px;
+	}
+}
 @media screen and (max-width: 880px) {
 	.ModalExample__header h1 {
 		font-size: 24px;
@@ -89,7 +100,7 @@
     }
 	.ModalExample {
 		padding: 16px;
-		display: block;
+		/* display: block; */
 		overflow: hidden;
 		width: auto;
 	}
@@ -103,14 +114,15 @@
 		justify-content: space-between;
 		background-color: transparent;
 		padding: 16px;
+		margin-bottom: 0;
 	}
 	.ModalExample__photo {
 		margin: 0;
 		margin-left: auto;
-		display: none;
+		/* display: none; */
 	}
 	.ModalExample__photo-mob {
-		display: block;
+		/* display: block; */
 		margin-bottom: 24px;
 		width: 100%;
 	}
