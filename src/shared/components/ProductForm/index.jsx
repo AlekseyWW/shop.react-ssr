@@ -87,7 +87,7 @@ class ProductForm extends Component {
 						{product.colors.length > 1 &&
 							<div className={style.ProductForm__colors}>
 								{product.colors.map((color, id) => (
-									<NavLink key={color.name} className={style.ProductForm__color} to={`/products/${product.slug}#color=${color.name}`}>
+									<NavLink key={color.name} className={style.ProductForm__color} to={`/products/${product.slug}?color=${color.name}`}>
 										<img src={color.thumb} />
 									</NavLink>
 								))}
