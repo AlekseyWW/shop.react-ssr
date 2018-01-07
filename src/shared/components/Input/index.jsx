@@ -1,59 +1,76 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import InputElement from 'react-input-mask';
+import Textarea from 'react-textarea-autosize';
 import style from './styles.styl';
 
-class Input extends Component {
-	static propTypes = {
-		placeholder: PropTypes.string,
-		Icon: PropTypes.any,
-	}
-	static defaultProps = {
-		placeholder: 'Введите текст',
-		Icon: null,
-	};
-	state = {
-		value: '',
-		isFocused: false
-	}
-	render() {
-		const { placeholder, Icon, className } = this.props;
-		const inputClass = classNames({
-			[`${style.Input}`]: true,
-			[`${style.Input_focused}`]: this.state.isFocused,
-			[`${style.Input_value}`]: this.state.value,
-			[`${className}`]: className
-		});
-		return (
-			<div className={inputClass}>
-				<input
-					value={this.state.value}
-					onChange={
-						e => this.setState({ value: e.target.value })
-					}
-					onFocus={() => this.setState({ isFocused: true })}
-					onBlur={() => this.setState({ isFocused: false })}
-					className={style.Input__input}
-					type="text"
-					name="search"
-				/>
-				<span className={style.Input__placeholder}>
-					{ Icon && <Icon className={style.Input__icon} /> }
-					{ placeholder }
-				</span>
-			</div>
-		);
-	}
-}
-
-Input.defaultProps = {
-	placeholder: 'Введите текст',
-	className: '',
+const Input = ({
+	input,
+	type,
+	meta,
+	className,
+	textArea,
+	numberFormat,
+	label,
+	fullWidth,
+	email,
+	...rest
+}) => {
+	const styleWrapper = classNames({
+		Input: true,
+		[style.Input_focused]: meta && meta.active,
+		[style.Input_value]: input && input.value,
+		[style.Input_error]: meta && meta.touched && meta.error,
+		[style.Input_valid]: meta && meta.touched && meta.valid,
+		[style.Input_fullWidth]: fullWidth,
+		[style.Input_textarea]: textArea,
+		[`${className}`]: className,
+	});
+	const styleInput = classNames({
+		[style.Input__field]: true,
+	});
+	return (
+		<div className={styleWrapper}>
+			<label htmlFor={input.name} className="Input__label">
+				{label}
+			</label>
+			{textArea || numberFormat || email ? (
+				(textArea && <Textarea {...input} {...rest} />) ||
+				(numberFormat && (
+					<InputElement
+						mask="+9 999 999-99-99"
+						type={type || 'text'}
+						className={styleInput}
+						{...input}
+						{...rest}
+					/>
+				)) ||
+				(email && (
+					<InputElement
+						type={type || 'text'}
+						className={styleInput}
+						{...input}
+						{...rest}
+					/>
+				))
+			) : (
+					<InputElement type={type || 'text'} className={styleInput} {...input} {...rest} />
+				)}
+		</div>
+	);
 };
 
 Input.propTypes = {
-	placeholder: PropTypes.string,
-	className: PropTypes.string,
+	input: PropTypes.any,
+	type: PropTypes.any,
+	meta: PropTypes.any,
+	label: PropTypes.any,
+	numberFormat: PropTypes.bool,
+	className: PropTypes.any,
+	fullWidth: PropTypes.bool,
+	textArea: PropTypes.bool,
+	email: PropTypes.bool,
 };
 
 export default Input;

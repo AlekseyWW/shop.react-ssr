@@ -7,9 +7,14 @@ const addToCartStart = productId => ({
 	productId
 });
 
-const addToCartSuccess = product => ({
+const addToCartSuccess = (product, remove) => ({
 	type: types.ADD_TO_CART_SUCCESS,
-	product
+	product,
+	remove
+});
+const setCartSuccess = data => ({
+	type: types.SET_CART_SUCCESS,
+	data
 });
 
 const addToCartError = error => ({
@@ -17,14 +22,12 @@ const addToCartError = error => ({
 	error
 });
 
-export const addToCart = productId => (dispatch) => {
-	dispatch(addToCartStart(productId));
-	get(
-		`/add-to-cart/${productId}`,
-		{ },
-		response => dispatch(addToCartSuccess(response)),
-		error => dispatch(addToCartError(error.message))
-	);
+export const addToCart = (product, remove) => (dispatch) => {
+	dispatch(addToCartSuccess(product, remove));
+};
+
+export const setCart = data => (dispatch) => {
+	dispatch(setCartSuccess(data));
 };
 
 const removeFromCartStart = productId => ({
@@ -42,14 +45,8 @@ const removeFromCartError = error => ({
 	error
 });
 
-export const removeFromCart = productId => (dispatch) => {
-	dispatch(removeFromCartStart(productId));
-	get(
-		`/remove-from-cart/${productId}`,
-		{ },
-		response => dispatch(removeFromCartSuccess(response)),
-		error => dispatch(removeFromCartError(error.message))
-	);
+export const removeFromCart = product => (dispatch) => {
+	dispatch(removeFromCartSuccess(product));
 };
 const getCartStart = () => ({
 	type: types.GET_CART_START

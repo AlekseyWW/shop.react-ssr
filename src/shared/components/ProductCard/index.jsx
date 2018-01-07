@@ -11,7 +11,7 @@ const ProductCard = ({ sm, category, img, slug, name, price, product }) => {
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
 	});
-	const url = name ? `/products/${slug ? slug : product.slug}#color=${name}` : `/products/${slug ? slug : product.slug}`
+	const url = name ? `/products/${slug ? slug : product.slug}?color=${name}` : `/products/${slug ? slug : product.slug}`
 	return (
 		<Link className={className} to={url}>
 			<div className={style.ProductCard__image}>

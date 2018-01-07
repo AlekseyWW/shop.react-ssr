@@ -6,19 +6,25 @@ import Menu from 'containers/Menu';
 import LogoLine from 'components/LogoLine';
 import headerData from 'config/header';
 import * as categoryAction from 'actions/category';
+import * as cartAction from 'actions/cart';
 import style from './styles.styl';
+import { setCart } from '../../state/actions/cart';
 
 class Header extends Component { 
 	componentDidMount() {
-		const { isLoaded, isLoading, getCategories } = this.props;
+		const { isLoaded, isLoading, getCategories, setCart } = this.props;
 		if (!isLoaded && !isLoading) getCategories();
+		const cart = localStorage.getItem("cart");
+		if (cart) {
+			setCart(JSON.parse(cart));
+		}
 	}
 	render() {
-		const { items } = this.props;
+		const { items, cart } = this.props;
 		return (
 			<div className={style.Header}>
 				<HeaderInfo data={headerData} />
-				<LogoLine />
+				<LogoLine cart={cart}/>
 			</div>
 		);
 	}
@@ -27,17 +33,20 @@ class Header extends Component {
 Header.propTypes = {
 	items: PropTypes.array.isRequired,
 	getCategories: PropTypes.func.isRequired,
+	cart: PropTypes.array.isRequired,
 	isLoading: PropTypes.bool.isRequired,
 	isLoaded: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {
 	const { isLoaded, isLoading, items } = state.category.categories;
-	return { isLoaded, isLoading, items };
+	const cart = state.cart.added;
+	return { isLoaded, isLoading, items, cart };
 };
 
 const mapDispatchToProps = dispatch => ({
-	getCategories: () => dispatch(categoryAction.getCategories())
+	getCategories: () => dispatch(categoryAction.getCategories()),
+	setCart: (cart) => dispatch(cartAction.setCart(cart))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -1,0 +1,69 @@
+.CartContainer {
+	grid-width()
+	margin 0 auto
+	padding-top 40px
+}
+.CartTable {
+	& {
+		width 100%
+	}
+	&__row {
+		&:first-child {
+			border-bottom 2px solid #000
+			font-size 14px
+		}
+	}
+	&__cell {
+		vertical-align middle
+		padding 8px
+		&_img {
+			grid-width(2)
+			padding 8px 24px
+		}
+		&_name {
+			font-size 18px
+			font-weight bold
+		}
+		img {
+			width 100%
+			display block
+		}
+		button {
+			cursor pointer
+			background none
+			border none 
+			outline: none 
+			border-radius: 0
+			font-weight bold
+			padding 6px
+		}
+		&_del {
+			& button {
+				cursor pointer
+			}
+			svg {
+				fill rgb(189, 45, 33);
+				transition fill $duration
+			}
+			& button:hover svg{
+				fill darken(rgb(189, 45, 33), 10%)
+			}
+		}
+	}
+}
+.CartResult {
+	border-top 2px solid #000
+	padding-top 24px
+	text-align right
+	margin-bottom 24px
+	span {
+		padding-right 16px
+		&:last-child {
+			padding-right 0
+			font-weight bold
+		}
+	}
+}
+.CartButton {
+	text-align right
+}

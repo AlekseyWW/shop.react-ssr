@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import style from './styles.styl';
 
-const Button = ({ text, className, disabled, children, onClick, small }) => {
+const Button = ({ text, className, disabled, children, onClick, small, to }) => {
 	const buttonStyle = classNames({
 		[`${style.Button}`]: true,
 		[`${style.Button_disabled}`]: disabled,
 		[`${style.Button_small}`]: small,
 		[`${className}`]: className
 	})
+	const RenderEl = to ? Link : 'button';
 	return (
-		<button className={buttonStyle} onClick={onClick}>
+		<RenderEl className={buttonStyle} onClick={onClick} to={to}>
 			{text && text}
 			{children && children}
-		</button>
+		</RenderEl>
 	)
 }
 

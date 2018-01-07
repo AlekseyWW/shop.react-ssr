@@ -1,46 +1,71 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as cartAction from 'actions/cart';
-
+import { omit } from 'lodash';
+import { BasketIcon } from 'components/Icon';
+import Button from 'components/Button';
+import * as cartAtions from 'actions/cart';
+import styles from './style.styl';
 
 const CartItem = ({ product, add, remove }) => (
-	<div>
-		<div>
-			{product.id}
-		</div>
-		<div>
+	<tr className={styles.CartTable__row}>
+		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_img}`}>
+			<img src={product.image} />
+		</td>
+		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_name}`}>
 			{product.name}
-		</div>
-		<div>
-			{product.price}
-		</div>
-		<div>
+			<span>{product.size}</span>
+			<span>Колличество: {product.count}</span>
+			<span>Цена: {product.price} ₽</span>
+		</td>
+		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_size}`}>
+			{product.size}
+		</td>
+		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_count}`}>
+			<button onClick={() => add(omit(product, ['count']))}>
+				+
+			</button>
 			{product.count}
-		</div>
-		<div>
-			{product.count * product.price}
-		</div>
-		<button onClick={() => add(product.id)}>
-			+
-		</button>
-		<button onClick={() => remove(product.id)}>
-			-
-		</button>
-	</div>
+			<button onClick={() => add(omit(product, ['count']), true)}>
+				-
+			</button>
+		</td>
+		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_price}`}>{product.price} ₽</td>
+		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_del}`}>
+			<button>
+				<BasketIcon onClick={() => remove(omit(product, ['count']))} />
+			</button>
+		</td>
+	</tr>
 );
 
 class CartPage extends Component {
-	componentDidMount() {
-		const { isFetched, isFetching, getCart } = this.props;
-		if (!isFetched && !isFetching) getCart();
-	}
+	getCartSumm = () => (this.props.products.length ? (this.props.products.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
+
 	render() {
 		const { products, addToCart, removeFromCart } = this.props;
 		return (
 			<div className="page__inner">
-				<div className="CartContainer">
-					{ products.length ? products.map(product => <CartItem key={product.id} product={product} add={addToCart} remove={removeFromCart} />) : 'хуй'}
+				<div className={styles.CartContainer}>
+					<table className={styles.CartTable}>
+						<tbody>
+							<tr className={styles.CartTable__row}>
+								<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_img}`} colSpan="2">Товар</td>
+								<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_size}`}>Размер</td>
+								<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_count}`}>Кол&#8209;во</td>
+								<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_price}`}>Цена</td>
+								<td className={styles.CartTable__cell}></td>
+							</tr>
+							{products.length ? products.map(product => <CartItem key={`${product.id}-${product.size}`} product={product} add={addToCart} remove={removeFromCart} />) : <tr><td colSpan="4">корзина пуста</td></tr>}
+						</tbody>
+					</table>
+					<div className={styles.CartResult}>
+						<span>Общая цена:</span>
+						<span>{this.getCartSumm()} ₽</span>
+					</div>
+					<div className={styles.CartButton}>
+						<Button text="Оформить заказ" to="/order" />
+					</div>
 				</div>
 			</div>
 		);
@@ -56,7 +81,6 @@ CartItem.propTypes = {
 CartPage.propTypes = {
 	isFetched: PropTypes.bool.isRequired,
 	isFetching: PropTypes.bool.isRequired,
-	getCart: PropTypes.func.isRequired,
 	addToCart: PropTypes.func.isRequired,
 	removeFromCart: PropTypes.func.isRequired,
 	products: PropTypes.array.isRequired
@@ -70,8 +94,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
 	// getCart: () => dispatch(cartAction.getCart()),
-	// addToCart: id => dispatch(cartAction.addToCart(id)),
-	// removeFromCart: id => dispatch(cartAction.removeFromCart(id))
+	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
+	removeFromCart: product => dispatch(cartAtions.removeFromCart(product))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPage);
