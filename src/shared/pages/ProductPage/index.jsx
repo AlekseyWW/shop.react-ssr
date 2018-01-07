@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import PageInfo from 'containers/PageInfo/';
+import Preloader from 'components/Preloader/';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 import ProductContainer from 'containers/ProductContainer/';
@@ -15,13 +16,13 @@ class ProductPage extends Component {
 	}
 	static fetchData({ store, params, query }) {
 		const color = query ? query : '';
-		return store.dispatch(productsAction.getProductInfo(params.productId, color));
+		return store.dispatch(productsAction.getProductInfo(params.productId.split("?")[0], color));
 	}
 	render() {
 		const { product, addToCart, isLoaded, color } = this.props;
 		return (
 			<div className="ProductPage">
-				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : 'загрузка'}
+				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : <Preloader />}
 			</div>
 		);
 	}
@@ -46,7 +47,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { items } = state.products;
 	const product = _.find(items, { id: productId }) || {};
 	const { isLoaded, isLoading } = product;
-	const { color } = qs.parse(ownProps.location.hash);
+	const { color } = qs.parse(ownProps.location.search);
 	return {
 		productId,
 		product,
@@ -58,10 +59,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const { productId } = ownProps.match.params;
-	const { color } = qs.parse(ownProps.location.hash);
+	const { color } = qs.parse(ownProps.location.search);
 	return {
 		getProductInfo: () => dispatch(productsAction.getProductInfo(productId, { color })),
-		addToCart: () => dispatch(cartAction.addToCart(productId))
+		addToCart: (product) => dispatch(cartAction.addToCart(product))
 	};
 };
 
