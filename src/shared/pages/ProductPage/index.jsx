@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import PageInfo from 'containers/PageInfo/';
+import Preloader from 'components/Preloader/';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 import ProductContainer from 'containers/ProductContainer/';
@@ -21,7 +22,7 @@ class ProductPage extends Component {
 		const { product, addToCart, isLoaded, color } = this.props;
 		return (
 			<div className="ProductPage">
-				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : 'загрузка'}
+				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : <Preloader />}
 			</div>
 		);
 	}

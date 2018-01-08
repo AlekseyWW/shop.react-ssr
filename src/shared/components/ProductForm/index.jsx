@@ -68,8 +68,6 @@ class ProductForm extends Component {
 			hasClose: true,
 			buttons: []
 		}
-		
-		const sizes = activeColor.sizes ? activeColor.sizes : ['32 ru', '33 ru', '34 ru', '35 ru', '36 ru']
 		return (
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>

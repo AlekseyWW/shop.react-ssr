@@ -10,9 +10,6 @@ class ProductView extends Component {
 	state = {
 		activeSlide: 0
 	}
-	componentDidMount() {
-		console.log(this.swiper.swiper)
-	}
 	toSlide = (index) => {
 		if (this.swiper) {
 			this.swiper.swiper.slideTo(index);
