@@ -94,7 +94,7 @@ class ProductForm extends Component {
 						<div className={style.ProductForm__buttons}>
 							<div className={style.ProductForm__sizes}>
 								<div className={style.ProductForm__sizes__container}>
-									{sizes.map(size => {
+									{activeColor.sizes.map(size => {
 										const sizeClass = classNames({
 											[`${style.ProductForm__sizes__item}`]: true,
 											[`${style.ProductForm__sizes__item_active}`]: size === this.state.activeSize,
