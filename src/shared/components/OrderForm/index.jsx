@@ -13,7 +13,7 @@ const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (sum
 const deliveryData = {
 	ems: {
 		id: "ems",
-		name: "EMS поста россии",
+		name: "EMS почта россии",
 		price: 500
 	},
 	courier: {
