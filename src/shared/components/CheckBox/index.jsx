@@ -28,7 +28,7 @@ const CheckBox = ({ input, item, className, index, type, meta, single}) => {
 	if (single) {
 		name = input.name;
 		onChange = (event) => {
-			const val = !input.value ? true : fasle
+			const val = !input.value ? true : false;
 			return input.onChange(val);
 		}
 		isChecked = input.value ? true : false;
