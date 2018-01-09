@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import CheckBox from 'components/CheckBox';
+import _ from 'lodash';
 import Button from 'components/Button';
 import { withRouter } from 'react-router'
 import style from './styles.styl';
@@ -10,8 +11,26 @@ import qs from 'query-string';
 
 let BarFilter = (props) => {
 	const { handleSubmit, brands, sizes, sm } = props;
+	const genderSize = _.groupBy(sizes, 'sex');
+	const gender = Object.keys(genderSize);
 	return (
 		<form onSubmit={handleSubmit} className={style.BarFilter}>
+			<div className={style.BarFilter__item}>
+				<div className={style.BarFilter__label}>
+					Пол
+				</div>
+				<div className={style.BarFilter__list}>
+					{gender.map((gender, id) => (<Field
+						name="sex"
+						component={CheckBox}
+						item={gender}
+						index={id}
+						key={gender}
+						type="checkbox"
+						className={sm ? style.BarFilter__itemSm : ''}
+					/>))}
+				</div>
+			</div>
 			<div className={style.BarFilter__item}>
 				<div className={style.BarFilter__label}>
 					Бренд
@@ -28,7 +47,7 @@ let BarFilter = (props) => {
 					/>))}
 				</div>
 			</div>
-			{/* <div className={style.BarFilter__item}>
+			<div className={style.BarFilter__item}>
 				<div className={style.BarFilter__label}>
 					Размеры
 				</div>
@@ -37,13 +56,13 @@ let BarFilter = (props) => {
 						name="size"
 						component={CheckBox}
 						item={size}
-						key={size}
+						key={size.id}
 						index={id}
 						type="checkbox"
 						className={sm ? style.BarFilter__itemSm : ''}
 					/>))}
 				</div>
-			</div> */}
+			</div>
 			<Button text="применить" className={style.SideBar__button} type="submit" />
 		</form>
 	);
@@ -55,6 +74,7 @@ BarFilter.propTypes = {
 	handleSubmit: PropTypes.func.isRequired,
 	sm: PropTypes.bool,
 	brands: PropTypes.array.isRequired,
+	sex: PropTypes.array.isRequired,
 	sizes: PropTypes.array.isRequired
 };
 
@@ -65,11 +85,13 @@ BarFilter = reduxForm({
 })(BarFilter);
 
 const mapStateToProps = (state, ownProps) => {
-	let { brand, size } = qs.parse(ownProps.location.search);
+	let { brand, size, sex } = qs.parse(ownProps.location.search);
 	brand = brand ? brand.split(',') : [];
 	size = size ? size.split(',') : [];
+	sex = sex ? sex.split(',') : [];
 	return {
-		initialValues: { brand, size }
+		initialValues: { brand, size, sex },
+		sex
 	}
 };
 

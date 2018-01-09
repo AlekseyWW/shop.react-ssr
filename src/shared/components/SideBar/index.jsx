@@ -66,6 +66,7 @@ const SideBar = ({ categories, brands, getProducts, categoryId, sizes, subCatego
 					</div>
 					<div className={style.SideBar__filter__list}>
 						{categories.map(category => <BarItem category={category} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.slug} subCategoryId={subCategoryId} historyLocation={location.search}/>) }
+						<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
 					</div>
 				</div>
 				<div className={style.SideBar__filter__item}>
