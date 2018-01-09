@@ -100,7 +100,7 @@ class ProductForm extends Component {
 											[`${style.ProductForm__sizes__item_active}`]: size === this.state.activeSize,
 										})
 										return (
-											<div onClick={() => this.setState({ activeSize: size })} className={sizeClass} key={size}>{size}</div>
+											<div onClick={() => this.setState({ activeSize: size })} className={sizeClass} key={size.id}>{size.name}</div>
 										)}
 									)}
 								</div>

@@ -14,12 +14,12 @@ const CartItem = ({ product, add, remove }) => (
 		</td>
 		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_name}`}>
 			{product.name}
-			<span>{product.size}</span>
+			<span>{product.size.name}</span>
 			<span>Колличество: {product.count}</span>
 			<span>Цена: {product.price} ₽</span>
 		</td>
 		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_size}`}>
-			{product.size}
+			{product.size.name}
 		</td>
 		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_count}`}>
 			<button onClick={() => add(omit(product, ['count']))}>
@@ -56,7 +56,7 @@ class CartPage extends Component {
 								<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_price}`}>Цена</td>
 								<td className={styles.CartTable__cell}></td>
 							</tr>
-							{products.length ? products.map(product => <CartItem key={`${product.id}-${product.size}`} product={product} add={addToCart} remove={removeFromCart} />) : <tr><td colSpan="4">корзина пуста</td></tr>}
+							{products.length ? products.map(product => <CartItem key={`${product.id}-${product.size.id}`} product={product} add={addToCart} remove={removeFromCart} />) : <tr><td colSpan="4">корзина пуста</td></tr>}
 						</tbody>
 					</table>
 					<div className={styles.CartResult}>

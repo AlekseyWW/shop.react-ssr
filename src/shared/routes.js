@@ -1,5 +1,4 @@
 // import universal from 'react-universal-component';
-import Home from 'pages/Home';
 import Menu from 'pages/Menu';
 import MainPage from 'pages/MainPage';
 import CatalogPage from 'pages/CatalogPage';

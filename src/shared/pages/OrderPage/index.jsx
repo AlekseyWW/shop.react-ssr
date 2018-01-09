@@ -6,6 +6,7 @@ import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
 import OrderForm from 'components/OrderForm';
 import * as cartAtions from 'actions/cart';
+import * as orderAtions from '../../state/modules/order';
 import styles from './style.styl';
 
 
@@ -14,12 +15,13 @@ class OrderPage extends Component {
 		console.log('====================================');
 		console.log(data);
 		console.log('====================================');
+		this.props.fetchOrder(data);
 	}
 	render() {
 		const { products, addToCart, removeFromCart } = this.props;
 		return (
 			<div className={styles.CartContainer}>
-				<OrderForm onSubmit={this.handleSubmit}/>
+				<OrderForm onSubmit={data =>this.handleSubmit(data)}/>
 			</div>
 		);
 	}
@@ -47,6 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
 	// getCart: () => dispatch(cartAction.getCart()),
+	fetchOrder: data => dispatch(orderAtions.fetchOrder(data)),
 	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.removeFromCart(product))
 });

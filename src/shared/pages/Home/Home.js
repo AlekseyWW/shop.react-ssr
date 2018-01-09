@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { object, func } from 'prop-types';
-import { fetchPosts, fetchPostsIfNeeded } from '../../state/modules/posts';
+import { fetchPosts, fetchPostsIfNeeded } from '../../state/modules/order';
 import Post from 'components/Post';
 import BrandNote from 'components/BrandNote';
 import LabBlock from 'components/LabBlock';

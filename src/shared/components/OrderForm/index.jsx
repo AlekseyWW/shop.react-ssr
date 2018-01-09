@@ -11,8 +11,8 @@ import style from './styles.styl';
 const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
 
 const deliveryData = {
-	ems: {
-		id: "ems",
+	post: {
+		id: "post",
 		name: "EMS почта россии",
 		price: 500
 	},
@@ -50,7 +50,7 @@ let OrderForm = (props) => {
 				<div className={style.OrderForm__list}>
 					<div className={style.OrderForm__group}>
 						<Field
-							name="name"
+							name="firstName"
 							component={Input}
 							type="text"
 							className={style.OrderForm__input}
@@ -58,7 +58,7 @@ let OrderForm = (props) => {
 							validate={[required]}
 						/>
 						<Field
-							name="lastname"
+							name="lastName"
 							component={Input}
 							type="text"
 							className={style.OrderForm__input}
@@ -104,7 +104,7 @@ let OrderForm = (props) => {
 							validate={[required]}
 						/>
 						<Field
-							name="appartaments"
+							name="apartments"
 							component={Input}
 							type="text"
 							className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
@@ -114,7 +114,7 @@ let OrderForm = (props) => {
 					</div>
 					<div className={style.OrderForm__group}>
 						<Field
-							name="index"
+							name="postIndex"
 							component={Input}
 							type="text"
 							className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
@@ -165,7 +165,7 @@ let OrderForm = (props) => {
 						</div>
 					</div>
 					{products.map(product => (
-						<div key={`${product.name}-${product.size}`} className={style.OrderTable__row}>
+						<div key={`${product.name}-${product.size.id}`} className={style.OrderTable__row}>
 							<div className={`${style.OrderTable__cell} ${style.OrderTable__cell_name}`}>
 								{product.name} x {product.count}
 							</div>
@@ -190,9 +190,9 @@ let OrderForm = (props) => {
 					<div className={style.OrderDeliver__column}>
 						<div className={style.OrderDeliver__item}>
 							<Field
-								name="delivery"
+								name="deliveryType"
 								component={CheckBox}
-								item={deliveryData.ems}
+								item={deliveryData.post}
 								index={0}
 								type="option"
 								className={style.OrderDeliver__option}
@@ -200,7 +200,7 @@ let OrderForm = (props) => {
 						</div>
 						<div className={style.OrderDeliver__item}>
 							<Field
-								name="delivery"
+								name="deliveryType"
 								component={CheckBox}
 								item={deliveryData.courier}
 								index={1}
@@ -210,7 +210,7 @@ let OrderForm = (props) => {
 						</div>
 						<div className={style.OrderDeliver__item}>
 							<Field
-								name="delivery"
+								name="deliveryType"
 								component={CheckBox}
 								item={deliveryData.self}
 								index={2}
@@ -227,7 +227,7 @@ let OrderForm = (props) => {
 				</div>
 				<div className={style.OrderPay}>
 					<Field
-						name="pay"
+						name="payType"
 						component={CheckBox}
 						item={payData.cash}
 						index={0}
@@ -235,7 +235,7 @@ let OrderForm = (props) => {
 						className={style.OrderPay__option}
 					/>
 					<Field
-						name="pay"
+						name="payType"
 						component={CheckBox}
 						item={payData.card}
 						index={0}
@@ -270,15 +270,17 @@ OrderForm.propTypes = {
 OrderForm = reduxForm({
 	// a unique name for the form
 	form: 'order',
+	enableReinitialize: true,
 	destroyOnUnmount: false
 })(OrderForm);
 const selector = formValueSelector('order')
 
 const mapStateToProps = state => {
 	const products = state.cart.added;
-	const delivery = selector(state, 'delivery');
-	const deliveryCost = deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0
-	return { products, deliveryCost };
+	const initialValues = { colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
+	const delivery = selector(state, 'deliveryType');
+	const deliveryCost = deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
+	return { products, deliveryCost, initialValues };
 }
 
 export default connect(mapStateToProps)(OrderForm);
