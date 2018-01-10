@@ -12,9 +12,6 @@ import styles from './style.styl';
 
 class OrderPage extends Component {
 	handleSubmit(data) {
-		console.log('====================================');
-		console.log(data);
-		console.log('====================================');
 		this.props.fetchOrder(data);
 	}
 	render() {
