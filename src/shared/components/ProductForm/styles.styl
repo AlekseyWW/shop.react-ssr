@@ -163,6 +163,9 @@
 	&__colors {
 		display flex
 		margin-bottom 16px
+		@media $phone {
+			flex-wrap: wrap
+		}
 	}
 	&__color {
 		width 65px
@@ -179,6 +182,9 @@
 		img {
 			width 100%
 			display block
+		}
+		@media $phone {
+			margin-bottom 8px
 		}
 	}
 }
