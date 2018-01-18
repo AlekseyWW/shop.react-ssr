@@ -57,6 +57,9 @@ const SideBar = ({ categories, brands, getProducts, categoryId, sizes, subCatego
 			search: `${qs.stringify(query)}`
 		})
 	}
+
+	const genderSize = _.groupBy(sizes, 'sex');
+	const gender = Object.keys(genderSize);
 	return (
 		<div className={style.SideBar}>
 			<div className={style.SideBar__filter}>
@@ -65,6 +68,19 @@ const SideBar = ({ categories, brands, getProducts, categoryId, sizes, subCatego
 						{title}
 					</div>
 					<div className={style.SideBar__filter__list}>
+
+						<div className={style.SideBar__filter__item}>
+							<div className={style.BarFilter__item}>
+								<div className={style.BarFilter__label}>
+									Пол
+								</div>
+								<div className={style.BarFilter__list}>
+									{gender.map((gender, id) => (
+										<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>{gender}</Link>
+									))}
+								</div>
+							</div>
+						</div>
 						{categories.map(category => <BarItem category={category} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.slug} subCategoryId={subCategoryId} historyLocation={location.search}/>) }
 						<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
 					</div>

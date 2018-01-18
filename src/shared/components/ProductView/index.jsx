@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import Swiper from 'react-id-swiper';
 import classNames from 'classnames';
+import ReactImageMagnify from 'react-image-magnify';
 import _ from 'lodash';
 import uuid from 'uuid';
 import style from './styles.styl';
@@ -65,7 +66,24 @@ class ProductView extends Component {
 					<Swiper className={style.ProductView__container} {...params} ref={el => {this.swiper = el}}>
 						{currentColor && currentColor.img.map(photo =>(
 							<div  key={uuid.v4()}  className={style.ProductView__slide}>
-								<img src={photo} alt="img" />
+
+								<ReactImageMagnify {...{
+									smallImage: {
+										alt: 'Wristwatch by Ted Baker London',
+										isFluidWidth: true,
+										src: photo,
+										sizes: '(min-width: 480px) 30vw, 80vw'
+									},
+									largeImage: {
+										alt: '',
+										src: photo,
+										width: 1000,
+										height: 1000
+									},
+									isHintEnabled: true,
+									enlargedImagePosition: 'over'
+								}} />
+								{/* <img src={photo} alt="img" /> */}
 							</div>)
 						)}
 					</Swiper>

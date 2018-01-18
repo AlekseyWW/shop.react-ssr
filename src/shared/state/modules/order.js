@@ -43,6 +43,7 @@ export function requestOrderDone(data) {
 				),
 				subTitle: '',
 				hasClose: true,
+				// confirm: true,
 				buttons: [
 					{
 						text: 'Перейти к оплате',

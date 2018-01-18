@@ -55,6 +55,8 @@ export default function renderHtml({ preloadedState, markup, styleTags, styles, 
 		${isDev ? dllString : empty}
 		${scripts}
 		${helmet.script.toString()}
+		<link rel="stylesheet" href="https://cdn.callbackkiller.com/widget/cbk.css">
+		<script type="text/javascript" src="https://cdn.callbackkiller.com/widget/cbk.js?cbk_code=1b5ec5fdc525a0d65e4fe107c9022bef" charset="UTF-8" async></script>
 		</body>
 	</html>`;
 }

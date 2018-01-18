@@ -17,22 +17,6 @@ let BarFilter = (props) => {
 		<form onSubmit={handleSubmit} className={style.BarFilter}>
 			<div className={style.BarFilter__item}>
 				<div className={style.BarFilter__label}>
-					Пол
-				</div>
-				<div className={style.BarFilter__list}>
-					{gender.map((gender, id) => (<Field
-						name="sex"
-						component={CheckBox}
-						item={gender}
-						index={id}
-						key={gender}
-						type="checkbox"
-						className={sm ? style.BarFilter__itemSm : ''}
-					/>))}
-				</div>
-			</div>
-			<div className={style.BarFilter__item}>
-				<div className={style.BarFilter__label}>
 					Бренд
 				</div>
 				<div className={style.BarFilter__list}>
