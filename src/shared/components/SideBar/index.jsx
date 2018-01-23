@@ -10,6 +10,7 @@ import * as productsAction from 'actions/products';
 import { Link } from 'react-router-dom';
 
 import style from './styles.styl';
+import { blur } from 'redux-form';
 
 const BarItem = ({ category, isActive, subCategoryId, historyLocation }) => {
 	const styles = classNames({
@@ -50,13 +51,25 @@ BarItem.propTypes = {
 };
 
 
-const SideBar = ({ categories, brands, getProducts, categoryId, sizes, subCategoryId, title, history, location, match}) => {
+const SideBar = ({ categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match}) => {
 	const historyPush = query => {
 		history.push({
 			pathname: subCategoryId ? `/catalog/${categoryId}/${subCategoryId}` : `/catalog/${categoryId}`,
 			search: `${qs.stringify(query)}`
 		})
 	}
+	const genderSize = _.groupBy(sizes, b => b.sex.whom);
+	const currentSizes = sex ? _.filter(sizes, b => b.sex.name === sex) : sizes;
+	const gender = Object.keys(genderSize);
+	const url = (item) => {
+		const query = {
+			size,
+			brand,
+			sex: item
+		}
+		historyPush(query)
+		getProducts(query, subCategoryId || categoryId);
+	};
 	return (
 		<div className={style.SideBar}>
 			<div className={style.SideBar__filter}>
@@ -64,17 +77,21 @@ const SideBar = ({ categories, brands, getProducts, categoryId, sizes, subCatego
 					<div className={style.SideBar__filter__title}>
 						{title}
 					</div>
+					<div className={style.SideBar__sex}>
+						{gender.map(gender => <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={style.SideBar__sex__item}>{gender}</div>)}
+					</div>
 					<div className={style.SideBar__filter__list}>
 						{categories.map(category => <BarItem category={category} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.slug} subCategoryId={subCategoryId} historyLocation={location.search}/>) }
 						<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
 					</div>
 				</div>
 				<div className={style.SideBar__filter__item}>
-					<BarFilter brands={brands.brands} sizes={sizes} onSubmit={(data) => {
+					<BarFilter brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
 						const query = {};
 						Object.keys(data).forEach(element => {
 							query[element] = data[element].join(',')
 						});
+						query.sex = sex;
 						historyPush(query);
 						getProducts(query, subCategoryId || categoryId);
 					} } />
@@ -100,7 +117,7 @@ SideBar.propTypes = {
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { brand, size } = qs.parse(ownProps.location.search);
+	const { brand, size, sex } = qs.parse(ownProps.location.search);
 	const { categoryId, subCategoryId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
 	const brands = state.brands;
@@ -122,6 +139,7 @@ const mapStateToProps = (state, ownProps) => {
 		sizes,
 		brand,
 		size,
+		sex,
 		slug,
 		countView,
 		title: title || 'Каталог'

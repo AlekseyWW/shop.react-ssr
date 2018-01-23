@@ -55,4 +55,26 @@
 	&__button {
 		margin-left -30px
 	}
+	&__sex {
+		margin-bottom 20px
+		margin-left -30px
+		display flex
+		&__item {
+			background-color #fff
+			padding 4px 8px
+			font-size 12px
+			font-weight bold
+			display inline-block
+			color $textColor
+			transition background $duration
+			cursor pointer
+			&:hover {
+				background-color #ddd
+			}
+			&_active {
+				color #000
+				background-color #ccc
+			}
+		}
+	}
 }
