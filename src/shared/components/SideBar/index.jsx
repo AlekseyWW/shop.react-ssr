@@ -59,7 +59,7 @@ const SideBar = ({ categories, brands, size, sex, brand, getProducts, categoryId
 		})
 	}
 	const genderSize = sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
-	const currentSizes = sex && izes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
+	const currentSizes = sex && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 	const gender = Object.keys(genderSize);
 	const url = (item) => {
 		const query = {
