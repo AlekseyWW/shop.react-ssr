@@ -58,8 +58,8 @@ const SideBar = ({ categories, brands, size, sex, brand, getProducts, categoryId
 			search: `${qs.stringify(query)}`
 		})
 	}
-	const genderSize = _.groupBy(sizes, b => b.sex.whom);
-	const currentSizes = sex ? _.filter(sizes, b => b.sex.name === sex) : sizes;
+	const genderSize = sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
+	const currentSizes = sex && izes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 	const gender = Object.keys(genderSize);
 	const url = (item) => {
 		const query = {
@@ -77,9 +77,11 @@ const SideBar = ({ categories, brands, size, sex, brand, getProducts, categoryId
 					<div className={style.SideBar__filter__title}>
 						{title}
 					</div>
-					<div className={style.SideBar__sex}>
-						{gender.map(gender => <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={style.SideBar__sex__item}>{gender}</div>)}
-					</div>
+					{genderSize.length > 0 &&
+						<div className={style.SideBar__sex}>
+							{gender.map(gender => <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={style.SideBar__sex__item}>{gender}</div>)}
+						</div>
+					}
 					<div className={style.SideBar__filter__list}>
 						{categories.map(category => <BarItem category={category} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.slug} subCategoryId={subCategoryId} historyLocation={location.search}/>) }
 						<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
