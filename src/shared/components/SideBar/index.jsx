@@ -58,9 +58,9 @@ const SideBar = ({ categories, brands, size, sex, brand, getProducts, categoryId
 			search: `${qs.stringify(query)}`
 		})
 	}
-    const genderSize = [];
-    const currentSizes = sizes;
-    const gender = Object.keys(genderSize);
+	const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
+	const currentSizes = sex && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
+	const gender = Object.keys(genderSize); 
 	const url = (item) => {
 		const query = {
 			size,
@@ -77,7 +77,7 @@ const SideBar = ({ categories, brands, size, sex, brand, getProducts, categoryId
 					<div className={style.SideBar__filter__title}>
 						{title}
 					</div>
-					{genderSize.length > 0 &&
+					{gender.length > 0 &&
 						<div className={style.SideBar__sex}>
 							{gender.map(gender => <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={style.SideBar__sex__item}>{gender}</div>)}
 						</div>

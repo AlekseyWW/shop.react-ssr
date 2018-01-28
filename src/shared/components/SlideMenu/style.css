@@ -51,6 +51,9 @@
     width: 100%;
     padding: 0;
 }
+.bm-item-list .SideBar__sex  {
+    margin-left: 0;
+}
 .bm-item-list .SideBar__filter {
     padding: 0;
 }
