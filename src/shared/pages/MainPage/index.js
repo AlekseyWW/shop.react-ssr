@@ -37,8 +37,9 @@ class MainPage extends Component {
 		return store.dispatch(productsAction.getPromoProducts());
 	}
 	componentDidMount() {
-		const { isLoading, isLoaded, getProducts } = this.props;
+		const { isLoading, isLoaded, getProducts, getCategories } = this.props;
 		if (!isLoading && !isLoaded) getProducts();
+		getCategories();
 	}
 	render() {
 		const { categories, sex, isLoaded, isLoading, promoProducts } = this.props;
@@ -46,23 +47,8 @@ class MainPage extends Component {
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />
-				{ sex === 'man' ?
-					(<div>
-						<Promo content={text.promo} />
-						<Category categories={categories} />
-						{/* { isLoaded && !isLoading && <NewPropducts products={promoProducts} /> } */}
-						{/* <BrandList /> */}
-					</div>
-					) :
-					(<div>
-						<Promo content={text.promo} />
-						{/* <Category categories={categories} />
-						{ isLoaded && !isLoading && <NewPropducts products={promoProducts} /> }
-						<BrandList /> */}
-					</div>
-					)
-				}
-
+				<Promo content={text.promo} />
+				<Category categories={categories} />
 			</div>
 		);
 	}
@@ -106,6 +92,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	
 	return ({
 		getProducts: () => dispatch(productsAction.getPromoProducts(productConfig)),
+		getCategories: () => dispatch(categoryAction.getPromoCategories(productConfig)),
 		getBrands: () => dispatch(brandsAction())
 	});
 };
