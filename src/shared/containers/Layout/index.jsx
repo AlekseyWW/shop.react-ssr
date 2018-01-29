@@ -2,10 +2,52 @@ import React, { Component } from 'react';
 import Header from 'containers/Header/';
 import Footer from 'containers/Footer/';
 import ModalContainer from 'containers/ModalContainer/';
-
+import { withRouter } from 'react-router-dom';
 import style from './styles.styl';
 
 class Layout extends Component {
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.location.pathname !== this.props.location.pathname) {
+			!function (f, b, e, v, n, t, s) {
+				if (f.fbq) return; n = f.fbq = function () {
+					n.callMethod ?
+						n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+				};
+				if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+				n.queue = []; t = b.createElement(e); t.async = !0;
+				t.src = v; s = b.getElementsByTagName(e)[0];
+				s.parentNode.insertBefore(t, s)
+			}(window, document, 'script',
+				'https://connect.facebook.net/en_US/fbevents.js');
+			fbq('init', '210347599540942');
+			fbq('track', 'PageView');
+			(function (d, w, c) {
+				(w[c] = w[c] || []).push(function () {
+					try {
+						w.yaCounter47068560 = new Ya.Metrika({
+							id: 47068560,
+							clickmap: true,
+							trackLinks: true,
+							accurateTrackBounce: true,
+							webvisor: true,
+							trackHash: true
+						});
+					} catch (e) { }
+				});
+
+				var n = d.getElementsByTagName("script")[0],
+					s = d.createElement("script"),
+					f = function () { n.parentNode.insertBefore(s, n); };
+				s.type = "text/javascript";
+				s.async = true;
+				s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+				if (w.opera == "[object Opera]") {
+					d.addEventListener("DOMContentLoaded", f, false);
+				} else { f(); }
+			})(document, window, "yandex_metrika_callbacks");
+		}
+	}
 	componentDidMount() {
 		!function (f, b, e, v, n, t, s) {
 			if (f.fbq) return; n = f.fbq = function () {
@@ -18,9 +60,8 @@ class Layout extends Component {
 			s.parentNode.insertBefore(t, s)
 		}(window, document, 'script',
 			'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '1714552635237299');
+		fbq('init', '210347599540942');
 		fbq('track', 'PageView');
-
 		(function (d, w, c) {
 			(w[c] = w[c] || []).push(function () {
 				try {
@@ -28,20 +69,23 @@ class Layout extends Component {
 						id: 47068560,
 						clickmap: true,
 						trackLinks: true,
-						accurateTrackBounce: true
+						accurateTrackBounce: true,
+						webvisor: true,
+						trackHash: true
 					});
 				} catch (e) { }
 			});
+
 			var n = d.getElementsByTagName("script")[0],
-				s = d.createElement("script"),
-				f = function () { n.parentNode.insertBefore(s, n); };
+			s = d.createElement("script"),
+			f = function () {n.parentNode.insertBefore(s, n); };
 			s.type = "text/javascript";
 			s.async = true;
 			s.src = "https://mc.yandex.ru/metrika/watch.js";
 
 			if (w.opera == "[object Opera]") {
-				d.addEventListener("DOMContentLoaded", f, false);
-			} else { f(); }
+						d.addEventListener("DOMContentLoaded", f, false);
+					} else {f(); }
 		})(document, window, "yandex_metrika_callbacks");
 	}
 	render() {
@@ -65,4 +109,4 @@ class Layout extends Component {
 	}
 };
 
-export default Layout;
+export default withRouter(Layout);

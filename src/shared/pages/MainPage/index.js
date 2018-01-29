@@ -49,7 +49,7 @@ class MainPage extends Component {
 				{ sex === 'man' ?
 					(<div>
 						<Promo content={text.promo} />
-						{/* <Category categories={categories} /> */}
+						<Category categories={categories} />
 						{/* { isLoaded && !isLoading && <NewPropducts products={promoProducts} /> } */}
 						{/* <BrandList /> */}
 					</div>
