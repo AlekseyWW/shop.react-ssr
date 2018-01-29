@@ -4,16 +4,18 @@ $paddingTop = $fontSize*0.9
 .Input {
 	& {
 		position relative
-		border-bottom 1px solid $textColor
-		box-sizing border-box
+		display inline-block
 		line-height 1.2
 		font-size 16px
-		width 155px
-		height 25px
-		border-radius 5px
-		border 1px solid #979797
 		box-sizing border-box
-		background-color #F5F5F5
+	}
+	&__field {
+		border-radius: 4px
+		padding 4px 8px
+		font-size 16px
+		width 100%
+		box-sizing border-box
+		border 1px solid #676766
 	}
 	&__input {
 		border 0
@@ -41,5 +43,14 @@ $paddingTop = $fontSize*0.9
 			transform scale(0.75) translateY(-($fontSize*1.2)) translateZ(0)
 			faster()
 		}
+	}
+	&_error {
+		.Input__field {
+			border-color tomato
+		}
+	}
+	&__label {
+		font-size 12px
+		display block
 	}
 }

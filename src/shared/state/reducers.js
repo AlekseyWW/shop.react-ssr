@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import postsReducer from './modules/posts';
+import orderReducer from './modules/order';
 import { reducer as formReducer } from 'redux-form';
 import brandsReducer from './modules/brands';
 import cartReducer from './modules/cart';
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   data: dataReducer,
   products: productsReducer,
-  posts: postsReducer,
+  order: orderReducer,
   router: routerReducer,
   modal,
   form: formReducer

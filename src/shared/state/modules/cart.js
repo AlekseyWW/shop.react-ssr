@@ -1,5 +1,5 @@
 import * as types from '../constants/cart';
-import { getExtendedList } from 'utils/helpers';
+import { getExtendedCartList } from 'utils/helpers';
 
 const initialState = {
 	isFetching: false,
@@ -16,11 +16,22 @@ export default function cart(state = initialState, action) {
 			};
 
 		case types.ADD_TO_CART_SUCCESS:
+			const newList = getExtendedCartList(state.added, { ...action.product }, action.remove);
+			localStorage.setItem("cart", JSON.stringify(newList));
 			return {
 				...state,
 				isFetching: false,
 				isFetched: true,
-				added: getExtendedList(state.added, action.product),
+				added: newList,
+				error: null
+			};
+
+		case types.SET_CART_SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				isFetched: true,
+				added: action.data,
 				error: null
 			};
 
@@ -32,18 +43,20 @@ export default function cart(state = initialState, action) {
 				error: action.error
 			};
 		
-		case types.REMOVE_FROM_START:
+		case types.REMOVE_FROM_CART_START:
 			return {
 				...state,
 				isFetching: true
 			};
 
-		case types.REMOVE_FROM_SUCCESS:
+		case types.REMOVE_FROM_CART_SUCCESS:
+			const editedList = getExtendedCartList(state.added, { ...action.product }, false, true);
+			localStorage.setItem("cart", JSON.stringify(editedList));
 			return {
 				...state,
 				isFetching: false,
 				isFetched: true,
-				added: getExtendedList(state.added, action.product),
+				added: editedList,
 				error: null
 			};
 

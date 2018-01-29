@@ -47,14 +47,14 @@ const LogoLine = () => {
 								<Input placeholder="Поиск" Icon={GlassIcon} />
 							</div>
 						</div> */}
-						{/* <div className={style.LogoLine__action}>
-							<div className={style.LogoLine__action__item}>
+						<div className={style.LogoLine__action}>
+							{/* <div className={style.LogoLine__action__item}>
 								<HurtIcon />
-							</div>
+							</div> */}
 							<div className={style.LogoLine__action__item}>
 								<HeaderCart />
 							</div>
-						</div> */}
+						</div>
 					</div>
 				</div>
 			</div>

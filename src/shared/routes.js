@@ -1,10 +1,11 @@
 // import universal from 'react-universal-component';
-import Home from 'pages/Home';
 import Menu from 'pages/Menu';
 import MainPage from 'pages/MainPage';
 import CatalogPage from 'pages/CatalogPage';
 import ProductPage from 'pages/ProductPage';
 import SuccessPage from 'pages/SuccessPage';
+import CartPage from 'pages/CartPage';
+import OrderPage from 'pages/OrderPage';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -44,5 +45,15 @@ export default [
 		path: '/success',
 		exact: true,
 		component: SuccessPage,
+	},
+	{
+		path: '/cart',
+		exact: true,
+		component: CartPage,
+	},
+	{
+		path: '/order',
+		exact: true,
+		component: OrderPage,
 	},
 ];

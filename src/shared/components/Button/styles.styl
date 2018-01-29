@@ -4,37 +4,36 @@
 		margin-bottom 10px
 		width 190px
 		max-width 100%
-		height 25px
 		background-color #BD2D21
 		border-radius: 6px
 		border 0
 		text-transform uppercase
 		color #ffffff
-		font-size 13px
+		font-size 14px
 		box-sizing border-box
 		cursor pointer
 		transition background-color $duration, transform $duration
 		transform translateZ(0)
-		will-change: transform
+		will-change transform
 		padding 5px 24px
 		&:last-child {
 			margin-bottom 0
 		}
 		&:hover {
 			background-color darken(#BD2D21, 15%)
-			// faster()
+			faster()
 		}
 		&:active {
 			transform scale(0.96) translateZ(0)
-			// faster()
+			faster()
 		}
 	}
 	&_disabled {
 		background-color #676766
 	}
 	&_small {
-		font-size 11.5px
-		height 19px
+		font-size 12px
+		padding 3px 12px
 		background-color #676766
 		text-transform: none
 		width auto

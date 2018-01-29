@@ -92,7 +92,6 @@
 	&__select {
 		display inline-block
 		margin-right 50px
-	
 	}
 	&__button {
 		padding 8px 16px
@@ -185,6 +184,29 @@
 		}
 		@media $phone {
 			margin-bottom 8px
+		}
+	}
+	&__sizes {
+		& {
+			margin-bottom 16px
+		}
+		&__container {
+			display flex
+			margin-bottom 16px
+		}
+		&__item {
+			background-color #fff
+			padding 3px 6px
+			margin-left 6px
+			cursor pointer
+			transition color $duration, background $duration
+			&:first-child {
+				margin-left 0
+			}
+			&:hover, &_active {
+				background-color #676766
+				color #fff
+			}
 		}
 	}
 }

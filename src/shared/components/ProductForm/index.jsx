@@ -19,7 +19,8 @@ class ProductForm extends Component {
 	state = {
 		modalIsOpen: false,
 		status: 'order',
-		error: null
+		error: null,
+		activeSize: '',
 	}
 	componentDidMount() {
 		// Modal.setAppElement('#app');
@@ -36,9 +37,25 @@ class ProductForm extends Component {
 		this.props.closeModal()
 		this.props.history.replace('/success')
 	}
+	addToCart() {
+		if (!this.state.activeSize) {
+			alert('Выберите размер')
+			return false;
+		}
+		const product = {
+			id: _.find(this.props.product.colors, { name: this.props.color }).id,
+			image: _.find(this.props.product.colors, { name: this.props.color }).thumb,
+			name: this.props.product.name,
+			color: this.props.color,
+			price: this.props.product.price || this.props.product.oldPrice,
+			size: this.state.activeSize
+		}
+		this.props.addToCart(product)
+	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
-		const id = _.find(product.colors, { name: color }) ? _.find(product.colors, { name: color }).id : 0;
+		const activeColor = _.find(product.colors, { name: color });
+		const id = activeColor ? activeColor.id : 0;
 		const propsModal = {
 			title: product.name,
 			status: 'deliver',
@@ -55,8 +72,8 @@ class ProductForm extends Component {
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>
 					<div className={style.ProductForm__head}>
-						<p className={style.ProductForm__title}>{product.title}</p>
-						<p className={style.ProductForm__subline}>{product.name}</p>
+						<p className={style.ProductForm__title}>{product.name}</p>
+						{/* <p className={style.ProductForm__subline}>{product.name}</p> */}
 						
 					</div>
 					<div className={style.ProductForm__price}>
@@ -75,10 +92,24 @@ class ProductForm extends Component {
 							</div>
 						}
 						<div className={style.ProductForm__buttons}>
-							{/* <div className={style.ProductForm__selectSize}>
-							<Button className={style.ProductForm__select} text="Выберите размер" disabled />
-							<Button text="Подобрать размер" small disabled/>
-						</div> */}
+							<div className={style.ProductForm__sizes}>
+								<div className={style.ProductForm__sizes__container}>
+									{activeColor.sizes.map(size => {
+										const sizeClass = classNames({
+											[`${style.ProductForm__sizes__item}`]: true,
+											[`${style.ProductForm__sizes__item_active}`]: size === this.state.activeSize,
+										})
+										return (
+											<div onClick={() => this.setState({ activeSize: size })} className={sizeClass} key={size.id}>{size.name}</div>
+										)}
+									)}
+								</div>
+								<Button text="Подобрать размер" small disabled/>
+							</div>
+							<Button
+								className={style.ProductForm__button}
+								text="Добавить в&nbsp;корзину"
+								onClick={() => this.addToCart()}/>
 							<Button
 								className={style.ProductForm__button}
 								text="Оформить заявку"

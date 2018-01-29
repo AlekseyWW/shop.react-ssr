@@ -10,22 +10,28 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	getCart: () => dispatch(cartAtions.getCart())
+	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
+	removeFromCart: product => dispatch(cartAtions.removeFromCart(product))
+	// appendToCart: (id, size) => dispatch(cartAtions.appendToCart(id, size)),
+	// removeFromCart: (id, size, all) => dispatch(cartAtions.removeFromCart(id, size, all))
 });
 
 class HeaderCart extends Component {
 	static propTypes = {
 		isFetching: PropTypes.bool.isRequired,
 		isFetched: PropTypes.bool.isRequired,
-		getCart: PropTypes.func.isRequired,
+		addToCart: PropTypes.func.isRequired,
 		added: PropTypes.array.isRequired
 	}
 	componentDidMount() {
 		// const { isFetching, isFetched, getCart } = this.props;
 		// if (!isFetching && !isFetched) getCart();
 	}
+	addInCart(product, remove) {
+		this.props.addToCart(product, remove);
+	}
 	render() {
-		return <CartBlock added={this.props.added} />;
+		return <CartBlock added={this.props.added} addToCart={(product, remove) => this.addInCart(product, remove)} removeFromCart={this.props.removeFromCart} appendToCart={this.props.appendToCart}/>;
 	}
 }
 

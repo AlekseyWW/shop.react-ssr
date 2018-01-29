@@ -1,16 +1,133 @@
 .Cart {
-    & {
-        position relative
-    }
-    &__icon {
+	& {
+		position relative
+		padding 0 16px
+		&:hover {
+			.Cart__container {
+				pointer-events initial
+				opacity 1
+				faster()
+			}
+		}
+	}
+	&__icon {
+		margin-top -10px
+	}
+	&__container {
+		position absolute
+		top 100%
+		right 0
+		z-index 100
+		width 560px
+		box-sizing border-box
+		padding-top 24px
+		opacity 0
+		pointer-events none
+		transition opacity $
+		@media $verticalTablet {
+			display none
+		}
+	}
+	&__table {
+		box-shadow 0 3px 16px alpha(#000, 10%)
+		padding 16px
+		border-radius 6px
+		background-color #fff
+		display table
+		table-layout: fixed;
+		&__row {
+			display table-row
+			&:first-child {
+				.Cart__table__cell {
+					font-size 12px
+				}
+			}
+			&:last-child {
+				.Cart__table__cell {
+					padding-bottom 16px
+					&:last-child {
+						text-align right
+					}
+				}
+			}
+		}
+		&__cell {
+			padding 8px
+			vertical-align middle
+			display table-cell
+			box-sizing border-box
+			min-width: 80px
+			font-size 14px
+			user-select none
 
-    }
-    &__count {
-        position absolute
-        left 0
-        bottom 3px
-        width 100%
-        text-align center
-        color #000000
-    }
+			&:last-child {
+				margin-right 0
+				padding-right 16px
+			}
+			&:first-child {
+				padding-left 16px
+				// width 60px
+				// max-width 60px
+			}
+			&_name {
+				& span:first-child {
+					font-weight bold
+					display block
+				}
+				width 100%
+			}
+			&__count {
+				display flex
+				align-items center
+				& button {
+					cursor pointer
+					border 0
+					background 0
+					border-radius 0
+					font-weight bold
+					padding 5px
+					margin 0
+				}
+			}
+			&_del {
+				min-width: 40px
+				button {
+					border: 0
+					border-radius 0
+					background-color 0
+					svg {
+						fill #BD2D21
+						transition fill $duration
+					}
+					&:hover svg {
+						fill darken(#BD2D21, 20%)
+						faster()
+					}
+				}
+			}
+		}
+		img {
+			width 60px
+			display block
+		}
+	}
+	&__count {
+		position absolute
+		left 50%
+		bottom 3px
+		width 22px
+		height 22px
+		margin-left -11px
+		font-weight bold
+		box-sizing border-box
+		padding-top 1px
+		text-align center
+		color #ffffff
+		border-radius: 50%
+		background-color rgb(189, 45, 33)
+		&_empty {
+			background-color transparent
+			color #000
+		}
+	}
 }
