@@ -15,9 +15,6 @@ class Category extends Component {
 	render() {
 		const { isLoaded, isLoading, items, getCategories } = this.props;
 		const categories = chunk(items, 3);
-		console.log('====================================');
-		console.log(items);
-		console.log('====================================');
 		return (
 			<div className={style.Category}>
 				<div className={style.Category__list}>

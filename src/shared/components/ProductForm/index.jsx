@@ -106,10 +106,10 @@ class ProductForm extends Component {
 								</div>
 								<Button text="Подобрать размер" small disabled/>
 							</div>
-							<Button
+							{/* <Button
 								className={style.ProductForm__button}
 								text="Добавить в&nbsp;корзину"
-								onClick={() => this.addToCart()}/>
+								onClick={() => this.addToCart()}/> */}
 							<Button
 								className={style.ProductForm__button}
 								text="Оформить заявку"

@@ -20,6 +20,7 @@ class Catalog extends Component {
 			brand,
 			slug,
 			size,
+			sex,
 			getBrands,
 		} = this.props;
 		const productConfig = {
@@ -28,6 +29,7 @@ class Catalog extends Component {
 			sort: 'date',
 			brand,
 			size,
+			sex
 		};
 		const category = this.props.subCategoryId || this.props.categoryId;
 		if ((!isLoading && !isLoaded) || slug !== category) getProducts(productConfig, category);
@@ -145,7 +147,8 @@ Catalog.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-	const { brand, size } = qs.parse(ownProps.location.search);
+	const { brand, size, sex } = qs.parse(ownProps.location.search);
+	const query = ownProps.location.search;
 	const { categoryId, subCategoryId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
 	const brands = state.brands;
@@ -167,6 +170,8 @@ const mapStateToProps = (state, ownProps) => {
 		sizes,
 		brand,
 		size,
+		sex,
+		query,
 		slug,
 		countView,
 		title: title || 'Каталог'

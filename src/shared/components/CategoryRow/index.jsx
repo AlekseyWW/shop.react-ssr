@@ -5,7 +5,7 @@ import style from './styles.styl';
 
 const CategoryRow = ({ sm, items }) => (
 	<div className={style.CategoryRow}>
-		{ items.map(item => <CategoryItem key={item.id} {...item} sm={sm} />)}
+		{ items.map(item => <CategoryItem key={item.name} {...item} sm={sm} />)}
 	</div>
 );
 CategoryRow.defaultProps = {
