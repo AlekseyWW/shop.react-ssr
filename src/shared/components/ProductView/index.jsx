@@ -87,11 +87,11 @@ class ProductView extends Component {
 							</div>)
 						)}
 					</Swiper>
-					<div className={style.ProductView__navigation}>
-						<div className={style.ProductView__navigation__item} onClick={() => this.slidePrev()}>
-						</div>
-						<div className={style.ProductView__navigation__item} onClick={() => this.slideNext()}>
-						</div>
+					<div className={style.ProductView__navigation__item} onClick={() => this.slidePrev()}>
+						<i />
+					</div>
+					<div className={style.ProductView__navigation__item} onClick={() => this.slideNext()}>
+						<i />
 					</div>
 				</div>
 				<div className={style.ProductView__pagination}>

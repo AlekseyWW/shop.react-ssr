@@ -1,0 +1,69 @@
+@import '../../styles/common.styl'
+$fontSize = 18px
+$paddingTop = $fontSize*0.9
+.SelectField {
+	& {
+		position relative
+		display inline-block
+		line-height 1.2
+		font-size 16px
+		box-sizing border-box
+	}
+	& .Select {
+	}
+	& .Select-control {
+		padding 4px 8px
+		border-radius: 4px
+		font-size 16px
+		height 29px
+		box-sizing border-box
+		border 1px solid #676766
+	}
+	& .Select-placeholder, .Select--single > .Select-control .Select-value {
+		line-height 29px
+	}
+	& .Select-input {
+		height 19px
+		input {
+			padding 0
+			line-height 19px
+			outline-offset 0
+		}
+	}
+	&__input {
+		border 0
+		outline: none
+		padding 0
+		background none
+	}
+	&__icon {
+		margin-right 8px
+	}
+	&__placeholder {
+		position absolute
+		display block
+		bottom 2px
+		left 8px
+		transform translateZ(0)
+		transform-origin 0 0
+		pointer-events none
+		transition transform $duration
+		will-change: transform
+		line-height 1
+	}
+	&_focused, &_value {
+		.Input__placeholder {
+			transform scale(0.75) translateY(-($fontSize*1.2)) translateZ(0)
+			faster()
+		}
+	}
+	&_error {
+		.Input__field {
+			border-color tomato
+		}
+	}
+	&__label {
+		font-size 12px
+		display block
+	}
+}

@@ -12,6 +12,7 @@ import deliveryText from './delivery.json';
 import ModalExample from '../../components/ModalExample';
 import { withRouter } from 'react-router';
 import { InstagramIcon } from 'components/Icon';
+import InputMask from 'react-input-mask';
 import InstagramEmbed from 'react-instagram-embed'
 import { actions } from '../../state/modules/modal.js';
 
@@ -106,61 +107,68 @@ class ProductForm extends Component {
 								</div>
 								<Button text="Подобрать размер" small disabled/>
 							</div>
-							{/* <Button
-								className={style.ProductForm__button}
-								text="Добавить в&nbsp;корзину"
-								onClick={() => this.addToCart()}/> */}
 							<Button
 								className={style.ProductForm__button}
-								text="Оформить заявку"
-								onClick={() => {
-									this.props.openModal({
-										modalType: ModalExample,
-										modalProps: {
-											title: product.name,
-											status: 'order',
-											text: (
-												<form className={style.Modal__form}>
-													{this.state.error &&
-														<div className={style.Modal__error}>
-															{this.state.error}
-														</div>
-													}
-													<input name="phone" className={style.ProductForm__input} type="text" placeholder="Ваш телефон" ref={(el) => this.phone = el} />
-													<input name="name" className={style.ProductForm__input} type="text" placeholder="Ваше имя" ref={(el) => this.name = el} />
-												</form>
-											),
-											subTitle: 'Оставьте свои контактные данные и&nbsp;получите подарок к&nbsp;покупке!',
-											hasClose: true,
-											buttons: [
-												{
-													text: 'Отправить',
-													intent: 'success',
-													className: style.ProductForm__button,
-													onClick: () => {
-														if (!this.phone.value) {
-															alert('Вы не указали телефон')
-															return false;
+								text="Добавить в&nbsp;корзину"
+								onClick={() => this.addToCart()}/>
+							<div className={style.ProductForm__fastOrder}>
+								<p className={style.ProductForm__fastOrder__title}>Купить в&nbsp;один клик</p>
+								<div className={style.ProductForm__fastOrder__form}>
+									<InputMask type="text" placeholder="Ваш номер телефона" className={style.ProductForm__fastOrder__input}/>
+									<Button
+										className={style.ProductForm__button}
+										text="отправить запрос"
+										onClick={() => {
+											this.props.openModal({
+												modalType: ModalExample,
+												modalProps: {
+													title: product.name,
+													status: 'order',
+													text: (
+														<form className={style.Modal__form}>
+															{this.state.error &&
+																<div className={style.Modal__error}>
+																	{this.state.error}
+																</div>
+															}
+															<input name="phone" className={style.ProductForm__input} type="text" placeholder="Ваш телефон" ref={(el) => this.phone = el} />
+															<input name="name" className={style.ProductForm__input} type="text" placeholder="Ваше имя" ref={(el) => this.name = el} />
+														</form>
+													),
+													subTitle: 'Оставьте свои контактные данные и&nbsp;получите подарок к&nbsp;покупке!',
+													hasClose: true,
+													buttons: [
+														{
+															text: 'Отправить',
+															intent: 'success',
+															className: style.ProductForm__button,
+															onClick: () => {
+																if (!this.phone.value) {
+																	alert('Вы не указали телефон')
+																	return false;
+																}
+																if (!this.name.value) {
+																	alert('Вы не указали имя')
+																	return false;
+																}
+																post(
+																	`/colors/${id}/request`,
+																	{
+																		name: this.name.value,
+																		phone: this.phone.value,
+																	},
+																	response => this.onSuccess(),
+																	error => console.log(error)
+																);
+															}
 														}
-														if (!this.name.value) {
-															alert('Вы не указали имя')
-															return false;
-														}
-														post(
-															`/colors/${id}/request`,
-															{
-																name: this.name.value,
-																phone: this.phone.value,
-															},
-															response => this.onSuccess(),
-															error => console.log(error)
-														);
-													}
+													]
 												}
-											]
-										}
-									});
-								}}/>
+											});
+										}}/>
+									<p className={style.ProductForm__agree}>нажимая кнопку "Отправить запрос", Вы подтверждаете, что предоставляете свое согласие на обработку Ваших персональных данных</p>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div className={style.ProductForm__callback}>

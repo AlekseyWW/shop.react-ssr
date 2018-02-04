@@ -8,6 +8,7 @@ import categoryReducer from './modules/category';
 import dataReducer from './modules/data';
 import productsReducer from './modules/products';
 import modal from './modules/modal';
+import sdek from './modules/sdek';
 
 const rootReducer = combineReducers({
   brands: brandsReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   order: orderReducer,
   router: routerReducer,
+  sdek,
   modal,
   form: formReducer
 });

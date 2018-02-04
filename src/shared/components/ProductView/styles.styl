@@ -74,17 +74,33 @@
 			height 0
 		}
 		&__item {
-			width 24px
-			height 24px
-			border: 2px solid transparent
-			border-top-color: #ccc
-			border-right-color: #ccc
-			transform rotate(45deg)
 			cursor pointer
-			&:first-child {
-				border-color: transparent
+			height 100%
+			width 80px
+			position absolute
+			top 0
+			left 0
+			i {
+				width 24px
+				height 24px
+				border: 2px solid transparent
 				border-bottom-color: #ccc
 				border-left-color: #ccc
+				transform rotate(45deg)
+				position absolute
+				top 50%
+				left 50%
+				margin-left -14px
+				margin-top -14px
+			}
+			&:last-child {
+				right 0
+				left auto
+				i {
+					border: 2px solid transparent
+					border-top-color: #ccc
+					border-right-color: #ccc
+				}
 			}
 		}
 	}

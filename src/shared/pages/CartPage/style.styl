@@ -26,8 +26,13 @@
 			}
 		}
 		&_img {
-			grid-width(2)
-			padding 8px 24px
+			grid-width(1.5)
+			padding 12px
+			padding-bottom 0
+			
+			.CartTable__row:last-child & {
+				padding-bottom 12px
+			}
 			@media $phone {
 				padding 8px 16px
 				max-width 60px
