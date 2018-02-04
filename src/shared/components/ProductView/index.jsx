@@ -35,6 +35,7 @@ class ProductView extends Component {
 			slidesPerView: 1,
 			centeredSlides: true,
 			grabCursor: true,
+			spaceBetween: 10,
 			pagination: {
 				type: 'bullets',
 				renderBullet: function (index, className) {
@@ -71,14 +72,13 @@ class ProductView extends Component {
 									smallImage: {
 										alt: 'Wristwatch by Ted Baker London',
 										isFluidWidth: true,
-										src: photo,
-										sizes: '(min-width: 480px) 30vw, 80vw'
+										src: photo
 									},
 									largeImage: {
 										alt: '',
 										src: photo,
-										width: 1000,
-										height: 1000
+										width: 1420,
+										height: 932
 									},
 									isHintEnabled: true,
 									enlargedImagePosition: 'over'
