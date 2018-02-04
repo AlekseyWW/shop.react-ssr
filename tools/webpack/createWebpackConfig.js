@@ -252,7 +252,6 @@ export default function createWebpackConfig(options) {
 				containers: path.resolve(SRC_DIR + '/shared/containers'),
 				config: path.resolve(SRC_DIR + '/shared/config'),
 				actions: path.resolve(SRC_DIR + '/shared/state/actions'),
-				constants: path.resolve(SRC_DIR + '/shared/state/constants'),
 				utils: path.resolve(SRC_DIR + '/shared/utils'),
 			},
 		},
