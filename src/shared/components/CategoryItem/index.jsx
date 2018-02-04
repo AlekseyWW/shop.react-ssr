@@ -14,8 +14,8 @@ const CategoryItem = ({ sm, img, name, textPos, brand, category, size, sex }) =>
 	const queryBrands = brand && brand.length && brand.length > 0 ? brand.map(item => item.name) : []
 	const search = qs.stringify({
 		brand: brand ? (brand.name || queryBrands) : '',
-		size: size|| '',
-		sex: sex.name || ''
+		size: size || '',
+		sex: sex ? sex.name || '' : ''
 	})
 	return (
 		<Link to={{
