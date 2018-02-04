@@ -105,12 +105,28 @@ class ProductForm extends Component {
 										)}
 									)}
 								</div>
-								<Button text="Подобрать размер" small disabled/>
+								<Button
+									text="Подобрать размер"
+									small
+									onClick={
+										() => this.props.openModal({
+											modalType: ModalExample,
+											modalProps: {
+												className: style.ProductForm__sizesModal,
+												title: 'таблица размеров',
+												text: (
+													<img src="/sizes.jpg" alt=""/>
+												),
+												hasClose: true
+											}
+										})
+									}
+								/>
 							</div>
-							<Button
+							{/* <Button
 								className={style.ProductForm__button}
 								text="Добавить в&nbsp;корзину"
-								onClick={() => this.addToCart()}/>
+								onClick={() => this.addToCart()}/> */}
 							<div className={style.ProductForm__fastOrder}>
 								<p className={style.ProductForm__fastOrder__title}>Купить в&nbsp;один клик</p>
 								<div className={style.ProductForm__fastOrder__form}>

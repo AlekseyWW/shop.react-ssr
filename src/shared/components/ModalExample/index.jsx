@@ -11,13 +11,13 @@ const images = {
 }
 class ModalExample extends Component {
     render() {
-        const { title, text, subTitle, buttons, status } = this.props.modalProps;
+        const { title, text, subTitle, buttons, status, className } = this.props.modalProps;
 
         return (
-            <div className="ModalExample">
-                <div className="ModalExample__photo">
+            <div className={`ModalExample ${className}`}>
+                {status && <div className="ModalExample__photo">
                     <img src={images[status]} className="ModalExample__image"/>
-                </div>
+                </div>}
                 <div className="ModalExample__inner">
                     {(title || subTitle) && (
                         <div className="ModalExample__header">

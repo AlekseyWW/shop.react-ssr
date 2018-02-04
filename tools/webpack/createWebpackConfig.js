@@ -271,16 +271,16 @@ export default function createWebpackConfig(options) {
 					exclude: [/apollo-/, /zen-observable-ts/, /react-apollo/, /intl-/],
 				},
 				// url loader for webfonts
-				{
-					test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/,
-					use: {
-						loader: 'url-loader',
-						options: {
-							limit: 10000,
-							name: '/fonts/[name].[ext]',
-						},
-					},
-				},
+				// {
+				// 	test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/,
+				// 	use: {
+				// 		loader: 'url-loader',
+				// 		options: {
+				// 			limit: 10000,
+				// 			name: '/fonts/[name].[ext]',
+				// 		},
+				// 	},
+				// },
 				// url loader to inline small svgs
 				{
 					test: /\.svg$/,

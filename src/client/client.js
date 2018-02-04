@@ -14,6 +14,15 @@ const history = createHistory();
 const preloadedState = window.__PRELOADED_STATE__;
 const store = configureStore(preloadedState, history);
 
+let prevLocation = {};
+history.listen(location => {
+	const pathChanged = prevLocation.pathname !== location.pathname;
+	const hashChanged = prevLocation.hash !== location.hash;
+	if (pathChanged || hashChanged) window.scrollTo(0, 0);
+	prevLocation = location;
+});
+
+
 const renderApp = App => {
 	const MOUNT_POINT = document.getElementById('app');
 	// in React 16 ReactDOM.render becomes ReactDOM.hydrate

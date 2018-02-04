@@ -22,8 +22,10 @@ class ModalContainer extends Component {
 		})
 	}
 	render() {
-		const { modalType, modalProps: { hasClose = true }, status } = this.props;
-
+		const { modalType, modalProps: { hasClose = true }, className, status } = this.props;
+		console.log('====================================');
+		console.log(this.props);
+		console.log('====================================');
 		const SpecificModal = modalType;
 		return (
 			<TransitionGroup>
