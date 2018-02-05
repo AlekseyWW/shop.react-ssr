@@ -6,6 +6,7 @@ import Promo from 'components/Promo/';
 import Category from 'containers/Category/';
 import BrandList from 'components/BrandList/';
 import NewPropducts from 'containers/NewPropducts/';
+// import InstagrammBlock from 'containers/InstagrammBlock/';
 import * as productsAction from 'actions/products';
 import * as categoryAction from 'actions/category';
 import brandsAction from 'actions/brands';
@@ -49,6 +50,7 @@ class MainPage extends Component {
 				<Helmet title="Главная" />
 				<Promo content={text.promo} />
 				<Category categories={categories} />
+				{/* <InstagrammBlock /> */}
 			</div>
 		);
 	}
