@@ -69,13 +69,15 @@ class ProductForm extends Component {
 			hasClose: true,
 			buttons: []
 		}
+		const groupSizes = _.groupBy(activeColor.sizes, 'sex');
+
 		return (
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>
 					<div className={style.ProductForm__head}>
 						<p className={style.ProductForm__title}>{product.name}</p>
 						{/* <p className={style.ProductForm__subline}>{product.name}</p> */}
-						
+
 					</div>
 					<div className={style.ProductForm__price}>
 						<p className={style.ProductForm__price__value}>{product.isSale ? product.price : product.oldPrice} руб.</p>
@@ -95,7 +97,7 @@ class ProductForm extends Component {
 						<div className={style.ProductForm__buttons}>
 							<div className={style.ProductForm__sizes}>
 								<div className={style.ProductForm__sizes__container}>
-									{activeColor.sizes.map(size => {
+									{/* {activeColor.sizes.map(size => {
 										const sizeClass = classNames({
 											[`${style.ProductForm__sizes__item}`]: true,
 											[`${style.ProductForm__sizes__item_active}`]: size === this.state.activeSize,
@@ -103,6 +105,55 @@ class ProductForm extends Component {
 										return (
 											<div onClick={() => this.setState({ activeSize: size })} className={sizeClass} key={size.id}>{size.name}</div>
 										)}
+									)} */}
+
+									{groupSizes['Мужской'] && (
+										<div className={style.ProductForm__sizes__row}>
+											<p>Мужские</p>
+											<div className={style.ProductForm__sizes__rowContainer}>
+												{groupSizes['Мужской'].map(size => {
+													const sizeClass = classNames({
+														[`${style.ProductForm__sizes__item}`]: true,
+														[`${style.ProductForm__sizes__item_active}`]: size === this.state.activeSize,
+													})
+													return (
+														<div onClick={() => this.setState({ activeSize: size })} className={sizeClass} key={size.id}>{size.name}</div>
+													)
+												})}
+											</div>
+										</div>
+									)}
+									{groupSizes['Женский'] && (
+										<div className={style.ProductForm__sizes__row}>
+											<p>Женские</p>
+											<div className={style.ProductForm__sizes__rowContainer}>
+												{groupSizes['Женский'].map(size => {
+													const sizeClass = classNames({
+														[`${style.ProductForm__sizes__item}`]: true,
+														[`${style.ProductForm__sizes__item_active}`]: size === this.state.activeSize,
+													})
+													return (
+														<div onClick={() => this.setState({ activeSize: size })} className={sizeClass} key={size.id}>{size.name}</div>
+													)
+												})}
+											</div>
+										</div>
+									)}
+									{groupSizes['Детский'] && (
+										<div className={style.ProductForm__sizes__row}>
+											<p>Детские</p>
+											<div className={style.ProductForm__sizes__rowContainer}>
+												{groupSizes['Детский'].map(size => {
+													const sizeClass = classNames({
+														[`${style.ProductForm__sizes__item}`]: true,
+														[`${style.ProductForm__sizes__item_active}`]: size === this.state.activeSize,
+													})
+													return (
+														<div onClick={() => this.setState({ activeSize: size })} className={sizeClass} key={size.id}>{size.name}</div>
+													)
+												})}
+											</div>
+										</div>
 									)}
 								</div>
 								<Button
@@ -130,57 +181,30 @@ class ProductForm extends Component {
 							<div className={style.ProductForm__fastOrder}>
 								<p className={style.ProductForm__fastOrder__title}>Купить в&nbsp;один клик</p>
 								<div className={style.ProductForm__fastOrder__form}>
-									<InputMask type="text" placeholder="Ваш номер телефона" className={style.ProductForm__fastOrder__input}/>
+									<InputMask
+										type="text"
+										placeholder="Ваш номер телефона"
+										className={style.ProductForm__fastOrder__input}
+										mask="+7\ 999 999-99-99"
+										ref={(el) => this.phone = el}
+										maskChar=""
+									/>
 									<Button
 										className={style.ProductForm__button}
 										text="отправить запрос"
 										onClick={() => {
-											this.props.openModal({
-												modalType: ModalExample,
-												modalProps: {
-													title: product.name,
-													status: 'order',
-													text: (
-														<form className={style.Modal__form}>
-															{this.state.error &&
-																<div className={style.Modal__error}>
-																	{this.state.error}
-																</div>
-															}
-															<input name="phone" className={style.ProductForm__input} type="text" placeholder="Ваш телефон" ref={(el) => this.phone = el} />
-															<input name="name" className={style.ProductForm__input} type="text" placeholder="Ваше имя" ref={(el) => this.name = el} />
-														</form>
-													),
-													subTitle: 'Оставьте свои контактные данные и&nbsp;получите подарок к&nbsp;покупке!',
-													hasClose: true,
-													buttons: [
-														{
-															text: 'Отправить',
-															intent: 'success',
-															className: style.ProductForm__button,
-															onClick: () => {
-																if (!this.phone.value) {
-																	alert('Вы не указали телефон')
-																	return false;
-																}
-																if (!this.name.value) {
-																	alert('Вы не указали имя')
-																	return false;
-																}
-																post(
-																	`/colors/${id}/request`,
-																	{
-																		name: this.name.value,
-																		phone: this.phone.value,
-																	},
-																	response => this.onSuccess(),
-																	error => console.log(error)
-																);
-															}
-														}
-													]
-												}
-											});
+											if (!this.phone.value) {
+												alert('Вы не указали телефон');
+												return false;
+											}
+											post(
+												`/colors/${id}/request`,
+												{
+													phone: this.phone.value,
+												},
+												response => this.onSuccess(),
+												error => console.log(error)
+											);
 										}}/>
 									<p className={style.ProductForm__agree}>нажимая кнопку "Отправить запрос", Вы подтверждаете, что предоставляете свое согласие на обработку Ваших персональных данных</p>
 								</div>
