@@ -72,7 +72,8 @@ class ProductView extends Component {
 									smallImage: {
 										alt: 'Wristwatch by Ted Baker London',
 										isFluidWidth: true,
-										src: photo
+										src: photo,
+										sizes: '(min-width: 480px) 100%, 360px'
 									},
 									largeImage: {
 										alt: '',
