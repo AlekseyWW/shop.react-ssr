@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { getExtendedList } from 'utils/helpers';
 
+import { get } from 'utils/api';
+
 // Constants
 const LOAD_SLIDER_START = 'LOAD_SLIDER_START';
 const LOAD_SLIDER_SUCCESS = 'LOAD_SLIDER_SUCCESS';
@@ -72,16 +74,11 @@ const loadSliderFailure = error => ({
 // Action Creators
 export const loadSlider = () => dispatch => {
 	dispatch(loadSliderStart());
-	const url = 'http://test-api-shop.abo-soft.com/slider-items';
-	return axios({
-		method: 'get',
+	const url = '/slider-items';
+	return get(
 		url,
-	})
-		.then(res => {
-			const { data } = res;
-			return dispatch(loadSliderSuccess(data));
-		})
-		.catch(err => {
-			dispatch(loadSliderFailure(err.message));
-		});
+		{},
+		response => dispatch(loadSliderSuccess(response)),
+		error => dispatch(loadSliderFailure(err.message))
+	)
 };
