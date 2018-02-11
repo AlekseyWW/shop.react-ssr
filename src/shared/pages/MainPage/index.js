@@ -25,20 +25,20 @@ class MainPage extends Component {
 		return store.dispatch(productsAction.getPromoProducts());
 	}
 	componentDidMount() {
-		const { isLoading, isLoaded, getProducts, getCategories, getPromoCategories, slider, loadSlider } = this.props;
-		if (!isLoading && !isLoaded) getProducts();
-		getPromoCategories();
-		getCategories();
+		const { isPromoLoading, isPromoLoaded, categories, promoCategories, getProducts, getCategories, getPromoCategories, slider, loadSlider } = this.props;
+		if (!isPromoLoading && !isPromoLoaded) getProducts();
+		if (!promoCategories.isLoading && !promoCategories.isLoaded) getPromoCategories();
+		if (!categories.isLoading && !categories.isLoaded) getCategories();
 		if (!slider.isLoading && !slider.isLoaded) loadSlider();
 	}
 	render() {
-		const { propmoCategories, sex, isLoaded, isLoading, promoProducts, slider, categories } = this.props;
+		const { promoCategories, sex, promoProducts, slider, categories } = this.props;
 		// const currentProducts = _.filter(promoProducts, {top: true})
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />
-				{categories && <Promo categories={categories} slides={slider.slider} />}
-				{propmoCategories && categories && <Category categories={propmoCategories} categories={categories}/>}
+				{categories.items && <Promo categories={categories.items} slides={slider.slider} content={text.promo}/>}
+				{promoCategories.tems && categories.items && <Category items={promoCategories.items} categories={categories.items}/>}
 				<InstagrammGallery />
 				{promoProducts && <NewPropducts products={promoProducts} />}
 			</div>
@@ -52,27 +52,27 @@ MainPage.defaultProps = {
 
 MainPage.propTypes = {
 	sex: PropTypes.string,
-	isLoading: PropTypes.bool.isRequired,
+	isPromoLoading: PropTypes.bool.isRequired,
 	promoProducts: PropTypes.array,
-	isLoaded: PropTypes.bool.isRequired,
+	isPromoLoaded: PropTypes.bool.isRequired,
 	getProducts: PropTypes.func.isRequired,
-	categories: PropTypes.array.isRequired
+	categories: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
 	const { sex } = ownProps.match.params;
-	const { promoProducts, isLoading, isLoaded } = state.products;
+	const { promoProducts, isPromoLoading, isPromoLoaded } = state.products;
 	const slider = state.slider;
-	const { items } = state.category.promoCategories;
-	const { items: categories } = state.category.categories;
-	return { sex, propmoCategories: items, promoProducts, isLoading, isLoaded, slider, categories };
+	const promoCategories = state.category.promoCategories;
+	const categories = state.category.categories;
+	return { sex, promoCategories, promoProducts, isPromoLoading, isPromoLoaded, slider, categories };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {	
 	return ({
 		getProducts: () => dispatch(productsAction.getPromoProducts()),
-		getPromoCategories: () => dispatch(categoryAction.getPromoCategories(productConfig)),
-		getCategories: () => dispatch(categoryAction.getCategories(productConfig)),
+		getPromoCategories: () => dispatch(categoryAction.getPromoCategories()),
+		getCategories: () => dispatch(categoryAction.getCategories()),
 		loadSlider: () => dispatch(sliderAction.loadSlider()),
 		getBrands: () => dispatch(brandsAction())
 	});

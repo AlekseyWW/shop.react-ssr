@@ -6,7 +6,7 @@ import { WhatsupIcon } from 'components/Icon';
 import qs from 'query-string';
 import style from './styles.styl';
 
-const PromoItem = ({ link, img, name, description, brand, category, sex, size, slug}) => {
+const PromoItem = ({ title, link, img, name, description, brand, category, sex, size, slug}) => {
 	const styles = {
 		backgroundImage: `url(${img})`
 	};

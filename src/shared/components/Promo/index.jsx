@@ -8,16 +8,13 @@ import Swiper from 'react-id-swiper';
 import style from './styles.styl';
 
 class Promo extends Component {
-	componentWillReceiveProps(nextProps) {
-		// this.swiper.swiper.update()
-	}
 	getSlug = (name) => {
 		const category = _.find(this.props.categories, b => b.slug === name || typeof _.find(b.items, b => b.slug === name) !== 'undefined');
 		const slug = category ? category.slug === name ? `${category.slug}` : `${category.slug}/${_.find(category.items, b => b.slug === name).slug}` : '';
 		return slug;
 	}
 	render() {
-		const { categories, slides } = this.props;
+		const { categories, content, slides } = this.props;
 		const params = {
 			containerClass: style.Promo__container,
 			wrapperClass: style.Promo__wrapper,
@@ -46,7 +43,7 @@ class Promo extends Component {
 							)}
 						)}
 					</Swiper> : 
-					<Preloader />
+					<PromoItem {...content[0]}/>
 				}
 			</div>
 		)

@@ -79,9 +79,6 @@ export const loadSlider = () => dispatch => {
 	})
 		.then(res => {
 			const { data } = res;
-			console.log('====================================');
-			console.log(data);
-			console.log('====================================');
 			return dispatch(loadSliderSuccess(data));
 		})
 		.catch(err => {
