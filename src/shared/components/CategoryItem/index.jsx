@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import qs from 'query-string';
 import style from './styles.styl';
 
-const CategoryItem = ({ sm, img, name, textPos, brand, category, size, sex }) => {
+const CategoryItem = ({ sm, img, name, textPos, brand, category, categories, size, sex }) => {
 	const styles = classNames({
 		[`${style.CategoryItem}`]: true,
 		[`${style.CategoryItem_sm}`]: sm,
@@ -18,10 +18,15 @@ const CategoryItem = ({ sm, img, name, textPos, brand, category, size, sex }) =>
 		size: size || '',
 		sex: sex ? sex.name || '' : '',
 	});
+	const getSlug = (name) => {
+		const category = _.find(categories, b => b.slug === name || typeof _.find(b.items, b => b.slug === name) !== 'undefined');
+		const slug = category ? category.slug === name ? `${category.slug}` : `${category.slug}/${_.find(category.items, b => b.slug === name).slug}` : '';
+		return slug;
+	}
 	return (
 		<Link
 			to={{
-				pathname: category ? `/catalog/${category.slug}` : '/catalog',
+				pathname: category ? `/catalog/${getSlug(category.slug)}` : '/catalog',
 				search,
 			}}
 			className={styles}>

@@ -86,7 +86,7 @@ const getPromoProductsError = error => {
 export const getPromoProducts = data => (dispatch) => {
 	dispatch(getPromoProductsStart());
 	return get(
-		'/products/promo',
+		'/colors/top',
 		data,
 		response => dispatch(getPromoProductsSuccess(response)),
 		error => dispatch(getPromoProductsError(error.message))

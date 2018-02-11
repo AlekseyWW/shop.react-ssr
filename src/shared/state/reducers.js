@@ -9,6 +9,7 @@ import dataReducer from './modules/data';
 import productsReducer from './modules/products';
 import modal from './modules/modal';
 import sdek from './modules/sdek';
+import slider from './modules/slider';
 
 const rootReducer = combineReducers({
   brands: brandsReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   router: routerReducer,
   sdek,
   modal,
+  slider,
   form: formReducer
 });
 

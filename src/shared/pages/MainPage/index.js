@@ -6,7 +6,9 @@ import Promo from 'components/Promo/';
 import Category from 'containers/Category/';
 import BrandList from 'components/BrandList/';
 import NewPropducts from 'containers/NewPropducts/';
+import InstagrammGallery from 'components/InstagrammGallery';
 import * as productsAction from 'actions/products';
+import * as sliderAction from '../../state/modules/slider';
 import * as categoryAction from 'actions/category';
 import brandsAction from 'actions/brands';
 import text from 'config/mainPage.json';
@@ -20,35 +22,25 @@ class MainPage extends Component {
 		categories: PropTypes.array.isRequired
 	};
 	static fetchData({ store, params }) {
-		// const productConfig = {
-		// 	offset: 0,
-		// 	count: 12,
-		// 	sortBy: 'date',
-		// 	sex: params.sex || '',
-		// 	categories: '',
-		// 	subCategoryId: '',
-		// 	filter: {
-		// 		categories: 'all',
-		// 		brands: '',
-		// 		priceFrom: '',
-		// 		priceTo: ''
-		// 	}
-		// };
 		return store.dispatch(productsAction.getPromoProducts());
 	}
 	componentDidMount() {
-		const { isLoading, isLoaded, getProducts, getCategories } = this.props;
+		const { isLoading, isLoaded, getProducts, getCategories, getPromoCategories, slider, loadSlider } = this.props;
 		if (!isLoading && !isLoaded) getProducts();
+		getPromoCategories();
 		getCategories();
+		if (!slider.isLoading && !slider.isLoaded) loadSlider();
 	}
 	render() {
-		const { categories, sex, isLoaded, isLoading, promoProducts } = this.props;
+		const { propmoCategories, sex, isLoaded, isLoading, promoProducts, slider, categories } = this.props;
 		// const currentProducts = _.filter(promoProducts, {top: true})
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />
-				<Promo content={text.promo} />
-				<Category categories={categories} />
+				{categories && <Promo categories={categories} slides={slider.slider} />}
+				{propmoCategories && categories && <Category categories={propmoCategories} categories={categories}/>}
+				<InstagrammGallery />
+				{promoProducts && <NewPropducts products={promoProducts} />}
 			</div>
 		);
 	}
@@ -70,29 +62,18 @@ MainPage.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	const { sex } = ownProps.match.params;
 	const { promoProducts, isLoading, isLoaded } = state.products;
+	const slider = state.slider;
 	const { items } = state.category.promoCategories;
-	return { sex, categories: items, promoProducts, isLoading, isLoaded };
+	const { items: categories } = state.category.categories;
+	return { sex, propmoCategories: items, promoProducts, isLoading, isLoaded, slider, categories };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	const productConfig = {
-		offset: 0,
-		count: 12,
-		sortBy: 'date',
-		sex: ownProps.match.params.sex || '',
-		categories: '',
-		subCategoryId: '',
-		filter: {
-			categories: 'all',
-			brands: '',
-			priceFrom: '',
-			priceTo: ''
-		}
-	};
-	
+const mapDispatchToProps = (dispatch, ownProps) => {	
 	return ({
-		getProducts: () => dispatch(productsAction.getPromoProducts(productConfig)),
-		getCategories: () => dispatch(categoryAction.getPromoCategories(productConfig)),
+		getProducts: () => dispatch(productsAction.getPromoProducts()),
+		getPromoCategories: () => dispatch(categoryAction.getPromoCategories(productConfig)),
+		getCategories: () => dispatch(categoryAction.getCategories(productConfig)),
+		loadSlider: () => dispatch(sliderAction.loadSlider()),
 		getBrands: () => dispatch(brandsAction())
 	});
 };

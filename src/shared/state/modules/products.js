@@ -57,7 +57,7 @@ export default function products(state = initialState, action) {
 				...state,
 				isLoading: false,
 				isLoaded: true,
-				promoProducts: action.products,
+				promoProducts: action.products.colors,
 				category: 'new',
 				error: null
 			};

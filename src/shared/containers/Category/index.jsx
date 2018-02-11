@@ -13,13 +13,13 @@ class Category extends Component {
 		if (!isLoaded && !isLoading) getCategories();
 	}
 	render() {
-		const { isLoaded, isLoading, items, getCategories } = this.props;
-		const categories = chunk(items, 3);
+		const { isLoaded, isLoading, items, getCategories, categories } = this.props;
+		const currentCategories = chunk(items, 3);
 		return (
 			<div className={style.Category}>
 				<div className={style.Category__list}>
-					{categories[1] && <CategoryRow items={categories[1]}/>}
-					{categories[0] && <CategoryRow items={categories[0]} sm/>}
+					{currentCategories[1] && <CategoryRow categories={categories} items={currentCategories[1]}/>}
+					{currentCategories[0] && <CategoryRow categories={categories} items={currentCategories[0]} sm/>}
 				</div>
 			</div>
 		);

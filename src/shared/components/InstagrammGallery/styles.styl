@@ -1,0 +1,57 @@
+.InstagrammGallery {
+	grid-width()
+	margin 0 auto
+	margin-bottom 40px
+	&__top {
+		text-align center
+		margin-bottom 24px
+	}
+	&__link {
+		color #000000
+		font-size 24px
+		display inline-flex
+		align-items center
+		@media $phone {
+			font-size 14px
+		}
+		svg {
+			margin-right 12px
+		}
+		&:hover {
+			svg {
+
+			}
+		}
+	}
+	&__container {
+		display flex
+		grid-width(14)
+		grid-width(-1, margin-left)
+
+		@media $phone {
+			flex-wrap: wrap
+			margin 0
+		}
+	}
+
+	&__item {
+		flex 1
+		margin-right 12px
+
+		@media $phone {
+			min-width: 25%
+			margin 0
+			box-sizing border-box
+			padding 8px
+		}
+		@media $verticalPhone {
+			min-width: 50%
+		}
+		&:last-child {
+			margin-right 0
+		}
+		&__background {
+			width 100%
+		}
+	}
+}
