@@ -9,7 +9,6 @@ const params = {
 	slidesPerView: 'auto',
 	loop: true,
 	loopedSlides: 5,
-	freeMode: true,
 	grabCursor: true
 }
 const NewProducts = ({ products }) => (
