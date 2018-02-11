@@ -21,7 +21,7 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation }) => {
 		[`${style.SideBar__filter__sublist}`]: true,
 		[`${style.SideBar__filter__sublist_active}`]: isActive,
 	})
-	const url = historyLocation ? `/catalog/${category.slug}${historyLocation}` : `/catalog/${category.slug}`;
+	const url = historyLocation ? `/catalog/${category.slug}` : `/catalog/${category.slug}`;
 	return (
 		<div>
 			<Link to={url} key={category.id} className={styles}>{category.name}</Link>

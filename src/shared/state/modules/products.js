@@ -40,7 +40,6 @@ export default function products(state = initialState, action) {
 				products: action.products,
 				allCount: action.allCount,
 				sizes: action.sizes,
-				category: action.category,
 				error: null
 			};
 

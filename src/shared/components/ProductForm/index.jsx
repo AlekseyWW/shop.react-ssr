@@ -34,8 +34,9 @@ class ProductForm extends Component {
 		this.setState({ modalIsOpen: false });
 	}
 	onSuccess() {
-		this.setState({error: null})
-		this.props.closeModal()
+		this.setState({error: null});
+		yaCounter47068560.reachGoal('RESPONSE');
+		this.props.closeModal();
 		this.props.history.replace('/success')
 	}
 	addToCart() {
