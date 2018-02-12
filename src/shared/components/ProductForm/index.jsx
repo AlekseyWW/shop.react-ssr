@@ -207,8 +207,8 @@ class ProductForm extends Component {
 												error => console.log(error)
 											);
 										}}/>
-									<p className={style.ProductForm__agree}>нажимая кнопку "Отправить запрос", Вы подтверждаете, что предоставляете свое согласие на обработку Ваших персональных данных</p>
 								</div>
+								<p className={style.ProductForm__agree}>нажимая кнопку "Отправить запрос", Вы подтверждаете, что предоставляете свое согласие на обработку Ваших персональных данных</p>
 							</div>
 						</div>
 					</div>

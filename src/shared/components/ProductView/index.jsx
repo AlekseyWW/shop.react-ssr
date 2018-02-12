@@ -59,8 +59,8 @@ class ProductView extends Component {
 
 					</div>
 					<div className={style.ProductView__price}>
-						<p className={style.ProductForm__price__value}>{product.isSale ? product.price : product.oldPrice} руб.</p>
-						{product.isSale && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>}
+						<p className={style.ProductView__price__value}>{product.isSale ? product.price : product.oldPrice} руб.</p>
+						{product.isSale && <p className={style.ProductView__price__old}>{product.oldPrice} руб.</p>}
 					</div>
 				</div>
 				<div className={style.ProductView__image}>

@@ -2,7 +2,7 @@
 
 .ProductForm {
 	& {
-		grid-width(4.5)
+		grid-width(4)
 		float left
 		clearfix()
 		box-sizing border-box
@@ -111,14 +111,14 @@
 			margin-bottom 20px
 		}
 		&__title {
-			grid-width(1.5)
+			grid-width(1)
 			display inline-block
 			vertical-align top
 			line-height 1.2
 		}
 		&__inner {
 			grid-width(3)
-			padding-left 10px
+			padding-left 20px
 			box-sizing border-box
 			display inline-block
 			vertical-align top
@@ -222,6 +222,15 @@
 	}
 	&__fastOrder {
 
+		&__form {
+			display flex
+			margin-bottom 16px
+			align-items center
+			@media $phone {
+				flex-direction column
+				align-items flex-start
+			}
+		}
 		&__title {
 			font-size 20px
 			margin-bottom 12px
@@ -236,10 +245,13 @@
 			border-right 0
 			margin-right 24px
 			border-radius 0
+			@media $phone {
+				margin-bottom 16px
+			}
 		}
 		.ProductForm__button {
 			font-size 14px !important
-			margin-bottom 8px
+			white-space nowrap
 		}
 	}
 	&__agree {

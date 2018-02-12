@@ -28,8 +28,8 @@ const ProductCard = ({ sm, category, img, slug, name, price, product }) => {
 					</span>
 				</div>
 				<span className={style.ProductCard__price}>
-					{product.oldPrice && <span>{product.oldPrice}&nbsp;&#8381;</span> }
 					{product.price && <span>{product.price}&nbsp;&#8381;</span>}
+					{product.oldPrice && <span>{product.oldPrice}&nbsp;&#8381;</span> }
 				</span>
 			</div>
 		</Link>
