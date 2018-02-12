@@ -39,8 +39,8 @@ class MainPage extends Component {
 				<Helmet title="Главная" />
 				{categories.items && <Promo categories={categories.items} slides={slider.slider} content={text.promo}/>}
 				{promoCategories.items && categories.items && <Category items={promoCategories.items} categories={categories.items}/>}
-				<InstagrammGallery />
 				{promoProducts && <NewPropducts products={promoProducts} />}
+				<InstagrammGallery />
 			</div>
 		);
 	}
