@@ -48,6 +48,7 @@ let BarFilter = (props) => {
 				</div>
 			</div>
 			<Button text="применить" className={style.SideBar__button} type="submit" />
+			<Button text="сбросить" className={style.SideBar__button} onClick={props.reset} />
 		</form>
 	);
 };

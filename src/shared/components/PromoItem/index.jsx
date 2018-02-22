@@ -6,16 +6,20 @@ import { WhatsupIcon } from 'components/Icon';
 import qs from 'query-string';
 import style from './styles.styl';
 
-const PromoItem = ({ title, link, img, name, description, brand, category, sex, size, slug}) => {
+const PromoItem = ({ title, customCategory, link, img, name, description, brand, category, sex, size, slug}) => {
 	const styles = {
 		backgroundImage: `url(${img})`
 	};
-	const filter = brand || category || sex || size ? {
+	let filter = brand || category || sex || size ? {
 		brand: brand ? brand.name : '',
 		sex: sex ? sex.name : '',
 		size: size ? size : ''
 	} : null;
-	const url = slug ? `/catalog/${slug}` : `/catalog`;
+	let url = slug ? customCategory ? `/${customCategory.slug}/catalog/${slug}` : `/catalog/${slug}` : customCategory ? `/${customCategory.slug}/catalog` :`/catalog`;
+	if (customCategory && customCategory.colors.length === 1) {
+		url = `/products/${customCategory.colors[0].product.slug}`
+		filter = { color: customCategory.colors[0].name }
+	}
 	return (
 		<div className={style.PromoItem} style={styles} >
 			<div className={style.PromoItem__inner}>
@@ -30,7 +34,7 @@ const PromoItem = ({ title, link, img, name, description, brand, category, sex, 
 						}
 					</p>
 					{!description && <p className={style.PromoItem__text}>{HtmlParser('Для просмотра каталога жмите ниже')}</p>}
-					{filter ?
+					{filter || customCategory ?
 						<Link
 							className={style.PromoItem__link}
 							to={{

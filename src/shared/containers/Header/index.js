@@ -12,8 +12,9 @@ import { setCart } from '../../state/actions/cart';
 
 class Header extends Component { 
 	componentDidMount() {
-		const { isLoaded, isLoading, getCategories, setCart } = this.props;
+		const { isLoaded, isLoading, getCategories, setCart, getStockCategories } = this.props;
 		if (!isLoaded && !isLoading) getCategories();
+		if (!getStockCategories.isLoaded && !getStockCategories.isLoading) getStockCategories();
 		const cart = localStorage.getItem("cart");
 		if (cart) {
 			setCart(JSON.parse(cart));
@@ -33,6 +34,7 @@ class Header extends Component {
 Header.propTypes = {
 	items: PropTypes.array.isRequired,
 	getCategories: PropTypes.func.isRequired,
+	getStockCategories: PropTypes.func.isRequired,
 	cart: PropTypes.array.isRequired,
 	isLoading: PropTypes.bool.isRequired,
 	isLoaded: PropTypes.bool.isRequired
@@ -40,12 +42,14 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => {
 	const { isLoaded, isLoading, items } = state.category.categories;
+	const { getStockCategories } = state.category;
 	const cart = state.cart.added;
 	return { isLoaded, isLoading, items, cart };
 };
 
 const mapDispatchToProps = dispatch => ({
 	getCategories: () => dispatch(categoryAction.getCategories()),
+	getStockCategories: () => dispatch(categoryAction.getStockCategories()),
 	setCart: (cart) => dispatch(cartAction.setCart(cart))
 });
 

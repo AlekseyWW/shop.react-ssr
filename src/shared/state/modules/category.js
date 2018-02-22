@@ -12,6 +12,12 @@ const initialState = {
 		isLoaded: false,
 		items: [],
 		error: null,
+	},
+	stockCategories: {
+		isLoading: false,
+		isLoaded: false,
+		items: [],
+		error: null,
 	}
 };
 export default function categories(state = initialState, action) {
@@ -43,6 +49,40 @@ export default function categories(state = initialState, action) {
 			return {
 				...state,
 				categories: {
+					isLoading: false,
+					isLoaded: false,
+					items: [],
+					error: action.error
+				}
+			};
+
+		case types.GET_STOCK_CATEGORIES_START:
+			return {
+				...state,
+				stockCategories: {
+					isLoading: true,
+					isLoaded: false,
+					items: [],
+					error: null
+				}
+			};
+
+		case types.GET_STOCK_CATEGORIES_SUCCESS:
+			return {
+				...state,
+				stockCategories: {
+					isLoading: false,
+					isLoaded: true,
+					items: action.categories,
+					error: null
+				}
+			};
+
+
+		case types.GET_STOCK_CATEGORIES_FAILURE:
+			return {
+				...state,
+				stockCategories: {
 					isLoading: false,
 					isLoaded: false,
 					items: [],

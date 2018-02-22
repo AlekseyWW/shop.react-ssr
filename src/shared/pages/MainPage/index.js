@@ -33,7 +33,6 @@ class MainPage extends Component {
 	}
 	render() {
 		const { promoCategories, sex, promoProducts, slider, categories } = this.props;
-		// const currentProducts = _.filter(promoProducts, {top: true})
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />

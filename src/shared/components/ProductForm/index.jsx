@@ -81,8 +81,8 @@ class ProductForm extends Component {
 
 					</div>
 					<div className={style.ProductForm__price}>
-						<p className={style.ProductForm__price__value}>{product.isSale ? product.price : product.oldPrice} руб.</p>
-						{product.isSale && <p className={style.ProductForm__price__old}>{product.oldPrice} руб.</p>}
+						<p className={style.ProductForm__price__value}>{activeColor.isSale ? activeColor.price : activeColor.oldPrice} руб.</p>
+						{activeColor.isSale && <p className={style.ProductForm__price__old}>{activeColor.oldPrice} руб.</p>}
 						<span className={style.ProductForm__callback__note}>Наличие товара вашего размера и понравившегося цвета можно уточнить оформив заявку, или написав нам в <a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank">WhatsApp.</a></span>
 					</div>
 					<div className={style.ProductForm__action}>

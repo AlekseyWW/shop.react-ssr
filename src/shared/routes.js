@@ -37,6 +37,21 @@ export default [
 		component: CatalogPage,
 	},
 	{
+		path: '/:stockId/catalog',
+		exact: true,
+		component: CatalogPage,
+	},
+	{
+		path: '/:stockId/catalog/:categoryId',
+		exact: true,
+		component: CatalogPage,
+	},
+	{
+		path: '/:stockId/catalog/:categoryId/:subCategoryId',
+		exact: true,
+		component: CatalogPage,
+	},
+	{
 		path: '/products/:productId',
 		exact: true,
 		component: ProductPage,

@@ -16,9 +16,9 @@ const InstagrammGallery = () => {
 			<div id='instafeed'className={style.InstagrammGallery__container}>
 				<Instafeed
 					limit='8'
-					userId='2108455117'
-					clientId='5cc12975ce224c448b17f20b3699d36d'
-					accessToken='2108455117.5cc1297.889a7d8bc09d4e27beb824af9c74a2cd'
+					userId='7001519386'
+					clientId='66b37bccaeff40299c34d431c00f41fe'
+					accessToken='7001519386.66b37bc.e34fb9ee21d441bf9f5511cdb6899ce5'
 					template={
 						`<a href='{{link}}' target='_blank' class='InstagrammGallery__item'>
 							<img class='InstagrammGallery__item__background' src='{{image}}' />
