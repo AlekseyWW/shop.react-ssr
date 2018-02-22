@@ -10,8 +10,12 @@ const PromoItem = ({ title, customCategory, link, img, name, description, brand,
 	const styles = {
 		backgroundImage: `url(${img})`
 	};
+	const brands = [];
+	if (brand) {
+		brands.push(brand.name)
+	}
 	let filter = brand || category || sex || size ? {
-		brand: brand ? brand.name : '',
+		brand: brands,
 		sex: sex ? sex.name : '',
 		size: size ? size : ''
 	} : null;
