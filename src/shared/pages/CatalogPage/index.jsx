@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as productsAction from 'actions/products';
+import * as categoryAction from 'actions/category';
 import brandsAction from 'actions/brands';
 import MainBlock from 'containers/MainBlock/';
 import PageInfo from 'containers/PageInfo/';
@@ -45,7 +46,11 @@ class Catalog extends Component {
 			...query
 		};
 		const category = params.subCategoryId || params.categoryId;
-		return store.dispatch(productsAction.getProducts(productConfig, category));
+		return Promise.all([
+			store.dispatch(productsAction.getProducts(productConfig, category)),
+			store.dispatch(categoryAction.getCategories()),
+			store.dispatch(categoryAction.getStockCategories())
+		]);
 	}
 	componentDidUpdate(prevProps) {
 		const category = this.props.subCategoryId || this.props.categoryId;
@@ -190,6 +195,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
+	getCategories: () => dispatch(categoryAction.getCategories()),
+	getStockCategories: () => dispatch(categoryAction.getStockCategories()),
 	getProducts: (productConfig, category) => dispatch(productsAction.getProducts(productConfig, category)),
 	getBrands: () => dispatch(brandsAction())
 });

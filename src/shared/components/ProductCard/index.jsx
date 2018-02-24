@@ -6,7 +6,7 @@ import { ShadowIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
-const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, product }) => {
+const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, product }) => {
 	const className = classNames({
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
@@ -28,7 +28,7 @@ const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, product }
 					</span>
 				</div>
 				<span className={style.ProductCard__price}>
-					{price && <span>{price}&nbsp;&#8381;</span>}
+					{isSale && <span>{price}&nbsp;&#8381;</span>}
 					{oldPrice && <span>{oldPrice}&nbsp;&#8381;</span> }
 				</span>
 			</div>
