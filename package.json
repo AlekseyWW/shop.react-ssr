@@ -78,6 +78,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-burger-menu": "^2.1.11",
+    "react-click-outside": "^3.0.1",
     "react-dom": "^16.0.0",
     "react-facebook-pixel": "^0.1.0",
     "react-helmet": "^5.2.0",

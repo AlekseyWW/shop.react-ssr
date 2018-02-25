@@ -33,15 +33,8 @@ class ProductView extends Component {
 			containerClass: style.ProductView__container,
 			wrapperClass: style.ProductView__wrapper,
 			slidesPerView: 1,
-			centeredSlides: true,
-			grabCursor: true,
-			spaceBetween: 10,
-			pagination: {
-				type: 'bullets',
-				renderBullet: function (index, className) {
-					return '<span class="' + className + '">' + (index + 1) + '</span>';
-				},
-			},
+			spaceBetween: 40,
+			simulateTouch: false,
 			on: {
 				slideChange: swiper => {
 					if (this.swiper) this.setState({activeSlide: this.swiper.swiper.activeIndex}); },

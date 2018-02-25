@@ -30,12 +30,12 @@
 		position relative
 	}
 	&__slide {
-		width 100%
-		display flex
-		justify-content space-between
-		align-items center
 		box-sizing border-box
 		background #ffffff
+		margin-right: 40px
+		&:last-child {
+			margin-right 0
+		}
 		& > div {
 			width 100% !important
 		}
@@ -82,7 +82,7 @@
 		&__item {
 			cursor pointer
 			height 100%
-			width 40px
+			width 44px
 			position absolute
 			top 0
 			right 100%
@@ -118,7 +118,7 @@
 				position absolute
 				top 50%
 				left 50%
-				margin-left -14px
+				margin-left -10px
 				margin-top -14px
 				&:after {
 					content ''

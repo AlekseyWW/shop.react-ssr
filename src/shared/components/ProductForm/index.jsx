@@ -220,28 +220,29 @@ class ProductForm extends Component {
 							<span className={style.ProductForm__callback__note}>Информация о наличии товаров обновляется каждые 30 минут. Ассортимент товара их цена в магазине могут отличаться от информации на сайте.</span>
 						</div>
 					</div>
-					{/* <div className={style.ProductForm__info}>
-					<div className={style.ProductForm__info__block}>
-						<p className={style.ProductForm__info__title}>Описание</p>
-						<p className={style.ProductForm__info__text}>{product.description}</p>
-					</div>
-					{product.characteristics && (
-						<div className={style.ProductForm__info__block}>
-							<p className={style.ProductForm__info__title}>{product.characteristics.title ? product.characteristics.title : 'Характеристики'}</p>
+					{product.description &&
+						<div className={style.ProductForm__info}>
+								<div className={style.ProductForm__info__block}>
+									<p className={style.ProductForm__info__title}>Описание</p>
+									<p className={style.ProductForm__info__text}>{product.description}</p>
+								</div>
+							{/* {product.characteristics && (
+								<div className={style.ProductForm__info__block}>
+									<p className={style.ProductForm__info__title}>{product.characteristics.title ? product.characteristics.title : 'Характеристики'}</p>
 
+								</div>
+							)} */}
+							{/* <div className={style.ProductForm__info__block}>
+								<p className={style.ProductForm__info__title}>{product.brand.name}</p>
+								<p className={style.ProductForm__info__text}>{product.brand.description}</p>
+							</div>
+							<div className={style.ProductForm__info__block}>
+								<p className={style.ProductForm__info__title}>Доставка и возврат</p>
+								<p className={style.ProductForm__info__text}>{htmlParser(deliveryText.text)}</p>
+							</div> */}
 						</div>
-					)}
-					<div className={style.ProductForm__info__block}>
-						<p className={style.ProductForm__info__title}>{product.brand.name}</p>
-						<p className={style.ProductForm__info__text}>{product.brand.description}</p>
-					</div>
-					<div className={style.ProductForm__info__block}>
-						<p className={style.ProductForm__info__title}>Доставка и возврат</p>
-						<p className={style.ProductForm__info__text}>{htmlParser(deliveryText.text)}</p>
-					</div>
-				</div> */}
+					}
 				</div>
-
 			</div>
 		)
 	}
