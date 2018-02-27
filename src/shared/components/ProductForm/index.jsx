@@ -70,7 +70,7 @@ class ProductForm extends Component {
 			hasClose: true,
 			buttons: []
 		}
-		const groupSizes = activeColor.sizes ? _.groupBy(activeColor.sizes, 'sex') : [];
+		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(activeColor.sizes, 'sex') : [];
 
 		return (
 			<div className={style.ProductForm}>
