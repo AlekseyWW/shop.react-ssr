@@ -57,6 +57,9 @@ class ProductForm extends Component {
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
 		const activeColor = _.find(product.colors, { name: color });
+		console.log('====================================');
+		console.log(product.colors);
+		console.log('====================================');
 		const id = activeColor ? activeColor.id : 0;
 		const propsModal = {
 			title: product.name,
@@ -80,11 +83,13 @@ class ProductForm extends Component {
 						{/* <p className={style.ProductForm__subline}>{product.name}</p> */}
 
 					</div>
-					<div className={style.ProductForm__price}>
-						<p className={style.ProductForm__price__value}>{activeColor.isSale ? activeColor.price : activeColor.oldPrice} руб.</p>
-						{activeColor.isSale && <p className={style.ProductForm__price__old}>{activeColor.oldPrice} руб.</p>}
-						<span className={style.ProductForm__callback__note}>Наличие товара вашего размера и понравившегося цвета можно уточнить оформив заявку, или написав нам в <a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank">WhatsApp.</a></span>
-					</div>
+					{activeColor &&
+						<div className={style.ProductForm__price}>
+							<p className={style.ProductForm__price__value}>{activeColor.isSale ? activeColor.price : activeColor.oldPrice} руб.</p>
+							{activeColor.isSale && <p className={style.ProductForm__price__old}>{activeColor.oldPrice} руб.</p>}
+							<span className={style.ProductForm__callback__note}>Наличие товара вашего размера и понравившегося цвета можно уточнить оформив заявку, или написав нам в <a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank">WhatsApp.</a></span>
+						</div>
+					}
 					<div className={style.ProductForm__action}>
 						{product.colors.length > 1 &&
 							<div className={style.ProductForm__colors}>
