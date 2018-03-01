@@ -8,7 +8,7 @@ const InstagrammGallery = () => {
 	return (
 		<div className={style.InstagrammGallery}>
 			<div className={style.InstagrammGallery__top}>
-				<a href="http://instagram.com/sneaker_topcheg" target="_blank" className={style.InstagrammGallery__link}>
+				<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.InstagrammGallery__link}>
 					<InstagramIcon />
 					<span>Follow instagram @newstep_store</span>
 				</a>

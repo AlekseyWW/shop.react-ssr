@@ -58,14 +58,14 @@ class ProductForm extends Component {
 		const { addToCart, product, setSlider, color } = this.props;
 		const activeColor = _.find(product.colors, { name: color });
 		console.log('====================================');
-		console.log(product.colors);
+		console.log(activeColor);
 		console.log('====================================');
 		const id = activeColor ? activeColor.id : 0;
 		const propsModal = {
 			title: product.name,
 			status: 'deliver',
 			text: (
-				<a href="http://instagram.com/sneaker_topcheg" target="_blank" className={style.ProductForm__instagramm}>
+				<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.ProductForm__instagramm}>
 					<InstagramIcon />
 				</a>
 			),
