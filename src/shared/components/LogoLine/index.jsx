@@ -32,7 +32,7 @@ const LogoLine = () => {
 					</div>
 					<div className={style.LogoLine__inner}>
 						<div className={style.LogoLine__social}>
-							<a href="https://www.instagram.com/newstep_rnd/" target="_blank"  className={style.LogoLine__social__item}>
+							<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.LogoLine__social__item} onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }}>
 								<InstagramIcon />
 							</a>
 							<a href="https://vk.com/newstep.store" target="_blank" className={style.LogoLine__social__item}>

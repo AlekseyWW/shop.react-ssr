@@ -65,7 +65,7 @@ class ProductForm extends Component {
 			title: product.name,
 			status: 'deliver',
 			text: (
-				<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.ProductForm__instagramm}>
+				<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.ProductForm__instagramm} onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }}>
 					<InstagramIcon />
 				</a>
 			),

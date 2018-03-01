@@ -30,7 +30,7 @@ const Footer = () => (
 						социальный сети
 					</div> */}
 					<div className={style.Footer__social__icons}>
-						<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.Footer__social__icon}>
+						<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.Footer__social__icon} onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }}>
 							<InstagramIcon />
 						</a>
 						<a href="https://vk.com/newstep.store" target="_blank" className={style.Footer__social__icon}>
