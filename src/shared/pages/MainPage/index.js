@@ -6,11 +6,7 @@ import Promo from 'components/Promo/';
 import Category from 'containers/Category/';
 import BrandList from 'components/BrandList/';
 import NewPropducts from 'containers/NewPropducts/';
-<<<<<<< HEAD
-// import InstagrammBlock from 'containers/InstagrammBlock/';
-=======
 import InstagrammGallery from 'components/InstagrammGallery';
->>>>>>> master
 import * as productsAction from 'actions/products';
 import * as sliderAction from '../../state/modules/slider';
 import * as categoryAction from 'actions/category';
