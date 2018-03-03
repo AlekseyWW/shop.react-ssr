@@ -10,7 +10,7 @@ const InstagrammGallery = () => {
 			<div className={style.InstagrammGallery__top}>
 				<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.InstagrammGallery__link} onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }}>
 					<InstagramIcon />
-					<span>Follow instagram @newstep_store</span>
+					<span>Follow instagram @newstep_rnd</span>
 				</a>
 			</div>
 			<div id='instafeed'className={style.InstagrammGallery__container}>

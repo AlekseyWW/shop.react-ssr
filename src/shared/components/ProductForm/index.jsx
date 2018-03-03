@@ -57,9 +57,6 @@ class ProductForm extends Component {
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
 		const activeColor = _.find(product.colors, { name: color });
-		console.log('====================================');
-		console.log(activeColor);
-		console.log('====================================');
 		const id = activeColor ? activeColor.id : 0;
 		const propsModal = {
 			title: product.name,
@@ -73,8 +70,7 @@ class ProductForm extends Component {
 			hasClose: true,
 			buttons: []
 		}
-		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(activeColor.sizes, 'sex') : [];
-
+		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity), 'sex') : [];
 		return (
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>

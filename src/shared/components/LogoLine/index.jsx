@@ -3,7 +3,7 @@ import ClassNames from 'classnames';
 import { NavLink, Link } from 'react-router-dom';
 import HeaderCart from 'containers/HeaderCart';
 import Input from 'components/Input';
-import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, GlassIcon } from 'components/Icon';
+import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, TelegrammIcon, GlassIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
@@ -40,6 +40,9 @@ const LogoLine = () => {
 							</a>
 							<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.LogoLine__social__item}>
 								<WhatsupIcon />
+							</a>
+							<a href="https://t.me/newstepstorernd" target="_blank" className={style.LogoLine__social__item}>
+								<TelegrammIcon />
 							</a>
 						</div>
 						{/* <div className={style.LogoLine__search}>

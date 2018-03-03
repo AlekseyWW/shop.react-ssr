@@ -22,7 +22,11 @@ class MainPage extends Component {
 		categories: PropTypes.array.isRequired
 	};
 	static fetchData({ store, params }) {
-		return store.dispatch(productsAction.getPromoProducts());
+		return Promise.all([
+			store.dispatch(productsAction.getPromoProducts()),
+			store.dispatch(sliderAction.loadSlider()),
+			store.dispatch(categoryAction.getPromoCategories())
+		]);
 	}
 	componentDidMount() {
 		const { isPromoLoading, isPromoLoaded, categories, promoCategories, getProducts, getCategories, getPromoCategories, slider, loadSlider } = this.props;

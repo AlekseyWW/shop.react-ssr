@@ -46,6 +46,9 @@ class Catalog extends Component {
 			...query
 		};
 		const category = params.subCategoryId || params.categoryId;
+		console.log('====================================');
+		console.log(productConfig);
+		console.log('====================================');
 		return Promise.all([
 			store.dispatch(productsAction.getProducts(productConfig, category)),
 			store.dispatch(categoryAction.getCategories()),
