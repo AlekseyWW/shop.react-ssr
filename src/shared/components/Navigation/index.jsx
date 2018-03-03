@@ -49,7 +49,7 @@ export class NavLink extends Component {
 				{ category.items &&
 					<div className={linkStyle}>
 						{ category.items.map(item => (
-						<Link key={item.id} to={`/catalog/${item.slug}`} className={textStyle} onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true;}}>
+						<Link key={item.id} to={`/catalog/${item.slug}`} className={textStyle} >
 								{item.name}
 							</Link> 
 						))}

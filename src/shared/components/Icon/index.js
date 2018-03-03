@@ -7,11 +7,13 @@ import logo from './logo.svg';
 import vk from './vk.svg';
 import instagram from './instagram.svg';
 import whatsup from './whatsup.svg';
+import telegramm from './telegramm.svg';
 import cart from './cart.svg';
 import hurt from './hurt.svg';
 import glass from './glass.svg';
 import shadow from './shadow.svg';
 import basket from './basket.svg';
+import downArrow from './down-arrow.svg';
 // import fbIcon from './facebook.svg';
 // import notesLogo from './chulakov-logo.svg';
 // import lab from './chula-lab.svg';
@@ -48,6 +50,7 @@ export const ClockIcon = props => <Icon glyph={clock} width={10.17} height={14.5
 export const PhoneIcon = props => <Icon glyph={phone} width={10.17} height={14.52} {...props} />;
 export const LogoIcon = props => <Icon glyph={logo} width={10.17} height={14.52} {...props} />;
 export const WhatsupIcon = props => <Icon glyph={whatsup} width={24} height={24} {...props} />;
+export const TelegrammIcon = props => <Icon glyph={telegramm} width={24} height={24} {...props} />;
 export const InstagramIcon = props => <Icon glyph={instagram} width={24} height={24} {...props} />;
 export const VkIcon = props => <Icon glyph={vk} width={24} height={24} {...props} />;
 export const CartIcon = props => <Icon glyph={cart} width={24} height={24} {...props} />;
@@ -55,6 +58,7 @@ export const HurtIcon = props => <Icon glyph={hurt} width={27} height={23} {...p
 export const GlassIcon = props => <Icon glyph={glass} width={13} height={13} {...props} />;
 export const ShadowIcon = props => <Icon glyph={shadow} width={1420} height={328} {...props} />;
 export const BasketIcon = props => <Icon glyph={basket} width={25} height={30} {...props} />;
+export const DownArrow = props => <Icon glyph={downArrow} width={12} height={8} {...props} />;
 
 // export const FbIcon = props => <Icon glyph={fbIcon} width={24} height={24} {...props} />;
 

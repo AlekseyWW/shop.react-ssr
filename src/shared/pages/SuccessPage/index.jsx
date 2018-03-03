@@ -27,7 +27,7 @@ class SuccessPage extends Component {
 					</div>
 					<div className="SuccessPage__body">
 						<div className="SuccessPage__text">
-							<a href="http://instagram.com/sneaker_topcheg" target="_blank" className="SuccessPage__instagramm">
+							<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className="SuccessPage__instagramm" onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }}>
 								<InstagramIcon />
 							</a>
 						</div>

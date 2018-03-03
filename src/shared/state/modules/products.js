@@ -4,6 +4,8 @@ import { getExtendedList } from 'utils/helpers';
 const initialState = {
 	isLoading: false,
 	isLoaded: false,
+	isPromoLoading: false,
+	isPromoLoaded: false,
 	error: null,
 	products: [],
 	allCount: 0,
@@ -38,7 +40,6 @@ export default function products(state = initialState, action) {
 				products: action.products,
 				allCount: action.allCount,
 				sizes: action.sizes,
-				category: action.category,
 				error: null
 			};
 
@@ -52,13 +53,17 @@ export default function products(state = initialState, action) {
 				products: []
 			};
 
+		case types.GET_PROMO_PRODUCTS_START:
+			return {
+				...state,
+				isPromoLoading: true,
+			};
 		case types.GET_PROMO_PRODUCTS_SUCCESS:
 			return {
 				...state,
-				isLoading: false,
-				isLoaded: true,
-				promoProducts: action.products,
-				category: 'new',
+				isPromoLoading: false,
+				isPromoLoaded: true,
+				promoProducts: action.products.colors,
 				error: null
 			};
 
@@ -66,8 +71,8 @@ export default function products(state = initialState, action) {
 		case types.GET_PROMO_PRODUCTS_FAILURE:
 			return {
 				...state,
-				isLoading: false,
-				isLoaded: false,
+				isPromoLoading: false,
+				isPromoLoaded: false,
 				error: action.error,
 				promoProducts: []
 			};

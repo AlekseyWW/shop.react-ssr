@@ -1,0 +1,41 @@
+.Dropdown {
+	position relative
+	
+
+	&__label {
+		position relative
+		background-color #fff
+		border-radius: 4px
+		padding 4px 8px
+		font-weight $bold
+	}
+	&__title {
+		position relative
+		cursor pointer
+		padding-right: 24px
+		.Icon {
+			position absolute
+			top 50%
+			margin-top -4px
+			right 0
+		}
+		&_active{
+			& .Icon {
+				transform rotate(180deg)
+			}
+		}
+	}
+	&__list {
+		z-index 1000
+		margin-top 8px
+		display none
+		position absolute
+		background-color: #fff
+		width: 100%
+		border-radius: 4px
+		box-shadow: 0 2px 6px rgba(0,0,0,0.1)
+		&_active {
+			display block
+		}
+	}
+}

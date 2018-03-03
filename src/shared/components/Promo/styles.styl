@@ -3,14 +3,25 @@
 .Promo {
 	& {
 		margin-bottom 40px
+		width 100vw
 		@media $phone {
 			margin-bottom 0
 		}
 	}
+	&__container {
+		position relative
+		width 100%
+		overflow hidden
+	}
 	&__wrapper {
+		position relative
 		display flex
 		align-items stretch
 		min-height calc(100vh - 158px)
-		// min-height 75vh
+		// min-height 100%
+	}
+	&__slide {
+		height: auto
+		display flex
 	}
 }

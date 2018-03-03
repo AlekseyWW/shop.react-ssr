@@ -26,6 +26,30 @@ export const getCategories = () => (dispatch) => {
 	);
 };
 
+const getStockCategoriesStart = () => ({
+	type: types.GET_STOCK_CATEGORIES_START
+});
+
+const getStockCategoriesSuccess = categories => ({
+	type: types.GET_STOCK_CATEGORIES_SUCCESS,
+	categories
+});
+
+const getStockCategoriesError = error => ({
+	type: types.GET_STOCK_CATEGORIES_FAILURE,
+	error
+});
+
+export const getStockCategories = () => (dispatch) => {
+	dispatch(getStockCategoriesStart());
+	return get(
+		'/custom-categories',
+		{ },
+		response => dispatch(getStockCategoriesSuccess(response)),
+		error => dispatch(getStockCategoriesError(error.message))
+	);
+};
+
 const getPromoCategoriesStart = () => ({
 	type: types.GET_PROMO_CATEGORIES_START
 });

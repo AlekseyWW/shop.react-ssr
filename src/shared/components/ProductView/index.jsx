@@ -33,15 +33,8 @@ class ProductView extends Component {
 			containerClass: style.ProductView__container,
 			wrapperClass: style.ProductView__wrapper,
 			slidesPerView: 1,
-			centeredSlides: true,
-			grabCursor: true,
-			spaceBetween: 10,
-			pagination: {
-				type: 'bullets',
-				renderBullet: function (index, className) {
-					return '<span class="' + className + '">' + (index + 1) + '</span>';
-				},
-			},
+			spaceBetween: 40,
+			simulateTouch: false,
 			on: {
 				slideChange: swiper => {
 					if (this.swiper) this.setState({activeSlide: this.swiper.swiper.activeIndex}); },
@@ -59,8 +52,8 @@ class ProductView extends Component {
 
 					</div>
 					<div className={style.ProductView__price}>
-						<p className={style.ProductForm__price__value}>{product.isSale ? product.price : product.oldPrice} руб.</p>
-						{product.isSale && <p className={style.ProductForm__price__old}>{product.oldPrice}</p>}
+						<p className={style.ProductView__price__value}>{currentColor.isSale ? currentColor.price : currentColor.oldPrice} руб.</p>
+						{currentColor.isSale && <p className={style.ProductView__price__old}>{currentColor.oldPrice} руб.</p>}
 					</div>
 				</div>
 				<div className={style.ProductView__image}>
@@ -72,7 +65,8 @@ class ProductView extends Component {
 									smallImage: {
 										alt: 'Wristwatch by Ted Baker London',
 										isFluidWidth: true,
-										src: photo
+										src: photo,
+										sizes: '(min-width: 480px) 100%, 360px'
 									},
 									largeImage: {
 										alt: '',

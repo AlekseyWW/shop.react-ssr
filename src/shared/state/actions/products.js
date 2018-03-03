@@ -66,7 +66,7 @@ export const getProducts = (data, category = false) => (dispatch) => {
 };
 
 const getPromoProductsStart = () => ({
-	type: types.GET_PRODUCTS_START
+	type: types.GET_PROMO_PRODUCTS_START
 });
 
 const getPromoProductsSuccess = (products) => (dispatch) => {
@@ -86,7 +86,7 @@ const getPromoProductsError = error => {
 export const getPromoProducts = data => (dispatch) => {
 	dispatch(getPromoProductsStart());
 	return get(
-		'/products/promo',
+		'/colors/top',
 		data,
 		response => dispatch(getPromoProductsSuccess(response)),
 		error => dispatch(getPromoProductsError(error.message))

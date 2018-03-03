@@ -1,56 +1,100 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import VirtualizedSelect from 'react-virtualized-select'
-
+import Select from 'react-select';
 import 'react-select/dist/react-select.css'
 import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 import style from './styles.styl';
 
-const Input = ({
-	input,
-	type,
-	meta,
-	className,
-	textArea,
-	numberFormat,
-	label,
-	getOptions,
-	fullWidth,
-	email,
-	...rest
-}) => {
-	const styleWrapper = classNames({
-		SelectField: true,
-		[style.SelectField_focused]: meta && meta.active,
-		[style.SelectField_value]: input && input.value,
-		[style.SelectField_error]: meta && meta.touched && meta.error,
-		[style.SelectField_valid]: meta && meta.touched && meta.valid,
-		[style.SelectField_fullWidth]: fullWidth,
-		[style.SelectField_textarea]: textArea,
-		[`${className}`]: className,
-	});
-	const styleInput = classNames({
-		[style.SelectField__field]: true,
-	});
-	return (
-		<div className={styleWrapper}>
-			<label htmlFor={input.name} className="SelectField__label">
-				{label}
-			</label>
-			<VirtualizedSelect
-				value={input.value.label}
-				className={styleInput}
-				async
-				loadOptions={getOptions}
-				{...input}
-				onBlur={() => input.onBlur(input.value)}
-				{...rest}
-			/>
-		</div>
-	);
-};
+class Input extends Component {
+	constructor(props) {
+		super(props)
+		this.handleChange = this.handleChange.bind(this)
+	}
+	handleChange = (selectedOption) => {
+		const selected = selectedOption.map(item => item.value)
+		this.props.input.onChange(selected)
+	}
+	remove = (item) => {
+		const valArray = [...this.props.input.value];
+		valArray.splice(valArray.indexOf(item), 1)
+		console.log('====================================');
+		console.log(valArray);
+		console.log('====================================');
+		this.props.input.onChange(valArray)
+	}
+	render () {	
+		const {
+			input,
+			type,
+			meta,
+			className,
+			textArea,
+			numberFormat,
+			label,
+			getOptions,
+			options,
+			fullWidth,
+			multi,
+			email,
+			...rest
+		} = this.props;
+		const styleWrapper = classNames({
+			SelectField: true,
+			[style.SelectField_focused]: meta && meta.active,
+			[style.SelectField_value]: input && input.value,
+			[style.SelectField_error]: meta && meta.touched && meta.error,
+			[style.SelectField_valid]: meta && meta.touched && meta.valid,
+			[style.SelectField_fullWidth]: fullWidth,
+			[style.SelectField_textarea]: textArea,
+			[`${className}`]: className,
+		});
+		const styleInput = classNames({
+			[style.SelectField__field]: true,
+		});
+		return (
+			<div className={styleWrapper}>
+				<label htmlFor={input.name} className="SelectField__label">
+					{label}
+				</label>
+				{getOptions ?
+					<VirtualizedSelect
+						value={input.value.label}
+						className={styleInput}
+						async
+						loadOptions={getOptions}
+						{...input}
+						onBlur={() => input.onBlur(input.value)}
+						{...rest}
+					/> :
+					<div className={style.MultiSelect}>
+						{/* <div className={style.MultiSelect__values}>
+							{input.value && input.value.map((item,id) => {
+								const key = `item${id}`;
+								return (
+									<div key={key}>
+										<span onClick={() => this.remove(item)}>X</span>
+										<span>{item}</span>
+									</div>
+								)
+							})}
+						</div> */}
+						<Select
+							options={options}
+							multi={multi}
+							{...input}
+							onChange={this.handleChange}
+							onBlur={() => input.onBlur(input.value)}
+							{...rest}
+						/>
+					</div>
+				}
+			</div>
+		);
+	}
+}
 
 Input.propTypes = {
 	input: PropTypes.any,
