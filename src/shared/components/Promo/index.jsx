@@ -33,7 +33,7 @@ class Promo extends Component {
 		}
 		return (
 			<div className={style.Promo}>
-				{slides.length > 0 ? 
+				{slides.length > 0 && 
 					<Swiper className={style.Promo__container} {...params} ref={el => { this.swiper = el }}>
 						{slides.map((item, id) => {
 							const key = `item-${id}`;
@@ -42,8 +42,7 @@ class Promo extends Component {
 								<div className={style.Promo__slide} key={key}> <PromoItem {...item} slug={slug} title={item.title} /></div>
 							)}
 						)}
-					</Swiper> : 
-					<PromoItem {...content[0]}/>
+					</Swiper>
 				}
 			</div>
 		)

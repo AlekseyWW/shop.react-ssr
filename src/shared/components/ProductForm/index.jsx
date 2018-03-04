@@ -44,12 +44,14 @@ class ProductForm extends Component {
 			alert('Выберите размер')
 			return false;
 		}
+		const currentColor = _.find(this.props.product.colors, { name: this.props.color })
 		const product = {
-			id: _.find(this.props.product.colors, { name: this.props.color }).id,
-			image: _.find(this.props.product.colors, { name: this.props.color }).thumb,
+			id: currentColor.id,
+			image: currentColor.thumb,
 			name: this.props.product.name,
 			color: this.props.color,
-			price: this.props.product.price || this.props.product.oldPrice,
+			slug: this.props.product.slug,
+			price: currentColor.isSale ? currentColor.price : currentColor.oldPrice,
 			size: this.state.activeSize
 		}
 		this.props.addToCart(product)
@@ -203,6 +205,7 @@ class ProductForm extends Component {
 												`/colors/${id}/request`,
 												{
 													phone: this.phone.value,
+													size: this.state.activeSize,
 												},
 												response => this.onSuccess(),
 												error => console.log(error)

@@ -1,43 +1,46 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { omit } from 'lodash';
 import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
 import * as cartAtions from 'actions/cart';
 import styles from './style.styl';
 
-const CartItem = ({ product, add, remove }) => (
-	<tr className={styles.CartTable__row}>
-		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_img}`}>
-			<img src={product.image} />
-		</td>
-		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_name}`}>
-			{product.name}
-			<span>{product.size.name}</span>
-			<span>Колличество: {product.count}</span>
-			<span>Цена: {product.price} ₽</span>
-		</td>
-		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_size}`}>
-			{product.size.name}
-		</td>
-		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_count}`}>
-			<button onClick={() => add(omit(product, ['count']))}>
-				+
-			</button>
-			{product.count}
-			<button onClick={() => add(omit(product, ['count']), true)}>
-				-
-			</button>
-		</td>
-		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_price}`}>{product.price} ₽</td>
-		<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_del}`}>
-			<button>
-				<BasketIcon onClick={() => remove(omit(product, ['count']))} />
-			</button>
-		</td>
-	</tr>
-);
+const CartItem = ({ product, add, remove }) => {
+	return (
+		<tr className={styles.CartTable__row}>
+			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_img}`}>
+				<img src={product.image} />
+			</td>
+			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_name}`}>
+				<Link to={`/products/${product.slug}`}>{product.name}</Link>
+				<span>{product.size.name}</span>
+				<span>Колличество: {product.count}</span>
+				<span>Цена: {product.price} ₽</span>
+			</td>
+			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_size}`}>
+				{product.size.name} - {product.size.sex}
+			</td>
+			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_count}`}>
+				<button onClick={() => add(omit(product, ['count']))}>
+					+
+				</button>
+				{product.count}
+				<button onClick={() => add(omit(product, ['count']), true)}>
+					-
+				</button>
+			</td>
+			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_price}`}>{product.price} ₽</td>
+			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_del}`}>
+				<button>
+					<BasketIcon onClick={() => remove(omit(product, ['count']))} />
+				</button>
+			</td>
+		</tr>
+	)
+};
 
 class CartPage extends Component {
 	getCartSumm = () => (this.props.products.length ? (this.props.products.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');

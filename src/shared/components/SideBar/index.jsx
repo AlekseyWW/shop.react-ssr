@@ -76,14 +76,13 @@ class SideBar extends Component {
 		this.props.changeForm('size', '')
 	}
 	render() {
-		const { stockTitle, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match } = this.props;
+		const { stockTitle, query, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
 		const gender = Object.keys(genderSize);
 		const url = (item) => {
 			const query = {
-				size,
-				brand,
+				...query,
 				sex: item
 			}
 			this.historyPush(query)
@@ -125,6 +124,8 @@ class SideBar extends Component {
 								}
 							});
 							query.sex = sex;
+							query.offset = this.props.query.offset;
+							query.count = this.props.query.count;
 							this.historyPush(query);
 							getProducts(query, subCategoryId || categoryId);
 						}} />
@@ -154,6 +155,7 @@ SideBar.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
 	const { brand, size, sex } = qs.parse(ownProps.location.search);
+	const query = qs.parse(ownProps.location.search);
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
 	const { items: stockCategories } = state.category.stockCategories;
@@ -179,6 +181,7 @@ const mapStateToProps = (state, ownProps) => {
 		brands,
 		sizes,
 		brand,
+		query,
 		size,
 		sex,
 		slug,

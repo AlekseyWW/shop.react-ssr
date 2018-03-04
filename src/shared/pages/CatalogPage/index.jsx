@@ -18,20 +18,16 @@ class Catalog extends Component {
 			getProducts,
 			subCategoryId,
 			brands,
-			brand,
 			slug,
-			size,
-			sex,
+			parsedQuery,
 			getBrands,
 		} = this.props;
 		const productConfig = {
-			offset: 0,
-			count: 1000,
 			sort: 'date',
 			'custom-category': this.props.stockId,
-			brand,
-			size,
-			sex
+			...parsedQuery,
+			offset: parsedQuery.offset || 0,
+			count: parsedQuery.count || 12,
 		};
 		const category = this.props.subCategoryId || this.props.categoryId;
 		if (!isLoading ) getProducts(productConfig, category);
@@ -39,11 +35,11 @@ class Catalog extends Component {
 	}
 	static fetchData({ store, params, query }) {
 		const productConfig = {
-			offset: 0,
-			count: 1000,
 			sort: 'date',
 			'custom-category': params.stockId,
-			...query
+			...query,
+			offset: query.offset || 0,
+			count: query.count || 12,
 		};
 		const category = params.subCategoryId || params.categoryId;
 		return Promise.all([
@@ -57,16 +53,14 @@ class Catalog extends Component {
 		const newCategory = prevProps.subCategoryId || prevProps.categoryId;
 		if (category !== newCategory || prevProps.stockId !== this.props.stockId) {
 			const {
-				brand,
-				size,
+				parsedQuery
 			} = this.props;
 			const productConfig = {
-				offset: 0,
-				count: 200,
 				sort: 'date',
 				'custom-category': this.props.stockId,
-				brand,
-				size,
+				...parsedQuery,
+				offset: parsedQuery.offset || 0,
+				count: parsedQuery.count || 12,
 			};
 			this.props.getProducts(productConfig, category);
 		}
@@ -76,19 +70,17 @@ class Catalog extends Component {
 		const newCategory = nextProps.subCategoryId || nextProps.categoryId;
 		if (category !== newCategory || nextProps.stockId !== this.props.stockId) {
 			const {
-				brand,
-				size,
+				parsedQuery
 			} = this.props;
 			const productConfig = {
-				offset: 0,
-				count: 1000,
 				sort: 'date',
 				'custom-category': this.props.stockId,
-				brand,
-				size,
+				...parsedQuery,
+				offset: parsedQuery.offset || 0,
+				count: parsedQuery.count || 12,
 			};
 			this.props.getProducts(productConfig, nextProps.categoryId);
-		 }
+		}
 	}
 	render() {
 		const {
@@ -159,7 +151,8 @@ Catalog.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-	const { brand, size, sex } = qs.parse(ownProps.location.search);
+	const { brand, size, sex, count, offset } = qs.parse(ownProps.location.search);
+	const parsedQuery = qs.parse(ownProps.location.search);
 	const query = ownProps.location.search;
 	const { stockId, categoryId, subCategoryId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
@@ -188,6 +181,7 @@ const mapStateToProps = (state, ownProps) => {
 		sex,
 		query,
 		stockId,
+		parsedQuery,
 		slug,
 		countView,
 		title: title || 'Каталог'

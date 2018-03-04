@@ -40,7 +40,7 @@ class MainPage extends Component {
 		return (
 			<div className="page__inner">
 				<Helmet title="Главная" />
-				{categories.items && <Promo categories={categories.items} slides={slider.slider} content={text.promo}/>}
+				{slider && slider.slider.length > 0 && <Promo categories={categories.items} slides={slider.slider} content={text.promo}/>}
 				{promoCategories.items && categories.items && <Category items={promoCategories.items} categories={categories.items}/>}
 				{promoProducts && <NewPropducts products={promoProducts} />}
 				<InstagrammGallery />

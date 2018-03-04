@@ -94,16 +94,6 @@ class OrderForm extends Component {
 						</div>
 						<div className={style.OrderForm__group}>
 							<Field
-								name="country"
-								component={Input}
-								type="text"
-								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
-								label="Страна*"
-								validate={[required]}
-							/>
-						</div>
-						<div className={style.OrderForm__group}>
-							<Field
 								name="city"
 								component={Select}
 								options={this.props.cities}
