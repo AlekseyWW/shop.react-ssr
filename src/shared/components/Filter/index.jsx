@@ -86,7 +86,7 @@ class Filter extends Component {
 				<div className={style.Filter__sorting}>
 					{filterdata.map(item => (
 						<FilterBlock
-							active={this.props.query.count || 12}
+							active={this.props.query.count || '12'}
 							key={item.title}
 							items={item.items}
 							title={item.title}
