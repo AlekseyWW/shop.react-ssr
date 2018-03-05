@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import FilterItem from 'components/FilterItem';
 import style from './styles.styl';
 
-const FilterBlock = ({ items, handleClick, title, type, countView, offset }) => {
+const FilterBlock = ({ items, handleClick, title, type, countView, offset, active }) => {
+
 	return (
 		<div className={style.FilterBlock__item}>
 			<span className={style.FilterBlock__title}>
@@ -11,11 +13,17 @@ const FilterBlock = ({ items, handleClick, title, type, countView, offset }) => 
 			</span>
 			{items.map(item => {
 				const config = { offset, count: item.name };
+				console.log('====================================');
+				console.log(item.name === active);
+				console.log('====================================');
+				const itemClass = classNames(style.FilterBlock__button,{
+					[style.FilterBlock__button_active]: item.name === active
+				})
 				return (
 					<FilterItem
 						key={item.name}
 						title={item.title}
-						className={style.FilterBlock__button}
+						className={itemClass}
 						onClick={() => handleClick(config)}
 					/>
 				)

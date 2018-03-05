@@ -21,8 +21,8 @@ const filterdata = [
 				name: '48',
 				title: '48'
 			}, {
-				name: '10000',
-				title: 'Все'
+				name: '96',
+				title: '96'
 			}
 		]
 	}
@@ -86,6 +86,7 @@ class Filter extends Component {
 				<div className={style.Filter__sorting}>
 					{filterdata.map(item => (
 						<FilterBlock
+							active={this.props.query.count || 12}
 							key={item.title}
 							items={item.items}
 							title={item.title}
