@@ -25,7 +25,7 @@ const MainBlock = ({
 		<div className={style.MainBlock__container}>
 			<SideBar />
 			<div className={style.MainBlock__content}>
-					<ProductList getProducts={getProducts} products={products} categoryId={categoryId} allCount={allCount} countView={countView}/>
+					<ProductList getProducts={getProducts} categoryId={categoryId} allCount={allCount} countView={countView}/>
 			</div>
 		</div>
 	</div>

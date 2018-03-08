@@ -33,15 +33,17 @@ class ProductList extends Component {
 				`/catalog`
 			}
 		}
-		const requestData = this.props.query ? { ...this.props.query, ...data } : data;
+		const queryData = this.props.query ? { ...this.props.query, ...data } : data;
+		const requestData = this.props.stockId ? { ...queryData, 'custom-category': this.props.stockId } : queryData
+		
 		this.props.getProducts(requestData, this.props.subCategoryId || this.props.categoryId);
 		this.props.history.push({
 			pathname,
-			search: `${qs.stringify(requestData)}`
+			search: `${qs.stringify(queryData)}`
 		})
 	}
 	render() {
-		const { categoryId, allCount, products} = this.props;
+		const { categoryId, allCount, products, isLoaded, isLoading} = this.props;
 		const count = this.props.query.count || 12;
 		const offset = this.props.query.offset || 0;
 		const countPage = Math.ceil(allCount / (count||12));
@@ -69,7 +71,8 @@ class ProductList extends Component {
 					/>
 				</div>
 				<div className={style.ProductList__container}>
-					{products.map(product => <ProductCard key={product.id} {...product} sm />)}
+					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard key={product.id} {...product} sm />)}
+					{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}
 				</div>
 				<div className={style.ProductList__nav}>
 					<ReactPaginate
@@ -114,8 +117,9 @@ ProductList.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
+	const { products, isLoaded, isLoading } = state.products;
 	const query = qs.parse(ownProps.location.search);
-	return { categoryId, subCategoryId, stockId, query };
+	return { categoryId, subCategoryId, stockId, query, products, isLoaded, isLoading };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
