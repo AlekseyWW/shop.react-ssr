@@ -13,9 +13,6 @@ const FilterBlock = ({ items, handleClick, title, type, countView, offset, activ
 			</span>
 			{items.map(item => {
 				const config = { offset, count: item.name };
-				console.log('====================================');
-				console.log(item.name === active);
-				console.log('====================================');
 				const itemClass = classNames(style.FilterBlock__button,{
 					[style.FilterBlock__button_active]: item.name === active
 				})

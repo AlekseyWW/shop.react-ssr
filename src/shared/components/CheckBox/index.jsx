@@ -41,6 +41,7 @@ const CheckBox = ({ input, item, className, index, type, meta, single}) => {
 				id={item.name ? item.name : item }
 				type="checkbox"
 				checked={isChecked}
+
 				value={item.id ? item.id : item }
 				onChange={(event) => {
 					onChange(event)

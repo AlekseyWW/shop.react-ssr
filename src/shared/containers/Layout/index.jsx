@@ -64,6 +64,9 @@ class Layout extends Component {
 						d.addEventListener("DOMContentLoaded", f, false);
 					} else {f(); }
 		})(document, window, "yandex_metrika_callbacks");
+
+		const ScrollMagic = require('scrollmagic');
+		window.controller = new ScrollMagic.Controller();
 	}
 	render() {
 		const { children } = this.props;

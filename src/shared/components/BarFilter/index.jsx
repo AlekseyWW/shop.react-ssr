@@ -43,9 +43,22 @@ class BarFilter extends Component {
 					<Dropdown
 						title="Бренды"
 						onClose={this.props.handleSubmit}
+						buttons={[
+							{
+								onClick: () => this.props.resetForm('brand'),
+								text: 'Сбросить'
+							},
+							{
+								onClick: this.props.handleSubmit,
+								text: 'Применить'
+							}
+						]}
 						count={selectedBrands && selectedBrands.length > 0 && selectedBrands.length}
 						inner={
-							<div>
+							<div className="Dropdown__inner">
+								<div className="Dropdown__head">
+									<p>Выберите брэнды:</p>
+								</div>
 								{brands.map((brand, id) => (<Field
 									name="brand"
 									component={CheckBox}
@@ -64,9 +77,22 @@ class BarFilter extends Component {
 					<Dropdown
 						title="Размеры"
 						onClose={this.props.handleSubmit}
+						buttons={[
+							{
+								onClick: () => this.props.resetForm('size'),
+								text: 'Сбросить'
+							},
+							{
+								onClick: this.props.handleSubmit,
+								text: 'Применить'
+							}
+						]}
 						count={selectedSizes && selectedSizes.length > 0 && selectedSizes.length}
 						inner={
-							<div>
+							<div className="Dropdown__inner">
+								<div className="Dropdown__head">
+									<p>Выберите размеры:</p>
+								</div>
 								{sizes.map((size, id) => (<Field
 									name="size"
 									component={CheckBox}
@@ -80,7 +106,7 @@ class BarFilter extends Component {
 						}
 					/>
 				</div>
-				<Button text="сбросить" className={style.SideBar__button} onClick={this.props.resetForm} />
+				{/* <Button text="сбросить" className={style.SideBar__button} onClick={this.props.resetForm} /> */}
 			</form>
 		)
 	}

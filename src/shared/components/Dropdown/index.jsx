@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { DownArrow } from 'components/Icon';
 import enhanceWithClickOutside from 'react-click-outside';
+import Button from 'components/Button';
 import style from './styles.styl';
 
 
@@ -26,7 +27,7 @@ class Dropdown extends Component {
 		})
 	}
 	render () {
-		const { title, inner, count} = this.props;
+		const { title, inner, count, button, buttons} = this.props;
 		const dropdownCLass = classNames({
 			[`${style.Dropdown__list}`]: true,
 			[`${style.Dropdown__list_active}`]: this.state.isBrandOpen
@@ -41,10 +42,24 @@ class Dropdown extends Component {
 					<div className={toogleStyle} onClick={this.toogleBrands}>{title} {count && `(${count})`} <DownArrow /></div>
 				</div>
 				<div className={dropdownCLass}>
-					<div className={style.Dropdown__inner}>
-						{inner}
-					</div>
+					{inner}
+					{button && (
+						<div className={style.Dropdown__action}>
+							<Button onClick={button.onClick} sm>{button.text}</Button>
+						</div>
+					)}
+					{buttons && 
+						<div className={style.Dropdown__action}>
+						{
+							buttons.map((button, id) => {
+								const key = `button-${id}`;
+								return <Button key={key} onClick={button.onClick} sm>{button.text}</Button>
+							})
+						}
+						</div>
+					}
 				</div>
+
 			</div>
 		)
 	}

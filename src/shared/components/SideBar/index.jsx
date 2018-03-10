@@ -75,6 +75,22 @@ class SideBar extends Component {
 		this.props.changeForm('brand', '')
 		this.props.changeForm('size', '')
 	}
+	// componentDidMount() {
+	// 	if (window.innerWidth > 992) {
+			
+	// 		const ScrollMagic = require('scrollmagic');
+	// 		setTimeout(() => {
+	// 			this.scene = new ScrollMagic.Scene({
+	// 				offset: window.innerWidth <= 992 ? -40 : 0,
+	// 				triggerElement: this.block,
+	// 				triggerHook: 'onLeave',
+	// 			})
+	// 				.setPin(this.block)
+	// 				.setClassToggle(this.block, 'active')
+	// 				.addTo(window.controller);
+	// 		}, 0);
+	// 	}
+	// }
 	render() {
 		const { stockTitle, query, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
@@ -90,7 +106,7 @@ class SideBar extends Component {
 		};
 		return (
 			<div className={style.SideBar}>
-				<div className={style.SideBar__filter}>
+				<div className={style.SideBar__filter} ref={el => this.block = el}>
 					<div className={style.SideBar__filter__item}>
 						<div className={style.SideBar__filter__title}>
 							{title} {stockTitle && `/${stockTitle}`}
@@ -116,8 +132,9 @@ class SideBar extends Component {
 						</div>
 					</div>
 					<div className={style.SideBar__filter__item}>
-						<BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
+						{/* <BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
 							const query = {};
+							
 							Object.keys(data).forEach(element => {
 								if (data[element]) {
 									query[element] = data[element].join(',')
@@ -128,7 +145,7 @@ class SideBar extends Component {
 							query.count = this.props.query.count || 12;
 							this.historyPush(query);
 							getProducts(query, subCategoryId || categoryId);
-						}} />
+						}} /> */}
 					</div>
 				</div>
 			</div>
@@ -183,6 +200,7 @@ const mapStateToProps = (state, ownProps) => {
 		brand,
 		query,
 		size,
+		sizes,
 		sex,
 		slug,
 		stockCategories,
