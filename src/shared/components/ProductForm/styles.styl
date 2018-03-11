@@ -12,6 +12,8 @@
 	}
 	&__head {
 		margin-bottom 15px
+		display: flex
+		align-items center
 		@media $phone {
 			display none
 		}
@@ -29,7 +31,6 @@
 	}
 	&__title {
 		font-size 22px
-		margin-bottom 8px
 		font-weight bold
 		text-transform uppercase
 		line-height 1
@@ -265,6 +266,30 @@
 			padding 0
 			img {
 				width 100%
+			}
+		}
+	}
+	&__favorite {
+		display block
+		padding 0
+		margin-left 16px
+		border none 
+		background transparent
+		position relative
+		cursor pointer
+		.Icon {
+			display block
+		}
+		&__heart {
+			position absolute
+			display block
+			top 0
+			left 0
+			transform scale(0)
+			transform-origin 50% 50%
+			transition transform $duration
+			&_active {
+				transform scale(1)
 			}
 		}
 	}

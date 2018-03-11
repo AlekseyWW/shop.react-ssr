@@ -17,8 +17,6 @@ export default function cart(state = initialState, action) {
 
 		case types.ADD_TO_FAVORITES_SUCCESS:
 			const newList = getExtendedCartList(state.added, { ...action.product }, action.remove);
-			console.log(action.product);
-			
 			localStorage.setItem("favorites", JSON.stringify(newList));
 			return {
 				...state,
@@ -53,7 +51,8 @@ export default function cart(state = initialState, action) {
 
 		case types.REMOVE_FROM_FAVORITES_SUCCESS:
 			const editedList = getExtendedList(state.added, action.product ,{}, false, true);
-			localStorage.setItem("vaforites", JSON.stringify(editedList));
+			localStorage.setItem("favorites", JSON.stringify(editedList));
+			
 			return {
 				...state,
 				isFetching: false,

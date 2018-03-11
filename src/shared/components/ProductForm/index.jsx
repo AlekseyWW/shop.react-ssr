@@ -9,10 +9,13 @@ import _ from 'lodash';
 import { post } from 'utils/api';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
+import * as favoritesAction from 'actions/favorites/';
 import ModalExample from '../../components/ModalExample';
 import { withRouter } from 'react-router';
 import { InstagramIcon } from 'components/Icon';
 import InputMask from 'react-input-mask';
+import { HurtIcon, HeartSold } from 'components/Icon';
+
 import InstagramEmbed from 'react-instagram-embed'
 import { actions } from '../../state/modules/modal.js';
 
@@ -56,6 +59,17 @@ class ProductForm extends Component {
 		}
 		this.props.addToCart(product)
 	}
+
+	toogleFavotite = () => {
+		const product = {..._.find(this.props.product.colors, { name: this.props.color })};
+		product.img = product.thumb;
+		product.product = this.props.product;
+		if (_.find(this.props.favorites, { id: product.id })) {
+			this.props.removeFromFavorites(product.id)
+		} else {
+			this.props.addToFavorites(product)
+		}
+	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
 		const activeColor = _.find(product.colors, { name: color });
@@ -72,6 +86,12 @@ class ProductForm extends Component {
 			hasClose: true,
 			buttons: []
 		}
+		const favClass = classNames(style.ProductForm__favorite, {
+			[style.ProductForm__favorite_active]: _.find(this.props.favorites, { id: activeColor.id })
+		})
+		const heartClass = classNames(style.ProductForm__favorite__heart, {
+			[style.ProductForm__favorite__heart_active]: _.find(this.props.favorites, { id: activeColor.id })
+		})
 		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity), 'sex') : [];
 		return (
 			<div className={style.ProductForm}>
@@ -79,7 +99,10 @@ class ProductForm extends Component {
 					<div className={style.ProductForm__head}>
 						<p className={style.ProductForm__title}>{product.name}</p>
 						{/* <p className={style.ProductForm__subline}>{product.name}</p> */}
-
+						<button className={favClass} onClick={this.toogleFavotite}>
+							<HurtIcon />
+							<HeartSold className={heartClass} />
+						</button>
 					</div>
 					{activeColor &&
 						<div className={style.ProductForm__price}>
@@ -258,11 +281,19 @@ ProductForm.propTypes = {
 	product: PropTypes.object.isRequired
 };
 
+const mapStateToProps = (state, ownProps) => {
+	const { products } = state.products;
+	const { added: favorites } = state.favorites;
+	return { products, favorites };
+};
+
 const mapDispatchToProps = dispatch => {
 	return {
 		openModal: modalParams => dispatch(actions.openModal(modalParams)),
 		closeModal: () => dispatch(actions.closeModal()),
-		setStatusModal: (status) => dispatch(actions.setStatusModal(status))
+		setStatusModal: (status) => dispatch(actions.setStatusModal(status)),
+		addToFavorites: (product) => dispatch(favoritesAction.addToFavorites(product)),
+		removeFromFavorites: (productId) => dispatch(favoritesAction.removeFromFavorites(productId))
 	};
 };
-export default withRouter(connect(null, mapDispatchToProps)(ProductForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductForm));

@@ -12,12 +12,12 @@ const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, p
 		[`${style.ProductCard_sm}`]: sm
 	});
 	const url = name ? `/products/${slug ? slug : product.slug}?color=${name}` : `/products/${slug ? slug : product.slug}`;
-	console.log(isFavorite);
 	
 	const favClass = classNames(style.ProductCard__overlay__button, {
 		[style.ProductCard__overlay__button_active]: isFavorite
 	})
 	const text = actionText ? actionText : isFavorite ? "В избранном" : "В избранное"
+	
 	return (
 		<div className={className}>
 			<Link className={style.ProductCard__image} to={url}>
