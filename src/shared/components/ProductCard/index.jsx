@@ -2,23 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { ShadowIcon } from 'components/Icon';
+import { ShadowIcon, HurtIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
-const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, product }) => {
+const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, product, toogleFavotite, isFavorite }) => {
 	const className = classNames({
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
 	});
-	const url = name ? `/products/${slug ? slug : product.slug}?color=${name}` : `/products/${slug ? slug : product.slug}`
+	const url = name ? `/products/${slug ? slug : product.slug}?color=${name}` : `/products/${slug ? slug : product.slug}`;
+	console.log(isFavorite);
+	
+	const favClass = classNames(style.ProductCard__overlay__button, {
+		[style.ProductCard__overlay__button_active]: isFavorite
+	})
 	return (
-		<Link className={className} to={url}>
-			<div className={style.ProductCard__image}>
+		<div className={className}>
+			<Link className={style.ProductCard__image} to={url}>
 				<img src={img} alt="item" />
-			</div>
+			</Link>
 			<div className={style.ProductCard__content}>
-				<div className={style.ProductCard__inner}>
+				<Link className={style.ProductCard__inner} to={url}>
 					<span className={style.ProductCard__name}>
 						{product.name ? product.name : name}
 					</span>
@@ -26,13 +31,19 @@ const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, p
 						{category && category.name }
 						{product.category && product.category.name }
 					</span>
-				</div>
+				</Link>
 				<span className={style.ProductCard__price}>
 					{isSale && <span>{price}&nbsp;&#8381;</span>}
 					{oldPrice && <span>{oldPrice}&nbsp;&#8381;</span> }
 				</span>
 			</div>
-		</Link>
+			<div className={style.ProductCard__overlay}>
+				<button className={favClass} onClick={toogleFavotite}>
+					<span>В избранное</span>
+					<HurtIcon />
+				</button>
+			</div>
+		</div>
 	);
 };
 

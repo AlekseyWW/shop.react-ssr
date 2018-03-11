@@ -13,6 +13,14 @@
 		line-height 1
 		padding-bottom 72px
 		text-align: left
+
+		&:hover {
+			z-index 9
+			.ProductCard__overlay {
+				opacity 1
+				pointer-events initial
+			}
+		}
 		@media $phone {
 			width 50%
 			float left
@@ -123,6 +131,7 @@
 		width 100%
 		padding 0 12px
 		box-sizing border-box
+		z-index 2
 		@media $notebook {
 			// top 236px
 		}
@@ -138,7 +147,7 @@
 		}
 	}
 	&__inner {
-	
+		color $textColor
 	}
 	&__description {
 		display block
@@ -180,6 +189,7 @@
 	}
 	&__image {
 		position relative
+		z-index 2
 		img {
 			max-width 100%
 		}
@@ -209,5 +219,52 @@
 		border-radius: 50%;
 		transform-origin: center
 		transform: translateX(-50%)
+	}
+	&__overlay {
+		position absolute
+		top -8px
+		left 0
+		right 0
+		background #ffffff
+		bottom -10px
+		z-index 1
+		display flex
+		flex-direction column
+		align-items flex-end
+		justify-content flex-end
+		opacity: 0
+		pointer-events: none
+		box-shadow: 0 2px 6px rgba(0,0,0,0.1)
+		border-radius 4px
+		&__button {
+			border 1px solid $textColor
+			border-radius: 6px
+			font-size: 12px
+			display: flex
+			align-items: center
+			padding: 3px 4px
+			margin-bottom 8px
+			margin-right 8px
+			cursor: pointer
+			transition background $duration
+			span {
+				margin-right 4px
+			}
+			.Icon {
+				width 16px
+				height 14px
+				fill $textColor
+				transition fill
+			}
+			&:hover, &_active {
+				background-color $orangeColor
+				faster()
+
+				.Icon {
+					fill red
+					faster()
+				}
+			}
+		}
 	}
 }

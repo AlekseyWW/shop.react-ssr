@@ -4,7 +4,8 @@ import ReactPaginate from 'react-paginate';
 import ProductCard from 'components/ProductCard/';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import find from 'lodash/find';
+import * as favoritesAction from 'actions/favorites/';
 import * as productsAction from 'actions/products';
 import * as paginationAction from '../../state/modules/pagination';
 import Filter from 'components/Filter/';
@@ -42,8 +43,15 @@ class ProductList extends Component {
 			search: `${qs.stringify(queryData)}`
 		})
 	}
+	toogleFavotite = (product) => {
+		if (find(this.props.favorites, { id: product.id })) {
+			this.props.removeFromFavorites(product.id)
+		} else {
+			this.props.addToFavorites(product)
+		}
+	}
 	render() {
-		const { categoryId, allCount, products, isLoaded, isLoading} = this.props;
+		const { categoryId, allCount, products, isLoaded, isLoading, addToFavorites} = this.props;
 		const count = this.props.query.count || 12;
 		const offset = this.props.query.offset || 0;
 		const countPage = Math.ceil(allCount / (count||12));
@@ -71,7 +79,7 @@ class ProductList extends Component {
 					/>
 				</div>
 				<div className={style.ProductList__container}>
-					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard key={product.id} {...product} sm />)}
+					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'} sm />)}
 					{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}
 				</div>
 				<div className={style.ProductList__nav}>
@@ -118,15 +126,18 @@ ProductList.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const { products, isLoaded, isLoading } = state.products;
+	const { added: favorites } = state.favorites;
 	const query = qs.parse(ownProps.location.search);
-	return { categoryId, subCategoryId, stockId, query, products, isLoaded, isLoading };
+	return { categoryId, subCategoryId, stockId, query, products, isLoaded, isLoading, favorites };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const { categoryId } = ownProps;
 	return ({
 		getProducts: data => dispatch(productsAction.getProducts(data, categoryId)),
-		setPagination: (offset, countView) => dispatch(paginationAction.setPagination(offset, countView))
+		setPagination: (offset, countView) => dispatch(paginationAction.setPagination(offset, countView)),
+		addToFavorites: (product) => dispatch(favoritesAction.addToFavorites(product)),
+		removeFromFavorites: (productId) => dispatch(favoritesAction.removeFromFavorites(productId))
 	});
 };
 

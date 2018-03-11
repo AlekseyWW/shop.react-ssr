@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export const getExtendedList = (currentList, id, data, replace = false) => {
+export const getExtendedList = (currentList, id, data, replace = false, remove=false) => {
 	// copy list
 	const list = currentList.slice();
 	// find current item
@@ -10,7 +10,11 @@ export const getExtendedList = (currentList, id, data, replace = false) => {
 	const item = _.extend({}, (replace ? {} : currentItem), data, { id });
 	// insert to list
 	if (index >= 0) {
-		list[index] = item;
+		if (remove) {
+			_.remove(list, { id })
+		} else {
+			list[index] = item;
+		}
 	} else {
 		list.push(item);
 	}
@@ -44,6 +48,7 @@ export const getExtendedCartList = (currentList, product, remove = false, del = 
 	const currentItem = index >= 0 ? list[index] : {};
 	// create item with new data
 	// insert to list
+	
 	if (index >= 0) {
 		let currentCount = remove ? currentItem.count - 1 : currentItem.count + 1;
 		if (currentCount < 0 || del) currentCount = 0;
