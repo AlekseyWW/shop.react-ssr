@@ -3,7 +3,6 @@
 .ProductCard {
 	& {
 		position relative
-		grid-width(3)
 		padding 0 10px
 		box-sizing border-box
 		vertical-align top
@@ -13,7 +12,32 @@
 		line-height 1
 		padding-bottom 72px
 		text-align: left
-
+		width 33.33%
+		padding 0 12px
+		text-align left
+		margin-bottom 32px
+		@media $tablet {
+		}
+		@media $phone {
+			width 50%
+			margin-right 0
+			float left
+			box-sizing border-box
+			display block
+			padding 0 4px 32px
+			margin-bottom 32px
+			.ProductCard__overlay {
+				opacity 1
+				pointer-events initial
+				bottom 0
+				background-color transparent
+				box-shadow none
+				align-items flex-start
+			}
+			.ProductCard__overlay__button {
+				margin 0
+			}
+		}
 		&:hover {
 			z-index 9
 			.ProductCard__overlay {
@@ -21,102 +45,27 @@
 				pointer-events initial
 			}
 		}
-		@media $phone {
-			width 50%
-			float left
-			padding 0 4px
-		}
 
 		&_sm {
-			width 33.33%
-			padding 0 12px
-			text-align left
-			padding-bottom 10%
-			@media $notebook {
-				// padding-bottom 50px
-			}
-			@media $tablet {
-				padding-bottom 10%
-			}
+			width 25%
 			@media $phone {
 				width 50%
-				margin-right 0
-				float left
-				box-sizing border-box
-				display block
-				padding 0 4px
-				padding-bottom 15%
 			}
-			@media $verticalPhone {
-				padding-bottom 22%
-			}
-			.ProductCard__image {
-				background-color #C3C3C3
-				width auto
-				display flex
-				justify-content flex-end
-				flex-direction column
-				box-sizing border-box
-				img {
-					display block
-				}
-				svg {
-					display block
-				}
+			.ProductCard__content {
 			}
 			.ProductCard__shadow {
-				bottom 16px
 			}
 			.ProductCard__name {
-				font-size 14px
-				font-weight bold
-				padding-right 8px
-				@media $phone {
-					font-size 12px
-					margin-bottom 2px
-				}
+				
 			}
 			.ProductCard__description {
-				font-size 12px
 			}
 			.ProductCard__price {
-				font-size 12px
-				@media $phone {
-					font-size 10px
-				}
-				& span {
-					display block
-					margin-bottom 4px
-					text-align right
-					font-size 18px
-					font-weight bold
-					@media $phone {
-						font-size 12px
-					}
-				}
-				& span:nth-child(2) {
-					font-size 14px
-					margin-bottom 0
-					position relative
-					&:before {
-						content ''
-						position absolute
-						bottom 50%
-						left 0
-						width 100%
-						height 1px
-						background-color #000000
-					}
-					@media $phone {
-						font-size 10px
-					}
-				}
+				
 
 			}
 		}
-		&:last-child {
-			margin-bottom 0
-		}
+
 	}
 	img {
 		width 100%
@@ -125,25 +74,20 @@
 	&__content {
 		display flex
 		justify-content space-between
-		position absolute
-		top 80%
-		left 0
+		position relative
+		z-index 9
 		width 100%
 		padding 0 12px
 		box-sizing border-box
-		z-index 2
 		@media $notebook {
 			// top 236px
 		}
 		@media $tablet {
-			top 78%
 		}
 		@media $phone {
-			top 78%
 			padding 0 4px
 		}
 		@media $verticalPhone {
-			top 71%
 		}
 	}
 	&__inner {
@@ -152,8 +96,8 @@
 	&__description {
 		display block
 		margin-bottom 16px
-		font-size 20px
 		padding-right 20px
+		font-size 12px
 		&:last-child {
 			margin-bottom 0
 		}
@@ -164,13 +108,18 @@
 	&__name {
 		display block
 		margin-bottom 5px
+		font-size 14px
 		font-weight bold
-		font-size 30px
+		padding-right 8px
+		@media $phone {
+			font-size 12px
+			margin-bottom 2px
+		}
 		&:last-child {
 			margin-bottom 0
 		}
 		@media $tablet {
-			font-size 18px
+			// font-size 18px
 		}
 		@media $phone {
 			font-size 13px
@@ -179,17 +128,57 @@
 	&__price {
 		display block
 		margin-bottom 5px
-		font-size 40px
+		font-size 12px
+		@media $phone {
+			font-size 10px
+		}
+		& span {
+			display block
+			margin-bottom 4px
+			text-align right
+			font-size 18px
+			font-weight bold
+			@media $phone {
+				font-size 12px
+			}
+		}
+		& span:nth-child(2) {
+			font-size 14px
+			margin-bottom 0
+			position relative
+			&:before {
+				content ''
+				position absolute
+				bottom 50%
+				left 0
+				width 100%
+				height 1px
+				background-color #000000
+			}
+			@media $phone {
+				font-size 10px
+			}
+		}
 		&:last-child {
 			margin-bottom 0
-		}
-		@media $tablet {
-			font-size 20px
 		}
 	}
 	&__image {
 		position relative
 		z-index 2
+		background-color #C3C3C3
+		width auto
+		display flex
+		justify-content flex-end
+		flex-direction column
+		box-sizing border-box
+		margin-bottom 16px
+		img {
+			display block
+		}
+		svg {
+			display block
+		}
 		img {
 			max-width 100%
 		}
@@ -206,6 +195,7 @@
 		background-size: 120%
 		background-position center
 		background-image: url(/images/shadow.svg)
+		bottom 16px
 	}
 	&__shadowline {
 		width 80%
@@ -226,7 +216,7 @@
 		left 0
 		right 0
 		background #ffffff
-		bottom -10px
+		bottom -40px
 		z-index 1
 		display flex
 		flex-direction column
@@ -246,6 +236,7 @@
 			margin-bottom 8px
 			margin-right 8px
 			cursor: pointer
+			background-color transparent
 			transition background $duration
 			span {
 				margin-right 4px

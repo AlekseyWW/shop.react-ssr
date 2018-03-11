@@ -6,7 +6,7 @@ import { ShadowIcon, HurtIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
-const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, product, toogleFavotite, isFavorite }) => {
+const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, product, toogleFavotite, isFavorite, actionText }) => {
 	const className = classNames({
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
@@ -17,6 +17,7 @@ const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, p
 	const favClass = classNames(style.ProductCard__overlay__button, {
 		[style.ProductCard__overlay__button_active]: isFavorite
 	})
+	const text = actionText ? actionText : isFavorite ? "В избранном" : "В избранное"
 	return (
 		<div className={className}>
 			<Link className={style.ProductCard__image} to={url}>
@@ -39,8 +40,8 @@ const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, p
 			</div>
 			<div className={style.ProductCard__overlay}>
 				<button className={favClass} onClick={toogleFavotite}>
-					<span>В избранное</span>
-					<HurtIcon />
+					<span>{text}</span>
+					{!actionText && <HurtIcon />}
 				</button>
 			</div>
 		</div>
@@ -51,7 +52,9 @@ ProductCard.defaultProps = {
 	sm: false,
 	price: 0,
 	product: {},
+	toogleFavotite: () => {},
 	img: '',
+	actionText: '',
 	name: '',
 	slug: ''
 };
@@ -61,7 +64,9 @@ ProductCard.propTypes = {
 	price: PropTypes.number,
 	product: PropTypes.object,
 	slug: PropTypes.string,
+	toogleFavotite: PropTypes.func,
 	name: PropTypes.string,
+	actionText: PropTypes.string,
 	img: PropTypes.string
 };
 

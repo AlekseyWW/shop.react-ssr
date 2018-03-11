@@ -6,6 +6,7 @@ import ProductPage from 'pages/ProductPage';
 import SuccessPage from 'pages/SuccessPage';
 import CartPage from 'pages/CartPage';
 import OrderPage from 'pages/OrderPage';
+import FavoritesPage from 'pages/FavoritesPage';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -65,6 +66,11 @@ export default [
 		path: '/cart',
 		exact: true,
 		component: CartPage,
+	},
+	{
+		path: '/favorites',
+		exact: true,
+		component: FavoritesPage,
 	},
 	{
 		path: '/order',

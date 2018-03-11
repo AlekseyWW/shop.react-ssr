@@ -13,7 +13,7 @@ import { setCart } from '../../state/actions/cart';
 
 class Header extends Component { 
 	componentDidMount() {
-		const { isLoaded, isLoading, getCategories, setCart, setFavorites, getStockCategories } = this.props;
+		const { isLoaded, isLoading, getCategories, setCart, setFavorites, getStockCategories} = this.props;
 		if (!isLoaded && !isLoading) getCategories();
 		if (!getStockCategories.isLoaded && !getStockCategories.isLoading) getStockCategories();
 		const cart = localStorage.getItem("cart");
@@ -26,11 +26,11 @@ class Header extends Component {
 		}
 	}
 	render() {
-		const { items, cart } = this.props;
+		const { items, cart, favorites } = this.props;
 		return (
 			<div className={style.Header}>
 				<HeaderInfo data={headerData} />
-				<LogoLine cart={cart}/>
+				<LogoLine cart={cart} isFavorite={favorites.length > 0} />
 			</div>
 		);
 	}
@@ -48,8 +48,9 @@ Header.propTypes = {
 const mapStateToProps = (state) => {
 	const { isLoaded, isLoading, items } = state.category.categories;
 	const { getStockCategories } = state.category;
+	const { added: favorites } = state.favorites;
 	const cart = state.cart.added;
-	return { isLoaded, isLoading, items, cart };
+	return { isLoaded, isLoading, items, cart, favorites };
 };
 
 const mapDispatchToProps = dispatch => ({

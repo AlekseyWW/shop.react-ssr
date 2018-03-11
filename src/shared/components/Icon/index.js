@@ -14,6 +14,7 @@ import glass from './glass.svg';
 import shadow from './shadow.svg';
 import basket from './basket.svg';
 import downArrow from './down-arrow.svg';
+import heartSold from './heart-sold.svg';
 // import fbIcon from './facebook.svg';
 // import notesLogo from './chulakov-logo.svg';
 // import lab from './chula-lab.svg';
@@ -55,6 +56,7 @@ export const InstagramIcon = props => <Icon glyph={instagram} width={24} height=
 export const VkIcon = props => <Icon glyph={vk} width={24} height={24} {...props} />;
 export const CartIcon = props => <Icon glyph={cart} width={24} height={24} {...props} />;
 export const HurtIcon = props => <Icon glyph={hurt} width={27} height={23} {...props} />;
+export const HeartSold = props => <Icon glyph={heartSold} width={27} height={23} {...props} />;
 export const GlassIcon = props => <Icon glyph={glass} width={13} height={13} {...props} />;
 export const ShadowIcon = props => <Icon glyph={shadow} width={1420} height={328} {...props} />;
 export const BasketIcon = props => <Icon glyph={basket} width={25} height={30} {...props} />;

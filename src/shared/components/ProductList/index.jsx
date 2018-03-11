@@ -79,7 +79,7 @@ class ProductList extends Component {
 					/>
 				</div>
 				<div className={style.ProductList__container}>
-					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'} sm />)}
+					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'}	 />)}
 					{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}
 				</div>
 				<div className={style.ProductList__nav}>
