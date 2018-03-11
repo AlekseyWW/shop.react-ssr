@@ -11,6 +11,7 @@ import modal from './modules/modal';
 import sdek from './modules/sdek';
 import slider from './modules/slider';
 import pagination from './modules/pagination';
+import favorites from './modules/favorites';
 
 const rootReducer = combineReducers({
   brands: brandsReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   sdek,
   modal,
   slider,
+  favorites,
   pagination,
   form: formReducer
 });

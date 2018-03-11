@@ -103,6 +103,7 @@
 		display inline-block
 		vertical-align middle
 		&__item {
+			position relative
 			display inline-block
 			vertical-align middle
 			margin-right 20px
@@ -113,6 +114,18 @@
 				vertical-align middle
 			}
 		}
+		&__heart {
+			position absolute
+			display block
+			top 0
+			left 0
+			transform scale(0)
+			transform-origin 50% 50%
+			transition transform $duration
+			&_active {
+				transform scale(1)
+			}
+		}
 	}
 	&__search {
 		& {
@@ -121,11 +134,14 @@
 	}
 	&__social {
 		& {
-			// margin-right 32px
+			margin-right 32px
 			display inline-block
 			vertical-align middle
+			&:last-child {
+				margin-right 0
+			}
 			@media $phone {
-				margin-right: 0
+				margin-right: 8px
 			}
 		}
 		&__item {

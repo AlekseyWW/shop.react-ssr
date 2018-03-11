@@ -1,0 +1,24 @@
+.Page {
+	grid-width()
+	margin 0 auto
+	padding-top 40px
+
+	@media $phone {
+		padding 0 16px
+	}
+	&__header {
+		margin-bottom 24px
+		font-weight $bold
+		font-size 32px
+		.Icon {
+			margin-right 20px
+		}
+	}
+	&__container {
+		display block
+		margin 0 -12px
+		display flex
+		flex-wrap: wrap
+		clearfix()
+	}
+}

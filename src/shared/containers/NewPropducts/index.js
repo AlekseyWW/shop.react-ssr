@@ -18,7 +18,7 @@ const NewProducts = ({ products }) => (
 		</div>
 		<div className={style.NewProducts__list}>
 			<Swiper className={style.NewProducts__container} {...params} ref={el => { this.swiper = el }}>
-				{products.map(product => <div key={product.id} className={style.NewProducts__item}><ProductCard  {...product} sm/></div>)}
+				{products.map(product => <div key={product.id} className={style.NewProducts__item}><ProductCard  {...product}/></div>)}
 			</Swiper>
 		</div>
 	</div>

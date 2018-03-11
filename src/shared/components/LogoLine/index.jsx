@@ -1,14 +1,18 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import { NavLink, Link } from 'react-router-dom';
 import HeaderCart from 'containers/HeaderCart';
 import Input from 'components/Input';
-import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, TelegrammIcon, GlassIcon } from 'components/Icon';
+import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, TelegrammIcon, GlassIcon, HeartSold } from 'components/Icon';
 
 import style from './styles.styl';
 
-const LogoLine = () => {
-
+const LogoLine = ({ isFavorite }) => {
+	console.log(isFavorite);
+	
+	const heartClass = classNames(style.LogoLine__action__heart,{
+		[style.LogoLine__action__heart_active]: isFavorite
+	})
 	return (
 		<div className={style.LogoLine}>
 			<div className={style.LogoLine__container}>
@@ -51,9 +55,10 @@ const LogoLine = () => {
 							</div>
 						</div> */}
 						<div className={style.LogoLine__action}>
-							{/* <div className={style.LogoLine__action__item}>
+							<Link to="/favorites" className={style.LogoLine__action__item}>
 								<HurtIcon />
-							</div> */}
+								<HeartSold className={heartClass} />
+							</Link>
 							<div className={style.LogoLine__action__item}>
 								<HeaderCart />
 							</div>
