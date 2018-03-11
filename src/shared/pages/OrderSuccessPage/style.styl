@@ -1,0 +1,30 @@
+.Checkout {
+	grid-width(8)
+	margin 0 auto
+	padding-bottom 40px
+
+	&__title {
+		font-weight bold
+		font-size 32px
+		margin-bottom 32px
+	}
+	&__block {
+		padding 24px
+		background-color #fff
+		border-radius 4px
+		&__item {
+			font-size 18px
+			padding: 8px
+			border-bottom: 1px solid rgba(0,0,0,0.1)
+			span {
+				margin-right 24px
+				&:last-child {
+					margin-right 0
+				}
+			}
+			&:last-child {
+				border 0
+			}
+		}
+	}
+}

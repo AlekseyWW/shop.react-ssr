@@ -68,4 +68,20 @@
 			display block
 		}
 	}
+	&.OrderPay__option, &.OrderDeliver__option {
+		.CheckBox__label {
+			transition color $duration
+			&:hover {
+				color $redColor
+				background-color transparent
+				faster()
+			}
+			&:after {
+				margin-top -4px
+			}
+		}
+		.CheckBox__input:checked + .CheckBox__label {
+			color $redColor
+		}
+	}
 }

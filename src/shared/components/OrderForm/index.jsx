@@ -8,43 +8,30 @@ import Input from 'components/Input';
 import Select from 'components/Select';
 import { loadCities, getDeliveryCoast } from '../../state/modules/sdek';
 import Button from 'components/Button';
+import filter from 'lodash/filter';
+import find from 'lodash/find';
 import { required, email } from 'utils/validation';
 
 import style from './styles.styl';
 
 const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
 const deliveryData = {
-	post: {
-		id: "post",
-		name: "EMS почта россии",
-		price: 500
-	},
-	courier: {
-		id: "courier",
-		name: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
-		price: 290
-	},
-	self: {
-		id: "self",
-		name: "Забрать самостоятельно"
-	}
+	post: "EMS почта россии",
+	courier: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
+	'self_delivery': "Забрать самостоятельно"
 }
 const payData = {
 	cash: {
-		id: "cash",
 		name: "Наличный расчет",
 		price: "Оплата наличными при замовывозк или доставке заказа курьером"
 	},
-	card: {
-		id: "card",
-		name: "Предоблата дебетовой или кредитной картой"
+	electronic_payment: {
+		name: "Предоплата дебетовой или кредитной картой"
 	},
-	pod: {
-		id: "pod",
+	payment_on_delivery: {
 		name: "Наложенным платежом при получении"
 	}
 }
-
 class OrderForm extends Component {
 
 	getOptions(input, callback) {
@@ -61,11 +48,20 @@ class OrderForm extends Component {
 				})
 			})
 			.catch(err => {
-				dispatch(loadCitiesFailure(err.message));
+				console.log(err.message);
 			});
 	}
 	render() {
-		const { handleSubmit, products, deliveryCost, deliveryCity, delivery } = this.props;
+		const { handleSubmit, products, deliveryCost, deliveryCity, delivery, payType, sdek } = this.props;
+		const productsForDelivery = products.map(product => ({
+			id: product.id,
+			quantity: product.count,
+			size: {
+				id: product.size.id
+			}
+		}))
+		const currentSumm = payType ? find(sdek.deliveryTypes, b => b.delivery === payType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
+		
 		return (
 			<form onSubmit={handleSubmit} className={style.OrderForm}>
 				<div className={style.OrderForm__column}>
@@ -100,7 +96,9 @@ class OrderForm extends Component {
 								type="text"
 								getDeliveryCoast={this.props.getDeliveryCoast}
 								onChange={(data) => {
-									this.props.getDeliveryCoast({ receiverCityId: data.value, senderCityId: '438.0'});
+									console.log(data.value);
+									
+									this.props.getDeliveryCoast(data.value, productsForDelivery);
 									this.props.change('deliveryType', null)
 								}}
 								getOptions={this.getOptions}
@@ -201,57 +199,56 @@ class OrderForm extends Component {
 							<p>Доставка</p>
 						</div>
 						<div className={style.OrderDeliver__column}>
-							{deliveryCity && deliveryCity.label !== 'Ростов-на-Дону' &&
-								<div className={style.OrderDeliver__item}>
-									<Field
-										name="deliveryType"
-										component={CheckBox}
-										item={{
-											id: "post",
-											name: "EMS почта россии",
-											price: this.props.price
-										}}
-										index={0}
-										type="option"
-										className={style.OrderDeliver__option}
-									/>
-								</div>
-							}
-							{deliveryCity && deliveryCity.label === 'Ростов-на-Дону' &&
-								<div className={style.OrderDeliver__item}>
-									<Field
-										name="deliveryType"
-										component={CheckBox}
-										item={deliveryData.courier}
-										index={1}
-										type="option"
-										className={style.OrderDeliver__option}
-									/>
-								</div>
-							}
-							{((deliveryCity && deliveryCity.label === 'Ростов-на-Дону') || !deliveryCity) &&
-								<div className={style.OrderDeliver__item}>
-									<Field
-										name="deliveryType"
-										component={CheckBox}
-										item={deliveryData.self}
-										index={2}
-										type="option"
-										className={style.OrderDeliver__option}
-									/>
-								</div>
-							}
+							{sdek && sdek.deliveryTypes && filter(sdek.deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
+								const key = `item-${id}`;
+
+								return (
+									<div key={key} className={style.OrderDeliver__item}>
+										<Field
+											name="deliveryType"
+											component={CheckBox}
+											item={{
+												id: type.code,
+												name: deliveryData[type.code],
+												price: type.price > 0 ? type.price : ''
+											}}
+											index={0}
+											type="option"
+											className={style.OrderDeliver__option}
+										/>
+									</div>
+								)
+							})}
 						</div>
 					</div>
 					<div className={style.OrderSumm}>
 						<p>Итого</p>
-						<p>{getCartSummM(products) + (this.props.payType === 'card' ? 0 : deliveryCost)} ₽</p>
+						<p>{getCartSummM(products) + (currentSumm ? currentSumm.price : 0)} ₽</p>
 					</div>
 					<div className={style.OrderPay}>
 						<div className={style.OrderPay__title}>
 							<p>Выберите способ оплаты</p>
 						</div>
-						<Field
+						{sdek && sdek.paymentTypes && sdek.paymentTypes.map((type, id) => {
+							const key = `item-${id}`;
+
+							return (
+									<Field
+										key={key}
+										name="payType"
+										component={CheckBox}
+										item={{
+											id: type,
+											name: payData[type].name,
+											price: payData[type].price
+										}}
+										index={0}
+										type="option"
+										className={style.OrderPay__option}
+									/>
+							)
+						})}
+						{/* <Field
 							name="payType"
 							component={CheckBox}
 							item={payData.cash}
@@ -274,7 +271,7 @@ class OrderForm extends Component {
 							index={0}
 							type="option"
 							className={style.OrderPay__option}
-						/>}
+						/>} */}
 					</div>
 					<Button text="Оформить заказ" className={style.OrderPay__button} type="submit" />
 					<p>нажимая кнопку "Оформить заказ", Вы подтверждаете, что предоставляете свое согласие на обработку Ваших персональных данных</p>
@@ -303,17 +300,18 @@ const selector = formValueSelector('order')
 
 const mapStateToProps = state => {
 	const { price } = state.sdek;
+	const sdek = state.sdek;
 	const products = state.cart.added;
 	const initialValues = { colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
 	const payType = selector(state, 'payType');
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
-	return { products, delivery, deliveryCost, initialValues, payType, price, deliveryCity };
+	return { products, sdek, delivery, deliveryCost, initialValues, payType, price, deliveryCity };
 }
 const mapDispatchToProps = dispatch => ({
 	getCities: (name) => dispatch(loadCities(name)),
-	getDeliveryCoast: (data) => dispatch(getDeliveryCoast(data))
+	getDeliveryCoast: (id, data) => dispatch(getDeliveryCoast(id, data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm);

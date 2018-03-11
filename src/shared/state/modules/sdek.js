@@ -116,13 +116,13 @@ const loadCitiesFailure = error => ({
 });
 
 // Action Creators
-export const loadCities = name => dispatch => {
+export const loadCities = data => dispatch => {
 	dispatch(loadCitiesStart());
 	const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
 	return axios({
 		method: 'get',
 		url,
-		params: {name},
+		data,
 	})
 		.then(res => {
 			const { data } = res;
@@ -178,17 +178,19 @@ const getDeliveryCoastFailure = error => ({
 	error,
 });
 
-export const getDeliveryCoast = data => dispatch => {
+export const getDeliveryCoast = (id, colors) => dispatch => {
 	dispatch(getDeliveryCoastStart());
 
-	const url = 'http://test-api-shop.abo-soft.com/sdek/price';
+	const url = `http://test-api-shop.abo-soft.com/payment/by-city/${id}/info`;
 	return axios({
 		method: 'get',
 		url,
-		params: data ,
+		params: {colors},
 	})
 		.then(res => {
 			const { data } = res;
+			console.log(data);
+			
 			return dispatch(getDeliveryCoastSuccess(data));
 		})
 		.catch(err => {

@@ -4,6 +4,7 @@ import MainPage from 'pages/MainPage';
 import CatalogPage from 'pages/CatalogPage';
 import ProductPage from 'pages/ProductPage';
 import SuccessPage from 'pages/SuccessPage';
+import OrderSuccessPage from 'pages/OrderSuccessPage';
 import CartPage from 'pages/CartPage';
 import OrderPage from 'pages/OrderPage';
 import FavoritesPage from 'pages/FavoritesPage';
@@ -77,4 +78,9 @@ export default [
 		exact: true,
 		component: OrderPage,
 	},
+	{
+		path: '/checkout',
+		exact: true,
+		component: OrderSuccessPage,
+	}
 ];
