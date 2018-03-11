@@ -46,8 +46,18 @@ export default function renderHtml({ preloadedState, markup, styleTags, styles, 
 		${helmet.link.toString()}
 		${styleTags}
 		${styles}
+		<!-- Put this script tag to the <head> of your page -->
+		<script type="text/javascript" src="//vk.com/js/api/openapi.js?152"></script>
+
+		<script type="text/javascript">
+		VK.init({apiId: 4868336, onlyWidgets: true});
+		</script>
+
+		<!-- Put this div tag to the place, where the Comments block will be -->
+
 		</head>
 		<body ${helmet.bodyAttributes.toString()}>
+		
 		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript" >
 			(function (d, w, c) {

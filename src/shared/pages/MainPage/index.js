@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Promo from 'components/Promo/';
 import Category from 'containers/Category/';
 import BrandList from 'components/BrandList/';
+import Reviews from 'components/Reviews/';
 import NewPropducts from 'containers/NewPropducts/';
 import InstagrammGallery from 'components/InstagrammGallery';
 import * as productsAction from 'actions/products';
@@ -34,6 +35,7 @@ class MainPage extends Component {
 		if (!promoCategories.isLoading && !promoCategories.isLoaded) getPromoCategories();
 		if (!categories.isLoading && !categories.isLoaded) getCategories();
 		if (!slider.isLoading && !slider.isLoaded) loadSlider();
+		
 	}
 	render() {
 		const { promoCategories, sex, promoProducts, slider, categories } = this.props;
@@ -44,6 +46,7 @@ class MainPage extends Component {
 				{promoCategories.items && categories.items && <Category items={promoCategories.items} categories={categories.items}/>}
 				{promoProducts && <NewPropducts products={promoProducts} />}
 				<InstagrammGallery />
+				<Reviews />
 			</div>
 		);
 	}

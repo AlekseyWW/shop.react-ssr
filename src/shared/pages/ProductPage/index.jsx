@@ -3,6 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import PageInfo from 'containers/PageInfo/';
 import Preloader from 'components/Preloader/';
+import Reviews from 'components/Reviews/';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 import ProductContainer from 'containers/ProductContainer/';
@@ -21,8 +22,9 @@ class ProductPage extends Component {
 	render() {
 		const { product, addToCart, isLoaded, color } = this.props;
 		return (
-			<div className="ProductPage">
+			<div className="page__inner">
 				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : <Preloader />}
+				<Reviews />
 			</div>
 		);
 	}

@@ -35,6 +35,7 @@ class ProductView extends Component {
 			slidesPerView: 1,
 			spaceBetween: 40,
 			simulateTouch: false,
+			allowTouchMove: false,
 			on: {
 				slideChange: swiper => {
 					if (this.swiper) this.setState({activeSlide: this.swiper.swiper.activeIndex}); },
