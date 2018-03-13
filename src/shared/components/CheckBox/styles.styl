@@ -71,6 +71,7 @@
 	&.OrderPay__option, &.OrderDeliver__option {
 		.CheckBox__label {
 			transition color $duration
+			padding-left 0
 			&:hover {
 				color $redColor
 				background-color transparent
@@ -78,6 +79,9 @@
 			}
 			&:after {
 				margin-top -4px
+				right 100%
+				left auto
+				margin-right 8px
 			}
 		}
 		.CheckBox__input:checked + .CheckBox__label {

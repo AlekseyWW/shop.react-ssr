@@ -16,14 +16,14 @@ import style from './styles.styl';
 
 const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
 const deliveryData = {
-	post: "EMS почта россии",
+	post: "сдужба доставки СДЭК",
 	courier: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
 	'self_delivery': "Забрать самостоятельно"
 }
 const payData = {
 	cash: {
 		name: "Наличный расчет",
-		price: "Оплата наличными при замовывозк или доставке заказа курьером"
+		price: "Оплата наличными при замовывозе или доставке заказа курьером"
 	},
 	electronic_payment: {
 		name: "Предоплата дебетовой или кредитной картой"
@@ -31,7 +31,7 @@ const payData = {
 	payment_on_delivery: {
 		name: "Наложенным платежом при получении"
 	}
-}
+};
 class OrderForm extends Component {
 
 	getOptions(input, callback) {
@@ -96,8 +96,6 @@ class OrderForm extends Component {
 								type="text"
 								getDeliveryCoast={this.props.getDeliveryCoast}
 								onChange={(data) => {
-									console.log(data.value);
-									
 									this.props.getDeliveryCoast(data.value, productsForDelivery);
 									this.props.change('deliveryType', null)
 								}}
@@ -158,6 +156,13 @@ class OrderForm extends Component {
 								type="text"
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
 								label="Комментарий"
+							/>
+							<Field
+								name="country"
+								component={Input}
+								type="text"
+								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
+								label="страна"
 							/>
 						</div>
 					</div>
@@ -300,9 +305,11 @@ const selector = formValueSelector('order')
 
 const mapStateToProps = state => {
 	const { price } = state.sdek;
+	const { order } = state.form;
+	const val = order ? order.values : {};
 	const sdek = state.sdek;
 	const products = state.cart.added;
-	const initialValues = { colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
+	const initialValues = { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
 	const payType = selector(state, 'payType');

@@ -243,7 +243,7 @@ class ProductForm extends Component {
 						<div className={style.ProductForm__callback__title}>Свяжитесь с нами:</div>
 						<div className={style.ProductForm__callback__inner}>
 							<span className={style.ProductForm__callback__text}>Оформить заказ по телефону и уточнить наличие товара</span>
-							<a href="tel:88005112008" className={style.ProductForm__callback__phone}>8-(800)-511-20-08</a>
+							<a href="tel:89286206404" className={style.ProductForm__callback__phone}>8-(928)-620-64-04</a>
 							<span className={style.ProductForm__callback__note}>Информация о наличии товаров обновляется каждые 30 минут. Ассортимент товара их цена в магазине могут отличаться от информации на сайте.</span>
 						</div>
 					</div>

@@ -12,6 +12,11 @@ import styles from './style.styl';
 
 class OrderPage extends Component {
 	handleSubmit(data) {
+		if (data.city) {
+			data.city = {
+				id: data.city.value
+			}
+		}
 		this.props.fetchOrder(data);
 	}
 	render() {

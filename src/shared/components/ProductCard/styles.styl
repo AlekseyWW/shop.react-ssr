@@ -173,6 +173,16 @@
 		flex-direction column
 		box-sizing border-box
 		margin-bottom 16px
+		&:before {
+			content ''
+			position absolute
+			top 0
+			left 0
+			width 100%
+			padding-bottom 100%
+			background-color #fff
+			z-index -1
+		}
 		img {
 			display block
 		}
