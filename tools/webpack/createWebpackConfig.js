@@ -5,7 +5,7 @@ import fs from 'fs';
 import webpack from 'webpack';
 import dotenv from 'dotenv';
 import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
-import BabelMinifyPlugin from 'babel-minify-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import BundleAnalyzerPlugin from 'webpack-bundle-analyzer';
@@ -592,7 +592,9 @@ export default function createWebpackConfig(options) {
 				: null,
 			_IS_SERVER_ ? new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }) : null,
 
-			_IS_PROD_ && _IS_CLIENT_ ? new BabelMinifyPlugin({}, { comments: false }) : null,
+			_IS_PROD_ && _IS_CLIENT_
+				? new UglifyJsPlugin({ sourceMap: false })
+				: null,
 
 			_IS_PROD_ ? new webpack.optimize.ModuleConcatenationPlugin() : null,
 			// Dll reference speeds up development by grouping all of your vendor dependencies
