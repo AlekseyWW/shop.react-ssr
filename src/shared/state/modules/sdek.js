@@ -183,9 +183,9 @@ export const getDeliveryCoast = (id, colors) => dispatch => {
 
 	const url = `http://test-api-shop.abo-soft.com/payment/by-city/${id}/info`;
 	return axios({
-		method: 'get',
+		method: 'post',
 		url,
-		params: {colors},
+		data: {colors},
 	})
 		.then(res => {
 			const { data } = res;
