@@ -71,3 +71,22 @@ export const getCart = () => (dispatch) => {
 		error => dispatch(getCartError(error.message))
 	);
 };
+
+const clearCartSuccess = () => ({
+	type: types.CLEAR_CART_SUCCESS,
+});
+
+const clearCartError = error => ({
+	type: types.CLEAR_CART_FAILURE,
+	error
+});
+
+export const clearCart = () => (dispatch) => {
+	dispatch(clearCartSuccess());
+	// get(
+	// 	'/cart',
+	// 	{ },
+	// 	response => dispatch(clearCartSuccess(response)),
+	// 	error => dispatch(clearCartError(error.message))
+	// );
+};

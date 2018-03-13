@@ -51,7 +51,7 @@ class ProductList extends Component {
 		}
 	}
 	render() {
-		const { categoryId, allCount, products, isLoaded, isLoading, addToFavorites} = this.props;
+		const { sex, categoryId, allCount, products, isLoaded, isLoading, addToFavorites} = this.props;
 		const count = this.props.query.count || 12;
 		const offset = this.props.query.offset || 0;
 		const countPage = Math.ceil(allCount / (count||12));
@@ -79,7 +79,7 @@ class ProductList extends Component {
 					/>
 				</div>
 				<div className={style.ProductList__container}>
-					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'}	 />)}
+					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard sex={sex} key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'}	 />)}
 					{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}
 				</div>
 				<div className={style.ProductList__nav}>
@@ -124,11 +124,12 @@ ProductList.propTypes = {
 
 
 const mapStateToProps = (state, ownProps) => {
+	let { sex } = qs.parse(ownProps.location.search);
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const { products, isLoaded, isLoading } = state.products;
 	const { added: favorites } = state.favorites;
 	const query = qs.parse(ownProps.location.search);
-	return { categoryId, subCategoryId, stockId, query, products, isLoaded, isLoading, favorites };
+	return { sex, categoryId, subCategoryId, stockId, query, products, isLoaded, isLoading, favorites };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

@@ -31,7 +31,7 @@ export function requestOrderDone(data) {
 		// 					<span>Фамилия: {data.firstName}</span>
 		// 				</li>
 		// 				<li>
-		// 					<span>Адрес: {data.country}, {data.region}, {data.city}, {data.address}, {data.aprtaments}, {data.postIndex}</span>
+		// 					<span>Адрес: {data.city.name}, {data.address}, {data.aprtaments}, {data.postIndex}</span>
 		// 				</li>
 		// 				<li>
 		// 					<span> Коментарий: {data.comment}</span>
@@ -49,9 +49,20 @@ export function requestOrderDone(data) {
 		// 				text: 'Перейти к оплате',
 		// 				intent: 'success',
 		// 				onClick: () => {
-		// 					console.log('====================================');
-		// 					console.log('урра');
-		// 					console.log('====================================');
+		// 					const url = `http://test-api-shop.abo-soft.com/payment-url/order/${data.id}`
+		// 					axios({
+		// 						method: 'get',
+		// 						url,
+		// 					})
+		// 						.then(res => {
+		// 							const { data } = res;
+		// 							if (typeof data === 'string') {
+		// 								window.location = data
+		// 							}
+		// 						})
+		// 						.catch(err => {
+		// 							console.log(err.message);
+		// 						});
 		// 				}
 		// 			}
 		// 		]
