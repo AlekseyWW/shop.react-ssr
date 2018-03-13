@@ -243,9 +243,9 @@ class OrderForm extends Component {
 										name="payType"
 										component={CheckBox}
 										item={{
-											id: type,
-											name: payData[type].name,
-											price: payData[type].price
+											id: type.code,
+											name: payData[type.code].name,
+											price: payData[type.code].price
 										}}
 										index={0}
 										type="option"
