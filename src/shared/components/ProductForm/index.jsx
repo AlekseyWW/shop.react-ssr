@@ -201,10 +201,10 @@ class ProductForm extends Component {
 									}
 								/>
 							</div>
-							<Button
+							{/* <Button
 								className={style.ProductForm__button}
 								text="Добавить в&nbsp;корзину"
-								onClick={() => this.addToCart()}/>
+								onClick={() => this.addToCart()}/> */}
 							<div className={style.ProductForm__fastOrder}>
 								<p className={style.ProductForm__fastOrder__title}>Купить в&nbsp;один клик</p>
 								<div className={style.ProductForm__fastOrder__form}>
