@@ -32,6 +32,17 @@ const payData = {
 };
 
 class OrderPage extends Component {
+	componentDidMount() {
+		console.log(this.props.order);
+		
+		if(!this.props.order) {
+			const order = localStorage.getItem("order");
+	
+			if (order) {
+				this.props.requestOrderDone(JSON.parse(order), false);
+			}
+		}
+	}
 	onClick = () => {
 		const { order } = this.props;
 		const url = `http://test-api-shop.abo-soft.com/payment-url/order/${order.id}`
@@ -46,7 +57,8 @@ class OrderPage extends Component {
 						modalType: ModalExample,
 						onClose: () => {
 							this.props.history.push('/')
-							this.props.clearCart()
+							this.props.clearCart();
+							localStorage.setItem("order", "");
 						},
 						modalProps: {
 							title: `Ваш заказ успешно оформлен`,
@@ -63,6 +75,7 @@ class OrderPage extends Component {
 					});
 				} else {
 					this.props.clearCart()
+					localStorage.setItem("order", "");
 					window.location = data
 				}
 			})
@@ -74,16 +87,14 @@ class OrderPage extends Component {
 	
 	render() {
 		const { order, products } = this.props;
-		console.log(order);
-		
-		const text = order.paymentType === 'electronic_payment' ? 'Оплатить' : 'Подтвердить заказ'
+		const text = order && order.paymentType === 'electronic_payment' ? 'Оплатить' : 'Подтвердить заказ'
 		return (
 			<div className={style.Checkout}>
 			
 				<div className={style.Checkout__title}>
 					<h1>Подтверждение заказа</h1>
 				</div>
-				{order.paymentType &&
+				{order && order.paymentType &&
 					<ul className={style.Checkout__block}>
 						<li className={style.Checkout__block__item}>
 							<span>E-mail: {order.email}</span>
@@ -134,7 +145,7 @@ class OrderPage extends Component {
 }
 
 OrderPage.defaultProps = {
-	order: {}
+	order: undefined
 };
 
 OrderPage.propTypes = {
@@ -151,6 +162,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
 	return {
 		openModal: modalParams => dispatch(actions.openModal(modalParams)),
+		requestOrderDone: (data, redirect) => dispatch(orderAtions.requestOrderDone(data, redirect)),
 		closeModal: () => dispatch(actions.closeModal()),
 		clearCart: () => dispatch(clearCart()),
 	};

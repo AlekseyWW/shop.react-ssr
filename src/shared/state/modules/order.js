@@ -13,7 +13,7 @@ export function requestOrderStart() {
 	return { type: FETCH_ORDER_REQUEST };
 }
 
-export function requestOrderDone(data) {
+export function requestOrderDone(data, redirect) {
 	return dispatch => {
 		// dispatch(actions.openModal({
 		// 	modalType: ModalExample,
@@ -68,7 +68,12 @@ export function requestOrderDone(data) {
 		// 		]
 		// 	}
 		// }));
-		dispatch(push('/checkout'));
+		
+		if (redirect) {
+			dispatch(push('/checkout'));
+		}
+		console.log({ data });
+		
 		dispatch({
 			type: FETCH_ORDER_SUCCESS,
 			payload: data,
@@ -83,13 +88,13 @@ export function requestOrderFail(err) {
 	};
 }
 
-export const fetchOrder = (data) => {
+export const fetchOrder = (data, redirect=true) => {
 	return dispatch => {
 		dispatch(requestOrderStart());
 		return post(
 			'/order',
 			{...data},
-			response => dispatch(requestOrderDone(response)),
+			response => dispatch(requestOrderDone(response, redirect)),
 			error => dispatch(requestOrderFail(error.message))
 		);
 	};
@@ -98,7 +103,7 @@ export const fetchOrder = (data) => {
 
 
 const initialState = {
-	order: {},
+	order: undefined,
 	isFetching: false,
 	error: null,
 };
@@ -111,6 +116,8 @@ export default function postsReducer(state = initialState, action) {
 				isFetching: true,
 			};
 		case FETCH_ORDER_SUCCESS:
+			localStorage.setItem("order", JSON.stringify(action.payload));
+			
 			return {
 				...state,
 				isFetching: false,
