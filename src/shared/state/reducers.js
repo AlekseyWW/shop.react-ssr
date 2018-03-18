@@ -10,7 +10,7 @@ import productsReducer from './modules/products';
 import modal from './modules/modal';
 import sdek from './modules/sdek';
 import slider from './modules/slider';
-// import user from './modules/user';
+import user from './modules/user';
 import pagination from './modules/pagination';
 import favorites from './modules/favorites';
 
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   sdek,
   modal,
   slider,
-  // user,
+  user,
   favorites,
   pagination,
   form: formReducer
