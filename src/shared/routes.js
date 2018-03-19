@@ -9,6 +9,7 @@ import CartPage from 'pages/CartPage';
 import OrderPage from 'pages/OrderPage';
 import FavoritesPage from 'pages/FavoritesPage';
 import UserPage from 'pages/UserPage';
+import Delivery from 'pages/Delivery';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -88,5 +89,10 @@ export default [
 		path: '/user',
 		exact: true,
 		component: UserPage,
+	},
+	{
+		path: '/user/delivery',
+		exact: true,
+		component: Delivery,
 	}
 ];

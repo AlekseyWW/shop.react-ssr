@@ -63,7 +63,23 @@ class UserPage extends Component {
 									</div>
 									<div className={styles.UserPage__item__text}>
 										{profile.order ? (
-											<p>{profile.order[0].id}</p>
+											<div className={styles.UserPage__order}>
+												{profile.order[0].colors.map((color, id) => {
+													const key = `item=${id}`
+													return (
+														<div key={key} className={styles.UserPage__order__item}>
+															<div className={styles.UserPage__order__item__id}>{id + 1}</div>
+															<div className={styles.UserPage__order__item__img}><img src={color.img} alt=""/></div>
+															<div className={styles.UserPage__order__item__size}>{color.size.name}</div>
+															<div className={styles.UserPage__order__item__name}>{color.product.name}</div>
+															<div className={styles.UserPage__order__item__price}>{color.price} ₽</div>
+														</div>
+													)}
+												)}
+												<div key={key} className={styles.UserPage__order__item}>
+													<span>Стоимость доставки: {profile.order[0].deliveryPrice} ₽</span><span>Сумма заказа: {profile.order[0].sum} ₽</span>
+												</div>
+											</div>
 										) : 'Тут будет отображен статус вашего последнего заказа'}
 									</div>
 								</div>

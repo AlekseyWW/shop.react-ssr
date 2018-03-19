@@ -1,0 +1,107 @@
+.DeliveryForm {
+	& {
+		display block
+		font-size 12px
+		margin 0 -24px
+		padding-bottom 60px
+		@media $phone {
+			margin 0
+		}
+	}
+	&__wrapper {
+		width 350px
+
+		.ModalExample__inner {
+			padding-left 0
+		}
+	}
+	&__row {
+		display flex
+		align-items: center
+		margin-bottom: 24px
+
+		&:last-child {
+			margin-bottom 0
+		}
+		& .Input, & .SelectField {
+			margin-right 40px
+
+			&:last-child {
+				margin-right 0
+			}
+		}
+	}
+	&__label {
+		margin-bottom 12px
+		padding-bottom 18px
+		border-bottom 2px solid #191919
+		position relative
+	}
+	&__title {
+		font-size 20px
+		display block
+		font-weight bold
+		text-transform uppercase
+	}
+	&__note {
+		position absolute
+		bottom 4px
+		left 0
+	}
+	&__container {
+		padding 0 24px
+		vertical-align top
+		@media $phone {
+			display block
+			width auto
+			padding 0 16px
+			margin-bottom 32px
+			&:last-child {
+				margin-bottom 0
+			}
+		}
+	}
+	&__itemSm {
+		width 50%
+		display inline-block
+	}
+	&__input {
+		flex: 1
+		@media $phone {
+			margin-bottom 8px
+			margin-right 0
+		}
+		&:last-child {
+			margin-right 0
+			margin-bottom 0
+		}
+		.Input__label {
+			font-size 18px
+			margin-bottom 8px
+		}
+		&.SelectField .Select-control {
+			padding 14px
+		}
+		&.SelectField .Select-value-label {
+			display inline-block
+			padding 14px 0
+			line-height 1
+			font-size 20px
+		}
+		.SelectField__label {
+			font-size 18px
+			margin-bottom 8px
+		}
+		.Input__field {
+			font-size 20px
+			padding 12px 10px
+		}
+	}
+	&__button {
+		flex 1
+		align-self flex-end
+	}
+	.Button  {
+		width: auto
+	}
+}
