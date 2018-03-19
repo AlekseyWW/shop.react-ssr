@@ -16,7 +16,7 @@ import { InstagramIcon } from 'components/Icon';
 import InputMask from 'react-input-mask';
 import { HurtIcon, HeartSold } from 'components/Icon';
 
-import InstagramEmbed from 'react-instagram-embed'
+import InstagramEmbed from 'react-instagram-embed';
 import { actions } from '../../state/modules/modal.js';
 
 class ProductForm extends Component {
@@ -224,11 +224,13 @@ class ProductForm extends Component {
 												alert('Вы не указали телефон');
 												return false;
 											}
+											const utm = window.utm ? window.utm : {}
 											post(
 												`/colors/${id}/request`,
 												{
 													phone: this.phone.value,
 													size: this.state.activeSize,
+													...utm,
 												},
 												response => this.onSuccess(),
 												error => console.log(error)

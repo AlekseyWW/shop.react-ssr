@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+import filter from 'lodash/filter';
 import { ShadowIcon, HurtIcon } from 'components/Icon';
 
 import style from './styles.styl';
 
-const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, product, toogleFavotite, isFavorite, actionText }) => {
+const ProductCard = ({ sm, sex, sizes, category, img, slug, name, price, oldPrice, isSale, product, toogleFavotite, isFavorite, actionText }) => {
 	const className = classNames({
 		[`${style.ProductCard}`]: true,
 		[`${style.ProductCard_sm}`]: sm
@@ -17,6 +18,7 @@ const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, p
 		[style.ProductCard__overlay__button_active]: isFavorite
 	})
 	const text = actionText ? actionText : isFavorite ? "В избранном" : "В избранное"
+	const currentSizes = sex ? filter(sizes, b => b.sex === sex && b.quantity > 0) : sizes;
 	
 	return (
 		<div className={className}>
@@ -39,10 +41,21 @@ const ProductCard = ({ sm, category, img, slug, name, price, oldPrice, isSale, p
 				</span>
 			</div>
 			<div className={style.ProductCard__overlay}>
-				<button className={favClass} onClick={toogleFavotite}>
-					<span>{text}</span>
-					{!actionText && <HurtIcon />}
-				</button>
+				<div className={style.ProductCard__overlay__content}>
+					<div className={style.ProductCard__overlay__sizes}>
+						<span className={style.ProductCard__overlay__sizes__label}>Размеры:</span>
+						<span className={style.ProductCard__overlay__sizes__inner}>
+							{currentSizes.map((size, id) => {
+								const key = `item-${id}`;
+								return <span key={key}>{size.name}</span>
+							})}
+						</span>
+					</div>
+					<button className={favClass} onClick={toogleFavotite}>
+						<span>{text}</span>
+						{!actionText && <HurtIcon />}
+					</button>
+				</div>
 			</div>
 		</div>
 	);
@@ -56,7 +69,9 @@ ProductCard.defaultProps = {
 	img: '',
 	actionText: '',
 	name: '',
-	slug: ''
+	slug: '',
+	sizes: [],
+	sex: ''
 };
 
 ProductCard.propTypes = {
@@ -67,7 +82,9 @@ ProductCard.propTypes = {
 	toogleFavotite: PropTypes.func,
 	name: PropTypes.string,
 	actionText: PropTypes.string,
-	img: PropTypes.string
+	img: PropTypes.string,
+	sex: PropTypes.string,
+	sizes: PropTypes.array
 };
 
 export default ProductCard;

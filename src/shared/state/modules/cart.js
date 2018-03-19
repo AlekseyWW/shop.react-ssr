@@ -91,6 +91,30 @@ export default function cart(state = initialState, action) {
 				isFetched: false,
 			};
 
+		case types.GET_CART_START:
+			return {
+				...state,
+				isFetching: true
+			};
+
+		case types.CLEAR_CART_SUCCESS:
+			localStorage.setItem("cart", '');
+			return {
+				...state,
+				isFetching: false,
+				isFetched: true,
+				added: [],
+				error: null
+			};
+
+
+		case types.CLEAR_CART_FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				isFetched: false,
+			};
+
 		default:
 			return state;
 	}

@@ -18,3 +18,12 @@ export const put = (...args) => request('put', ...args);
 export const patch = (...args) => request('patch', ...args);
 export const del = (...args) => request('delete', ...args);
 
+// Session token
+export function getAccessToken() {
+	return typeof localStorage !== 'undefined' ? localStorage.getItem('accessToken') : '';
+}
+
+export function setAccessToken(token) {
+	return typeof localStorage !== 'undefined' ? localStorage.setItem('accessToken', token) : '';
+}
+

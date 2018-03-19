@@ -19,7 +19,8 @@ export default function modal(state = initialState, action) {
             return {
                 ...state,
                 modalType: action.modalType,
-                modalProps: action.modalProps
+                modalProps: action.modalProps,
+                onClose: action.onClose
             };
         case types.SET_STATUS_MODAL:
             return {
@@ -45,7 +46,6 @@ export const actions = {
     },
     setStatusModal: status => {
         // lockScroll();
-        console.log(status);
         return {
             type: types.SET_STATUS_MODAL,
             status

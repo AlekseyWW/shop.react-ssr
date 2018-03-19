@@ -8,6 +8,7 @@ import OrderSuccessPage from 'pages/OrderSuccessPage';
 import CartPage from 'pages/CartPage';
 import OrderPage from 'pages/OrderPage';
 import FavoritesPage from 'pages/FavoritesPage';
+import UserPage from 'pages/UserPage';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -82,5 +83,10 @@ export default [
 		path: '/checkout',
 		exact: true,
 		component: OrderSuccessPage,
+	},
+	{
+		path: '/user',
+		exact: true,
+		component: UserPage,
 	}
 ];

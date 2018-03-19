@@ -11,7 +11,7 @@ const images = {
 }
 class ModalExample extends Component {
     render() {
-        const { title, text, subTitle, buttons, status, className } = this.props.modalProps;
+        const { title, text, subTitle, buttons, status, className, openRegisterModal } = this.props.modalProps;
 
         return (
             <div className={`ModalExample ${className}`}>
@@ -30,6 +30,9 @@ class ModalExample extends Component {
                                 <h2 className="ModalExample__subTitle" level={4}>
                                     {htmlParser(subTitle)}
                                 </h2>
+                            )}
+                            {openRegisterModal && (
+                                <div onClick={openRegisterModal}>Создать аккаунт</div>
                             )}
                         </div>
                     )}

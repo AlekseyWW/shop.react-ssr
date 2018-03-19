@@ -15,26 +15,37 @@ import shadow from './shadow.svg';
 import basket from './basket.svg';
 import downArrow from './down-arrow.svg';
 import heartSold from './heart-sold.svg';
+import key from './key.svg';
+import lock from './lock.svg';
+import present from './present.svg';
+import card from './card.svg';
+import adress from './adress.svg';
 // import fbIcon from './facebook.svg';
 // import notesLogo from './chulakov-logo.svg';
 // import lab from './chula-lab.svg';
 // import targetBlanc from './target-blanc.svg';
 
-const Icon = ({ className, glyph, width, height, ...rest }) => (
-	<svg
-		className={`Icon ${className}`}
-		viewBox={glyph.viewBox}
-		width={width}
-		height={height}
-		{...rest}>
-		<use xlinkHref={`#${glyph.id}`} />
-	</svg>
-);
+const Icon = ({ className, glyph, width, height, ...rest }) => {
+	const viewBox = glyph.viewBox.split(' ');
+	const sizes = {
+		width: width > 0 ? width : Number(viewBox[2]),
+		height: height > 0 ? height : Number(viewBox[3]),
+	};
+	return (
+		<svg
+			className={`Icon ${className}`}
+			viewBox={glyph.viewBox}
+			{...sizes}
+			{...rest}>
+			<use xlinkHref={`#${glyph.id}`} />
+		</svg>
+	);
+}
 
 Icon.defaultProps = {
 	className: '',
-	width: 16,
-	height: 16,
+	width: undefined,
+	height: undefined,
 };
 
 Icon.propTypes = {
@@ -61,6 +72,11 @@ export const GlassIcon = props => <Icon glyph={glass} width={13} height={13} {..
 export const ShadowIcon = props => <Icon glyph={shadow} width={1420} height={328} {...props} />;
 export const BasketIcon = props => <Icon glyph={basket} width={25} height={30} {...props} />;
 export const DownArrow = props => <Icon glyph={downArrow} width={12} height={8} {...props} />;
+export const AdressIcon = props => <Icon glyph={adress} {...props} />;
+export const CardIcon = props => <Icon glyph={card} {...props} />;
+export const KeyIcon = props => <Icon glyph={key} {...props} />;
+export const LockIcon = props => <Icon glyph={lock} {...props} />;
+export const PresentIcon = props => <Icon glyph={present} {...props} />;
 
 // export const FbIcon = props => <Icon glyph={fbIcon} width={24} height={24} {...props} />;
 

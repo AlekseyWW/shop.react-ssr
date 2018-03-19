@@ -16,7 +16,7 @@ import style from './styles.styl';
 
 const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
 const deliveryData = {
-	post: "сдужба доставки СДЭК",
+	post: "служба доставки СДЭК",
 	courier: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
 	'self_delivery': "Забрать самостоятельно"
 }
@@ -33,7 +33,18 @@ const payData = {
 	}
 };
 class OrderForm extends Component {
-
+	componentDidMount() {
+		if (this.props.initialValues && this.props.initialValues.sity) {
+			const productsForDelivery = this.props.products.map(product => ({
+				id: product.id,
+				quantity: product.count,
+				size: {
+					id: product.size.id
+				}
+			}))
+			this.props.getDeliveryCoast(this.props.initialValues.sity, productsForDelivery)
+		}
+	}
 	getOptions(input, callback) {
 		const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
 		axios({
@@ -52,7 +63,7 @@ class OrderForm extends Component {
 			});
 	}
 	render() {
-		const { handleSubmit, products, deliveryCost, deliveryCity, delivery, payType, sdek } = this.props;
+		const { handleSubmit, products, deliveryCost, deliveryCity, delivery, paymentType, sdek } = this.props;
 		const productsForDelivery = products.map(product => ({
 			id: product.id,
 			quantity: product.count,
@@ -60,7 +71,7 @@ class OrderForm extends Component {
 				id: product.size.id
 			}
 		}))
-		const currentSumm = payType ? find(sdek.deliveryTypes, b => b.delivery === payType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
+		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
 		
 		return (
 			<form onSubmit={handleSubmit} className={style.OrderForm}>
@@ -146,6 +157,8 @@ class OrderForm extends Component {
 								type="text"
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
 								label="Телефон*"
+								mask="+7\ 999 999-99-99"
+								maskChar=""
 								validate={[required]}
 							/>
 						</div>
@@ -220,6 +233,7 @@ class OrderForm extends Component {
 											index={0}
 											type="option"
 											className={style.OrderDeliver__option}
+											validate={[required]}
 										/>
 									</div>
 								)
@@ -240,7 +254,7 @@ class OrderForm extends Component {
 							return (
 									<Field
 										key={key}
-										name="payType"
+										name="paymentType"
 										component={CheckBox}
 										item={{
 											id: type.code,
@@ -250,11 +264,12 @@ class OrderForm extends Component {
 										index={0}
 										type="option"
 										className={style.OrderPay__option}
+										validate={[required]}
 									/>
 							)
 						})}
 						{/* <Field
-							name="payType"
+							name="paymentType"
 							component={CheckBox}
 							item={payData.cash}
 							index={0}
@@ -262,7 +277,7 @@ class OrderForm extends Component {
 							className={style.OrderPay__option}
 						/>
 						<Field
-							name="payType"
+							name="paymentType"
 							component={CheckBox}
 							item={payData.card}
 							index={0}
@@ -270,7 +285,7 @@ class OrderForm extends Component {
 							className={style.OrderPay__option}
 						/>
 						{delivery === 'post' && <Field
-							name="payType"
+							name="paymentType"
 							component={CheckBox}
 							item={payData.pod}
 							index={0}
@@ -312,9 +327,9 @@ const mapStateToProps = state => {
 	const initialValues = { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
-	const payType = selector(state, 'payType');
+	const paymentType = selector(state, 'paymentType');
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
-	return { products, sdek, delivery, deliveryCost, initialValues, payType, price, deliveryCity };
+	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity };
 }
 const mapDispatchToProps = dispatch => ({
 	getCities: (name) => dispatch(loadCities(name)),

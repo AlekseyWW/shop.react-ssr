@@ -4,6 +4,8 @@ import Footer from 'containers/Footer/';
 import ModalContainer from 'containers/ModalContainer/';
 import { withRouter } from 'react-router-dom';
 import style from './styles.styl';
+import qs from 'query-string';
+
 
 class Layout extends Component {
 	componentDidUpdate(prevProps, prevState) {
@@ -67,6 +69,17 @@ class Layout extends Component {
 
 		const ScrollMagic = require('scrollmagic');
 		window.controller = new ScrollMagic.Controller();
+		const parsedQuery = qs.parse(this.props.location.search);
+		console.log({parsedQuery});
+		if (parsedQuery['utm_campaign']) {
+			window.utm = {
+				utm_campaign: parsedQuery['utm_campaign'],
+				utm_medium: parsedQuery['utm_medium'],
+				utm_source: parsedQuery['utm_source'],
+				utm_term: parsedQuery['utm_term']
+			}
+		}
+		
 	}
 	render() {
 		const { children } = this.props;
