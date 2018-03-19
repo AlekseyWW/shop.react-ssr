@@ -3,6 +3,7 @@ import Route from 'react-router-dom/Route';
 import Helmet from 'react-helmet';
 import Switch from 'react-router-dom/Switch';
 import Layout from 'containers/Layout';
+import AuthenticatedComponent from 'containers/AuthenticatedComponent';
 import uuid from 'uuid';
 // internal
 
@@ -31,7 +32,7 @@ function App() {
 				<Switch>
 					{routes.map(route => (
 						// pass in the initialData from the server for this specific route
-						<Route {...route} component={slideMenu(route.component)} key={uuid.v4()} />
+						<Route {...route} component={AuthenticatedComponent(slideMenu(route.component))} key={uuid.v4()} />
 					))}
 					<Route component={NotFound} />
 				</Switch>

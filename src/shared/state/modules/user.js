@@ -41,6 +41,30 @@ export default function user(state = initialState, action) {
 				error: action.error
 			};
 
+		case types.REGISTER_START:
+			return {
+				...state,
+				isFetching: true
+			};
+
+		case types.REGISTER_SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				role: action.role,
+				accessToken: action.token,
+				error: null
+			};
+
+		case types.REGISTER_FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				role: '',
+				accessToken: '',
+				error: action.error
+			};
+
 		case types.GET_PROFILE_START:
 			return {
 				...state,

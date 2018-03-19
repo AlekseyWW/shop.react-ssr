@@ -1,0 +1,176 @@
+.LoginForm {
+	& {
+		display block
+		font-size 12px
+		margin 0 -24px
+		padding-bottom 60px
+		@media $phone {
+			margin 0
+		}
+	}
+	&__wrapper {
+		width 350px
+
+		.ModalExample__inner {
+			padding-left 0
+		}
+	}
+	&__label {
+		margin-bottom 12px
+		padding-bottom 18px
+		border-bottom 2px solid #191919
+		position relative
+	}
+	&__title {
+		font-size 20px
+		display block
+		font-weight bold
+		text-transform uppercase
+	}
+	&__note {
+		position absolute
+		bottom 4px
+		left 0
+	}
+	&__container {
+		padding 0 24px
+		vertical-align top
+		@media $phone {
+			display block
+			width auto
+			padding 0 16px
+			margin-bottom 32px
+			&:last-child {
+				margin-bottom 0
+			}
+		}
+	}
+	&__itemSm {
+		width 50%
+		display inline-block
+	}
+	&__button {
+		margin-bottom 10px
+		width 190px
+		height 125px
+		&:last-child {
+			margin-bottom 0
+		}
+	}
+	&__input {
+		width 100%
+		margin-bottom: 24px
+		@media $phone {
+			margin-bottom 8px
+			margin-right 0
+		}
+		&:last-child {
+			margin-right 0
+			margin-bottom 0
+		}
+	}
+}
+
+.OrderTable {
+	& {
+		margin-bottom 16px
+	}
+	&__row {
+		border-bottom 1px solid #191919
+		display flex
+		justify-content space-between
+		padding 12px 0
+		font-size 14px
+		&_title {
+			border-bottom 2px solid #191919
+			padding-top 0
+			padding-bottom 10px
+			font-size 16px
+			text-transform uppercase
+		}
+	}
+	&__cell {
+		line-height 1
+		&_name {
+			font-weight bold
+		}
+		&:last-child {
+			text-align right
+			font-weight bold
+		}
+	}
+}
+
+.OrderDeliver {
+	& {
+		display flex
+		align-items center
+		justify-content space-between
+		padding-bottom 16px
+		border-bottom 2px solid #191919
+		margin-bottom 16px
+	}
+	&__column {
+		font-size 16px
+		max-width 200px
+	}
+	&__item {
+	
+	}
+	&__option {
+		.CheckBox__label {
+			font-size 14px
+			width 100%
+			box-sizing border-box
+			font-weight bold
+			text-align right
+			
+		}
+	}
+}
+.OrderPay {
+	& {
+		justify-content space-between
+		padding-bottom 16px
+		border-bottom 2px solid #191919
+		margin-bottom 16px
+	}
+	&__option {
+		& {
+			&:last-child {
+				margin-bottom 0
+				margin-top 26px
+			}
+		}
+		.CheckBox__label {
+			font-size 14px
+			width 100%
+			box-sizing border-box
+			font-weight bold
+			padding-left 32px
+			&:before {
+				top 5px
+				margin-top 0
+			}
+		}
+		span {
+			font-weight normal
+			line-height 1
+		}
+	}
+	.CheckBox_error {
+		.CheckBox__label {
+			color tomato
+		}
+	}
+}
+.OrderSumm {
+	border-bottom 2px solid #191919
+	padding-bottom 16px
+	margin-bottom 16px
+	text-transform uppercase
+	font-weight bold
+	font-size 16px
+	display flex
+	justify-content space-between
+}

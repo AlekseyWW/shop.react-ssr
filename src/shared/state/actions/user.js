@@ -2,6 +2,7 @@ import * as types from '../constants/user';
 import { post, get, setAccessToken, getAccessToken } from 'utils/api';
 import { replace } from 'react-router-redux';
 import { setUserRole } from 'utils/helpers';
+import axios from 'axios';
 
 const clearLocalStorage = () => {
 	setAccessToken('');
@@ -27,16 +28,15 @@ const loginStart = () => {
 	}
 }
 
-export const loginSuccess = (token, role) => {
+export const loginSuccess = (token) => {
 	return dispatch => {
 
 		dispatch({
 			type: types.LOGIN_SUCCESS,
 			token,
-			role,
 		});
 
-		dispatch(replace('/'));
+		// dispatch(replace('/'));
 	}
 }
 
@@ -50,13 +50,69 @@ const loginFailure = error => {
 	}
 }
 
-export const login = (email, password) => {
+export const login = (data) => {
+	const url = 'https://private-0b0d2-onlineshop2.apiary-mock.com/login';
+
 	return dispatch => {
 
 		dispatch(loginStart());
 
+		axios({
+			method: 'post',
+			url,
+			data,
+		})
+			.then(res => {
+				const { data } = res;
+
+				const { access_token } = data;
+
+				setAccessToken(access_token);
+
+				dispatch(loginSuccess(access_token));
+			})
+			.catch(err => {
+				dispatch(loginFailure(err.message))
+			});
+	}
+}
+
+const registerStart = () => {
+	return {
+		type: types.REGISTER_START
+	}
+}
+
+export const registerSuccess = (token, role) => {
+	return dispatch => {
+
+		dispatch({
+			type: types.REGISTER_SUCCESS,
+			token,
+			role,
+		});
+
+		dispatch(replace('/'));
+	}
+}
+
+const registerFailure = error => {
+
+	clearLocalStorage();
+
+	return {
+		type: types.REGISTER_FAILURE,
+		error
+	}
+}
+
+export const register = (email, password) => {
+	return dispatch => {
+
+		dispatch(registerStart());
+
 		post(
-			'/login',
+			'/regiter',
 			{ email, password },
 			(response) => {
 
@@ -64,9 +120,9 @@ export const login = (email, password) => {
 
 				setAccessToken(access_token);
 
-				dispatch(loginSuccess(access_token, role));
+				dispatch(registerSuccess(access_token, role));
 			},
-			(error) => dispatch(loginFailure(error.message))
+			(error) => dispatch(registerFailure(error.message))
 		)
 	}
 }
@@ -92,16 +148,25 @@ const getProfileFailure = error => {
 }
 
 export const getProfile = () => {
+	const url = 'https://private-0b0d2-onlineshop2.apiary-mock.com/profile';
+	
 	return dispatch => {
 
 		dispatch(getProfileStart());
+		axios({
+			method: 'get',
+			url,
+		})
+			.then(res => {
+				const { data } = res;
 
-		get(
-			'/users',
-			{},
-			(response) => dispatch(getProfileSuccess(response)),
-			(error) => dispatch(getProfileFailure(error.message))
-		)
+				const { access_token } = data;
+
+				dispatch(getProfileSuccess(data))
+			})
+			.catch(err => {
+				dispatch(getProfileFailure(err.message))
+			});
 	}
 }
 
@@ -116,7 +181,7 @@ export const logoutSuccess = () => {
 	return dispatch => {
 		dispatch({ type: types.LOGOUT_SUCCESS });
 		clearLocalStorage();
-		dispatch(replace('/login'));
+		// dispatch(replace('/login'));
 	}
 }
 
