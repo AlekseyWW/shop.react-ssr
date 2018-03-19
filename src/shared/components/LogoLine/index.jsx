@@ -33,7 +33,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile }) => {
 						<NavLink to="/login" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Вход/Регистрация
 						</NavLink> */}
-						{profile && profile.email ?
+						{/* {profile && profile.email ?
 							<div> 
 								<NavLink to="/user">
 									{profile.email}
@@ -43,7 +43,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile }) => {
 							<div className={style.LogoLine__nav__item} onClick={loginModalOpen}>
 								Вход/Регистрация
 							</div>
-						}
+						} */}
 					</div>
 					<div className={style.LogoLine__inner}>
 						<div className={style.LogoLine__social}>
