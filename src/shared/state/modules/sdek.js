@@ -189,7 +189,6 @@ export const getDeliveryCoast = (id, colors) => dispatch => {
 	})
 		.then(res => {
 			const { data } = res;
-			console.log(data);
 			
 			return dispatch(getDeliveryCoastSuccess(data));
 		})

@@ -33,7 +33,6 @@ const payData = {
 
 class OrderPage extends Component {
 	componentDidMount() {
-		console.log(this.props.order);
 		
 		if(!this.props.order) {
 			const order = localStorage.getItem("order");

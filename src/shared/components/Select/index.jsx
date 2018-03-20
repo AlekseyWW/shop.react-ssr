@@ -20,9 +20,6 @@ class Input extends Component {
 	remove = (item) => {
 		const valArray = [...this.props.input.value];
 		valArray.splice(valArray.indexOf(item), 1)
-		console.log('====================================');
-		console.log(valArray);
-		console.log('====================================');
 		this.props.input.onChange(valArray)
 	}
 	render () {	

@@ -30,7 +30,6 @@ class Catalog extends Component {
 			count: parsedQuery.count || 12,
 		};
 		const category = this.props.subCategoryId || this.props.categoryId;
-		console.log(!isLoading && !isLoaded, this.props.config, productConfig, JSON.stringify(this.props.config) === JSON.stringify(productConfig));
 		if (!isLoading && !isLoaded || JSON.stringify(this.props.config) !== JSON.stringify(productConfig) ) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}

@@ -19,7 +19,6 @@ class LoginForm extends Component {
 	}
 	render() {
 		const { handleSubmit, openRegisterModal } = this.props;
-		console.log(this.props);
 		
 		return (
 			<form onSubmit={handleSubmit} className={style.LoginForm}>

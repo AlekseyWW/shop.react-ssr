@@ -32,7 +32,6 @@ class Header extends Component {
 		}
 		const favorites = localStorage.getItem("favorites");
 		const accessTokenStorage = localStorage.getItem("accessToken");
-		console.log({ accessToken });
 		
 		if (favorites) {
 			setFavorites(JSON.parse(favorites));

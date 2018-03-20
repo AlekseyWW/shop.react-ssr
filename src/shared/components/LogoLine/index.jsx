@@ -11,7 +11,6 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile }) => {
 	const heartClass = classNames(style.LogoLine__action__heart,{
 		[style.LogoLine__action__heart_active]: isFavorite
 	})
-	console.log(profile);
 	
 	return (
 		<div className={style.LogoLine}>

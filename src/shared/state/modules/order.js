@@ -72,7 +72,6 @@ export function requestOrderDone(data, redirect) {
 		if (redirect) {
 			dispatch(push('/checkout'));
 		}
-		console.log({ data });
 		
 		dispatch({
 			type: FETCH_ORDER_SUCCESS,
