@@ -30,7 +30,8 @@ class Catalog extends Component {
 			count: parsedQuery.count || 12,
 		};
 		const category = this.props.subCategoryId || this.props.categoryId;
-		if (!isLoading ) getProducts(productConfig, category);
+		console.log(!isLoading && !isLoaded, this.props.config, productConfig, JSON.stringify(this.props.config) === JSON.stringify(productConfig));
+		if (!isLoading && !isLoaded || JSON.stringify(this.props.config) !== JSON.stringify(productConfig) ) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}
 	static fetchData({ store, params, query }) {
@@ -162,13 +163,14 @@ const mapStateToProps = (state, ownProps) => {
 	let subCategories = _.map(categories, 'items');
 	subCategories = _.reduce(subCategories, (sum, n) => ([...sum, ...n]), []);
 	if (!category) category = _.find(subCategories, { slug: categoryId });
-	const { isLoaded, isLoading, products, allCount, sizes, countView, category: slug } = state.products;
+	const { isLoaded, isLoading, products, allCount, sizes, countView, category: slug, config } = state.products;
 	const title = category ? category.title || category.name : '';
 	const stockTitle = stockCategories && stockId && _.find(stockCategories, { slug: stockId }) ? _.find(stockCategories, { slug: stockId }).name : ''
 	return {
 		isLoaded,
 		isLoading,
 		products,
+		config,
 		subCategoryId,
 		categoryId,
 		allCount,
