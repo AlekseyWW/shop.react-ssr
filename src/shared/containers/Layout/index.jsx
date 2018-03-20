@@ -39,6 +39,7 @@ class Layout extends Component {
 			s.parentNode.insertBefore(t, s)
 		}(window, document, 'script',
 			'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '947817732034649');
 		fbq('init', '210347599540942');
 		fbq('track', 'PageView');
 		(function (d, w, c) {
