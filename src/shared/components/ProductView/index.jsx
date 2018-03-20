@@ -1,9 +1,14 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import Swiper from 'react-id-swiper';
 import classNames from 'classnames';
 import ReactImageMagnify from 'react-image-magnify';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { routerActions } from 'react-router-redux';
 import _ from 'lodash';
+import { LeftArrow } from 'components/Icon';
 import uuid from 'uuid';
 import style from './styles.styl';
 
@@ -28,7 +33,7 @@ class ProductView extends Component {
 		}
 	}
 	render() {
-		const { product, activeSlider, color } = this.props;
+		const { product, activeSlider, color, actions } = this.props;
 		const params = {
 			containerClass: style.ProductView__container,
 			wrapperClass: style.ProductView__wrapper,
@@ -45,6 +50,12 @@ class ProductView extends Component {
 		this.swiper && this.swiper.swiper.update();
 		return (
 			<div className={style.ProductView}>
+				<div className={style.ProductView__back}>
+					<div onClick={() => actions.goBack()}>
+						<LeftArrow />
+						<span>Назад выбору товаров</span>
+					</div>
+				</div>
 				<div className={style.ProductView__header}>
 					<div className={style.ProductView__head}>
 						<p className={style.ProductView__title}>{product.title}</p>
@@ -114,5 +125,7 @@ ProductView.defaultProps = {
 ProductView.propTypes = {
 	img: PropTypes.string.isRequired
 };
-
-export default ProductView;
+export default connect(
+	({ router }) => ({ router }),
+	dispatch => ({ actions: bindActionCreators(routerActions, dispatch) })
+)(ProductView);
