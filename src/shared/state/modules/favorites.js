@@ -16,10 +16,11 @@ export default function cart(state = initialState, action) {
 			};
 
 		case types.ADD_TO_FAVORITES_SUCCESS:
-			console.log({ action});
 			
 			const newList = getExtendedCartList(state.added, { ...action.product }, action.remove);
 			localStorage.setItem("favorites", JSON.stringify(newList));
+			console.log(newList);
+			
 			return {
 				...state,
 				isFetching: false,

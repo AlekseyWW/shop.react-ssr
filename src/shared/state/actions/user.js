@@ -39,7 +39,7 @@ export const loginSuccess = (token) => {
 			token,
 		});
 		dispatch(actions.closeModal())
-		dispatch(replace('/user'));
+		// dispatch(replace('/user'));
 	}
 }
 
@@ -206,9 +206,11 @@ const setProfileStart = () => {
 }
 
 const setProfileSuccess = profile => {
-	return {
-		type: types.GET_PROFILE_SUCCESS,
-		profile
+	return dispatch => {
+		dispatch({
+			type: types.GET_PROFILE_SUCCESS,
+		})
+		dispatch(getProfile())
 	}
 }
 

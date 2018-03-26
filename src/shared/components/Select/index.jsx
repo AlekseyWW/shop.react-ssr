@@ -66,6 +66,7 @@ class Input extends Component {
 		const styleInput = classNames({
 			[style.SelectField__field]: true,
 		});
+		
 		return (
 			<div className={styleWrapper}>
 				<label htmlFor={input.name} className="SelectField__label">

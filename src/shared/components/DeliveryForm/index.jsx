@@ -14,8 +14,15 @@ import { required, email } from 'utils/validation';
 import style from './styles.styl';
 
 class DeliveryForm extends Component {
+
+	state = {
+		options: null
+	}
 	componentDidMount() {
 		// this.props.change('city', this.props.initialValues.city[0])
+		console.log(this.props.initialValues.city);
+
+		
 	}
 	getOptions(input, callback) {
 		const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
@@ -36,6 +43,7 @@ class DeliveryForm extends Component {
 	}
 	render() {
 		const { handleSubmit, openRegisterModal } = this.props;
+		
 		return (
 			<form onSubmit={handleSubmit} className={style.DeliveryForm}>
 				<div className={style.DeliveryForm__container}>
@@ -46,7 +54,6 @@ class DeliveryForm extends Component {
 							type="text"
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
 							label="Имя"
-							validate={[required]}
 						/>
 						<Field
 							name="lastName"
@@ -54,7 +61,6 @@ class DeliveryForm extends Component {
 							type="text"
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
 							label="Фамилия"
-							validate={[required]}
 						/>
 					</div>
 					<div className={style.DeliveryForm__row}>
@@ -66,7 +72,6 @@ class DeliveryForm extends Component {
 							getOptions={this.getOptions}
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
 							label="Город, населенный пункт*"
-							validate={[required]}
 						/>
 						<Field
 							name="postIndex"
@@ -74,7 +79,6 @@ class DeliveryForm extends Component {
 							type="text"
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
 							label="Почтовый индекс"
-							validate={[required]}
 						/>
 					</div>
 					<div className={style.DeliveryForm__row}>
@@ -83,19 +87,10 @@ class DeliveryForm extends Component {
 							component={Input}
 							type="text"
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
-							label="Адресс"
-							validate={[required]}
+							label="Адрес (улица, дом, строение, квартира)"
 						/>
 					</div>
 					<div className={style.DeliveryForm__row}>
-						<Field
-							name="phone"
-							component={Input}
-							type="text"
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
-							label="Телефон"
-							validate={[required]}
-						/>
 						<div className={style.DeliveryForm__button}>
 							<Button type="submit">
 								Сохранить

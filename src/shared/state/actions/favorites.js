@@ -26,16 +26,14 @@ export const addToFavorites = (product, remove) => (dispatch) => {
 	
 	if (getAccessToken()) {
 		
-		const url = `users/${getAccessToken()}/colors/favourite/${product.id || product}`
+		const url = `users/${getAccessToken()}/colors/${product.id || product}/favourite`
 		dispatch(addToFavoritesStart(product.id, remove));
 		const method = remove ? del : post;
 		method(
 			url,
 			{ },
-			response => dispatch(setFavoritesSuccess(response.colors)),
+			response => dispatch(getFavorites()),
 			error => dispatch(addToFavoritesError(error.message)),
-			null,
-			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
 		)
 	} else {
 		if (remove) {
@@ -85,11 +83,9 @@ const getFavoritesError = error => ({
 export const getFavorites = (accessToken) => (dispatch) => {
 	dispatch(getFavoritesStart());
 	get(
-		`/users/${accessToken}/colors/favourite`,
+		`/users/${getAccessToken()}/colors/favourite`,
 		{ },
-		response => dispatch(getFavoritesSuccess(response.colors)),
+		response => dispatch(getFavoritesSuccess(response || [])),
 		error => dispatch(getFavoritesError(error.message)),
-		null,
-		'https://private-0b0d2-onlineshop2.apiary-mock.com/'
 	);
 };

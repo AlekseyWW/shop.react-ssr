@@ -129,7 +129,6 @@ export default function user(state = initialState, action) {
 				...state,
 				profileIsFetching: false,
 				profileIsFetched: true,
-				profile: {...state.propfile, ...action.profile},
 				error: null
 			};
 

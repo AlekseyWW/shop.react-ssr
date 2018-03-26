@@ -2,6 +2,9 @@
 	grid-width()
 	margin 0 auto
 	padding 40px 0
+	@media $phone {
+		padding 0 16px
+	}
 	&__header {
 		padding-bottom 28px
 		margin-bottom 48px
@@ -9,13 +12,23 @@
 		display flex
 		justify-content space-between
 		align-items flex-end
+		@media $phone {
+			flex-direction column
+			align-items flex-start
+		}
 	}
 	&__user {
+		@media $phone {
+			margin-bottom 16px
+		}
 		&-name {
 			font-size 42px
 			line-height 1.1
 			margin-bottom 4px
 			font-weight $bold
+			@media $phone {
+				font-size 28px
+			}
 		}
 		&-info {
 			font-size 18px
@@ -35,6 +48,10 @@
 	&__container {
 		display flex
 		margin-bottom 40px
+		@media $phone {
+			flex-direction column
+		}
+		
 	}
 	&__column {
 		grid-width(1, margin-right)
@@ -104,5 +121,44 @@
 				opacity 0.6
 			}
 		}
+	}
+}
+
+.UserPageList{
+	&__delivery {
+		display flex
+		justify-content space-between
+		font-size 18px
+		margin-bottom 12px
+		border-bottom 1px solid #c1c1c1
+		padding-bottom 4px
+		
+		&:last-child {
+			margin-bottom 0
+		}
+	}
+	&__list {
+		margin-bottom 24px
+		&:last-child {
+			margin-bottom 0
+		}
+		.OrderProducts {
+			margin-left 0
+		}
+	}
+	&__label {
+		margin-bottom 12px
+		padding-bottom 18px
+		border-bottom 2px solid #191919
+		position relative
+	}
+	&__title {
+		font-size 20px
+		display block
+		font-weight bold
+		text-transform uppercase
+	}
+	&__note {
+		font-size 16px
 	}
 }

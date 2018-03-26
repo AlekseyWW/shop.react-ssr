@@ -54,29 +54,30 @@ class UserPage extends Component {
 										Основной адрес доставки
 									</div>
 									<div className={styles.UserPage__item__text}>
-										{profile.address && profile.delivery.address ? (
-											<div className={style.Order__list}>
-												<div className={style.Order__delivery}>
-													<p className={style.Order__note}>Имя</p>
-													<p className={style.Order__value}>{profile.firstName}</p>
+										{profile.address ? (
+											<div className={styles.UserPageList__list}>
+												<div className={styles.UserPageList__delivery}>
+													<p className={styles.UserPageList__note}>Имя</p>
+													<p className={styles.UserPageList__value}>{profile.firstName}</p>
 												</div>
-												<div className={style.Order__delivery}>
-													<p className={style.Order__note}>Фамилия</p>
-													<p className={style.Order__value}>{profile.lastName}</p>
+												<div className={styles.UserPageList__delivery}>
+													<p className={styles.UserPageList__note}>Фамилия</p>
+													<p className={styles.UserPageList__value}>{profile.lastName}</p>
 												</div>
-												<div className={style.Order__delivery}>
-													<p className={style.Order__note}>Город/Населенный пункт</p>
-													<p className={style.Order__value}>{profile.city.name}</p>
+												<div className={styles.UserPageList__delivery}>
+													<p className={styles.UserPageList__note}>Город/Населенный пункт</p>
+													<p className={styles.UserPageList__value}>{profile.city.name}</p>
 												</div>
-												<div className={style.Order__delivery}>
-													<p className={style.Order__note}>Почтовый индекс</p>
-													<p className={style.Order__value}>{profile.postIndex}</p>
+												<div className={styles.UserPageList__delivery}>
+													<p className={styles.UserPageList__note}>Почтовый индекс</p>
+													<p className={styles.UserPageList__value}>{profile.postIndex}</p>
 												</div>
-												<div className={style.Order__delivery}>
-													<p className={style.Order__note}>Адресс</p>
-													<p className={style.Order__value}>{profile.address}</p>
+												<div className={styles.UserPageList__delivery}>
+													<p className={styles.UserPageList__note}>Адресс</p>
+													<p className={styles.UserPageList__value}>{profile.address}</p>
 												</div>
 										</div>) : 'Тут будет отображаться ваш основной адрес'}
+										<Button to="/user/delivery">{profile.address ? 'Изменить' : 'Добавить'}</Button>
 									</div>
 								</div>
 								<div className={styles.UserPage__item}>

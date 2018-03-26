@@ -27,6 +27,12 @@ class Delivery extends Component {
 		}
 	}
 	handleChange = (data) => {
+		
+		if (data.city) {
+			data.city = {
+				id: data.city.value || data.city.id
+			}
+		}
 		this.props.setProfile(data, this.props.accessToken)
 	}
 	render() {
@@ -35,7 +41,10 @@ class Delivery extends Component {
 			firstName: profile.firstName,
 			lastName: profile.lastName,
 			phone: profile.phone,
-			city: profile.city,
+			city: profile.city ? {
+				id: profile.city.id,
+				label: profile.city.name,
+			} : null,
 			address: profile.address,
 			postIndex: profile.postIndex
 		} : null;

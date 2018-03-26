@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { NavLink, Link } from 'react-router-dom';
 import HeaderCart from 'containers/HeaderCart';
 import Input from 'components/Input';
-import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, TelegrammIcon, GlassIcon, HeartSold } from 'components/Icon';
+import { LogoIcon, LogoutIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, TelegrammIcon, GlassIcon, HeartSold } from 'components/Icon';
 
 import style from './styles.styl';
 
@@ -31,17 +31,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
 						<NavLink to="/login" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Вход/Регистрация
 						</NavLink> */}
-						{profile && profile.id ?
-							<div> 
-								<NavLink to="/user">
-									{profile.email}
-								</NavLink>
-								<p onClick={logout}> / выход</p>
-							</div>:
-							<div className={style.LogoLine__nav__item} onClick={loginModalOpen}>
-								Вход/Регистрация
-							</div>
-						}
+						
 					</div>
 					<div className={style.LogoLine__inner}>
 						<div className={style.LogoLine__social}>
@@ -63,6 +53,17 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
 								<Input placeholder="Поиск" Icon={GlassIcon} />
 							</div>
 						</div> */}
+						{profile && profile.id ?
+							<div className={style.LogoLine__login}>
+								<NavLink to="/user">
+									{profile.email}
+								</NavLink>
+								<LogoutIcon onClick={logout} width={20} height={20} />
+							</div> :
+							<div className={style.LogoLine__login} onClick={loginModalOpen}>
+								<a>Войти</a>
+							</div>
+						}
 						<div className={style.LogoLine__action}>
 							<Link to="/favorites" className={style.LogoLine__action__item}>
 								<HurtIcon />
