@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 import * as authActions from '../../state/actions/user';
+import * as cartActions from '../../state/actions/cart';
+import * as favoritesActions from '../../state/actions/favorites';
 
 export default function requireAuthentication(ComposedComponent) {
 
@@ -20,7 +22,9 @@ export default function requireAuthentication(ComposedComponent) {
 
 	const mapDispatchToProps = dispatch => ({
 		// redirectToLogin: () => dispatch(replace('/login')),
-		getProfile: () => dispatch(authActions.getProfile())
+		getProfile: (accessToken) => dispatch(authActions.getProfile(accessToken)),
+		clearCart: () => dispatch(cartActions.setCart([])),
+		clearFavorites: () => dispatch(favoritesActions.setFavorites([]))
 	});
 
 	class AuthenticatedComponent extends Component {
@@ -32,16 +36,19 @@ export default function requireAuthentication(ComposedComponent) {
 		componentDidMount() {
 			const { accessToken, profileIsLoaded, profileIsLoading, getProfile } = this.props;
 			
-			if (accessToken && !profileIsLoaded && !profileIsLoading) getProfile();
+			if (accessToken && !profileIsLoaded && !profileIsLoading) getProfile(accessToken);
 		}
 
 		componentWillReceiveProps(nextProps) {
-			// this.checkAuth(nextProps.accessToken);
+			this.checkAuth(nextProps.accessToken);
 		}
 
-		// checkAuth(accessToken) {
-		// 	if (!accessToken) this.props.redirectToLogin();
-		// }
+		checkAuth(accessToken) {
+			if (!accessToken) {
+				this.props.clearCart();
+				this.props.clearFavorites();
+			}
+		}
 
 		render() {
 			return <ComposedComponent {...this.props} />;
@@ -51,7 +58,7 @@ export default function requireAuthentication(ComposedComponent) {
 	AuthenticatedComponent.propTypes = {
 		accessToken: PropTypes.string,
 		profileIsLoaded: PropTypes.bool.isRequired,
-		profile: PropTypes.object.isRequired,
+		profile: PropTypes.object,
 		// redirectToLogin: PropTypes.func.isRequired,
 		getProfile: PropTypes.func.isRequired
 	}

@@ -1,9 +1,9 @@
 import axios from 'axios';
 // Request to API
 const apiUrl = process.env.API_URL;
-const request = (method, url, data, successHandler, errorHandler, headers) => axios({
+const request = (method, url, data, successHandler, errorHandler, headers, baseURL) => axios({
 	method,
-	baseURL: apiUrl,
+	baseURL: baseURL || apiUrl,
 	url,
 	headers,
 	[method === 'get' ? 'params' : 'data']: data
@@ -25,5 +25,13 @@ export function getAccessToken() {
 
 export function setAccessToken(token) {
 	return typeof localStorage !== 'undefined' ? localStorage.setItem('accessToken', token) : '';
+}
+
+export function setFavorites(token) {
+	return typeof localStorage !== 'undefined' ? localStorage.setItem('favorites', token) : '';
+}
+
+export function setCart(token) {
+	return typeof localStorage !== 'undefined' ? localStorage.setItem('cart', token) : '';
 }
 

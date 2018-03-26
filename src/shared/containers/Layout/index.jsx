@@ -70,7 +70,6 @@ class Layout extends Component {
 		const ScrollMagic = require('scrollmagic');
 		window.controller = new ScrollMagic.Controller();
 		const parsedQuery = qs.parse(this.props.location.search);
-		console.log({parsedQuery});
 		if (parsedQuery['utm_campaign']) {
 			window.utm = {
 				utm_campaign: parsedQuery['utm_campaign'],

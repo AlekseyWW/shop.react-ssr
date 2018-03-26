@@ -8,9 +8,14 @@ const initialState = {
 
 	accessToken: getAccessToken(),
 
-	profile: {},
+	profile: undefined,
 	profileIsLoading: false,
 	profileIsLoaded: false,
+	orders: undefined,
+	ordersIsLoading: false,
+	ordersIsLoaded: false,
+	profileIsFetching: false,
+	profileIsFetched: false,
 
 	error: null
 };
@@ -89,6 +94,54 @@ export default function user(state = initialState, action) {
 				error: action.error
 			};
 
+		case types.GET_ORDERS_START:
+			return {
+				...state,
+				orderIsLoading: true
+			};
+
+		case types.GET_ORDERS_SUCCESS:
+			return {
+				...state,
+				orderIsLoading: false,
+				orderIsLoaded: true,
+				orders: action.orders,
+				error: null
+			};
+
+		case types.GET_ORDERS_FAILURE:
+			return {
+				...state,
+				orderIsLoading: false,
+				orderIsLoaded: false,
+				orders: {},
+				error: action.error
+			};
+
+		case types.SET_PROFILE_START:
+			return {
+				...state,
+				profileIsFetching: true
+			};
+
+		case types.SET_PROFILE_SUCCESS:
+			return {
+				...state,
+				profileIsFetching: false,
+				profileIsFetched: true,
+				profile: {...state.propfile, ...action.profile},
+				error: null
+			};
+
+		case types.SET_PROFILE_FAILURE:
+			return {
+				...state,
+				profileIsFetching: false,
+				profileIsFetched: false,
+				profile: {},
+				error: action.error
+			};
+
 		case types.LOGOUT_START:
 			return {
 				...state,
@@ -99,6 +152,7 @@ export default function user(state = initialState, action) {
 			return {
 				...state,
 				logoutIsFetching: false,
+				profileIsLoaded: false,
 				profile: {},
 				role: '',
 				accessToken: '',

@@ -19,19 +19,10 @@ class LoginForm extends Component {
 	}
 	render() {
 		const { handleSubmit, openRegisterModal } = this.props;
-		console.log(this.props);
 		
 		return (
 			<form onSubmit={handleSubmit} className={style.LoginForm}>
 				<div className={style.LoginForm__container}>
-					<Field
-						name="name"
-						component={Input}
-						type="text"
-						className={style.LoginForm__input}
-						label="Имя*"
-						validate={[required]}
-					/>
 					<Field
 						name="email"
 						component={Input}
@@ -49,13 +40,17 @@ class LoginForm extends Component {
 						validate={[required]}
 					/>
 					<Field
-						name="password"
+						name="rePassword"
 						component={Input}
 						type="password"
 						className={`${style.LoginForm__input} ${style.LoginForm__input_wide}`}
 						label="Повторите пароль"
 						validate={[required]}
 					/>
+
+					<Button type="submit">
+						Зарегестрироваться
+					</Button>
 				</div>
 			</form>
 		);

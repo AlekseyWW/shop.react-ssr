@@ -6,6 +6,7 @@ import ProductPage from 'pages/ProductPage';
 import SuccessPage from 'pages/SuccessPage';
 import OrderSuccessPage from 'pages/OrderSuccessPage';
 import CartPage from 'pages/CartPage';
+import OrderFormPage from 'pages/OrderFormPage';
 import OrderPage from 'pages/OrderPage';
 import FavoritesPage from 'pages/FavoritesPage';
 import UserPage from 'pages/UserPage';
@@ -77,6 +78,11 @@ export default [
 	},
 	{
 		path: '/order',
+		exact: true,
+		component: OrderFormPage,
+	},
+	{
+		path: '/order/:id',
 		exact: true,
 		component: OrderPage,
 	},

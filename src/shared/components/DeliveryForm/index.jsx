@@ -15,7 +15,7 @@ import style from './styles.styl';
 
 class DeliveryForm extends Component {
 	componentDidMount() {
-
+		// this.props.change('city', this.props.initialValues.city[0])
 	}
 	getOptions(input, callback) {
 		const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
@@ -49,7 +49,7 @@ class DeliveryForm extends Component {
 							validate={[required]}
 						/>
 						<Field
-							name="secondName"
+							name="lastName"
 							component={Input}
 							type="text"
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
@@ -79,7 +79,7 @@ class DeliveryForm extends Component {
 					</div>
 					<div className={style.DeliveryForm__row}>
 						<Field
-							name="adress"
+							name="address"
 							component={Input}
 							type="text"
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
@@ -89,11 +89,11 @@ class DeliveryForm extends Component {
 					</div>
 					<div className={style.DeliveryForm__row}>
 						<Field
-							name="country"
+							name="phone"
 							component={Input}
 							type="text"
 							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
-							label="Страна"
+							label="Телефон"
 							validate={[required]}
 						/>
 						<div className={style.DeliveryForm__button}>

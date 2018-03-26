@@ -1,5 +1,5 @@
 import * as types from '../constants/favorites';
-import { get } from 'utils/api';
+import { get, post, del, getAccessToken } from 'utils/api';
 
 
 const addToFavoritesStart = productId => ({
@@ -23,7 +23,27 @@ const addToFavoritesError = error => ({
 });
 
 export const addToFavorites = (product, remove) => (dispatch) => {
-	dispatch(addToFavoritesSuccess(product, remove));
+	
+	if (getAccessToken()) {
+		
+		const url = `users/${getAccessToken()}/colors/favourite/${product.id || product}`
+		dispatch(addToFavoritesStart(product.id, remove));
+		const method = remove ? del : post;
+		method(
+			url,
+			{ },
+			response => dispatch(setFavoritesSuccess(response.colors)),
+			error => dispatch(addToFavoritesError(error.message)),
+			null,
+			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
+		)
+	} else {
+		if (remove) {
+			dispatch(removeFromFavoritesSuccess(product));
+		} else {
+			dispatch(addToFavoritesSuccess(product));
+		}
+	}
 };
 
 export const setFavorites = data => (dispatch) => {
@@ -62,12 +82,14 @@ const getFavoritesError = error => ({
 	error
 });
 
-export const getFavorites = () => (dispatch) => {
+export const getFavorites = (accessToken) => (dispatch) => {
 	dispatch(getFavoritesStart());
 	get(
-		'/favorites',
+		`/users/${accessToken}/colors/favourite`,
 		{ },
-		response => dispatch(getFavoritesSuccess(response)),
-		error => dispatch(getFavoritesError(error.message))
+		response => dispatch(getFavoritesSuccess(response.colors)),
+		error => dispatch(getFavoritesError(error.message)),
+		null,
+		'https://private-0b0d2-onlineshop2.apiary-mock.com/'
 	);
 };

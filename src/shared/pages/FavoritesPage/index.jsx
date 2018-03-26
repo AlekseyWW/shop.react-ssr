@@ -15,6 +15,8 @@ class FavoritesPage extends Component {
 		const {
 			products
 		} = this.props;
+		console.log(products);
+		
 		return (
 			<div className={style.Page}>
 				<div className={style.Page__header}>
@@ -43,7 +45,7 @@ const mapStateToProps = (state, ownProps) => {
 	};
 };
 const mapDispatchToProps = dispatch => ({
-	removeFromFavorites: (productId) => dispatch(favoritesAction.removeFromFavorites(productId))
+	removeFromFavorites: (propduct) => dispatch(favoritesAction.addToFavorites(propduct, true))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

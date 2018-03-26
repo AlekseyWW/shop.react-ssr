@@ -4,20 +4,13 @@ import { connect } from 'react-redux';
 import { omit } from 'lodash';
 import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
-import Order from 'components/Order';
+import OrderForm from 'components/OrderForm';
 import * as cartAtions from 'actions/cart';
 import * as orderAtions from '../../state/modules/order';
-import * as userAtions from '../../state/actions/user';
 import styles from './style.styl';
 
 
-class OrderPage extends Component {
-	componentDidMount() {
-		const { orders, ordersIsLoading, ordersIsLoaded, getOrders} = this.props
-		if (!ordersIsLoading && !ordersIsLoaded) {
-			getOrders();
-		}
-	}
+class OrderFormPage extends Component {
 	handleSubmit(data) {
 		if (data.city) {
 			data.city = {
@@ -27,24 +20,22 @@ class OrderPage extends Component {
 		this.props.fetchOrder(data);
 	}
 	render() {
-		const { products, addToCart, removeFromCart, order } = this.props;
-		console.log({ order});
-		
+		const { products, addToCart, removeFromCart } = this.props;
 		return (
 			<div className={styles.CartContainer}>
-				<Order order={order}/>
+				<OrderForm onSubmit={data =>this.handleSubmit(data)}/>
 			</div>
 		);
 	}
 }
 
-OrderPage.propTypes = {
+OrderFormPage.propTypes = {
 	product: PropTypes.object.isRequired,
 	add: PropTypes.func.isRequired,
 	remove: PropTypes.func.isRequired
 };
 
-OrderPage.propTypes = {
+OrderFormPage.propTypes = {
 	isFetched: PropTypes.bool.isRequired,
 	isFetching: PropTypes.bool.isRequired,
 	addToCart: PropTypes.func.isRequired,
@@ -52,23 +43,17 @@ OrderPage.propTypes = {
 	products: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	const { isFetched, isFetching, added } = state.cart;
-	const { ordersIsLoading, ordersIsLoaded, orders } = state.user;
-	const { id } = ownProps.match.params;
 	const products = added;
-	const order = _.find(orders, { id: parseInt(id) });
-	console.log(orders, order, id);
-	
-	return { isFetched, isFetching, products, id, ordersIsLoading, ordersIsLoaded, order};
+	return { isFetched, isFetching, products };
 };
 
 const mapDispatchToProps = dispatch => ({
 	// getCart: () => dispatch(cartAction.getCart()),
 	fetchOrder: data => dispatch(orderAtions.fetchOrder(data)),
-	getOrders: () => dispatch(userAtions.getOrders()),
 	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.removeFromCart(product))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderPage);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderFormPage);

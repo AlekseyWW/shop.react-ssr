@@ -1,0 +1,44 @@
+.OrderProducts {
+	border: 1px solid $textColor
+	background-color #fff
+	border-radius: 6px
+	padding 12px
+	margin-left -12px
+	color $textColor
+	&__item {
+		display flex
+		align-items center
+		border-bottom: 1px solid $textColor
+		padding-bottom: 8px
+		padding-top: 12px
+		justify-content: space-between
+		&:first-child {
+			padding-top 0
+		}
+		&:last-child {
+			padding-bottom 0
+			border-bottom none
+		}
+		div {
+			margin-right 16px
+			&:last-child {
+				margin-right 0
+			}
+		}
+		&__img {
+			width 100px
+			img {
+				display block
+				width 100%
+			}
+		}
+		&__name {
+			font-weight $bold
+			flex: 1
+		}
+		&__size {
+			text-transform uppercase
+			opacity 0.6
+		}
+	}
+}

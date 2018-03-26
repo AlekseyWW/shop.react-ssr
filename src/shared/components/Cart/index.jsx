@@ -33,8 +33,8 @@ const Cart = ({ added, addToCart, removeFromCart }) => {
 								<td className={style.Cart__table__cell}>Цена</td>
 								<td className={style.Cart__table__cell}>Колл-во</td>
 							</tr>
-							{added.map(item => (
-								<tr key={`${item.id}${item.size.id}`} className={style.Cart__table__row}>
+							{added.map((item, id) => (
+								<tr key={`key-${id}`} className={style.Cart__table__row}>
 									<td className={style.Cart__table__cell}>
 										<img src={item.image} />
 									</td>

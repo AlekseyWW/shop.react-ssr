@@ -13,16 +13,28 @@ class Input extends Component {
 		super(props)
 		this.handleChange = this.handleChange.bind(this)
 	}
+	componentDidMount() {
+		console.log('value', this.select);
+		if (this.props.input.value) {
+			
+			// this.handleChange(this.props.input.value)
+		}
+	}
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.input.value && this.props.input.value.length) {
+			console.log('props', this.props);
+
+			// this.handleChange(this.props.input.value)
+		}
+	}
 	handleChange = (selectedOption) => {
+		
 		const selected = selectedOption.map(item => item.value)
 		this.props.input.onChange(selected)
 	}
 	remove = (item) => {
 		const valArray = [...this.props.input.value];
 		valArray.splice(valArray.indexOf(item), 1)
-		console.log('====================================');
-		console.log(valArray);
-		console.log('====================================');
 		this.props.input.onChange(valArray)
 	}
 	render () {	
@@ -64,6 +76,7 @@ class Input extends Component {
 						value={input.value.label}
 						className={styleInput}
 						async
+						ref={el => this.select = el}
 						loadOptions={getOptions}
 						{...input}
 						onBlur={() => input.onBlur(input.value)}

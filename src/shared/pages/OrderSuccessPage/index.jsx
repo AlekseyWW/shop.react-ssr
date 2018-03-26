@@ -6,6 +6,7 @@ import { omit } from 'lodash';
 import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
 import OrderForm from 'components/OrderForm';
+import OrderProducts from 'components/OrderProducts';
 import ModalExample from '../../components/ModalExample';
 import * as cartAtions from 'actions/cart';
 import * as orderAtions from '../../state/modules/order';

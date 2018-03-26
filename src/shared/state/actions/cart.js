@@ -1,5 +1,6 @@
 import * as types from '../constants/cart';
-import { get } from 'utils/api';
+import { post, get, del, patch, setAccessToken, getAccessToken } from 'utils/api';
+
 
 
 const addToCartStart = productId => ({
@@ -22,8 +23,28 @@ const addToCartError = error => ({
 	error
 });
 
-export const addToCart = (product, remove) => (dispatch) => {
-	dispatch(addToCartSuccess(product, remove));
+export const addToCart = (product, remove, removeAll) => (dispatch) => {
+	if (getAccessToken()) {
+		const url = `users/${getAccessToken()}/cart/${product.id}`
+		dispatch(addToCartStart(product.id, remove));
+		const method = remove ? del : post;
+		method(
+			url,
+			{ removeAll },
+			response => dispatch(setCartSuccess(response)),
+			error => dispatch(addToCartError(error.message)),
+			null,
+			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
+		)
+	} else {
+		if (removeAll) {
+			dispatch(removeFromCartSuccess(product));
+		} else {
+			console.log({ remove});
+			
+			dispatch(addToCartSuccess(product, remove));
+		}
+	}
 };
 
 export const setCart = data => (dispatch) => {
@@ -62,13 +83,15 @@ const getCartError = error => ({
 	error
 });
 
-export const getCart = () => (dispatch) => {
+export const getCart = (accessTokenStorage) => (dispatch) => {
 	dispatch(getCartStart());
 	get(
-		'/cart',
+		`/users/${accessTokenStorage}/cart`,
 		{ },
 		response => dispatch(getCartSuccess(response)),
-		error => dispatch(getCartError(error.message))
+		error => dispatch(getCartError(error.message)),
+		null,
+		'https://private-0b0d2-onlineshop2.apiary-mock.com/'
 	);
 };
 

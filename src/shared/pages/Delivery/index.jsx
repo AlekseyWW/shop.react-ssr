@@ -13,18 +13,32 @@ import { HeartSold, AdressIcon, CardIcon, KeyIcon, LockIcon, PresentIcon } from 
 import styles from './style.styl';
 
 class Delivery extends Component {
+	constructor(props) {
+		super(props);
+		this.handleChange = this.handleChange.bind(this);
+	}
 	componentDidMount() {
 		const accessToken = localStorage.getItem("accessToken");
 		const { profileIsLoaded, profileIsLoading, getProfile } = this.props
 		if (!accessToken) {
 			this.props.history.replace('/')
 		} else {
-			!profileIsLoaded && !profileIsLoading && getProfile();
+			!profileIsLoaded && !profileIsLoading && getProfile(accessToken);
 		}
+	}
+	handleChange = (data) => {
+		this.props.setProfile(data, this.props.accessToken)
 	}
 	render() {
 		const { products, addToCart, removeFromCart, profile, favorites } = this.props;
-		console.log(profile.order);
+		const initialValues = profile ? {
+			firstName: profile.firstName,
+			lastName: profile.lastName,
+			phone: profile.phone,
+			city: profile.city,
+			address: profile.address,
+			postIndex: profile.postIndex
+		} : null;
 		
 		return (
 			<div className="page__inner">
@@ -35,7 +49,7 @@ class Delivery extends Component {
 							<span className={styles['Delivery__user-name']}>Адрес доставки</span>
 						</div>
 					</div>
-					{profile && <DeliveryForm initialValues={profile.delivery} />}
+					{profile && <DeliveryForm initialValues={initialValues} onSubmit={this.handleChange}/>}
 				</div>
 			</div>
 		);
@@ -64,7 +78,8 @@ const mapDispatchToProps = dispatch => ({
 	// getCart: () => dispatch(cartAction.getCart()),
 	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.removeFromCart(product)),
-	getProfile: (favorites) => dispatch(authActions.getProfile(favorites))
+	getProfile: (favorites) => dispatch(authActions.getProfile(favorites)),
+	setProfile: (data, accessToken) => dispatch(authActions.setProfile(data, accessToken))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Delivery);

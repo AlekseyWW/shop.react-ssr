@@ -1,11 +1,14 @@
 import * as types from '../constants/user';
-import { post, get, setAccessToken, getAccessToken } from 'utils/api';
+import { post, get, patch, setAccessToken, getAccessToken, setCart, setFavorites } from 'utils/api';
 import { replace } from 'react-router-redux';
 import { setUserRole } from 'utils/helpers';
+import { actions } from '../modules/modal';
 import axios from 'axios';
 
 const clearLocalStorage = () => {
 	setAccessToken('');
+	setFavorites('');
+	setCart('');
 }
 
 export const redirect = role => {
@@ -35,8 +38,8 @@ export const loginSuccess = (token) => {
 			type: types.LOGIN_SUCCESS,
 			token,
 		});
-
-		// dispatch(replace('/'));
+		dispatch(actions.closeModal())
+		dispatch(replace('/user'));
 	}
 }
 
@@ -51,29 +54,24 @@ const loginFailure = error => {
 }
 
 export const login = (data) => {
-	const url = 'https://private-0b0d2-onlineshop2.apiary-mock.com/login';
-
 	return dispatch => {
 
 		dispatch(loginStart());
 
-		axios({
-			method: 'post',
-			url,
+		post(
+			'/users/login',
 			data,
-		})
-			.then(res => {
-				const { data } = res;
+			response => {
 
-				const { access_token } = data;
-
-				setAccessToken(access_token);
-
-				dispatch(loginSuccess(access_token));
-			})
-			.catch(err => {
-				dispatch(loginFailure(err.message))
-			});
+		
+				const { accessToken } = response;
+		
+				setAccessToken(accessToken);
+		
+				dispatch(loginSuccess(accessToken));
+			},
+			error => dispatch(loginFailure(error.message))
+		)
 	}
 }
 
@@ -92,7 +90,7 @@ export const registerSuccess = (token, role) => {
 			role,
 		});
 
-		dispatch(replace('/'));
+		dispatch(replace('/user'));
 	}
 }
 
@@ -106,21 +104,22 @@ const registerFailure = error => {
 	}
 }
 
-export const register = (email, password) => {
+export const register = ({email, password, rePassword}) => {
 	return dispatch => {
-
+		
 		dispatch(registerStart());
 
 		post(
-			'/regiter',
-			{ email, password },
+			'/users/registration',
+			{ email, password, rePassword },
 			(response) => {
 
-				const { access_token } = response;
+				const { accessToken } = response;
+				
 
-				setAccessToken(access_token);
+				setAccessToken(accessToken);
 
-				dispatch(registerSuccess(access_token, role));
+				dispatch(registerSuccess(accessToken));
 			},
 			(error) => dispatch(registerFailure(error.message))
 		)
@@ -148,25 +147,90 @@ const getProfileFailure = error => {
 }
 
 export const getProfile = () => {
-	const url = 'https://private-0b0d2-onlineshop2.apiary-mock.com/profile';
+	const url = `/users/${getAccessToken()}/profile`;
 	
 	return dispatch => {
 
 		dispatch(getProfileStart());
-		axios({
-			method: 'get',
+		get(
 			url,
-		})
-			.then(res => {
-				const { data } = res;
+			{},
+			response => dispatch(getProfileSuccess(response)),
+			error => dispatch(getProfileFailure(error.message))
+		)
+	}
+}
 
-				const { access_token } = data;
+const getOrdersStart = () => {
+	return {
+		type: types.GET_ORDERS_START
+	}
+}
 
-				dispatch(getProfileSuccess(data))
-			})
-			.catch(err => {
-				dispatch(getProfileFailure(err.message))
-			});
+const getOrdersSuccess = orders => {
+	return {
+		type: types.GET_ORDERS_SUCCESS,
+		orders
+	}
+}
+
+const getOrdersFailure = error => {
+	return {
+		type: types.GET_ORDERS_FAILURE,
+		error
+	}
+}
+
+export const getOrders = () => {
+	
+	const url = `/users/${getAccessToken()}/orders`;
+	
+	return dispatch => {
+
+		dispatch(getOrdersStart());
+		get(
+			url,
+			{},
+			response => dispatch(getOrdersSuccess(response)),
+			error => dispatch(getOrdersFailure(error.message)),
+			null,
+			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
+		)
+	}
+}
+
+const setProfileStart = () => {
+	return {
+		type: types.GET_PROFILE_START
+	}
+}
+
+const setProfileSuccess = profile => {
+	return {
+		type: types.GET_PROFILE_SUCCESS,
+		profile
+	}
+}
+
+const setProfileFailure = error => {
+	return {
+		type: types.GET_PROFILE_FAILURE,
+		error
+	}
+}
+
+export const setProfile = (data, accessToken) => {
+	const url = `/users/${accessToken}/info`;
+	
+	return dispatch => {
+
+		dispatch(setProfileStart());
+		patch(
+			url,
+			data,
+			response => dispatch(setProfileSuccess(response)),
+			error => dispatch(setProfileFailure(error.message))
+		);
 	}
 }
 
@@ -197,10 +261,12 @@ export const logout = () => {
 		dispatch(logoutStart());
 
 		post(
-			'/logout',
+			`/users/logout/${getAccessToken()}`,
 			{},
 			(response) => dispatch(logoutSuccess()),
-			(error) => dispatch(logoutFailure(error.message))
+			(error) => dispatch(logoutFailure(error.message)),
+			null,
+			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
 		)
 	}
 }

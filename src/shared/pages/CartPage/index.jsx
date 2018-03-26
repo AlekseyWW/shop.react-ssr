@@ -59,7 +59,7 @@ class CartPage extends Component {
 								<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_price}`}>Цена</td>
 								<td className={styles.CartTable__cell}></td>
 							</tr>
-							{products.length ? products.map(product => <CartItem key={`${product.id}-${product.size.id}`} product={product} add={addToCart} remove={removeFromCart} />) : <tr><td colSpan="4">корзина пуста</td></tr>}
+							{products.length ? products.map((product, id) => <CartItem key={`key-${id}`} product={product} add={addToCart} remove={removeFromCart} />) : <tr><td colSpan="4">корзина пуста</td></tr>}
 						</tbody>
 					</table>
 					<div className={styles.CartResult}>
@@ -98,7 +98,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
 	// getCart: () => dispatch(cartAction.getCart()),
 	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
-	removeFromCart: product => dispatch(cartAtions.removeFromCart(product))
+	removeFromCart: product => dispatch(cartAtions.addToCart(product, true, true))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

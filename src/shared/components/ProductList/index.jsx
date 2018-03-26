@@ -138,7 +138,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		getProducts: data => dispatch(productsAction.getProducts(data, categoryId)),
 		setPagination: (offset, countView) => dispatch(paginationAction.setPagination(offset, countView)),
 		addToFavorites: (product) => dispatch(favoritesAction.addToFavorites(product)),
-		removeFromFavorites: (productId) => dispatch(favoritesAction.removeFromFavorites(productId))
+		removeFromFavorites: (productId) => dispatch(favoritesAction.addToFavorites(productId, true))
 	});
 };
 

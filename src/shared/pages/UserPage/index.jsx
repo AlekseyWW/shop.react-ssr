@@ -6,6 +6,7 @@ import { omit } from 'lodash';
 import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
 import RecoveryForm from 'components/RecoveryForm';
+import OrderProducts from 'components/OrderProducts';
 import ProductCard from 'components/ProductCard';
 import * as cartAtions from 'actions/cart';
 import * as authActions from 'actions/user';
@@ -15,16 +16,16 @@ import styles from './style.styl';
 class UserPage extends Component {
 	componentDidMount() {
 		const accessToken = localStorage.getItem("accessToken");
-		const { profileIsLoaded, profileIsLoading, getProfile } = this.props
+		const { profileIsLoaded, profileIsLoading, ordersIsLoaded, ordersIsLoading, getProfile, getOrders } = this.props
 		if (!accessToken) {
 			this.props.history.replace('/')
 		} else {
 			!profileIsLoaded && !profileIsLoading && getProfile();
+			!ordersIsLoaded && !ordersIsLoading && getOrders();
 		}
 	}
 	render() {
-		const { products, addToCart, removeFromCart, profile, favorites } = this.props;
-		console.log(profile.order);
+		const { products, addToCart, removeFromCart, profile, favorites, orders } = this.props;
 		
 		return (
 			<div className="page__inner">
@@ -44,7 +45,7 @@ class UserPage extends Component {
 							</div>
 						</div>
 					)}
-					{profile && profile.delivery && (
+					{profile && (
 						<div className={styles.UserPage__container}>
 							<div className={styles.UserPage__column}>
 								<div className={styles.UserPage__item}>
@@ -53,7 +54,29 @@ class UserPage extends Component {
 										Основной адрес доставки
 									</div>
 									<div className={styles.UserPage__item__text}>
-										{profile.delivery.address ? `${profile.delivery.country} ${profile.delivery.address}` : 'Тут будет отображаться ваш основной адрес'}
+										{profile.address && profile.delivery.address ? (
+											<div className={style.Order__list}>
+												<div className={style.Order__delivery}>
+													<p className={style.Order__note}>Имя</p>
+													<p className={style.Order__value}>{profile.firstName}</p>
+												</div>
+												<div className={style.Order__delivery}>
+													<p className={style.Order__note}>Фамилия</p>
+													<p className={style.Order__value}>{profile.lastName}</p>
+												</div>
+												<div className={style.Order__delivery}>
+													<p className={style.Order__note}>Город/Населенный пункт</p>
+													<p className={style.Order__value}>{profile.city.name}</p>
+												</div>
+												<div className={style.Order__delivery}>
+													<p className={style.Order__note}>Почтовый индекс</p>
+													<p className={style.Order__value}>{profile.postIndex}</p>
+												</div>
+												<div className={style.Order__delivery}>
+													<p className={style.Order__note}>Адресс</p>
+													<p className={style.Order__value}>{profile.address}</p>
+												</div>
+										</div>) : 'Тут будет отображаться ваш основной адрес'}
 									</div>
 								</div>
 								<div className={styles.UserPage__item}>
@@ -62,24 +85,10 @@ class UserPage extends Component {
 										Последний заказ
 									</div>
 									<div className={styles.UserPage__item__text}>
-										{profile.order ? (
-											<div className={styles.UserPage__order}>
-												{profile.order[0].colors.map((color, id) => {
-													const key = `item=${id}`
-													return (
-														<div key={key} className={styles.UserPage__order__item}>
-															<div className={styles.UserPage__order__item__id}>{id + 1}</div>
-															<div className={styles.UserPage__order__item__img}><img src={color.img} alt=""/></div>
-															<div className={styles.UserPage__order__item__size}>{color.size.name}</div>
-															<div className={styles.UserPage__order__item__name}>{color.product.name}</div>
-															<div className={styles.UserPage__order__item__price}>{color.price} ₽</div>
-														</div>
-													)}
-												)}
-												<div key={key} className={styles.UserPage__order__item}>
-													<span>Стоимость доставки: {profile.order[0].deliveryPrice} ₽</span><span>Сумма заказа: {profile.order[0].sum} ₽</span>
-												</div>
-											</div>
+										{orders ? (
+											<Link to={`order/${orders[0].id}`}>
+												<OrderProducts products={orders[0].colors} price={orders[0].deliveryPrice} sum={orders[0].sum}/>
+											</Link>
 										) : 'Тут будет отображен статус вашего последнего заказа'}
 									</div>
 								</div>
@@ -139,17 +148,18 @@ UserPage.propTypes = {
 const mapStateToProps = (state) => {
 	const { isFetched, isFetching, added } = state.cart;
 	const favorites = state.favorites;
-	const { profile, accessToken, profileIsLoaded, profileIsLoading} = state.user;
+	const { profile, accessToken, profileIsLoaded, profileIsLoading, orders, ordersIsLoaded, ordersIsLoading} = state.user;
 	
 	const products = added;
-	return { isFetched, isFetching, products, profile, profileIsLoaded, profileIsLoading, accessToken, favorites };
+	return { isFetched, isFetching, products, profile, profileIsLoaded, profileIsLoading, accessToken, favorites, orders, ordersIsLoaded, ordersIsLoading };
 };
 
 const mapDispatchToProps = dispatch => ({
 	// getCart: () => dispatch(cartAction.getCart()),
 	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.removeFromCart(product)),
-	getProfile: (favorites) => dispatch(authActions.getProfile(favorites))
+	getProfile: (favorites) => dispatch(authActions.getProfile(favorites)),
+	getOrders: (favorites) => dispatch(authActions.getOrders(favorites))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

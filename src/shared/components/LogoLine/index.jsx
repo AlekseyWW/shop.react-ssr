@@ -7,12 +7,10 @@ import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, TelegrammIcon, 
 
 import style from './styles.styl';
 
-const LogoLine = ({ isFavorite, loginModalOpen, profile }) => {
+const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
 	const heartClass = classNames(style.LogoLine__action__heart,{
 		[style.LogoLine__action__heart_active]: isFavorite
 	})
-	console.log(profile);
-	
 	return (
 		<div className={style.LogoLine}>
 			<div className={style.LogoLine__container}>
@@ -33,12 +31,12 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile }) => {
 						<NavLink to="/login" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Вход/Регистрация
 						</NavLink> */}
-						{profile && profile.email ?
+						{profile && profile.id ?
 							<div> 
 								<NavLink to="/user">
 									{profile.email}
 								</NavLink>
-								<p> / выход</p>
+								<p onClick={logout}> / выход</p>
 							</div>:
 							<div className={style.LogoLine__nav__item} onClick={loginModalOpen}>
 								Вход/Регистрация

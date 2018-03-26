@@ -23,29 +23,36 @@ class Header extends Component {
 		this.openRegisterModal = this.openRegisterModal.bind(this)
 	}
 	componentDidMount() {
-		const { isLoaded, isLoading, accessToken, getCategories, setCart, setFavorites, loginSuccess, getProfile, getStockCategories} = this.props;
+		const { getFavorites, isLoaded, isLoading, accessToken, getCategories, setCart, setFavorites, loginSuccess, getProfile, getCart, getStockCategories} = this.props;
 		if (!isLoaded && !isLoading) getCategories();
 		if (!getStockCategories.isLoaded && !getStockCategories.isLoading) getStockCategories();
 		const cart = localStorage.getItem("cart");
-		if (cart) {
-			setCart(JSON.parse(cart));
-		}
 		const favorites = localStorage.getItem("favorites");
 		const accessTokenStorage = localStorage.getItem("accessToken");
-		console.log({ accessToken });
 		
-		if (favorites) {
+		if (favorites && !accessTokenStorage) {
 			setFavorites(JSON.parse(favorites));
 		}
 		if (accessTokenStorage) {
-			loginSuccess(accessTokenStorage)
-			getProfile();
+			loginSuccess(accessTokenStorage);
+			
+			getProfile(accessTokenStorage);
+		}
+		if (accessTokenStorage) {
+			getCart(accessTokenStorage);
+			getFavorites(accessTokenStorage);
+		} else if(cart) {
+			setCart(JSON.parse(cart));
 		}
 	}
 	componentWillReceiveProps(nextProps) {
 		const { profileIsLoaded, profileIsLoading } = this.props;
 		if (nextProps.accessToken && !profileIsLoaded && !profileIsLoading) {
-			this.props.getProfile();
+			this.props.getProfile(nextProps.accessToken);
+		}
+		if (nextProps.accessToken && !this.props.accessToken) {
+			this.props.getCart(nextProps.accessToken);
+			this.props.getFavorites(nextProps.accessToken);
 		}
 		
 	}
@@ -78,11 +85,11 @@ class Header extends Component {
 		})
 	}
 	render() {
-		const { items, cart, favorites, profile, accessToken } = this.props;
+		const { items, cart, favorites, profile, logout, accessToken } = this.props;
 		return (
 			<div className={style.Header}>
 				<HeaderInfo data={headerData} />
-				<LogoLine cart={cart} isFavorite={favorites.length > 0} loginModalOpen={this.loginModalOpen} profile={profile}/>
+				<LogoLine logout={logout} cart={cart} isFavorite={favorites.length > 0} loginModalOpen={this.loginModalOpen} profile={profile}/>
 			</div>
 		);
 	}
@@ -110,13 +117,16 @@ const mapDispatchToProps = dispatch => ({
 	getCategories: () => dispatch(categoryAction.getCategories()),
 	getStockCategories: () => dispatch(categoryAction.getStockCategories()),
 	setCart: (cart) => dispatch(cartAction.setCart(cart)),
+	getCart: (accessToken) => dispatch(cartAction.getCart(accessToken)),
 	openModal: modalParams => dispatch(actions.openModal(modalParams)),
 	closeModal: () => dispatch(actions.closeModal()),
 	setFavorites: (favorites) => dispatch(favoritesAction.setFavorites(favorites)),
+	getFavorites: (accessToken) => dispatch(favoritesAction.getFavorites(accessToken)),
 	login: (favorites) => dispatch(authActions.login(favorites)),
-	register: (favorites) => dispatch(authActions.register(favorites)),
+	logout: (favorites) => dispatch(authActions.logout(favorites)),
+	register: (data) => dispatch(authActions.register(data)),
 	loginSuccess: (favorites) => dispatch(authActions.loginSuccess(favorites)),
-	getProfile: (favorites) => dispatch(authActions.getProfile(favorites))
+	getProfile: (accessToken) => dispatch(authActions.getProfile(accessToken))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
