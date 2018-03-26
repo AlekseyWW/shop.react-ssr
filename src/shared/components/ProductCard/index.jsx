@@ -29,8 +29,8 @@ class ProductCard extends Component {
 			[style.ProductCard__overlay__button_active]: isFavorite
 		})
 		const text = actionText ? actionText : isFavorite ? "В избранном" : "В избранное"
-		const currentSizes = sex ? filter(sizes, b => b.sex === sex && b.quantity > 0) : sizes;
-
+		const currentSizes = sex ? filter(sizes, b => b.sex === sex && b.quantity > 0) : filter(sizes, b => b.quantity > 0);
+		
 		return (
 			<div className={className}>
 				<Link className={style.ProductCard__image} to={url}>
