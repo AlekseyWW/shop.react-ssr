@@ -16,6 +16,9 @@ const initialState = {
 	ordersIsLoaded: false,
 	profileIsFetching: false,
 	profileIsFetched: false,
+	changeIsFetching: false,
+	changeIsFetched: false,
+	changeError: null,
 
 	error: null
 };
@@ -139,6 +142,28 @@ export default function user(state = initialState, action) {
 				profileIsFetched: false,
 				profile: {},
 				error: action.error
+			};
+
+		case types.CHANGE_PASSWORD_START:
+			return {
+				...state,
+				changeIsFetching: true
+			};
+
+		case types.CHANGE_PASSWORD_SUCCESS:
+			return {
+				...state,
+				changeIsFetching: false,
+				changeIsFetched: true,
+				changeError: null
+			};
+
+		case types.CHANGE_PASSWORD_FAILURE:
+			return {
+				...state,
+				changeIsFetching: false,
+				changeIsFetched: false,
+				changeError: action.error
 			};
 
 		case types.LOGOUT_START:

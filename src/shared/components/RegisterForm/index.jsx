@@ -7,13 +7,14 @@ import Input from 'components/Input';
 import Select from 'components/Select';
 import { loadCities, getDeliveryCoast } from '../../state/modules/sdek';
 import Button from 'components/Button';
+import { GiftIcon } from 'components/Icon';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import { required, email } from 'utils/validation';
 
 import style from './styles.styl';
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
 	componentDidMount() {
 
 	}
@@ -21,13 +22,18 @@ class LoginForm extends Component {
 		const { handleSubmit, openRegisterModal } = this.props;
 		
 		return (
-			<form onSubmit={handleSubmit} className={style.LoginForm}>
-				<div className={style.LoginForm__container}>
+			<form onSubmit={handleSubmit} className={style.RegisterForm}>
+				<div className={style.RegisterForm__promo}>
+					<GiftIcon />
+					<p className={style.RegisterForm__promo__title}><span>500 рублей в подарок</span> на шоппинг</p>
+					<p className={style.RegisterForm__promo__text}>Зарегистриуйтесь на&nbsp;сайте и&nbsp;получите промокод на&nbsp;скидку!</p>
+				</div>
+				<div className={style.RegisterForm__container}>
 					<Field
 						name="email"
 						component={Input}
 						type="text"
-						className={`${style.LoginForm__input} ${style.LoginForm__input_wide}`}
+						className={`${style.RegisterForm__input} ${style.RegisterForm__input_wide}`}
 						label="E-mail"
 						validate={[required, email]}
 					/>
@@ -35,7 +41,7 @@ class LoginForm extends Component {
 						name="password"
 						component={Input}
 						type="password"
-						className={`${style.LoginForm__input} ${style.LoginForm__input_wide}`}
+						className={`${style.RegisterForm__input} ${style.RegisterForm__input_wide}`}
 						label="Введите пароль"
 						validate={[required]}
 					/>
@@ -43,7 +49,7 @@ class LoginForm extends Component {
 						name="rePassword"
 						component={Input}
 						type="password"
-						className={`${style.LoginForm__input} ${style.LoginForm__input_wide}`}
+						className={`${style.RegisterForm__input} ${style.RegisterForm__input_wide}`}
 						label="Повторите пароль"
 						validate={[required]}
 					/>
@@ -58,12 +64,12 @@ class LoginForm extends Component {
 }
 
 
-LoginForm = reduxForm({
+RegisterForm = reduxForm({
 	// a unique name for the form
 	form: 'order',
 	enableReinitialize: true,
 	destroyOnUnmount: false
-})(LoginForm);
+})(RegisterForm);
 
-export default LoginForm;
+export default RegisterForm;
 

@@ -1,4 +1,4 @@
-.LoginForm {
+.RegisterForm {
 	& {
 		display block
 		font-size 12px
@@ -8,9 +8,52 @@
 			margin 0
 		}
 	}
+	.Icon {
+		width 150px
+		height 150px
+		@media $phone {
+			width 100px
+			height 100px
+		}
+	}
+	.Button {
+		width auto;
+	}
+	&__promo {
+		width 500px
+		float left
+		text-align center
+		@media $verticalTablet {
+			width 400px
+		}
+		@media $phone {
+			width auto
+			margin-bottom 16px
+		}
+		&__title {
+			font-weight bold
+			span {
+				color $redColor
+			}
+			margin-bottom 8px
+			font-size 40px
+			line-height 1
+			@media $verticalTablet {
+				font-size 32px
+			}
+		}
+		&__text {
+			font-size 18px
+		}
+	}
 	&__wrapper {
-		width 350px
-
+		width 800px
+		@media $verticalTablet {
+			width 600px
+		}
+		@media $phone {
+			width auto
+		}
 		.ModalExample__inner {
 			padding-left 0
 		}
@@ -34,7 +77,13 @@
 	}
 	&__container {
 		padding 0 24px
+		width 300px
 		vertical-align top
+		display flex
+		flex-wrap: wrap
+		@media $verticalTablet {
+			width 200px
+		}
 		@media $phone {
 			display block
 			width auto

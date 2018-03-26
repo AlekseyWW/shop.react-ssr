@@ -14,9 +14,11 @@ class OrderFormPage extends Component {
 	handleSubmit(data) {
 		if (data.city) {
 			data.city = {
-				id: data.city.value
+				id: data.city.value || data.city.id
 			}
 		}
+		console.log({data});
+		
 		this.props.fetchOrder(data);
 	}
 	render() {

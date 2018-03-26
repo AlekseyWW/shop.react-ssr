@@ -3,6 +3,7 @@ import { post, get, patch, setAccessToken, getAccessToken, setCart, setFavorites
 import { replace } from 'react-router-redux';
 import { setUserRole } from 'utils/helpers';
 import { actions } from '../modules/modal';
+import { reset } from 'redux-form';
 import axios from 'axios';
 
 const clearLocalStorage = () => {
@@ -122,6 +123,51 @@ export const register = ({email, password, rePassword}) => {
 				dispatch(registerSuccess(accessToken));
 			},
 			(error) => dispatch(registerFailure(error.message))
+		)
+	}
+}
+
+const changePasswordStart = () => {
+	return {
+		type: types.CHANGE_PASSWORD_START
+	}
+}
+
+export const changePasswordSuccess = (token, role) => {
+	return dispatch => {
+
+		dispatch({
+			type: types.CHANGE_PASSWORD_SUCCESS,
+			token,
+			role,
+		});
+		dispatch(reset('recovery'));
+	}
+
+}
+
+const changePasswordFailure = error => {
+
+	clearLocalStorage();
+
+	return {
+		type: types.CHANGE_PASSWORD_FAILURE,
+		error
+	}
+}
+
+export const changePassword = ({oldPassword, password, rePassword}) => {
+	return dispatch => {
+		
+		dispatch(changePasswordStart());
+
+		patch(
+			`users/${getAccessToken()}/password`,
+			{ oldPassword, password, rePassword },
+			(response) => {
+				dispatch(changePasswordSuccess(response));
+			},
+			(error) => dispatch(changePasswordFailure(error.message))
 		)
 	}
 }
@@ -263,12 +309,10 @@ export const logout = () => {
 		dispatch(logoutStart());
 
 		post(
-			`/users/logout/${getAccessToken()}`,
+			`/users/${getAccessToken()}/logout`,
 			{},
 			(response) => dispatch(logoutSuccess()),
-			(error) => dispatch(logoutFailure(error.message)),
-			null,
-			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
+			(error) => dispatch(logoutFailure(error.message))
 		)
 	}
 }

@@ -24,7 +24,7 @@ const addToCartError = error => ({
 });
 
 export const addToCart = (product, remove, removeAll) => (dispatch) => {
-	if (getAccessToken()) {
+	if (false) {
 		const url = `users/${getAccessToken()}/cart/${product.id}`
 		dispatch(addToCartStart(product.id, remove));
 		const method = remove ? del : post;
@@ -85,14 +85,14 @@ const getCartError = error => ({
 
 export const getCart = (accessTokenStorage) => (dispatch) => {
 	dispatch(getCartStart());
-	get(
-		`/users/${accessTokenStorage}/cart`,
-		{ },
-		response => dispatch(getCartSuccess(response)),
-		error => dispatch(getCartError(error.message)),
-		null,
-		'https://private-0b0d2-onlineshop2.apiary-mock.com/'
-	);
+	// get(
+	// 	`/users/${accessTokenStorage}/cart`,
+	// 	{ },
+	// 	response => dispatch(getCartSuccess(response)),
+	// 	error => dispatch(getCartError(error.message)),
+	// 	null,
+	// 	'https://private-0b0d2-onlineshop2.apiary-mock.com/'
+	// );
 };
 
 const clearCartSuccess = () => ({

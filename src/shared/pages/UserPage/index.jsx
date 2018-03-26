@@ -40,7 +40,7 @@ class UserPage extends Component {
 								</div>
 							</div>
 							<div className={styles.UserPage__contacts}>
-								<p>ЕСТЬ ВОПРОСЫ? ЗВОНИТЕ ПО&nbsp;ТЕЛ.: <nobr class="phone">+7 (928) 620-64-04</nobr></p>
+								<p>ЕСТЬ ВОПРОСЫ? ЗВОНИТЕ ПО&nbsp;ТЕЛ.: <nobr className="phone">+7 (928) 620-64-04</nobr></p>
 								<p>МЫ&nbsp;РАБОТАЕМ ЕЖЕДНЕВНО С&nbsp;10.30&nbsp;ДО 20.00</p>
 							</div>
 						</div>
@@ -121,7 +121,7 @@ class UserPage extends Component {
 									<div className={styles.UserPage__item__text}>Если вы&nbsp;хотите сменить свой пароль, то&nbsp;укажите старый пароль и&nbsp;желаемый новый. После этого нажмите кнопку &laquo;Сохранить&raquo;</div>
 								</div>
 								<div className={styles.UserPage__item}>
-									<RecoveryForm />
+									<RecoveryForm onSubmit={this.props.changePassword}/>
 								</div>
 							</div>
 						</div>
@@ -160,6 +160,7 @@ const mapDispatchToProps = dispatch => ({
 	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.removeFromCart(product)),
 	getProfile: (favorites) => dispatch(authActions.getProfile(favorites)),
+	changePassword: (data) => dispatch(authActions.changePassword(data)),
 	getOrders: (favorites) => dispatch(authActions.getOrders(favorites))
 });
 

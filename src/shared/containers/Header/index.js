@@ -39,15 +39,16 @@ class Header extends Component {
 			getProfile(accessTokenStorage);
 		}
 		if (accessTokenStorage) {
-			getCart(accessTokenStorage);
+			// getCart(accessTokenStorage);
 			getFavorites(accessTokenStorage);
-		} else if(cart) {
+		}
+		if(cart) {
 			setCart(JSON.parse(cart));
 		}
 	}
 	componentWillReceiveProps(nextProps) {
-		const { profileIsLoaded, profileIsLoading } = this.props;
-		if (nextProps.accessToken && !profileIsLoaded && !profileIsLoading) {
+		const { profileIsLoaded, profileIsLoading, error } = this.props;
+		if (nextProps.accessToken && !profileIsLoaded && !profileIsLoading && !error) {
 			this.props.getProfile(nextProps.accessToken);
 		}
 		if (nextProps.accessToken && !this.props.accessToken) {
@@ -60,8 +61,9 @@ class Header extends Component {
 		this.props.openModal({
 			modalType: ModalExample,
 			modalProps: {
-				className: "LoginForm__wrapper",
+				className: "RegisterForm__wrapper",
 				title: 'Регистрация',
+				loginModalOpen: this.loginModalOpen,
 				text: (
 					<RegisterForm onSubmit={this.props.register}/>
 				),
@@ -108,9 +110,9 @@ const mapStateToProps = (state) => {
 	const { isLoaded, isLoading, items } = state.category.categories;
 	const { getStockCategories } = state.category;
 	const { added: favorites } = state.favorites;
-	const { profile, profileIsLoaded, profileIsLoading, accessToken } = state.user;
+	const { profile, profileIsLoaded, profileIsLoading, accessToken, error } = state.user;
 	const cart = state.cart.added;
-	return { isLoaded, isLoading, accessToken, items, cart, favorites, profile, profileIsLoaded, profileIsLoading };
+	return { isLoaded, isLoading, accessToken, items, cart, error, favorites, profile, profileIsLoaded, profileIsLoading };
 };
 
 const mapDispatchToProps = dispatch => ({

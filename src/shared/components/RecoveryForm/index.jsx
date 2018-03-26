@@ -23,7 +23,7 @@ class RecoveryForm extends Component {
 			<form onSubmit={handleSubmit} className={style.RecoveryForm}>
 				<div className={style.RecoveryForm__container}>
 					<Field
-						name="password"
+						name="oldPassword"
 						component={Input}
 						type="password"
 						className={`${style.RecoveryForm__input} ${style.RecoveryForm__input_wide}`}
@@ -39,7 +39,7 @@ class RecoveryForm extends Component {
 						validate={[required]}
 					/>
 					<Field
-						name="password"
+						name="rePassword"
 						component={Input}
 						type="password"
 						className={`${style.RecoveryForm__input} ${style.RecoveryForm__input_wide}`}

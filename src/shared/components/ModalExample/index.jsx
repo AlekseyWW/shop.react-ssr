@@ -11,8 +11,8 @@ const images = {
 }
 class ModalExample extends Component {
     render() {
-        const { title, text, subTitle, buttons, status, className, openRegisterModal } = this.props.modalProps;
-
+        const { title, text, subTitle, buttons, status, className, openRegisterModal, loginModalOpen } = this.props.modalProps;
+        const headerClass = openRegisterModal || loginModalOpen ? "ModalExample__header ModalExample__header_flex" : "ModalExample__header";
         return (
             <div className={`ModalExample ${className}`}>
                 {status && <div className="ModalExample__photo">
@@ -20,7 +20,7 @@ class ModalExample extends Component {
                 </div>}
                 <div className="ModalExample__inner">
                     {(title || subTitle) && (
-                        <div className="ModalExample__header">
+                        <div className={headerClass}>
                             {title && (
                                 <h1>
                                     {htmlParser(title)}
@@ -31,8 +31,12 @@ class ModalExample extends Component {
                                     {htmlParser(subTitle)}
                                 </h2>
                             )}
+
                             {openRegisterModal && (
-                                <div onClick={openRegisterModal}>Создать аккаунт</div>
+                                <div className="ModalExample__change-btn" onClick={openRegisterModal}>Создать аккаунт</div>
+                            )}
+                            {loginModalOpen && (
+                                <div className="ModalExample__change-btn" onClick={loginModalOpen}>Войти</div>
                             )}
                         </div>
                     )}

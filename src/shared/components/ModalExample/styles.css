@@ -16,13 +16,32 @@
    font-weight: bold;
    margin-bottom: 16px;
 }
+.ModalExample__header_flex {
+	display: flex;
+	align-items: flex-end;
+	margin-bottom: 24px;
+}
+.ModalExample__header_flex h1{
+	margin-bottom: 0;
+}
 .ModalExample {
 	position: relative;
 	display: flex;
 	padding: 24px;
 	width: 800px;
 }
-
+.ModalExample__change-btn {
+	font-weight: bold;
+	margin-left: 24px;
+	display: inline-block;
+	color: #B1B1B1;
+	cursor: pointer;
+	transition: color 0.35s;
+	line-height: 1;
+}
+.ModalExample__change-btn:hover {
+	color: #222629;
+}
 .ModalExample__image {
 	width: 100%;
 	display: block;
@@ -97,7 +116,7 @@
 @media screen and (max-width: 700px) {
 	.ModalExample__header h1 {
 		font-size: 24px;
-    }
+	}
 	.ModalExample {
 		padding: 16px;
 		/* display: block; */

@@ -45,6 +45,20 @@ class OrderForm extends Component {
 			this.props.getDeliveryCoast(this.props.initialValues.sity, productsForDelivery)
 		}
 	}
+	componentWillReceiveProps(nextProps) {
+		if (!this.props.initialValues.city && nextProps.initialValues.city) {
+			const productsForDelivery = this.props.products.map(product => ({
+				id: product.id,
+				quantity: product.count,
+				size: {
+					id: product.size.id
+				}
+			}))
+			this.props.getDeliveryCoast(nextProps.initialValues.city.id, productsForDelivery);
+			this.props.change('deliveryType', null)
+		}
+
+	}
 	getOptions(input, callback) {
 		const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
 		axios({
@@ -133,14 +147,6 @@ class OrderForm extends Component {
 								label="Адрес*"
 								validate={[required]}
 							/>
-							<Field
-								name="apartments"
-								component={Input}
-								type="text"
-								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
-								label="Квартира, корпус, строение ит.д.*"
-								validate={[required]}
-							/>
 						</div>
 						<div className={style.OrderForm__group}>
 							<Field
@@ -152,30 +158,11 @@ class OrderForm extends Component {
 								validate={[required, email]}
 							/>
 							<Field
-								name="phone"
-								component={Input}
-								type="text"
-								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
-								label="Телефон*"
-								mask="+7\ 999 999-99-99"
-								maskChar=""
-								validate={[required]}
-							/>
-						</div>
-						<div className={style.OrderForm__group}>
-							<Field
 								name="comment"
 								component={Input}
 								type="text"
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
 								label="Комментарий"
-							/>
-							<Field
-								name="country"
-								component={Input}
-								type="text"
-								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
-								label="страна"
 							/>
 						</div>
 					</div>
@@ -321,13 +308,15 @@ const selector = formValueSelector('order')
 const mapStateToProps = state => {
 	const { price } = state.sdek;
 	const { order } = state.form;
+	const { accessToken, profile } = state.user;
 	const val = order ? order.values : {};
 	const sdek = state.sdek;
 	const products = state.cart.added;
-	const initialValues = { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
+	const initialValues = accessToken && profile ? { ...profile, city: { id: profile.city.id, label: profile.city.name },colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');
+	
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
 	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity };
 }
