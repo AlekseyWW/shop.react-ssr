@@ -42,8 +42,8 @@ class Header extends Component {
 		}
 	}
 	componentWillReceiveProps(nextProps) {
-		const { profileIsLoaded, profileIsLoading } = this.props;
-		if (nextProps.accessToken && !profileIsLoaded && !profileIsLoading) {
+		const { profileIsLoaded, profileIsLoading, error } = this.props;
+		if (nextProps.accessToken && !profileIsLoaded && !profileIsLoading && !error) {
 			this.props.getProfile();
 		}
 		
@@ -100,7 +100,7 @@ const mapStateToProps = (state) => {
 	const { isLoaded, isLoading, items } = state.category.categories;
 	const { getStockCategories } = state.category;
 	const { added: favorites } = state.favorites;
-	const { profile, profileIsLoaded, profileIsLoading, accessToken } = state.user;
+	const { profile, profileIsLoaded, profileIsLoading, accessToken, error } = state.user;
 	const cart = state.cart.added;
 	return { isLoaded, isLoading, accessToken, items, cart, favorites, profile, profileIsLoaded, profileIsLoading };
 };
