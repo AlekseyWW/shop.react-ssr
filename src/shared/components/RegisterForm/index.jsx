@@ -66,7 +66,7 @@ class RegisterForm extends Component {
 
 RegisterForm = reduxForm({
 	// a unique name for the form
-	form: 'order',
+	form: 'register',
 	enableReinitialize: true,
 	destroyOnUnmount: false
 })(RegisterForm);

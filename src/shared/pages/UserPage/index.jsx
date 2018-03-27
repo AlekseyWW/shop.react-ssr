@@ -51,6 +51,20 @@ class UserPage extends Component {
 								<div className={styles.UserPage__item}>
 									<div className={styles.UserPage__item__title}>
 										<AdressIcon />
+										Промокод
+									</div>
+									<div className={styles.UserPage__item__text}>
+										<div className={styles.UserPageList__list}>
+											<div className={styles.UserPageList__delivery}>
+												<p className={styles.UserPageList__note}>NEW_STEP_84458272</p>
+												<p className={styles.UserPageList__value}>500 ₽ на покупку</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div className={styles.UserPage__item}>
+									<div className={styles.UserPage__item__title}>
+										<AdressIcon />
 										Основной адрес доставки
 									</div>
 									<div className={styles.UserPage__item__text}>

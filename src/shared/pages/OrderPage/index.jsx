@@ -28,7 +28,6 @@ class OrderPage extends Component {
 	}
 	render() {
 		const { products, addToCart, removeFromCart, order } = this.props;
-		console.log({ order});
 		
 		return (
 			<div className={styles.CartContainer}>

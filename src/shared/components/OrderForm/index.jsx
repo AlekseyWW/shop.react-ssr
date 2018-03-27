@@ -32,7 +32,16 @@ const payData = {
 		name: "Наложенным платежом при получении"
 	}
 };
+const promocode = [{
+	"id": 1,
+	"code": "NEW_STEP_84458272",
+	"amount": 500
+}]
 class OrderForm extends Component {
+
+	state={
+		promocode: 0
+	}
 	componentDidMount() {
 		if (this.props.initialValues && this.props.initialValues.sity) {
 			const productsForDelivery = this.props.products.map(product => ({
@@ -86,6 +95,7 @@ class OrderForm extends Component {
 			}
 		}))
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
+		const promoAmount = find(promocode, { code: this.props.promocode }) ? find(promocode, { code: this.props.promocode }).amount : 0;
 		
 		return (
 			<form onSubmit={handleSubmit} className={style.OrderForm}>
@@ -158,6 +168,15 @@ class OrderForm extends Component {
 								validate={[required, email]}
 							/>
 							<Field
+								name="promocode"
+								component={Input}
+								type="text"
+								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
+								label="Промокод"
+							/>
+						</div>
+						<div className={style.OrderForm__group}>
+							<Field
 								name="comment"
 								component={Input}
 								type="text"
@@ -229,7 +248,8 @@ class OrderForm extends Component {
 					</div>
 					<div className={style.OrderSumm}>
 						<p>Итого</p>
-						<p>{getCartSummM(products) + (currentSumm ? currentSumm.price : 0)} ₽</p>
+						<p>{getCartSummM(products) + (currentSumm ? currentSumm.price : 0) - promoAmount} ₽</p>
+						{this.props.promocode === 'NEW_STEP_84458272' && <p>Скидка по промокоду: {promoAmount} ₽</p>}
 					</div>
 					<div className={style.OrderPay}>
 						<div className={style.OrderPay__title}>
@@ -308,17 +328,18 @@ const selector = formValueSelector('order')
 const mapStateToProps = state => {
 	const { price } = state.sdek;
 	const { order } = state.form;
-	const { accessToken, profile } = state.user;
+	const { accessToken, profile, profileIsLoaded } = state.user;
 	const val = order ? order.values : {};
 	const sdek = state.sdek;
 	const products = state.cart.added;
-	const initialValues = accessToken && profile ? { ...profile, city: { id: profile.city.id, label: profile.city.name },colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
+	const initialValues = accessToken && profileIsLoaded && profile.city ? { ...profile, promocode: "NEW_STEP_84458272", city: { id: profile.city.id, label: profile.city.name }, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');
+	const promocode = selector(state, 'promocode');
 	
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
-	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity };
+	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity, promocode };
 }
 const mapDispatchToProps = dispatch => ({
 	getCities: (name) => dispatch(loadCities(name)),
