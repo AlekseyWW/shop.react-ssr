@@ -9,19 +9,20 @@ import * as cartAtions from 'actions/cart';
 import styles from './style.styl';
 
 const CartItem = ({ product, add, remove }) => {
+	
 	return (
 		<tr className={styles.CartTable__row}>
 			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_img}`}>
 				<img src={product.image} />
 			</td>
 			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_name}`}>
-				<Link to={`/products/${product.slug}`}>{product.name}</Link>
+				<Link to={`/products/${product.slug}?color=${product.color}`}>{product.name}</Link>
 				<span>{product.size.name}</span>
 				<span>Колличество: {product.count}</span>
 				<span>Цена: {product.price} ₽</span>
 			</td>
 			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_size}`}>
-				{product.size.name} - {product.size.sex}
+				{product.size.name} - {product.size.sex.name}
 			</td>
 			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_count}`}>
 				<button onClick={() => add(omit(product, ['count']))}>

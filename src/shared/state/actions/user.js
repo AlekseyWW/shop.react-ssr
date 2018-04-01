@@ -237,10 +237,11 @@ export const getOrders = () => {
 		get(
 			url,
 			{},
-			response => dispatch(getOrdersSuccess(response)),
-			error => dispatch(getOrdersFailure(error.message)),
-			null,
-			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
+			response => {
+				
+				dispatch(getOrdersSuccess(response));
+			},
+			error => dispatch(getOrdersFailure(error.message))
 		)
 	}
 }

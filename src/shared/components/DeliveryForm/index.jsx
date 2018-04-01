@@ -20,7 +20,6 @@ class DeliveryForm extends Component {
 	}
 	componentDidMount() {
 		// this.props.change('city', this.props.initialValues.city[0])
-		console.log(this.props.initialValues.city);
 
 		
 	}

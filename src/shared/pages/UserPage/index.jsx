@@ -48,20 +48,22 @@ class UserPage extends Component {
 					{profile && (
 						<div className={styles.UserPage__container}>
 							<div className={styles.UserPage__column}>
-								<div className={styles.UserPage__item}>
-									<div className={styles.UserPage__item__title}>
-										<AdressIcon />
-										Промокод
-									</div>
-									<div className={styles.UserPage__item__text}>
-										<div className={styles.UserPageList__list}>
-											<div className={styles.UserPageList__delivery}>
-												<p className={styles.UserPageList__note}>NEW_STEP_84458272</p>
-												<p className={styles.UserPageList__value}>500 ₽ на покупку</p>
+								{profile.promocodes && profile.promocodes[0] &&
+									<div className={styles.UserPage__item}>
+										<div className={styles.UserPage__item__title}>
+											<AdressIcon />
+											Промокод
+										</div>
+										<div className={styles.UserPage__item__text}>
+											<div className={styles.UserPageList__list}>
+												<div className={styles.UserPageList__delivery}>
+													<p className={styles.UserPageList__note}>{profile.promocodes[0].code}</p>
+													<p className={styles.UserPageList__value}>{profile.promocodes[0].amount} ₽ на покупку</p>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+								}
 								<div className={styles.UserPage__item}>
 									<div className={styles.UserPage__item__title}>
 										<AdressIcon />

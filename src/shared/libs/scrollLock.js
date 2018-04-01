@@ -15,7 +15,6 @@ let locked = false;
 export const lockScroll = () => {
     if (!locked) {
         if (body.offsetHeight < body.scrollHeight) {
-            console.log(scrollWidth);
             body.style.paddingRight = scrollWidth + 'px';
         }
         bodyScrollTop =

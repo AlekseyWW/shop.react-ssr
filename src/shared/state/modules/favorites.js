@@ -19,7 +19,6 @@ export default function cart(state = initialState, action) {
 			
 			const newList = getExtendedCartList(state.added, { ...action.product }, action.remove);
 			localStorage.setItem("favorites", JSON.stringify(newList));
-			console.log(newList);
 			
 			return {
 				...state,

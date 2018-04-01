@@ -24,23 +24,35 @@ const addToCartError = error => ({
 });
 
 export const addToCart = (product, remove, removeAll) => (dispatch) => {
-	if (false) {
-		const url = `users/${getAccessToken()}/cart/${product.id}`
+	if (getAccessToken()) {
+		const url = remove && !removeAll ? `users/${getAccessToken()}/carts/size-for-colors/${product.sizeId}/decrease` : `users/${getAccessToken()}/carts/size-for-colors/${product.sizeId}`
 		dispatch(addToCartStart(product.id, remove));
 		const method = remove ? del : post;
 		method(
 			url,
 			{ removeAll },
-			response => dispatch(setCartSuccess(response)),
-			error => dispatch(addToCartError(error.message)),
-			null,
-			'https://private-0b0d2-onlineshop2.apiary-mock.com/'
+			response => {
+				
+				return dispatch(setCartSuccess(response.map(item => ({
+						id: item.sizeForColor.color.id,
+						name: item.sizeForColor.color.product.name,
+						image: item.sizeForColor.color.product.img,
+						slug: item.sizeForColor.color.product.slug,
+						color: item.sizeForColor.color.name,
+						price: item.sizeForColor.color.price,
+						size: item.sizeForColor.size,
+						sizeId: item.sizeForColor.id,
+						count: item.quantity
+					}
+					))
+				));
+			},
+			error => dispatch(addToCartError(error.message))
 		)
 	} else {
 		if (removeAll) {
 			dispatch(removeFromCartSuccess(product));
 		} else {
-			console.log({ remove});
 			
 			dispatch(addToCartSuccess(product, remove));
 		}
@@ -85,14 +97,27 @@ const getCartError = error => ({
 
 export const getCart = (accessTokenStorage) => (dispatch) => {
 	dispatch(getCartStart());
-	// get(
-	// 	`/users/${accessTokenStorage}/cart`,
-	// 	{ },
-	// 	response => dispatch(getCartSuccess(response)),
-	// 	error => dispatch(getCartError(error.message)),
-	// 	null,
-	// 	'https://private-0b0d2-onlineshop2.apiary-mock.com/'
-	// );
+	get(
+		`/users/${accessTokenStorage}/carts`,
+		{ },
+		response => {
+			
+			return dispatch(setCartSuccess(response.map(item => ({
+					id: item.sizeForColor.color.id,
+					name: item.sizeForColor.color.product.name,
+					color: item.sizeForColor.color.name,
+					slug: item.sizeForColor.color.product.slug,
+					price: item.sizeForColor.color.price,
+					image: item.sizeForColor.color.product.img,
+					price: item.sizeForColor.color.price,
+					size: item.sizeForColor.size,
+					sizeId: item.sizeForColor.id,
+					count: item.quantity
+				}))
+			));
+		},
+		error => dispatch(getCartError(error.message))
+	);
 };
 
 const clearCartSuccess = () => ({

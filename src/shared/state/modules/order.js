@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { post } from 'utils/api';
+import { post, getAccessToken } from 'utils/api';
 import { actions } from './modal';
 import { push } from 'react-router-redux';
 import ModalExample from '../../components/ModalExample';
@@ -72,7 +72,6 @@ export function requestOrderDone(data, redirect) {
 		if (redirect) {
 			dispatch(push('/checkout'));
 		}
-		console.log({ data });
 		
 		dispatch({
 			type: FETCH_ORDER_SUCCESS,
@@ -91,8 +90,10 @@ export function requestOrderFail(err) {
 export const fetchOrder = (data, redirect=true) => {
 	return dispatch => {
 		dispatch(requestOrderStart());
+		const url = getAccessToken() ? `/users/${getAccessToken()}/orders` : '/orders';
+
 		return post(
-			'/order',
+			url,
 			{...data},
 			response => dispatch(requestOrderDone(response, redirect)),
 			error => dispatch(requestOrderFail(error.message))

@@ -46,7 +46,7 @@ class Delivery extends Component {
 				label: profile.city.name,
 			} : null,
 			address: profile.address,
-			postIndex: profile.postIndex
+			postIndex: profile.postIndex,
 		} : null;
 		
 		return (

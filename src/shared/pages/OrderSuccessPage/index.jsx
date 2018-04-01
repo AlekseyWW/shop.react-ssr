@@ -6,7 +6,7 @@ import { omit } from 'lodash';
 import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
 import OrderForm from 'components/OrderForm';
-import OrderProducts from 'components/OrderProducts';
+import Order from 'components/Order';
 import ModalExample from '../../components/ModalExample';
 import * as cartAtions from 'actions/cart';
 import * as orderAtions from '../../state/modules/order';
@@ -34,7 +34,6 @@ const payData = {
 
 class OrderPage extends Component {
 	componentDidMount() {
-		console.log(this.props.order);
 		
 		if(!this.props.order) {
 			const order = localStorage.getItem("order");
@@ -96,48 +95,7 @@ class OrderPage extends Component {
 					<h1>Подтверждение заказа</h1>
 				</div>
 				{order && order.paymentType &&
-					<ul className={style.Checkout__block}>
-						<li className={style.Checkout__block__item}>
-							<span>E-mail: {order.email}</span>
-							<span>Телефон: {order.phone}</span>
-						</li>
-						<li className={style.Checkout__block__item}>
-							<span>Имя: {order.firstName}</span>
-							<span>Фамилия: {order.firstName}</span>
-						</li>
-						<li className={style.Checkout__block__item}>
-							<span>Адрес:  {order.address}, {order.apartments}, {order.postIndex}</span>
-						</li>
-						<li className={style.Checkout__block__item}>
-							<span> Коментарий: {order.comment}</span>
-						</li>
-						<li className={style.Checkout__block__item}>
-							<span>Способ оплаты: {payData[order.paymentType].name}</span>
-						</li>
-						<li className={style.Checkout__block__item}>
-							<span>Доставка: {deliveryData[order.deliveryType]}</span>
-						</li>
-						
-						{products.length && (
-						<li className={`${style.Checkout__block__item} ${style.Checkout__products}`}>
-								<span>Товары:</span>
-								{products.map(product => (
-									<div key={`${product.id}-${product.size.id}`} className={style.Checkout__products__block}>
-										<span className={style.Checkout__products__name}>{product.name}</span>
-										<span className={style.Checkout__products__size}>{product.size.name}</span>
-										<span className={style.Checkout__products__count}>Колличество: {product.count}</span>
-										<span className={style.Checkout__products__price}>Цена: {product.price} ₽</span>
-									</div>
-								))}
-								<span>Общая цена:</span>
-								<span>{this.getCartSumm()} ₽</span>
-							</li>
-						)}
-
-						<li className={style.Checkout__block__item}>
-							<span>Сумма заказа: {order.sum}</span>
-						</li>
-					</ul>
+					<Order order={order} withoutPrice />
 				}
 				<Button onClick={this.onClick}>{text}</Button>
 			</div>

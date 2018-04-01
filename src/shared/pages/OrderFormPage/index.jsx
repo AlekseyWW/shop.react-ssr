@@ -17,9 +17,7 @@ class OrderFormPage extends Component {
 				id: data.city.value || data.city.id
 			}
 		}
-		console.log({data});
-		
-		this.props.fetchOrder(data);
+		this.props.fetchOrder(omit(data, ['promocodes']));
 	}
 	render() {
 		const { products, addToCart, removeFromCart } = this.props;
@@ -46,9 +44,11 @@ OrderFormPage.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+	const { profile } = state.user;
+	
 	const { isFetched, isFetching, added } = state.cart;
 	const products = added;
-	return { isFetched, isFetching, products };
+	return { isFetched, isFetching, products, profile };
 };
 
 const mapDispatchToProps = dispatch => ({

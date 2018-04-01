@@ -12,6 +12,7 @@ import styles from './style.styl';
 
 
 class OrderPage extends Component {
+
 	componentDidMount() {
 		const { orders, ordersIsLoading, ordersIsLoaded, getOrders} = this.props
 		if (!ordersIsLoading && !ordersIsLoaded) {
@@ -19,6 +20,8 @@ class OrderPage extends Component {
 		}
 	}
 	handleSubmit(data) {
+		
+		
 		if (data.city) {
 			data.city = {
 				id: data.city.value
@@ -53,13 +56,11 @@ OrderPage.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
 	const { isFetched, isFetching, added } = state.cart;
-	const { ordersIsLoading, ordersIsLoaded, orders } = state.user;
+	const { ordersIsLoading, ordersIsLoaded, orders, profile } = state.user;
 	const { id } = ownProps.match.params;
 	const products = added;
 	const order = _.find(orders, { id: parseInt(id) });
-	console.log(orders, order, id);
-	
-	return { isFetched, isFetching, products, id, ordersIsLoading, ordersIsLoaded, order};
+	return { isFetched, isFetching, products, id, ordersIsLoading, ordersIsLoaded, order, profile};
 };
 
 const mapDispatchToProps = dispatch => ({

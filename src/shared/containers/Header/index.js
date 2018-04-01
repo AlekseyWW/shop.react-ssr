@@ -39,10 +39,9 @@ class Header extends Component {
 			getProfile(accessTokenStorage);
 		}
 		if (accessTokenStorage) {
-			// getCart(accessTokenStorage);
+			getCart(accessTokenStorage);
 			getFavorites(accessTokenStorage);
-		}
-		if(cart) {
+		} else if(cart) {
 			setCart(JSON.parse(cart));
 		}
 	}

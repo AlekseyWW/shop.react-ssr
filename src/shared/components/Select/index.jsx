@@ -14,7 +14,6 @@ class Input extends Component {
 		this.handleChange = this.handleChange.bind(this)
 	}
 	componentDidMount() {
-		console.log('value', this.select);
 		if (this.props.input.value) {
 			
 			// this.handleChange(this.props.input.value)
@@ -22,7 +21,6 @@ class Input extends Component {
 	}
 	componentDidUpdate(prevProps, prevState) {
 		if (this.props.input.value && this.props.input.value.length) {
-			console.log('props', this.props);
 
 			// this.handleChange(this.props.input.value)
 		}

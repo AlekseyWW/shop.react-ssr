@@ -65,7 +65,6 @@ class Order extends Component {
 	}
 	render() {
 		const { handleSubmit, products, deliveryCost, deliveryCity, delivery, order, paymentType, sdek, orders } = this.props;
-		console.log(order);
 		return (
 			<div className={style.Order}>
 				{order &&
@@ -118,7 +117,7 @@ class Order extends Component {
 						</div>
 						<div className={style.Order__column}>
 							<div className={style.OrderTable}>
-								<OrderProducts products={order.colors} price sum={getCartSummM(order.colors)} />
+							<OrderProducts products={order.colors} price={!this.props.withoutPrice} sum={order.sum} />
 							</div>
 							<div className={style.Order__list}>
 								<div className={style.Order__delivery}>

@@ -43,12 +43,13 @@ class OrderForm extends Component {
 		promocode: 0
 	}
 	componentDidMount() {
+		
 		if (this.props.initialValues && this.props.initialValues.sity) {
 			const productsForDelivery = this.props.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
 				size: {
-					id: product.size.id
+					id: product.sizeId
 				}
 			}))
 			this.props.getDeliveryCoast(this.props.initialValues.sity, productsForDelivery)
@@ -60,9 +61,10 @@ class OrderForm extends Component {
 				id: product.id,
 				quantity: product.count,
 				size: {
-					id: product.size.id
+					id: product.sizeId
 				}
 			}))
+			
 			this.props.getDeliveryCoast(nextProps.initialValues.city.id, productsForDelivery);
 			this.props.change('deliveryType', null)
 		}
@@ -91,7 +93,7 @@ class OrderForm extends Component {
 			id: product.id,
 			quantity: product.count,
 			size: {
-				id: product.size.id
+				id: product.sizeId
 			}
 		}))
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
@@ -326,13 +328,14 @@ OrderForm = reduxForm({
 const selector = formValueSelector('order')
 
 const mapStateToProps = state => {
+	
 	const { price } = state.sdek;
 	const { order } = state.form;
 	const { accessToken, profile, profileIsLoaded } = state.user;
 	const val = order ? order.values : {};
 	const sdek = state.sdek;
 	const products = state.cart.added;
-	const initialValues = accessToken && profileIsLoaded && profile.city ? { ...profile, promocode: "NEW_STEP_84458272", city: { id: profile.city.id, label: profile.city.name }, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: product.size})) };
+	const initialValues = accessToken && profileIsLoaded && profile ? { ...profile, promocode: profile.promocodes && profile.promocodes[0] ? profile.promocodes[0].code : '', city: profile.city ? { id: profile.city.id, label: profile.city.name } : null, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId }})) };
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');

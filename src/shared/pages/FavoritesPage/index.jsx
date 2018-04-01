@@ -15,7 +15,6 @@ class FavoritesPage extends Component {
 		const {
 			products
 		} = this.props;
-		console.log(products);
 		
 		return (
 			<div className={style.Page}>
