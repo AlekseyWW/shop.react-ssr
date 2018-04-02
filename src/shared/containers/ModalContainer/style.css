@@ -74,6 +74,12 @@ body.scroll-locked {
 	margin: 20px;
 	box-sizing: border-box;
 }
+@media screen and (max-width: 480px) {
+	.ModalContainer__content {
+		margin: 10px;
+	}
+}
+
 .ModalContainer__close {
 	position: absolute;
 	top: 20px;
