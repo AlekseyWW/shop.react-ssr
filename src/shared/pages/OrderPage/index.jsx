@@ -34,7 +34,7 @@ class OrderPage extends Component {
 		
 		return (
 			<div className={styles.CartContainer}>
-				<Order order={order}/>
+				<Order order={order} withoutPrice/>
 			</div>
 		);
 	}

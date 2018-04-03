@@ -90,7 +90,7 @@ export const registerSuccess = (token, role) => {
 			token,
 			role,
 		});
-
+		dispatch(actions.closeModal())
 		dispatch(replace('/user'));
 	}
 }

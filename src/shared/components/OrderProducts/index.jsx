@@ -5,6 +5,7 @@ import styles from './styles.styl';
 class OrderProducts extends PureComponent {
 	render() {
 		const { products, price, sum } = this.props;
+		console.log(this.props);
 		
 		return (
 			<div className={styles.OrderProducts}>
@@ -22,9 +23,9 @@ class OrderProducts extends PureComponent {
 					)
 				}
 				)}
-				{price && sum &&
+				{sum &&
 					<div key={key} className={styles.OrderProducts__item}>
-						<span>Стоимость доставки: {price} ₽</span><span>Сумма заказа: {sum} ₽</span>
+					{price &&<span>Стоимость доставки: {price} ₽</span>}<span>Сумма заказа: {sum} ₽</span>
 					</div>
 				}
 			</div>

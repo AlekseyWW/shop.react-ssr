@@ -44,6 +44,11 @@ class Header extends Component {
 		} else if(cart) {
 			setCart(JSON.parse(cart));
 		}
+		if (!accessTokenStorage) {
+			setTimeout(() => {
+				this.openRegisterModal()
+			}, 1200);
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 		const { profileIsLoaded, profileIsLoading, error } = this.props;

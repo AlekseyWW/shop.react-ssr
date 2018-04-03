@@ -117,7 +117,7 @@ class Order extends Component {
 						</div>
 						<div className={style.Order__column}>
 							<div className={style.OrderTable}>
-							<OrderProducts products={order.colors} price={!this.props.withoutPrice} sum={order.sum} />
+							<OrderProducts products={order.colors} />
 							</div>
 							<div className={style.Order__list}>
 								<div className={style.Order__delivery}>
