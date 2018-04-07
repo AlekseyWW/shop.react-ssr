@@ -33,7 +33,7 @@ class Promo extends Component {
 		}
 		return (
 			<div className={style.Promo}>
-				{slides.length > 0 && 
+				{slides.length > 1 && 
 					<Swiper className={style.Promo__container} {...params} ref={el => { this.swiper = el }}>
 						{slides.map((item, id) => {
 							const key = `item-${id}`;
@@ -44,6 +44,15 @@ class Promo extends Component {
 						)}
 					</Swiper>
 				}
+				{slides.length === 1 && slides.map((item, id) => {
+						const key = `item-${id}`;
+						const slug = item.category ? this.getSlug(item.category.slug) : '';
+						return (
+							<div className={style.Promo__slide} key={key}> <PromoItem {...item} slug={slug} title={item.title} /></div>
+						)
+					}
+				)}
+	}
 			</div>
 		)
 	}
