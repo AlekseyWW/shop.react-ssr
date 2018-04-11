@@ -19,6 +19,22 @@ import { HurtIcon, HeartSold } from 'components/Icon';
 import InstagramEmbed from 'react-instagram-embed';
 import { actions } from '../../state/modules/modal.js';
 
+const sizeImages = {
+	sneakers: '/tablica_obuv_rus-01.jpg',
+	keds: '/tablica_obuv_rus-01.jpg',
+	botinki: '/tablica_obuv_rus-01.jpg',
+	tufli: '/tablica_obuv_rus-01.jpg',
+	Casual: '/tablica_obuv_rus-01.jpg',
+	clothes:'/tablica_man_odegda-01.jpg',
+	sweatshirt:'/tablica_man_odegda-01.jpg',
+	Jeans: '//tablica_bruki-01.jpg',
+	Bombers:'/tablica_man_odegda-01.jpg',
+	Mantle:'/tablica_man_odegda-01.jpg',
+	Polo:'/tablica_man_odegda-01.jpg',
+	Tracksuits:'/tablica_man_odegda-01.jpg',
+	SportsTrousers: '/tablica_man_odegda-01.jpg',
+	'T-shirts':'/tablica_man_odegda-01.jpg',
+}
 class ProductForm extends Component {
 	state = {
 		modalIsOpen: false,
@@ -72,7 +88,7 @@ class ProductForm extends Component {
 	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
-		const activeColor = _.find(product.colors, { name: color });
+		const activeColor = color ? _.find(product.colors, { name: color }) : product.colors[0];
 		const id = activeColor ? activeColor.id : 0;
 		const propsModal = {
 			title: product.name,
@@ -92,6 +108,9 @@ class ProductForm extends Component {
 		const heartClass = classNames(style.ProductForm__favorite__heart, {
 			[style.ProductForm__favorite__heart_active]: _.find(this.props.favorites, { id: activeColor.id })
 		})
+		const sizeImg = sizeImages[product.category.name];
+		
+		// : 'tablica_man_odegda-01.jpg' : 'tablica_obuv_rus-01.jpg' ;
 		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity), 'sex') : [];
 		return (
 			<div className={style.ProductForm}>
@@ -183,23 +202,24 @@ class ProductForm extends Component {
 										</div>
 									)}
 								</div>
-								<Button
-									text="Подобрать размер"
-									small
-									onClick={
-										() => this.props.openModal({
-											modalType: ModalExample,
-											modalProps: {
-												className: style.ProductForm__sizesModal,
-												title: 'таблица размеров',
-												text: (
-													<img src="/sizes.jpg" alt=""/>
-												),
-												hasClose: true
-											}
-										})
-									}
-								/>
+								{sizeImg &&
+									<Button
+										text="Подобрать размер"
+										small
+										onClick={
+											() => this.props.openModal({
+												modalType: ModalExample,
+												modalProps: {
+													className: style.ProductForm__sizesModal,
+													text: (
+														<img src={sizeImg} alt=""/>
+													),
+													hasClose: true
+												}
+											})
+										}
+									/>
+								}
 							</div>
 							{/* <Button
 								className={style.ProductForm__button}
