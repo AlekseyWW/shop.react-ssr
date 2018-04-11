@@ -23,10 +23,10 @@ const HeaderInfo = ({ data }) => {
 	return (
 		<div className={style.HeaderInfo__container}>
 			<div className={style.HeaderInfo__contacts}>
-				<a href={data.contacts.location.url} className={textStyle} target="_blank">
+				{/* <a href={data.contacts.location.url} className={textStyle} target="_blank">
 					<MapMarker className={style.HeaderInfo__icon} />
 					{data.contacts.location.text}
-				</a>
+				</a> */}
 				<p className={workTimeStyle}>
 					<ClockIcon className={style.HeaderInfo__icon} />
 					<span className={style.HeaderInfo__worktime__start}>{ data.contacts.workTime.start }</span>

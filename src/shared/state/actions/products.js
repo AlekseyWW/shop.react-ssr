@@ -32,13 +32,14 @@ const getProductsStart = () => ({
 	type: types.GET_PRODUCTS_START
 });
 
-const getProductsSuccess = (products, allCount, sizes, category) => (dispatch) => {
+const getProductsSuccess = (products, allCount, sizes, category, data) => (dispatch) => {
 	dispatch({
 		type: types.GET_PRODUCTS_SUCCESS,
 		products,
 		allCount,
 		sizes,
-		category
+		category,
+		data
 	});
 };
 
@@ -59,7 +60,8 @@ export const getProducts = (data, category = false) => (dispatch) => {
 			response.colors,
 			response.all_count,
 			response.sizes,
-			category
+			category,
+			data
 		)),
 		error => dispatch(getProductsError(error.message))
 	);

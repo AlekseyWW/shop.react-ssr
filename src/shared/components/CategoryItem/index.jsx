@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 import qs from 'query-string';
 import style from './styles.styl';
 
-const CategoryItem = ({ sm, img, name, textPos, brand, category, categories, size, sex }) => {
+const CategoryItem = ({ sm, img, name, textPos, brand, category, categories, size, sex, customCategory }) => {
 	const styles = classNames({
 		[`${style.CategoryItem}`]: true,
 		[`${style.CategoryItem_sm}`]: sm,
 		[`${style[`CategoryItem_${textPos}`]}`]: textPos,
 	});
+	
 	const queryBrands =
 		brand && brand.length && brand.length > 0 ? brand.map(item => item.name) : [];
 	const search = qs.stringify({
@@ -26,7 +27,7 @@ const CategoryItem = ({ sm, img, name, textPos, brand, category, categories, siz
 	return (
 		<Link
 			to={{
-				pathname: category ? `/catalog/${getSlug(category.slug)}` : '/catalog',
+				pathname: category ? customCategory ? `${customCategory.slug}/catalog/${getSlug(category.slug)}` : `/catalog/${getSlug(category.slug)}` : customCategory ? `${customCategory.slug}/catalog` : '/catalog',
 				search,
 			}}
 			className={styles}>

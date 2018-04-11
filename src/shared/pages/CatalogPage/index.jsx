@@ -30,7 +30,7 @@ class Catalog extends Component {
 			count: parsedQuery.count || 12,
 		};
 		const category = this.props.subCategoryId || this.props.categoryId;
-		if (!isLoading ) getProducts(productConfig, category);
+		if (!isLoading && !isLoaded || category!== slug || JSON.stringify(this.props.config) !== JSON.stringify(productConfig) ) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
 	}
 	static fetchData({ store, params, query }) {
@@ -51,6 +51,7 @@ class Catalog extends Component {
 	componentDidUpdate(prevProps) {
 		const category = this.props.subCategoryId || this.props.categoryId;
 		const newCategory = prevProps.subCategoryId || prevProps.categoryId;
+		
 		if (category !== newCategory || prevProps.stockId !== this.props.stockId) {
 			const {
 				parsedQuery
@@ -68,6 +69,8 @@ class Catalog extends Component {
 	componentWillReceiveProps(nextProps) {
 		const category = this.props.subCategoryId || this.props.categoryId;
 		const newCategory = nextProps.subCategoryId || nextProps.categoryId;
+		console.log(this.props.slug, nextProps.slug);
+		
 		if (category !== newCategory || nextProps.stockId !== this.props.stockId) {
 			const {
 				parsedQuery
@@ -162,13 +165,14 @@ const mapStateToProps = (state, ownProps) => {
 	let subCategories = _.map(categories, 'items');
 	subCategories = _.reduce(subCategories, (sum, n) => ([...sum, ...n]), []);
 	if (!category) category = _.find(subCategories, { slug: categoryId });
-	const { isLoaded, isLoading, products, allCount, sizes, countView, category: slug } = state.products;
+	const { isLoaded, isLoading, products, allCount, sizes, countView, category: slug, config } = state.products;
 	const title = category ? category.title || category.name : '';
 	const stockTitle = stockCategories && stockId && _.find(stockCategories, { slug: stockId }) ? _.find(stockCategories, { slug: stockId }).name : ''
 	return {
 		isLoaded,
 		isLoading,
 		products,
+		config,
 		subCategoryId,
 		categoryId,
 		allCount,

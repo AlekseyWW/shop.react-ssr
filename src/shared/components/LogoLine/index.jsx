@@ -11,6 +11,10 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
 	const heartClass = classNames(style.LogoLine__action__heart,{
 		[style.LogoLine__action__heart_active]: isFavorite
 	})
+<<<<<<< HEAD
+=======
+	
+>>>>>>> master
 	return (
 		<div className={style.LogoLine}>
 			<div className={style.LogoLine__container}>

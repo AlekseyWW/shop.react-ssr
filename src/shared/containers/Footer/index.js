@@ -19,7 +19,7 @@ const Footer = () => (
 						<span>звонок по&nbsp;россии бесплатный </span>
 						<a href={data.contacts.phone.url}>{data.contacts.phone.text}</a>
 					</span>
-					<a href={data.contacts.location.url} target="_blank">{data.contacts.location.text}</a>
+					{/* <a href={data.contacts.location.url} target="_blank">{data.contacts.location.text}</a> */}
 				</div>
 				{/* <div className={style.Footer__address}>
 				</div> */}

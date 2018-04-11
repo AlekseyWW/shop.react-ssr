@@ -24,12 +24,12 @@
 			float left
 			box-sizing border-box
 			display block
-			padding 0 4px 32px
+			padding 0 4px 60px
 			margin-bottom 32px
 			.ProductCard__overlay {
 				opacity 1
 				pointer-events initial
-				bottom 0
+				bottom 0 !important
 				background-color transparent
 				box-shadow none
 				align-items flex-start
@@ -279,6 +279,10 @@
 			display flex
 			margin-right 8px
 			margin-bottom 4px
+
+			@media $phone {
+				display none
+			}
 			&__label {
 				font-weight $bold
 				margin-right 8px	
