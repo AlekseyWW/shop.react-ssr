@@ -109,6 +109,7 @@ class ProductForm extends Component {
 			[style.ProductForm__favorite__heart_active]: _.find(this.props.favorites, { id: activeColor.id })
 		})
 		const sizeImg = sizeImages[product.category.name];
+		console.log({ product });
 		
 		// : 'tablica_man_odegda-01.jpg' : 'tablica_obuv_rus-01.jpg' ;
 		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity), 'sex') : [];
