@@ -24,6 +24,8 @@ class Layout extends Component {
 				'https://connect.facebook.net/en_US/fbevents.js');
 			fbq('init', '199269670850457');
 			fbq('track', 'PageView');
+			fbq('init', '419221801838794');
+			fbq('track', 'PageView');
 		}
 	}
 	componentDidMount() {
@@ -39,6 +41,8 @@ class Layout extends Component {
 		}(window, document, 'script',
 			'https://connect.facebook.net/en_US/fbevents.js');
 		fbq('init', '199269670850457');
+		fbq('track', 'PageView');
+		fbq('init', '419221801838794');
 		fbq('track', 'PageView');
 		(function (d, w, c) {
 			(w[c] = w[c] || []).push(function () {

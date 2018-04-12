@@ -53,7 +53,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
 								<Input placeholder="Поиск" Icon={GlassIcon} />
 							</div>
 						</div> */}
-						{profile && profile.id ?
+						{/* {profile && profile.id ?
 							<div className={style.LogoLine__login}>
 								<NavLink to="/user">
 									{profile.email}
@@ -63,7 +63,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
 							<div className={style.LogoLine__login} onClick={loginModalOpen}>
 								<a>Войти</a>
 							</div>
-						}
+						} */}
 						<div className={style.LogoLine__action}>
 							<Link to="/favorites" className={style.LogoLine__action__item}>
 								<HurtIcon />
