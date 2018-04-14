@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import HeaderInfo from 'components/HeaderInfo';
 import { connect } from 'react-redux';
 import Menu from 'containers/Menu';
 import LogoLine from 'components/LogoLine';
 import LoginForm from 'components/LoginForm';
-import RegisterForm from 'components/RegisterForm';
+// import RegisterForm f	rom 'components/RegisterForm';
+import DistributionForm from 'components/DistributionForm';
 import headerData from 'config/header';
 import ModalExample from '../../components/ModalExample';
 import * as categoryAction from 'actions/category';
@@ -23,6 +25,7 @@ class Header extends Component {
 		this.loginModalOpen = this.loginModalOpen.bind(this)
 		this.openRegisterModal = this.openRegisterModal.bind(this)
 		this.search = this.search.bind(this)
+		this.fetchDistribution = this.fetchDistribution.bind(this)
 	}
 	componentDidMount() {
 		const { getFavorites, isLoaded, isLoading, accessToken, getCategories, setCart, setFavorites, loginSuccess, getProfile, getCart, getStockCategories} = this.props;
@@ -46,11 +49,11 @@ class Header extends Component {
 		} else if(cart) {
 			setCart(JSON.parse(cart));
 		}
-		if (!accessTokenStorage) {
-			setTimeout(() => {
-				this.openRegisterModal()
-			}, 1200);
-		}
+		// if (!accessTokenStorage) {
+		// 	setTimeout(() => {
+		// 		this.openRegisterModal()
+		// 	}, 1200);
+		// }
 	}
 	componentWillReceiveProps(nextProps) {
 		const { profileIsLoaded, profileIsLoading, error } = this.props;
@@ -73,15 +76,44 @@ class Header extends Component {
 			this.props.searchProducts(value);
 		}, 1000);
 	}
+	onSuccess() {
+		// this.props.openModal({
+		// 	modalType: ModalExample,
+		// 	modalProps: {
+		// 		className: "DistributionForm__wrapper",
+		// 		text: (
+		// 			<LoginForm onSubmit={this.props.login} />
+		// 		),
+		// 		hasClose: true
+		// 	}
+		// })
+		this.props.closeModal();
+		yaCounter47068560.reachGoal('DISTRIBUTION');
+		this.props.history.replace('/success')
+	}
+	fetchDistribution = (data) => {
+		const url = 'http://api-shop.abo-soft.com/email-subscription';
+		return axios({
+			method: 'post',
+			url,
+			data,
+		})
+			.then(res => {
+				const { data } = res;
+				return this.onSuccess();
+			})
+			.catch(err => {
+				dispatch(console.log(err.message));
+			});
+	}
 	openRegisterModal() {
 		this.props.openModal({
 			modalType: ModalExample,
 			modalProps: {
-				className: "RegisterForm__wrapper",
-				title: 'Регистрация',
+				className: "DistributionForm__wrapper",
 				loginModalOpen: this.loginModalOpen,
 				text: (
-					<RegisterForm onSubmit={this.props.register}/>
+					<DistributionForm onSubmit={this.fetchDistribution}/>
 				),
 				hasClose: true
 			}
