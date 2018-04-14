@@ -102,7 +102,7 @@ class UserPage extends Component {
 										Последний заказ
 									</div>
 									<div className={styles.UserPage__item__text}>
-										{orders ? (
+										{orders && orders[0] ? (
 											<Link to={`order/${orders[0].id}`}>
 												<OrderProducts products={orders[0].colors} price={orders[0].deliveryPrice} sum={orders[0].sum}/>
 											</Link>

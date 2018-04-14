@@ -100,7 +100,6 @@ class OrderPage extends Component {
 	
 	render() {
 		const { order, products } = this.props;
-		console.log({ order});
 		
 		const text = order && order.paymentType === 'electronic_payment' ? 'Оплатить' : 'Подтвердить заказ'
 		return (
