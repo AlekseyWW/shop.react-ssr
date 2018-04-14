@@ -366,7 +366,6 @@ const mapStateToProps = state => {
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');
 	const promocode = selector(state, 'promocode');
-	console.log({ initialValues }, profile.promocodes[0].code);
 	
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
 	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity, promocode };
