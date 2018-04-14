@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import CheckBox from 'components/CheckBox';
@@ -16,7 +17,10 @@ import style from './styles.styl';
 
 const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
 const deliveryData = {
-	post: "служба доставки СДЭК",
+	post: "Доставка Почтой России",
+	sdek: "Служба доставки СДЭК",
+	вук: "При выборе доставки почты россии, стоимость уточняется у администрации магазина, после оформления заказа",
+	postRussianТщеу: "При заказе от на сумму 4 500 рублей, действует скидка 500 на доставку почтой россии, и при заказе от 8 000 рублей -  скидка 500 на доставку службой СДЕК.",
 	courier: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
 	'self_delivery': "Забрать самостоятельно"
 }
@@ -34,7 +38,7 @@ const payData = {
 };
 const promocode = [{
 	"id": 1,
-	"code": "NEW_STEP_84458272",
+	"code": "NEW_STEP_STORE_38578641",
 	"amount": 500
 }]
 class OrderForm extends Component {
@@ -98,7 +102,10 @@ class OrderForm extends Component {
 		}))
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
 		const promoAmount = find(promocode, { code: this.props.promocode }) ? find(promocode, { code: this.props.promocode }).amount : 0;
-		
+		console.log({ promocode, promoAmount }, this.props.promocode);
+		if (delivery == 'post') {
+			this.props.change('paymentType', 'payment_on_delivery')
+		}
 		return (
 			<form onSubmit={handleSubmit} className={style.OrderForm}>
 				<div className={style.OrderForm__column}>
@@ -133,8 +140,10 @@ class OrderForm extends Component {
 								type="text"
 								getDeliveryCoast={this.props.getDeliveryCoast}
 								onChange={(data) => {
-									this.props.getDeliveryCoast(data.value, productsForDelivery);
-									this.props.change('deliveryType', null)
+									if (data.value) {
+										this.props.getDeliveryCoast(data.value, productsForDelivery);
+										this.props.change('deliveryType', null)
+									}
 								}}
 								getOptions={this.getOptions}
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
@@ -170,14 +179,23 @@ class OrderForm extends Component {
 								validate={[required, email]}
 							/>
 							<Field
+								name="phone"
+								component={Input}
+								type="text"
+								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
+								label="Телефон"
+								numberFormat
+								validate={[required]}
+							/>
+						</div>
+						<div className={style.OrderForm__group}>
+							<Field
 								name="promocode"
 								component={Input}
 								type="text"
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
 								label="Промокод"
 							/>
-						</div>
-						<div className={style.OrderForm__group}>
 							<Field
 								name="comment"
 								component={Input}
@@ -248,6 +266,7 @@ class OrderForm extends Component {
 							})}
 						</div>
 					</div>
+						<p>При заказе от&nbsp;на&nbsp;сумму 4&nbsp;500&nbsp;рублей, действует скидка 500&nbsp;на доставку почтой россии, и&nbsp;при заказе от&nbsp;8&nbsp;000 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
 					<div className={style.OrderSumm}>
 						<p>Итого</p>
 						<p>{getCartSummM(products) + (currentSumm ? currentSumm.price : 0) - promoAmount} ₽</p>
@@ -257,26 +276,33 @@ class OrderForm extends Component {
 						<div className={style.OrderPay__title}>
 							<p>Выберите способ оплаты</p>
 						</div>
-						{sdek && sdek.paymentTypes && sdek.paymentTypes.map((type, id) => {
-							const key = `item-${id}`;
-
-							return (
-									<Field
-										key={key}
-										name="paymentType"
-										component={CheckBox}
-										item={{
-											id: type.code,
-											name: payData[type.code].name,
-											price: payData[type.code].price
-										}}
-										index={0}
-										type="option"
-										className={style.OrderPay__option}
-										validate={[required]}
-									/>
-							)
-						})}
+						{sdek && sdek.paymentTypes && 
+							<div>
+								{ delivery == 'post' ? 
+								<p>Вы выбрали доставку Пчотой Росси, стоимость уточняется после оформления заказа</p> : 
+								sdek.paymentTypes.map((type, id) => {
+								const key = `item-${id}`;
+								console.log({ delivery});
+									
+									return type.code !== 'payment_on_delivery' ? (
+										<Field
+											key={key}
+											name="paymentType"
+											component={CheckBox}
+											item={{
+												id: type.code,
+												name: payData[type.code].name,
+												price: payData[type.code].price
+											}}
+											index={0}
+											type="option"
+											className={style.OrderPay__option}
+											validate={[required]}
+										/>
+										) : null
+								})}
+							</div>
+						}
 						{/* <Field
 							name="paymentType"
 							component={CheckBox}
@@ -303,7 +329,7 @@ class OrderForm extends Component {
 						/>} */}
 					</div>
 					<Button text="Оформить заказ" className={style.OrderPay__button} type="submit" />
-					<p>нажимая кнопку "Оформить заказ", Вы подтверждаете, что предоставляете свое согласие на обработку Ваших персональных данных</p>
+					<p>нажимая кнопку "Оформить заказ", Вы подтверждаете, что предоставляете свое согласие c <Link to="/agreement">политикой обработки персональных данных</Link></p>
 				</div>
 			</form>
 		);
@@ -340,6 +366,7 @@ const mapStateToProps = state => {
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');
 	const promocode = selector(state, 'promocode');
+	console.log({ initialValues }, profile.promocodes[0].code);
 	
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
 	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity, promocode };

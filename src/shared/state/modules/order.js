@@ -91,10 +91,11 @@ export const fetchOrder = (data, redirect=true) => {
 	return dispatch => {
 		dispatch(requestOrderStart());
 		const url = getAccessToken() ? `/users/${getAccessToken()}/orders` : '/orders';
-
+		console.log({data});
+		
 		return post(
 			url,
-			{...data},
+			data,
 			response => dispatch(requestOrderDone(response, redirect)),
 			error => dispatch(requestOrderFail(error.message))
 		);

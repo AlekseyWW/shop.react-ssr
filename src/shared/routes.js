@@ -11,6 +11,7 @@ import OrderPage from 'pages/OrderPage';
 import FavoritesPage from 'pages/FavoritesPage';
 import UserPage from 'pages/UserPage';
 import Delivery from 'pages/Delivery';
+import Agreement from 'pages/Agreement';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -100,5 +101,10 @@ export default [
 		path: '/user/delivery',
 		exact: true,
 		component: Delivery,
+	},
+	{
+		path: '/agreement',
+		exact: true,
+		component: Agreement,
 	}
 ];

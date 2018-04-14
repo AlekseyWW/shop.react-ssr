@@ -43,6 +43,18 @@ class OrderPage extends Component {
 			}
 		}
 	}
+	succseOrder() {
+		const url = `http://test-api-shop.abo-soft.com/orders/${this.props.order.id}/accept`
+		axios({
+			method: 'post',
+			url,
+		})
+		.then(res => {
+		})
+		.catch(err => {
+			console.log(err.message);
+		});
+	}
 	onClick = () => {
 		const { order } = this.props;
 		const url = `http://test-api-shop.abo-soft.com/payment-url/order/${order.id}`
@@ -53,6 +65,7 @@ class OrderPage extends Component {
 			.then(res => {
 				const { data } = res;
 				if (data === 'ok') {
+					this.succseOrder();
 					this.props.openModal({
 						modalType: ModalExample,
 						onClose: () => {
@@ -87,6 +100,8 @@ class OrderPage extends Component {
 	
 	render() {
 		const { order, products } = this.props;
+		console.log({ order});
+		
 		const text = order && order.paymentType === 'electronic_payment' ? 'Оплатить' : 'Подтвердить заказ'
 		return (
 			<div className={style.Checkout}>
