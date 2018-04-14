@@ -27,6 +27,31 @@ export const getProductInfo = (productId, data) => (dispatch) => {
 		error => dispatch(getProductInfoError(error.message))
 	);
 };
+const searchProductsStart = () => ({
+	type: types.SEARCH_START,
+});
+
+const searchProductsSuccess = (product) => ({
+	type: types.SEARCH_SUCCESS,
+	products
+});
+
+const searchProductsError = error => ({
+	type: types.SEARCH_FAILURE,
+	error
+});
+
+export const searchProducts = (value) => (dispatch) => {
+	dispatch(searchProductsStart());
+	console.log(value);
+	
+	return get(
+		`products/search/${value}`,
+		{},
+		response => dispatch(searchProductsSuccess(response)),
+		error => dispatch(searchProductsError(error.message))
+	);
+};
 
 const getProductsStart = () => ({
 	type: types.GET_PRODUCTS_START

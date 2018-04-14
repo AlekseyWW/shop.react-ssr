@@ -16,7 +16,7 @@ const Footer = () => (
 				<div className={style.Footer__phone}>
 					{/* <div>телефон</div> */}
 					<span className={style.Footer__phone__num}>
-						<span>звонок по&nbsp;россии бесплатный </span>
+						{/* <span>звонок по&nbsp;россии бесплатный </span> */}
 						<a href={data.contacts.phone.url}>{data.contacts.phone.text}</a>
 					</span>
 					{/* <a href={data.contacts.location.url} target="_blank">{data.contacts.location.text}</a> */}

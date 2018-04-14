@@ -12,6 +12,7 @@ import * as categoryAction from 'actions/category';
 import * as favoritesAction from 'actions/favorites';
 import * as authActions from '../../state/actions/user';
 import * as cartAction from 'actions/cart';
+import * as productsAction from 'actions/products';
 import style from './styles.styl';
 import { setCart } from '../../state/actions/cart';
 import { actions } from '../../state/modules/modal.js';
@@ -21,6 +22,7 @@ class Header extends Component {
 		super(props);
 		this.loginModalOpen = this.loginModalOpen.bind(this)
 		this.openRegisterModal = this.openRegisterModal.bind(this)
+		this.search = this.search.bind(this)
 	}
 	componentDidMount() {
 		const { getFavorites, isLoaded, isLoading, accessToken, getCategories, setCart, setFavorites, loginSuccess, getProfile, getCart, getStockCategories} = this.props;
@@ -61,6 +63,16 @@ class Header extends Component {
 		}
 		
 	}
+	setTimeout = null;
+	search = (input) => {
+		const value = input.target.value
+		if (this.setTimeout) {
+			clearTimeout(this.setTimeout)
+		}
+		this.setTimeout = setTimeout(() => {
+			this.props.searchProducts(value);
+		}, 1000);
+	}
 	openRegisterModal() {
 		this.props.openModal({
 			modalType: ModalExample,
@@ -95,7 +107,7 @@ class Header extends Component {
 		return (
 			<div className={style.Header}>
 				<HeaderInfo data={headerData} />
-				<LogoLine logout={logout} cart={cart} isFavorite={favorites.length > 0} loginModalOpen={this.loginModalOpen} profile={profile}/>
+				<LogoLine searchProducts={this.search} logout={logout} cart={cart} isFavorite={favorites.length > 0} loginModalOpen={this.loginModalOpen} profile={profile}/>
 			</div>
 		);
 	}
@@ -121,6 +133,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
 	getCategories: () => dispatch(categoryAction.getCategories()),
+	searchProducts: (value) => dispatch(productsAction.searchProducts(value)),
 	getStockCategories: () => dispatch(categoryAction.getStockCategories()),
 	setCart: (cart) => dispatch(cartAction.setCart(cart)),
 	getCart: (accessToken) => dispatch(cartAction.getCart(accessToken)),

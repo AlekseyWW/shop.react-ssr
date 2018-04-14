@@ -7,7 +7,7 @@ import { LogoIcon, LogoutIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, Tel
 
 import style from './styles.styl';
 
-const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
+const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts }) => {
 	const heartClass = classNames(style.LogoLine__action__heart,{
 		[style.LogoLine__action__heart_active]: isFavorite
 	})
@@ -48,11 +48,11 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout }) => {
 								<TelegrammIcon />
 							</a>
 						</div>
-						{/* <div className={style.LogoLine__search}>
+						<div className={style.LogoLine__search}>
 							<div className={style.LogoLine__search}>
-								<Input placeholder="Поиск" Icon={GlassIcon} />
+								<input placeholder="Поиск" onChange={searchProducts}/>
 							</div>
-						</div> */}
+						</div>
 						{profile && profile.id ?
 							<div className={style.LogoLine__login}>
 								<NavLink to="/user">

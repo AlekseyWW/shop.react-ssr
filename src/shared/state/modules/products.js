@@ -60,6 +60,7 @@ export default function products(state = initialState, action) {
 				...state,
 				isPromoLoading: true,
 			};
+
 		case types.GET_PROMO_PRODUCTS_SUCCESS:
 			return {
 				...state,
@@ -69,7 +70,6 @@ export default function products(state = initialState, action) {
 				error: null
 			};
 
-
 		case types.GET_PROMO_PRODUCTS_FAILURE:
 			return {
 				...state,
@@ -77,6 +77,30 @@ export default function products(state = initialState, action) {
 				isPromoLoaded: false,
 				error: action.error,
 				promoProducts: []
+			};
+
+		case types.SEARCH_START:
+			return {
+				...state,
+				isSearching: true,
+			};
+
+		case types.SEARCH_SUCCESS:
+			return {
+				...state,
+				isSearching: false,
+				isSearched: true,
+				searchProducts: action.products.colors,
+				error: null
+			};
+
+		case types.SEARCH_FAILURE:
+			return {
+				...state,
+				isSearching: false,
+				isSearched: false,
+				error: action.error,
+				searchProducts: []
 			};
 
 		case types.GET_PRODUCT_INFO_START:
