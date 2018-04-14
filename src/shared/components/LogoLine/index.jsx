@@ -63,7 +63,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 							<div className={style.LogoLine__login} onClick={loginModalOpen}>
 								<a>Войти</a>
 							</div>
-						} */}
+						}
 						<div className={style.LogoLine__action}>
 							<Link to="/favorites" className={style.LogoLine__action__item}>
 								<HurtIcon />
