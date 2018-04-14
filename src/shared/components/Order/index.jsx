@@ -17,7 +17,8 @@ import style from './styles.styl';
 
 const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
 const deliveryData = {
-	post: "служба доставки СДЭК",
+	post: "Доставка Почтой России",
+	sdek: "Служба доставки СДЭК",
 	courier: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
 	'self_delivery': "Забрать самостоятельно"
 }
@@ -110,7 +111,7 @@ class Order extends Component {
 									</div>
 									<div className={style.Order__delivery}>
 										<p className={style.Order__note}>Стоимость доставки</p>
-										<p className={style.Order__value}>{order.deliveryPrice}</p>
+									<p className={style.Order__value}>{order.deliveryType === 'post' ? 'Стоимость уточняется после оформления' : order.deliveryPrice}</p>
 									</div>
 								</div>
 							</div>

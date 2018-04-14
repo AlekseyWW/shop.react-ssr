@@ -13,9 +13,9 @@ import * as orderAtions from '../../state/modules/order';
 import { actions } from '../../state/modules/modal.js';
 import { clearCart } from '../../state/actions/cart';
 import style from './style.styl';
-
 const deliveryData = {
-	post: "служба доставки СДЭК",
+	post: "Доставка Почтой России",
+	sdek: "Служба доставки СДЭК",
 	courier: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
 	'self_delivery': "Забрать самостоятельно"
 }
