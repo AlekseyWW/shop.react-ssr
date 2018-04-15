@@ -82,14 +82,33 @@
 				faster()
 			}
 			&:after {
-				margin-top -4px
-				right 100%
+				margin-top 13px
+				top 0
+				right calc(100% - 5px)
 				left auto
 				margin-right 8px
+				width 8px
+				height 8px
+			}
+			&:before {
+				top: 0;
+				margin-top: 10px;
+				left: auto;
+				right 100%;
+				width: 12px;
+				height: 12px;
+				border-radius: 3px;
+				border 1px solid $textColor
 			}
 		}
 		.CheckBox__input:checked + .CheckBox__label {
 			color $redColor
 		}
+	}
+	&.OrderPay__option {
+		.CheckBox__label {
+			padding-left 8px
+		}
+
 	}
 }

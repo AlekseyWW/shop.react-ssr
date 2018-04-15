@@ -109,6 +109,7 @@ class OrderForm extends Component {
 		if (delivery == 'post') {
 			this.props.change('paymentType', 'payment_on_delivery')
 		}
+		
 		return (
 			<form onSubmit={handleSubmit} className={style.OrderForm}>
 				<div className={style.OrderForm__column}>
@@ -244,9 +245,10 @@ class OrderForm extends Component {
 					<div className={style.OrderDeliver}>
 						<div className={style.OrderDeliver__column}>
 							<p>Доставка</p>
+							<p>При заказе от&nbsp;на&nbsp;сумму 4&nbsp;500&nbsp;рублей, действует скидка 500&nbsp;на доставку почтой россии, и&nbsp;при заказе от&nbsp;8&nbsp;000 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
 						</div>
 						<div className={style.OrderDeliver__column}>
-							{sdek && sdek.deliveryTypes && filter(sdek.deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
+							{sdek && sdek.deliveryTypes ? filter(sdek.deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
 								const key = `item-${id}`;
 
 								return (
@@ -266,10 +268,11 @@ class OrderForm extends Component {
 										/>
 									</div>
 								)
-							})}
+							}): 
+								<p>После выбора города, здесь появятся доступные методы доставки.</p>
+							}
 						</div>
 					</div>
-						<p>При заказе от&nbsp;на&nbsp;сумму 4&nbsp;500&nbsp;рублей, действует скидка 500&nbsp;на доставку почтой россии, и&nbsp;при заказе от&nbsp;8&nbsp;000 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
 					<div className={style.OrderSumm}>
 						<p>Итого</p>
 						<p>{getCartSummM(products) + (currentSumm ? currentSumm.priceWithDiscount : 0) - promoAmount} ₽</p>
@@ -279,7 +282,7 @@ class OrderForm extends Component {
 						<div className={style.OrderPay__title}>
 							<p>Выберите способ оплаты</p>
 						</div>
-						{sdek && sdek.paymentTypes && 
+						{sdek && sdek.paymentTypes ? 
 							<div>
 								{ delivery == 'post' ? 
 								<p>Вы выбрали доставку Пчотой Росси, стоимость уточняется после оформления заказа</p> : 
@@ -303,7 +306,8 @@ class OrderForm extends Component {
 										/>
 										) : null
 								})}
-							</div>
+							</div> :
+							<p>После выбора города, здесь появятся доступные методы оплаты.</p>
 						}
 						{/* <Field
 							name="paymentType"

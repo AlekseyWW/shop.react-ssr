@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { getExtendedList } from 'utils/helpers';
+import { post, get } from 'utils/api';
+
 
 // Constants
 const LOAD_CITIES_START = 'LOAD_CITIES_START';
@@ -118,50 +120,16 @@ const loadCitiesFailure = error => ({
 // Action Creators
 export const loadCities = data => dispatch => {
 	dispatch(loadCitiesStart());
-	const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
-	return axios({
-		method: 'get',
+	const url = '/sdek/cities';
+	return get(
 		url,
 		data,
-	})
-		.then(res => {
-			const { data } = res;
+		response => {
+			const { data } = response;
 			return dispatch(loadCitiesSuccess(data));
-		})
-		.catch(err => {
-			dispatch(loadCitiesFailure(err.message));
-		});
-};
-
-// Actions
-const loadSinglePostsStart = id => ({
-	type: LOAD_SINGLE_POST_START,
-	id,
-});
-
-const loadSinglePostsSuccess = data => ({
-	type: LOAD_SINGLE_POST_SUCCESS,
-	data,
-});
-
-const loadSinglePostsFailure = error => ({
-	type: LOAD_SINGLE_POST_FAILURE,
-	error,
-});
-// Action Creators
-export const loadSinglePosts = id => dispatch => {
-	dispatch(loadSinglePostsStart(id));
-	return axios({
-		method: 'get',
-		url: `${API_TG_URL}/post/${id}`,
-	})
-		.then(res => {
-			const { data } = res;
-			return dispatch(loadSinglePostsSuccess(data));
-		})
-		.catch(err => {
-			dispatch(loadSinglePostsFailure(err.message));
-		});
+		},
+		error => dispatch(loadCitiesFailure(err.message))
+	);
 };
 
 const getDeliveryCoastStart = () => ({
@@ -181,18 +149,15 @@ const getDeliveryCoastFailure = error => ({
 export const getDeliveryCoast = (id, colors) => dispatch => {
 	dispatch(getDeliveryCoastStart());
 
-	const url = `http://test-api-shop.abo-soft.com/payment/by-city/${id}/info`;
-	return axios({
-		method: 'post',
+	const url = `payment/by-city/${id}/info`;
+	return post(
 		url,
-		data: {colors},
-	})
-		.then(res => {
+		{ colors },
+		res => {
 			const { data } = res;
-			
-			return dispatch(getDeliveryCoastSuccess(data));
-		})
-		.catch(err => {
-			dispatch(getDeliveryCoastFailure(err.message));
-		});
+
+			return dispatch(getDeliveryCoastSuccess(res));
+		},
+		error => dispatch(getDeliveryCoastFailure(err.message))
+	);
 };
