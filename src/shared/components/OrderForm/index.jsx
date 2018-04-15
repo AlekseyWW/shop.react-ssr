@@ -70,9 +70,10 @@ class OrderForm extends Component {
 					id: product.sizeId
 				}
 			}))
-			
-			this.props.getDeliveryCoast(nextProps.initialValues.city.id, productsForDelivery);
-			this.props.change('deliveryType', null)
+			if (nextProps.initialValues.city.id) {
+				this.props.getDeliveryCoast(nextProps.initialValues.city.id, productsForDelivery);
+				this.props.change('deliveryType', null)
+			}
 		}
 
 	}
@@ -102,7 +103,9 @@ class OrderForm extends Component {
 				id: product.sizeId
 			}
 		}))
+		
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
+		console.log('currentSumm', currentSumm, sdek);
 		const promoAmount = find(promocode, { code: this.props.promocode }) ? find(promocode, { code: this.props.promocode }).amount : 0;
 		if (delivery == 'post') {
 			this.props.change('paymentType', 'payment_on_delivery')
@@ -272,7 +275,7 @@ class OrderForm extends Component {
 						<p>При заказе от&nbsp;на&nbsp;сумму 4&nbsp;500&nbsp;рублей, действует скидка 500&nbsp;на доставку почтой россии, и&nbsp;при заказе от&nbsp;8&nbsp;000 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
 					<div className={style.OrderSumm}>
 						<p>Итого</p>
-						<p>{getCartSummM(products) + (currentSumm ? currentSumm.price : 0) - promoAmount} ₽</p>
+						<p>{getCartSummM(products) + (currentSumm ? currentSumm.priceWithDiscount : 0) - promoAmount} ₽</p>
 						{this.props.promocode === 'NEW_STEP_84458272' && <p>Скидка по промокоду: {promoAmount} ₽</p>}
 					</div>
 					<div className={style.OrderPay}>

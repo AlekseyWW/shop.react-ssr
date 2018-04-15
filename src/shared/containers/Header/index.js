@@ -18,6 +18,9 @@ import * as productsAction from 'actions/products';
 import style from './styles.styl';
 import { setCart } from '../../state/actions/cart';
 import { actions } from '../../state/modules/modal.js';
+import { withRouter } from 'react-router-dom';
+import qs from 'query-string';
+
 
 class Header extends Component { 
 	constructor(props) {
@@ -32,7 +35,7 @@ class Header extends Component {
 		if (!isLoaded && !isLoading) getCategories();
 		if (!getStockCategories.isLoaded && !getStockCategories.isLoading) getStockCategories();
 		const cart = localStorage.getItem("cart");
-		const orderId = localStorage.getItem("orderId");
+		const orderStorage = localStorage.getItem("orderId");
 		const favorites = localStorage.getItem("favorites");
 		const accessTokenStorage = localStorage.getItem("accessToken");
 		
@@ -55,9 +58,11 @@ class Header extends Component {
 		// 		this.openRegisterModal()
 		// 	}, 1200);
 		// }
-		if (orderId) {
+		const { orderId } = qs.parse(this.props.history.location.search);
+		
+		if (orderStorage === 'orderId') {
 			
-			const text = `Ваш заказ №${orderId} будет доставлен в течение (сколько дает сдэк дней). Вам поступит SMS уведомление с трек номером заказа – для отслеживания.` ;
+			const text = `Ваш заказ №${orderStorage} будет доставлен в течение (сколько дает сдэк дней). Вам поступит SMS уведомление с трек номером заказа – для отслеживания.` ;
 			localStorage.getItem('orderId', '')
 			if (!accessTokenStorage) {
 				this.props.openModal({
@@ -208,4 +213,4 @@ const mapDispatchToProps = dispatch => ({
 	getProfile: (accessToken) => dispatch(authActions.getProfile(accessToken))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
