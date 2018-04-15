@@ -64,7 +64,7 @@ class ProductForm extends Component {
 			alert('Выберите размер')
 			return false;
 		}
-		const currentColor = _.find(this.props.product.colors, { name: this.props.color })
+		const currentColor = _.find(this.props.product.colors, { name: this.props.color }) ? _.find(this.props.product.colors, { name: this.props.color }) : this.props.product.colors[0]
 		const id = _.find(currentColor.sizes, { id: this.state.activeSize.id }).id
 		
 		const product = {
