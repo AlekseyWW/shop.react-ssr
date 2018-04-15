@@ -73,7 +73,7 @@ class ProductForm extends Component {
 			name: this.props.product.name,
 			color: this.props.color,
 			slug: this.props.product.slug,
-			price: currentColor.isSale ? currentColor.price : currentColor.oldPrice,
+			price: currentColor && currentColor.isSale ? currentColor.price : currentColor.oldPrice,
 			size: this.state.activeSize
 		}
 		this.props.addToCart(product)
@@ -128,8 +128,8 @@ class ProductForm extends Component {
 					</div>
 					{activeColor &&
 						<div className={style.ProductForm__price}>
-							<p className={style.ProductForm__price__value}>{activeColor.isSale ? activeColor.price : activeColor.oldPrice} руб.</p>
-							{activeColor.isSale && <p className={style.ProductForm__price__old}>{activeColor.oldPrice} руб.</p>}
+						<p className={style.ProductForm__price__value}>{activeColor && activeColor.isSale ? activeColor.price : activeColor.oldPrice} руб.</p>
+						{activeColor && activeColor.isSale && <p className={style.ProductForm__price__old}>{activeColor.oldPrice} руб.</p>}
 							<span className={style.ProductForm__callback__note}>Наличие товара вашего размера и понравившегося цвета можно уточнить оформив заявку, или написав нам в <a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank">WhatsApp.</a></span>
 						</div>
 					}
