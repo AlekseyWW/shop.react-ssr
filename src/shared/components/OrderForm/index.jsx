@@ -56,12 +56,14 @@ class OrderForm extends Component {
 					id: product.sizeId
 				}
 			}))
+			
+			// this.props.getDeliveryCoast(data.value, productsForDelivery);
 			this.props.getDeliveryCoast(this.props.initialValues.sity, productsForDelivery)
 		}
 	}
 	componentWillReceiveProps(nextProps) {
 		if (!this.props.initialValues.city && nextProps.initialValues.city) {
-			const productsForDelivery = this.props.products.map(product => ({
+			const productsForDelivery = nextProps.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
 				size: {
@@ -102,7 +104,6 @@ class OrderForm extends Component {
 		}))
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
 		const promoAmount = find(promocode, { code: this.props.promocode }) ? find(promocode, { code: this.props.promocode }).amount : 0;
-		console.log({ promocode, promoAmount }, this.props.promocode);
 		if (delivery == 'post') {
 			this.props.change('paymentType', 'payment_on_delivery')
 		}
@@ -141,6 +142,8 @@ class OrderForm extends Component {
 								getDeliveryCoast={this.props.getDeliveryCoast}
 								onChange={(data) => {
 									if (data.value) {
+										console.log('hjhjhb',data.value);
+										
 										this.props.getDeliveryCoast(data.value, productsForDelivery);
 										this.props.change('deliveryType', null)
 									}
@@ -282,7 +285,6 @@ class OrderForm extends Component {
 								<p>Вы выбрали доставку Пчотой Росси, стоимость уточняется после оформления заказа</p> : 
 								sdek.paymentTypes.map((type, id) => {
 								const key = `item-${id}`;
-								console.log({ delivery});
 									
 									return type.code !== 'payment_on_delivery' ? (
 										<Field
@@ -366,7 +368,7 @@ const mapStateToProps = state => {
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');
 	const promocode = selector(state, 'promocode');
-	
+
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
 	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity, promocode };
 }
