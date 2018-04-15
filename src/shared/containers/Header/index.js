@@ -59,7 +59,6 @@ class Header extends Component {
 		// 	}, 1200);
 		// }
 		const { orderId } = qs.parse(this.props.history.location.search);
-		console.log(orderId, orderStorage);
 		
 		if (orderStorage === orderId) {
 			
@@ -137,7 +136,7 @@ class Header extends Component {
 				return this.onSuccess();
 			})
 			.catch(err => {
-				dispatch(console.log(err.message));
+				console.log(err.message)
 			});
 	}
 	openRegisterModal() {

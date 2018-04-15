@@ -144,8 +144,6 @@ class OrderForm extends Component {
 								getDeliveryCoast={this.props.getDeliveryCoast}
 								onChange={(data) => {
 									if (data.value) {
-										console.log('hjhjhb',data.value);
-										
 										this.props.getDeliveryCoast(data.value, productsForDelivery);
 										this.props.change('deliveryType', null)
 									}

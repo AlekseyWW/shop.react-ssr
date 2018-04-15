@@ -69,7 +69,6 @@ class Catalog extends Component {
 	componentWillReceiveProps(nextProps) {
 		const category = this.props.subCategoryId || this.props.categoryId;
 		const newCategory = nextProps.subCategoryId || nextProps.categoryId;
-		console.log(this.props.slug, nextProps.slug);
 		
 		if (category !== newCategory || nextProps.stockId !== this.props.stockId) {
 			const {
