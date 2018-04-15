@@ -22,17 +22,17 @@ const HeaderInfo = ({ data }) => {
 	})
 	return (
 		<div className={style.HeaderInfo__container}>
-			<div className={style.HeaderInfo__contacts}>
-				{/* <a href={data.contacts.location.url} className={textStyle} target="_blank">
+			{/* <div className={style.HeaderInfo__contacts}>
+				<a href={data.contacts.location.url} className={textStyle} target="_blank">
 					<MapMarker className={style.HeaderInfo__icon} />
 					{data.contacts.location.text}
-				</a> */}
+				</a>
 				<p className={workTimeStyle}>
 					<ClockIcon className={style.HeaderInfo__icon} />
 					<span className={style.HeaderInfo__worktime__start}>{ data.contacts.workTime.start }</span>
 					<span>{ data.contacts.workTime.end }</span>
 				</p>
-			</div>
+			</div> */}
 			{/* <div className={style.HeaderInfo__brands}>
 				{brands.map(item => {
 					const viewBox = IconsArray[item.icon].default.viewBox.split(' ');

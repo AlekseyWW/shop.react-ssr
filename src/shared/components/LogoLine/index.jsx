@@ -34,7 +34,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 						
 					</div>
 					<div className={style.LogoLine__inner}>
-						<div className={style.LogoLine__social}>
+						{/* <div className={style.LogoLine__social}>
 							<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.LogoLine__social__item} onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }} >
 								<InstagramIcon />
 							</a>
@@ -47,7 +47,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 							<a href="https://t.me/Kross_zakazbot" target="_blank" className={style.LogoLine__social__item}>
 								<TelegrammIcon />
 							</a>
-						</div>
+						</div> */}
 						{/* <div className={style.LogoLine__search}>
 							<div className={style.LogoLine__search}>
 								<input placeholder="Поиск" onChange={searchProducts}/>
