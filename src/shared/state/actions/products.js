@@ -31,7 +31,7 @@ const searchProductsStart = () => ({
 	type: types.SEARCH_START,
 });
 
-const searchProductsSuccess = (product) => ({
+const searchProductsSuccess = (products) => ({
 	type: types.SEARCH_SUCCESS,
 	products
 });
@@ -45,7 +45,7 @@ export const searchProducts = (value) => (dispatch) => {
 	dispatch(searchProductsStart());
 	
 	return get(
-		`products/search/${value}`,
+		`search/colors/products/${value}`,
 		{},
 		response => dispatch(searchProductsSuccess(response)),
 		error => dispatch(searchProductsError(error.message))

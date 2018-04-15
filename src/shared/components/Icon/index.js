@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import marker from './marker.svg';
 import clock from './clock.svg';
 import phone from './phone.svg';
+import login from './login.svg';
 import logo from './logo.svg';
 import vk from './vk.svg';
 import instagram from './instagram.svg';
@@ -61,6 +62,7 @@ Icon.propTypes = {
 // export const LabIcon = props => <Icon glyph={lab} width={100} height={17} {...props} />;
 
 export const MapMarker = props => <Icon glyph={marker} width={10.17} height={14.52} {...props} />;
+export const LoginIcon = props => <Icon glyph={login} width={10.17} height={14.52} {...props} />;
 export const ClockIcon = props => <Icon glyph={clock} width={10.17} height={14.52} {...props} />;
 export const PhoneIcon = props => <Icon glyph={phone} width={10.17} height={14.52} {...props} />;
 export const LogoIcon = props => <Icon glyph={logo} width={10.17} height={14.52} {...props} />;

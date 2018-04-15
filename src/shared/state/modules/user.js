@@ -46,6 +46,9 @@ export default function user(state = initialState, action) {
 				isFetching: false,
 				role: '',
 				accessToken: '',
+				profile: undefined,
+				profileIsLoading: false,
+				profileIsLoaded: false,
 				error: action.error
 			};
 

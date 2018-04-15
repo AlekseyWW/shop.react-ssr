@@ -1,6 +1,7 @@
 @import '../../styles/common.styl'
 
 .LogoLine {
+	position relative
 	background #EBECEC
 	color #000
 	@media $verticalTablet {
@@ -8,15 +9,34 @@
 	}
 	&__login {
 		display inline-flex
-		margin-right 24px
 		cursor pointer
+		align-items: center
+		margin-bottom: 16px
+		
 		a {
-			margin-right 8px
+			color $textColor
+			margin-right 12px
 			font-weight bold
-			font-size 14px
+			font-size 12px
+			&:hover {
+				color: $linkHoverColor
+			}
 		}
 		.Icon {
 			cursor pointer
+			fill: $textColor
+			width 14px
+			&:hover {
+				fill $linkHoverColor
+			}
+		}
+		& img {
+			height 20px
+			margin-right 10px
+		}
+
+		@media $phone {
+			display none
 		}
 		@media $phone {
 			// order: 3
@@ -28,6 +48,7 @@
 	}
 	&__container {
 		container()
+		position: relative
 		padding 15px 0
 		display flex
 		align-items center
@@ -36,6 +57,7 @@
 		}
 		@media $phone {
 			padding 16px
+			align-items flex-start
 		}
 	}
 	&__content {
@@ -46,6 +68,9 @@
 			flex-wrap: wrap
 			justify-content flex-end
 		}
+		@media $phone {
+			flex none
+		}
 	}
 	&__nav {
 		display flex
@@ -55,18 +80,28 @@
 			margin-bottom 12px
 			margin-right 12px
 		}
+		@media $phone {
+			display none
+		}
 		@media $verticalPhone {
 			margin-left -80px
 		}
+		&_login {
+			padding-top 36px
+		}
 		&__item {
-			margin-right 35px
-			font-size 22px
-			font-weight bold
+			margin-right 40px
+			font-size 18px
+			font-weight $regular
 			color $textColor
 			border-bottom 1px solid transparent
+			@media $notebook {
+				font-size 14px
+				margin-right 24px
+			}
 			@media $tablet {
-				margin-right 16px
-				font-size 18px
+				margin-right 14px
+				font-size 16px
 			}
 			@media $verticalPhone {
 				font-size 12px
@@ -77,7 +112,7 @@
 			&:hover {
 				color $linkHoverColor
 			}
-			&_active {
+		&_active {
 				border-bottom 1px solid $textColor
 				cursor default
 				&:hover {
@@ -90,20 +125,34 @@
 		margin-right 40px
 		cursor pointer
 		display block
+		width 140px
+		svg {
+			width 100%
+			display block
+			height auto
+		}
+		@media $tablet {
+			width 120px
+			margin-right 24px
+		}
 		@media $phone {
 			width 80px
-			height auto
 			margin-right 16px
 		}
-		width 140px
-		height 53px
+		@media $phone {
+			width 100px
+			margin-right 16px
+			align-self: flex-start
+		}
 	}
 	&__inner {
 		vertical-align middle
+		display flex
+		flex-direction column
 		@media $phone {
 			display flex
 			justify-content flex-end
-			max-width 260px
+			// max-width 260px
 		}
 	}
 	&__user {
@@ -128,9 +177,52 @@
 	&__search {
 		display inline-block
 		vertical-align middle
+		position relative
+		width 160px
+		margin-right 20px
+		@media $phone {
+			position relative
+			margin-top 2px
+			width 25px
+			margin-right 12px
+			height auto
+			width auto
+		}
+		input {
+			width 100%
+			display block
+			padding-left 22px
+			padding-top 2px
+			padding-bottom 2px
+			border-radius: 4px
+			border 1px solid $borderColor
+			box-shadow: none
+			box-sizing border-box
+			@media $phone {
+				display none
+			}
+		}
+		.Icon {
+			top 50%
+			margin-top: -8px
+			position absolute
+			left 6px
+			line-height 1
+			@media $phone {
+				position relative
+				margin 0
+				margin-top 5px
+				width 25px
+				height auto
+			}
+		}
 		@media $tablet {
 			// display none
 		}
+	}
+	&__block {
+		display flex
+		align-items center
 	}
 	&__action {
 		display inline-block
@@ -140,8 +232,10 @@
 			display inline-block
 			vertical-align middle
 			margin-right 20px
+			color $textColor
 			svg {
 				vertical-align middle
+				fill $textColor
 			}
 			@media $phone {
 				margin-right 12px
@@ -166,11 +260,7 @@
 			// order: 2
 		}
 	}
-	&__search {
-		& {
-			margin-right 32px
-		}
-	}
+	
 	&__social {
 		& {
 			margin-right 32px
@@ -207,6 +297,79 @@
 			vertical-align middle
 			fill #676766
 			transition fill $duration
+		}
+	}
+	&__mobNav {
+		display none
+		flex 17
+		text-align center
+		align-self: flex-end
+		@media $phone {
+			display block
+		}
+
+		&__title {
+			cursor pointer
+			display inline-block
+			font-size 16px
+			display flex
+			flex-direction column
+			align-items center
+			line-height: 1.1
+			.Icon {
+				height auto 
+				width 20px
+			}
+			&_active {
+				.Icon {
+					transform: rotate(180deg)
+				}
+			}
+		}
+		&__container {
+			display none
+			position absolute
+			top 100%
+			left 0
+			width 100%
+			background #EBECEC
+			padding: 16px
+			z-index: 17
+			justify-content: space-between
+			box-sizing: border-box
+			border-top 1px solid $borderColor
+			border-bottom 1px solid $borderColor
+			// margin-top 16px
+			&_active {
+				display block
+				display: flex
+			}
+		}
+		&__item {
+			color $textColor
+			margin-right 8px
+			&:last-child {
+				margin-right 0
+			}
+		}
+	}
+	&__mobileSearch {
+		position absolute
+		top 0
+		left 0
+		width 100%
+		height 100%
+		background-color #EBECEC
+		box-sizing: border-box
+		padding 16px
+		input {
+			width 100%
+			display block
+			padding 6px
+			border-radius: 4px
+			border 1px solid $borderColor
+			box-shadow: none
+			box-sizing border-box
 		}
 	}
 }

@@ -124,4 +124,23 @@
 				}
 		}
 	}
-}
+	&__login {
+		display none
+		position absolute
+		top 4px
+		right 60px
+		svg {
+			width 20px
+			height 30px
+			fill #fff
+			display block
+			margin-left 12px
+			&:first-child {
+				margin-left 0
+			}
+		}
+		@media $phone{
+			display flex	
+		}
+	}
+}	

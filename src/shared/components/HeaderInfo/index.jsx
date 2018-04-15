@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import className from 'classnames';
 import uuid from 'uuid';
-import Icon, { MapMarker, ClockIcon, PhoneIcon } from 'components/Icon';
+import Icon, { MapMarker, ClockIcon, PhoneIcon,LoginIcon, LoguotIcon } from 'components/Icon';
 import style from './styles.styl';
 import brands from './data.json';
+import { LogoutIcon } from '../Icon';
 function requireAll(requireContext) {
 	return requireContext.keys().map(requireContext);
 }
 const brandImages = requireAll(require.context('./icons', true, /^\.\/.*\.svg$/));
 const IconsArray = [];
 brandImages.map(brand => {IconsArray[brand.default.id] = brand});
-const HeaderInfo = ({ data }) => {
+const HeaderInfo = ({ data, loginModalOpen, logout }) => {
 	const textStyle = className({
 		[`${style.HeaderInfo__contacts__item}`]: true,
 		[`${style.HeaderInfo_text}`]: true
@@ -69,6 +70,10 @@ const HeaderInfo = ({ data }) => {
 					</span>
 					
 				</a>
+				<div className={style.HeaderInfo__login} >
+					<LoginIcon onClick={loginModalOpen} />
+					{logout && <LogoutIcon onClick={logout} />}
+				</div>
 				{/* <p className={textStyle}>
 					<span>
 						{ data.help.name}

@@ -6,7 +6,7 @@
 /*** --- Webfonts --- ***/
 @font-face
 	font-family Geometria
-	font-style normal
+	font-style $regular
 	src url(./fonts/Geometria-Light.woff)
 @font-face
 	font-family Geometria
@@ -27,7 +27,7 @@ body {
 	min-width: 320px
 	background $bgColor
 	color $textColor
-	font normal $fontSize/$lineHeight $fontFamily
+	font $regular $fontSize/$lineHeight $fontFamily
 	-webkit-text-size-adjust 100%
 	smooth-font()
 }

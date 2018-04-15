@@ -105,7 +105,7 @@ class OrderForm extends Component {
 		}))
 		
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
-		const promoAmount = profile && profile.promocodes.length > 0 ? profile.promocodes[0].amount : 0;
+		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 ? profile.promocodes[0].amount : 0;
 		
 		if (delivery == 'post') {
 			this.props.change('paymentType', 'payment_on_delivery')

@@ -101,8 +101,8 @@ class Header extends Component {
 		
 	}
 	setTimeout = null;
-	search = (input) => {
-		const value = input.target.value
+	search = (input, val) => {
+		const value = input ? input.target.value : val;
 		if (this.setTimeout) {
 			clearTimeout(this.setTimeout)
 		}
@@ -170,9 +170,11 @@ class Header extends Component {
 	}
 	render() {
 		const { items, cart, favorites, profile, logout, accessToken } = this.props;
+		console.log(profile);
+		
 		return (
 			<div className={style.Header}>
-				<HeaderInfo data={headerData} />
+				<HeaderInfo data={headerData} loginModalOpen={!profile ? this.loginModalOpen : () => this.props.history.push('/user')} logout={logout}/>
 				<LogoLine searchProducts={this.search} logout={logout} cart={cart} isFavorite={favorites.length > 0} loginModalOpen={this.loginModalOpen} profile={profile}/>
 			</div>
 		);
