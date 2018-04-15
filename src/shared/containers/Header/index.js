@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Menu from 'containers/Menu';
 import LogoLine from 'components/LogoLine';
 import LoginForm from 'components/LoginForm';
-// import RegisterForm f	rom 'components/RegisterForm';
+import RegisterForm from 'components/RegisterForm';
 import DistributionForm from 'components/DistributionForm';
 import headerData from 'config/header';
 import ModalExample from '../../components/ModalExample';
@@ -146,7 +146,7 @@ class Header extends Component {
 				className: "DistributionForm__wrapper",
 				loginModalOpen: this.loginModalOpen,
 				text: (
-					<DistributionForm onSubmit={this.fetchDistribution}/>
+					<RegisterForm onSubmit={this.fetchDistribution}/>
 				),
 				hasClose: true
 			}
@@ -161,7 +161,7 @@ class Header extends Component {
 				openRegisterModal: this.openRegisterModal,
 				title: 'Вход',
 				text: (
-					<LoginForm onSubmit={this.props.login}/>
+					<LoginForm onSubmit={this.props.register}/>
 				),
 				hasClose: true
 			}
