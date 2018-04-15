@@ -44,7 +44,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 							<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.LogoLine__social__item}>
 								<WhatsupIcon />
 							</a>
-							<a href="https://t.me/newstepstorernd" target="_blank" className={style.LogoLine__social__item}>
+							<a href="https://t.me/Kross_zakazbot" target="_blank" className={style.LogoLine__social__item}>
 								<TelegrammIcon />
 							</a>
 						</div>

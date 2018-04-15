@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from 'components/Input';
-import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon } from 'components/Icon';
+import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, TelegrammIcon } from 'components/Icon';
 import data from 'config/header.json';
 import style from './styles.styl';
 
@@ -38,6 +38,10 @@ const Footer = () => (
 						</a>
 						<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.Footer__social__icon}>
 							<WhatsupIcon />
+						</a>
+
+						<a href="https://t.me/Kross_zakazbot" target="_blank" className={style.Footer__social__icon}>
+							<TelegrammIcon />
 						</a>
 					</div>
 				</div>
