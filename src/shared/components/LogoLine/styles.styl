@@ -19,7 +19,7 @@
 			cursor pointer
 		}
 		@media $phone {
-			order: 1
+			order: 3
 			text-align right
 			margin-bottom 16px
 			margin-right 0
@@ -42,8 +42,8 @@
 		flex 1
 		display flex
 		justify-content space-between
-		flex-wrap: wrap
 		@media $verticalTablet {
+			flex-wrap: wrap
 			justify-content flex-end
 		}
 	}
@@ -52,16 +52,23 @@
 		justify-content space-between
 		align-items center
 		@media $verticalTablet {
-			display none
+			margin-bottom 12px
+		}
+		@media $verticalPhone {
+			margin-left -80px
 		}
 		&__item {
 			margin-right 35px
-			font-size 25px
+			font-size 22px
 			font-weight bold
 			color $textColor
 			border-bottom 1px solid transparent
 			@media $tablet {
 				margin-right 16px
+				font-size 18px
+			}
+			@media $verticalPhone {
+				font-size 12px
 			}
 			&:last-child {
 				margin-right 0
@@ -156,7 +163,7 @@
 			}
 		}
 		@media $phone{
-			order: 3
+			order: 2
 		}
 	}
 	&__search {
@@ -174,7 +181,8 @@
 			}
 			@media $phone {
 				margin-right: 8px
-				order: 2
+				order: 1
+				margin-bottom 12px
 			}
 		}
 		&__item {

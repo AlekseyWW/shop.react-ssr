@@ -22,9 +22,13 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 						<NavLink to="/catalog" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Каталог
 						</NavLink>
-						{/* <NavLink to="/delivery" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
+						<NavLink to="/info" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Оплата и доставка
 						</NavLink>
+						<NavLink to="/return" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
+							Возврат
+						</NavLink>
+						{/* 
 						<NavLink to="/news" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 							Новости
 						</NavLink>
@@ -53,7 +57,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 								<input placeholder="Поиск" onChange={searchProducts}/>
 							</div>
 						</div> */}
-						{/* {profile && profile.id ?
+						{profile && profile.id ?
 							<div className={style.LogoLine__login}>
 								<NavLink to="/user">
 									{profile.email}
@@ -63,7 +67,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 							<div className={style.LogoLine__login} onClick={loginModalOpen}>
 								<a>Войти</a>
 							</div>
-						} */}
+						}
 						<div className={style.LogoLine__action}>
 							<Link to="/favorites" className={style.LogoLine__action__item}>
 								<HurtIcon />

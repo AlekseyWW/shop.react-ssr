@@ -1,0 +1,104 @@
+.Return {
+	grid-width()
+	margin: 0 auto
+	@media $phone {
+		padding 0 16px
+	}
+	h1 {
+		font-size 32px
+		font-weight bold
+		margin-bottom 24px
+	}
+	h2 {
+		margin-top 32px
+		font-size 15px
+		font-weight bold
+		text-transform uppercase
+	}
+	h3 {
+		font-size 15px
+		font-weight bold
+	}
+	p {
+		max-width 800px
+	}
+	&__attention {
+		width 20px
+		margin-top 8px
+		margin-right 12px
+	}
+	&__cureer {
+		margin-bottom -36px
+		max-width 100%
+	}
+	&__paylist {
+		margin-top 50px
+		margin-bottom 40px
+		text-align center
+		li {
+			display inline-block
+			grid-width(4, max-width)
+			text-align center
+			font-size 12px
+			vertical-align top
+			padding 0 24px
+			@media $phone{
+				max-width 50%
+			}
+			span {
+				display inline-block
+				max-width 180px
+				padding-top 4px
+				border-top 1px solid #000
+			}
+			i {
+				display flex
+				align-items flex-end
+				height 80px
+				margin-bottom 8px
+			}
+			img {
+				max-height: 80px
+				max-width: 100%
+				display inline-block
+				vertical-align bottom
+				margin 0 auto
+				margin-bottom 4px
+			}
+		}
+	}
+	&__deliverylist {
+		margin-top 20px
+		ul {
+			float left
+			margin-right 50px
+			@media $verticalPhone {
+				margin-bottom 12px
+			}
+			@media $phone {
+				float none
+			}
+		}
+		& li:before {
+			content:  "—";
+			position: relative;
+			left:     -5px;
+		}
+		&__images {
+			display flex
+			align-items center
+			margin-bottom 40px
+			img {
+				max-width 200px
+				margin-right 12px
+				@media $verticalPhone {
+					margin-bottom 12px
+				}
+			}
+			@media $verticalPhone {
+				flex-direction column
+				align-items center
+			}
+		}
+	}
+}
