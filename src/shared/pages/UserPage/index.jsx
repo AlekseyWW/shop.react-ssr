@@ -92,7 +92,7 @@ class UserPage extends Component {
 													<p className={styles.UserPageList__note}>Адресс</p>
 													<p className={styles.UserPageList__value}>{profile.address}</p>
 												</div>
-										</div>) : 'Тут будет отображаться ваш основной адрес'}
+										</div>) : <p>Тут будет отображаться ваш основной адрес</p>}
 										<Button to="/user/delivery">{profile.address ? 'Изменить' : 'Добавить'}</Button>
 									</div>
 								</div>
