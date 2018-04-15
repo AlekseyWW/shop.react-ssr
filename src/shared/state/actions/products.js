@@ -43,7 +43,6 @@ const searchProductsError = error => ({
 
 export const searchProducts = (value) => (dispatch) => {
 	dispatch(searchProductsStart());
-	console.log(value);
 	
 	return get(
 		`products/search/${value}`,
