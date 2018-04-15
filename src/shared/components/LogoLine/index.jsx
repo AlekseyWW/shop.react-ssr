@@ -44,16 +44,16 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 							<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.LogoLine__social__item}>
 								<WhatsupIcon />
 							</a>
-							<a href="https://t.me/newstepstorernd" target="_blank" className={style.LogoLine__social__item}>
+							<a href="https://t.me/Kross_zakazbot" target="_blank" className={style.LogoLine__social__item}>
 								<TelegrammIcon />
 							</a>
 						</div>
-						<div className={style.LogoLine__search}>
+						{/* <div className={style.LogoLine__search}>
 							<div className={style.LogoLine__search}>
 								<input placeholder="Поиск" onChange={searchProducts}/>
 							</div>
-						</div>
-						{profile && profile.id ?
+						</div> */}
+						{/* {profile && profile.id ?
 							<div className={style.LogoLine__login}>
 								<NavLink to="/user">
 									{profile.email}
@@ -63,7 +63,7 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 							<div className={style.LogoLine__login} onClick={loginModalOpen}>
 								<a>Войти</a>
 							</div>
-						}
+						} */}
 						<div className={style.LogoLine__action}>
 							<Link to="/favorites" className={style.LogoLine__action__item}>
 								<HurtIcon />

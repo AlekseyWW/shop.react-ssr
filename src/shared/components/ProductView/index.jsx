@@ -64,8 +64,8 @@ class ProductView extends Component {
 
 					</div>
 					<div className={style.ProductView__price}>
-						<p className={style.ProductView__price__value}>{currentColor.isSale ? currentColor.price : currentColor.oldPrice} руб.</p>
-						{currentColor.isSale && <p className={style.ProductView__price__old}>{currentColor.oldPrice} руб.</p>}
+						<p className={style.ProductView__price__value}>{currentColor && currentColor.isSale ? currentColor.price : currentColor.oldPrice} руб.</p>
+						{currentColor && currentColor.isSale && <p className={style.ProductView__price__old}>{currentColor.oldPrice} руб.</p>}
 					</div>
 				</div>
 				<div className={style.ProductView__image}>
