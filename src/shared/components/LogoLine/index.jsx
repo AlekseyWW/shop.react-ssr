@@ -34,10 +34,11 @@ class LogoLine extends Component {
 		const val = this.searchInput.value
 		if (val) {
 			this.props.searchProducts(null, val)
-			this.setState({
-				searchOpened: false
-			})
 		}
+		this.setState({
+			searchOpened: false,
+			menuOpened: false
+		})
 	}
 	render() {
 		const { isFavorite, loginModalOpen, profile, logout, searchProducts} = this.props;
@@ -150,6 +151,7 @@ class LogoLine extends Component {
 					<div className={mobileSearch}>
 						<input placeholder="Поиск" onBlur={searchProducts} ref={el => this.searchInput = el}/>
 						<GlassIcon onClick={this.searchProducts} />
+						<div onClick={() =>this.setState({ searchOpened: false})}></div>
 					</div>
 				</div>
 			</div>

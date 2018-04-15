@@ -36,7 +36,7 @@ const searchProductsStart = () => ({
 
 const searchProductsSuccess = (products) => ({
 	type: types.SEARCH_SUCCESS,
-	product
+	products
 });
 
 const searchProductsError = error => ({

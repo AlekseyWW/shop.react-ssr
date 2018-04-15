@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProductCard from 'components/ProductCard';
+import Preloader from 'components/Preloader';
 import * as productsAction from 'actions/products';
 import * as categoryAction from 'actions/category';
 import * as favoritesAction from 'actions/favorites/';
@@ -20,23 +21,15 @@ class Search extends Component {
 			isSearching,
 			isSearched,
 			getProducts,
-			searchProducts,
+			searchProduct,
 			subCategoryId,
 			brands,
 			slug,
 			parsedQuery,
 			getBrands,
+			value
 		} = this.props;
-		const productConfig = {
-			sort: 'date',
-			'custom-category': this.props.stockId,
-			...parsedQuery,
-			offset: parsedQuery.offset || 0,
-			count: parsedQuery.count || 12,
-		};
-		const category = this.props.subCategoryId || this.props.categoryId;
-		if (!isSearching && !isSearched || category!== slug || JSON.stringify(this.props.config) !== JSON.stringify(productConfig) ) getProducts(productConfig, category);
-		if (!brands.isSearched && !brands.isSearching) getBrands();
+		if (!isSearching && !isSearched && value) searchProduct(value);
 	}
 	static fetchData({ store, params, query }) {
 		const productConfig = {
@@ -108,8 +101,8 @@ class Search extends Component {
 			sizes,
 			title,
 			stockTitle,
-			getProducts,
 			searchProducts,
+			getProducts,
 			isSearched,
 			isSearching
 		} = this.props;
@@ -122,10 +115,10 @@ class Search extends Component {
 		
 		return (
 			<div className={styles.Search}>
-				<div>
-					<Link to="/">Главная</Link>/
-					<Link to="/catalog">Каталог</Link>
+				<div className={styles.Search__title}>
+					Результаты поиска
 				</div>
+				{isSearching && <Preloader />}
 				{searchProducts.length > 0 && isSearched && !isSearching && searchProducts.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'} />)}
 				{searchProducts.length === 0 && isSearched && !isSearching && <p>По заданным параметрам товаров не найдено</p>}
 			</div>
@@ -161,7 +154,7 @@ Search.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	const { added: favorites } = state.favorites;
 	const { brand, size, sex, count, offset } = qs.parse(ownProps.location.search);
-	const parsedQuery = qs.parse(ownProps.location.search);
+	const { value } = qs.parse(ownProps.location.search);
 	const query = ownProps.location.search;
 	const { stockId, categoryId, subCategoryId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
@@ -184,6 +177,7 @@ const mapStateToProps = (state, ownProps) => {
 		allCount,
 		categories,
 		stockTitle,
+		searchProducts,
 		brands,
 		sizes,
 		brand,
@@ -191,11 +185,10 @@ const mapStateToProps = (state, ownProps) => {
 		sex,
 		query,
 		stockId,
-		parsedQuery,
-		searchProducts,
 		slug,
 		countView,
 		favorites,
+		value,
 		title: title || 'Каталог'
 	};
 };
@@ -206,6 +199,7 @@ const mapDispatchToProps = dispatch => ({
 	getProducts: (productConfig, category) => dispatch(productsAction.getProducts(productConfig, category)),
 	getBrands: () => dispatch(brandsAction()),
 	addToFavorites: (product) => dispatch(favoritesAction.addToFavorites(product)),
+	searchProduct: (value) => dispatch(productsAction.searchProducts(value)),
 	removeFromFavorites: (productId) => dispatch(favoritesAction.addToFavorites(productId, true))
 });
 

@@ -28,12 +28,15 @@ class ProductCard extends Component {
 		const favClass = classNames(style.ProductCard__overlay__button, {
 			[style.ProductCard__overlay__button_active]: isFavorite
 		})
+		const imgClass = classNames(style.ProductCard__image, {
+			[style.ProductCard__image_sale]: isSale
+		})
 		const text = actionText ? actionText : isFavorite ? "В избранном" : "В избранное"
 		const currentSizes = sex ? filter(sizes, b => b.sex === sex && b.quantity > 0) : filter(sizes, b => b.quantity > 0);
 		
 		return (
 			<div className={className}>
-				<Link className={style.ProductCard__image} to={url}>
+				<Link className={imgClass} to={url}>
 					<img src={img} alt="item" />
 				</Link>
 				<div className={style.ProductCard__content}>

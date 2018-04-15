@@ -93,7 +93,7 @@ export default function products(state = initialState, action) {
 				...state,
 				isSearching: false,
 				isSearched: true,
-				searchProducts: action.product.colors,
+				searchProducts: action.products.colors,
 				error: null
 			};
 

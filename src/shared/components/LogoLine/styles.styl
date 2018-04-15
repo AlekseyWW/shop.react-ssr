@@ -354,6 +354,7 @@
 		}
 	}
 	&__mobileSearch {
+		display none
 		position absolute
 		top 0
 		left 0
@@ -362,6 +363,11 @@
 		background-color #EBECEC
 		box-sizing: border-box
 		padding 16px
+		display: none
+		align-items: center
+		&_active {
+			display flex
+		}
 		input {
 			width 100%
 			display block
@@ -370,6 +376,39 @@
 			border 1px solid $borderColor
 			box-shadow: none
 			box-sizing border-box
+		}
+		svg {
+			min-width 20px
+			height auto
+			margin-left 8px
+		}
+		div {
+			position relative
+			width 16px
+			height: 16px
+			margin-left: 8px
+			&:before {
+				content ''
+				width 16px
+				height 2px
+				position absolute
+				top 50%
+				left 0
+				background $borderColor
+				transform: rotate(45deg)
+				transform-origin: center
+			}
+			&:after {
+				content ''
+				width 16px
+				height 2px
+				position absolute
+				top 50%
+				left 0
+				background $borderColor
+				transform: rotate(-45deg)
+				transform-origin: center
+			}
 		}
 	}
 }
