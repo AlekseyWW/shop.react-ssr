@@ -66,6 +66,7 @@ class ProductForm extends Component {
 		}
 		const currentColor = _.find(this.props.product.colors, { name: this.props.color })
 		const id = _.find(currentColor.sizes, { id: this.state.activeSize.id }).id
+		console.log(this.props.product.colors, this.props.color);
 		
 		const product = {
 			id: currentColor.id,
