@@ -14,6 +14,7 @@ import Delivery from 'pages/Delivery';
 import Agreement from 'pages/Agreement';
 import Info from 'pages/Info';
 import Return from 'pages/Return';
+import Search from 'pages/Search';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -118,5 +119,8 @@ export default [
 		path: '/return',
 		exact: true,
 		component: Return,
+		path: '/search',
+		exact: true,
+		component: Search,
 	}
 ];
