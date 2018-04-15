@@ -15,6 +15,9 @@ const initialState = {
 	items: [],
 	category: '',
 	sizes: [],
+	isSearching: false,
+	isSearched: false,
+	searchProducts: [],
 	promoProducts: []
 };
 export default function products(state = initialState, action) {
@@ -90,7 +93,7 @@ export default function products(state = initialState, action) {
 				...state,
 				isSearching: false,
 				isSearched: true,
-				searchProducts: action.products.colors,
+				searchProducts: action.product.colors,
 				error: null
 			};
 

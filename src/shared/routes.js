@@ -12,6 +12,7 @@ import FavoritesPage from 'pages/FavoritesPage';
 import UserPage from 'pages/UserPage';
 import Delivery from 'pages/Delivery';
 import Agreement from 'pages/Agreement';
+import Search from 'pages/Search';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -106,5 +107,10 @@ export default [
 		path: '/agreement',
 		exact: true,
 		component: Agreement,
+	},
+	{
+		path: '/search',
+		exact: true,
+		component: Search,
 	}
 ];

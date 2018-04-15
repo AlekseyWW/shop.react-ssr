@@ -1,6 +1,9 @@
 import * as types from '../constants/products';
 import axios from 'axios';
 import { get } from 'utils/api';
+import { push } from 'react-router-redux';
+import qs from 'query-string';
+
 
 const getProductInfoStart = id => ({
 	type: types.GET_PRODUCT_INFO_START,
@@ -33,7 +36,7 @@ const searchProductsStart = () => ({
 
 const searchProductsSuccess = (product) => ({
 	type: types.SEARCH_SUCCESS,
-	products
+	product
 });
 
 const searchProductsError = error => ({
@@ -43,12 +46,17 @@ const searchProductsError = error => ({
 
 export const searchProducts = (value) => (dispatch) => {
 	dispatch(searchProductsStart());
-	console.log(value);
 	
 	return get(
-		`products/search/${value}`,
+		`search/colors/products/${value}`,
 		{},
-		response => dispatch(searchProductsSuccess(response)),
+		response => {
+			dispatch(searchProductsSuccess(response))
+			dispatch(push({
+				pathname: '/search',
+				search: `${qs.stringify({ value })}`}
+			));
+		},
 		error => dispatch(searchProductsError(error.message))
 	);
 };

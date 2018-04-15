@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { NavLink, Link } from 'react-router-dom';
 import HeaderCart from 'containers/HeaderCart';
 import Input from 'components/Input';
+
 import { LogoIcon, LogoutIcon, VkIcon, InstagramIcon, WhatsupIcon, HurtIcon, TelegrammIcon, GlassIcon, HeartSold } from 'components/Icon';
 
 import style from './styles.styl';
@@ -48,11 +49,11 @@ const LogoLine = ({ isFavorite, loginModalOpen, profile, logout, searchProducts 
 								<TelegrammIcon />
 							</a>
 						</div>
-						{/* <div className={style.LogoLine__search}>
+						<div className={style.LogoLine__search}>
 							<div className={style.LogoLine__search}>
 								<input placeholder="Поиск" onChange={searchProducts}/>
 							</div>
-						</div> */}
+						</div>
 						{/* {profile && profile.id ?
 							<div className={style.LogoLine__login}>
 								<NavLink to="/user">
