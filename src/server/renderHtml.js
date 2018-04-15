@@ -97,6 +97,7 @@ export default function renderHtml({ preloadedState, markup, styleTags, styles, 
 		${helmet.script.toString()}
 		<link rel="stylesheet" href="https://cdn.callbackkiller.com/widget/cbk.css">
 		<script type="text/javascript" src="https://cdn.callbackkiller.com/widget/cbk.js?cbk_code=1b5ec5fdc525a0d65e4fe107c9022bef" charset="UTF-8" async></script>
+		<script type="text/javascript" src="//cdn.callbackhunter.com/cbh.js?hunter_code=ff62d257709043693a0f6345ef64f77b" charset="UTF-8"></script>
 		</body>
 	</html>`;
 }
