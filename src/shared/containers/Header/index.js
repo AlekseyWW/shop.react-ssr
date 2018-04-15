@@ -146,7 +146,7 @@ class Header extends Component {
 				className: "DistributionForm__wrapper",
 				loginModalOpen: this.loginModalOpen,
 				text: (
-					<RegisterForm onSubmit={this.fetchDistribution}/>
+					<RegisterForm onSubmit={this.register}/>
 				),
 				hasClose: true
 			}
@@ -161,7 +161,7 @@ class Header extends Component {
 				openRegisterModal: this.openRegisterModal,
 				title: 'Вход',
 				text: (
-					<LoginForm onSubmit={this.props.register}/>
+					<LoginForm onSubmit={this.props.login}/>
 				),
 				hasClose: true
 			}
