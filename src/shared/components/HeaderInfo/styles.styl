@@ -32,6 +32,10 @@
 			position fixed
 			z-index 10
 			padding 4px 16px
+			padding-right 50px
+		}
+		@media $phone {
+			padding-right 0
 		}
 	}
 	&__contacts {
@@ -78,8 +82,19 @@
 			.HeaderInfo__contacts__item {
 				display flex
 				flex-direction column
-				text-align right
-				padding-right 40px
+				margin-right 10px
+			}
+		}
+		@media $phone {
+			flex-direction column
+			.HeaderInfo__contacts__item {
+				display flex
+				flex-direction row
+				justify-content space-between
+				margin-right 10px
+				& span:first-child {
+					display none
+				}
 			}
 		}
 	}

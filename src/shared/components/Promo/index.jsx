@@ -52,7 +52,6 @@ class Promo extends Component {
 						)
 					}
 				)}
-	}
 			</div>
 		)
 	}

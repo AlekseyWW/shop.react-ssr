@@ -15,6 +15,7 @@ import { withRouter } from 'react-router';
 import { InstagramIcon } from 'components/Icon';
 import InputMask from 'react-input-mask';
 import { HurtIcon, HeartSold } from 'components/Icon';
+import contactData from 'config/header.json';
 
 import InstagramEmbed from 'react-instagram-embed';
 import { actions } from '../../state/modules/modal.js';
@@ -268,7 +269,10 @@ class ProductForm extends Component {
 						<div className={style.ProductForm__callback__title}>Свяжитесь с нами:</div>
 						<div className={style.ProductForm__callback__inner}>
 							<span className={style.ProductForm__callback__text}>Оформить заказ по телефону и уточнить наличие товара</span>
-							<a href="tel:89286206404" className={style.ProductForm__callback__phone}>8-(928)-620-64-04</a>
+							<p>Ростовская область:</p>
+							<a href={contactData.contacts.phone.url} className={style.ProductForm__callback__phone}>{contactData.contacts.phone.text}</a>
+							<p>Россия:</p>
+							<a href={contactData.contacts.phoneRussia.text} className={style.ProductForm__callback__phone}>{contactData.contacts.phoneRussia.text}</a>
 							<span className={style.ProductForm__callback__note}>Информация о наличии товаров обновляется каждые 30 минут. Ассортимент товара их цена в магазине могут отличаться от информации на сайте.</span>
 						</div>
 					</div>

@@ -59,11 +59,12 @@ class Header extends Component {
 		// 	}, 1200);
 		// }
 		const { orderId } = qs.parse(this.props.history.location.search);
+		console.log(orderId, orderStorage);
 		
-		if (orderStorage === 'orderId') {
+		if (orderStorage === orderId) {
 			
-			const text = `Ваш заказ №${orderStorage} будет доставлен в течение (сколько дает сдэк дней). Вам поступит SMS уведомление с трек номером заказа – для отслеживания.` ;
-			localStorage.getItem('orderId', '')
+			const text = `Ваш заказ №${orderStorage} будет доставлен в течение 8 дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.` ;
+			localStorage.setItem('orderId', '')
 			if (!accessTokenStorage) {
 				this.props.openModal({
 					modalType: ModalExample,

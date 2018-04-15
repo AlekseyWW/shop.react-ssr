@@ -59,7 +59,7 @@ class OrderPage extends Component {
 		const { order } = this.props;
 		const url = `http://test-api-shop.abo-soft.com/payment-url/order/${order.id}`;
 		
-		const text = order.deliveryType === 'post' || order.deliveryType === 'cureer' ? 'В течении 15 минут с Вами свяжется менеджер, для уточнения деталей доставки.' : `Ваш заказ №${order.id} будет доставлен в течение (сколько дает сдэк дней). Вам поступит SMS уведомление с трек номером заказа – для отслеживания.`;
+		const text = order.deliveryType === 'post' || order.deliveryType === 'cureer' ? 'В течении 15 минут с Вами свяжется менеджер, для уточнения деталей доставки.' : `Ваш заказ №${order.id} будет доставлен в течение 8 дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.`;
 		axios({
 			method: 'get',
 			url,
