@@ -66,6 +66,7 @@ class OrderPage extends Component {
 		})
 			.then(res => {
 				const { data } = res;
+				yaCounter47068560.reachGoal('ORDERING');
 				if (data === 'ok') {
 					this.succseOrder();
 					this.props.openModal({

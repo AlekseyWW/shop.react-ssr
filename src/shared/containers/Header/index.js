@@ -53,11 +53,11 @@ class Header extends Component {
 		} else if(cart) {
 			setCart(JSON.parse(cart));
 		}
-		// if (!accessTokenStorage) {
-		// 	setTimeout(() => {
-		// 		this.openRegisterModal()
-		// 	}, 1200);
-		// }
+		if (!accessTokenStorage) {
+			setTimeout(() => {
+				this.openRegisterModal()
+			}, 1200);
+		}
 		const { orderId } = qs.parse(this.props.history.location.search);
 		
 		if (orderStorage === orderId) {
@@ -65,6 +65,7 @@ class Header extends Component {
 			const text = `Ваш заказ №${orderStorage} будет доставлен в течение 8 дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.` ;
 			localStorage.setItem('orderId', '')
 			if (!accessTokenStorage) {
+				yaCounter47068560.reachGoal('PAYMENT');
 				this.props.openModal({
 					modalType: ModalExample,
 					onClose: () => {
