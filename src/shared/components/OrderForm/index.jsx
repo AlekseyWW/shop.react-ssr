@@ -95,7 +95,7 @@ class OrderForm extends Component {
 			});
 	}
 	render() {
-		const { handleSubmit, products, deliveryCost, deliveryCity, delivery, paymentType, sdek } = this.props;
+		const { handleSubmit, products, deliveryCost, deliveryCity, delivery, profile, paymentType, sdek } = this.props;
 		const productsForDelivery = products.map(product => ({
 			id: product.id,
 			quantity: product.count,
@@ -105,7 +105,8 @@ class OrderForm extends Component {
 		}))
 		
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
-		const promoAmount = find(promocode, { code: this.props.promocode }) ? find(promocode, { code: this.props.promocode }).amount : 0;
+		const promoAmount = profile && profile.promocodes.length > 0 ? profile.promocodes[0].amount : 0;
+		
 		if (delivery == 'post') {
 			this.props.change('paymentType', 'payment_on_delivery')
 		}
@@ -374,7 +375,7 @@ const mapStateToProps = state => {
 	const promocode = selector(state, 'promocode');
 
 	const deliveryCost = delivery === 'post' ? price : deliveryData[delivery] && deliveryData[delivery].price ? deliveryData[delivery].price : 0;
-	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, deliveryCity, promocode };
+	return { products, sdek, delivery, deliveryCost, initialValues, paymentType, price, profile, deliveryCity, promocode };
 }
 const mapDispatchToProps = dispatch => ({
 	getCities: (name) => dispatch(loadCities(name)),
