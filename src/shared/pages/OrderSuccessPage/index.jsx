@@ -89,6 +89,7 @@ class OrderPage extends Component {
 						}
 					});
 				} else {
+					localStorage.setItem('orderId', order.id)
 					this.props.clearCart()
 					localStorage.setItem("order", "");
 					window.location = data

@@ -32,6 +32,7 @@ class Header extends Component {
 		if (!isLoaded && !isLoading) getCategories();
 		if (!getStockCategories.isLoaded && !getStockCategories.isLoading) getStockCategories();
 		const cart = localStorage.getItem("cart");
+		const orderId = localStorage.getItem("orderId");
 		const favorites = localStorage.getItem("favorites");
 		const accessTokenStorage = localStorage.getItem("accessToken");
 		
@@ -54,6 +55,33 @@ class Header extends Component {
 		// 		this.openRegisterModal()
 		// 	}, 1200);
 		// }
+		if (orderId) {
+			
+			const text = `Ваш заказ №${orderId} будет доставлен в течение (сколько дает сдэк дней). Вам поступит SMS уведомление с трек номером заказа – для отслеживания.` ;
+			localStorage.getItem('orderId', '')
+			if (!accessTokenStorage) {
+				this.props.openModal({
+					modalType: ModalExample,
+					onClose: () => {
+						this.props.history.push('/')
+						this.props.clearCart();
+						localStorage.setItem("order", "");
+					},
+					modalProps: {
+						title: `Спасибо, Ваш заказ оформлен`,
+						status: 'order',
+						text: (
+							<p>
+								{text}
+							</p>
+						),
+						subTitle: '',
+						hasClose: true,
+						// confirm: true,
+					}
+				});
+			}
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 		const { profileIsLoaded, profileIsLoading, error } = this.props;
