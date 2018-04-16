@@ -19,7 +19,7 @@ const getCartSummM = added => (added.length ? (added.reduce((summ, item) => (sum
 const deliveryData = {
 	post: "Доставка Почтой России",
 	sdek: "Служба доставки СДЭК",
-	courier: "Курьер <nobr>по&nbsp;Ростову-на-Дону</nobr>",
+	courier: "Курьер по Ростову-на-Дону",
 	'self_delivery': "Забрать самостоятельно"
 }
 const payData = {
