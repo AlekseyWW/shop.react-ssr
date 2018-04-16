@@ -7,7 +7,6 @@ import Menu from 'containers/Menu';
 import LogoLine from 'components/LogoLine';
 import LoginForm from 'components/LoginForm';
 import RegisterForm from 'components/RegisterForm';
-import DistributionForm from 'components/DistributionForm';
 import headerData from 'config/header';
 import ModalExample from '../../components/ModalExample';
 import * as categoryAction from 'actions/category';
@@ -144,7 +143,8 @@ class Header extends Component {
 		this.props.openModal({
 			modalType: ModalExample,
 			modalProps: {
-				className: "DistributionForm__wrapper",
+				className: "RegisterForm__wrapper",
+				title: 'Регистрация',
 				loginModalOpen: this.loginModalOpen,
 				text: (
 					<RegisterForm onSubmit={this.props.register}/>
