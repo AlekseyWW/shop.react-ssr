@@ -1,10 +1,11 @@
 import React from 'react';
-import styles from './style.styl';
+import styles from './style.styl';import SideNavContent from 'components/SideNavContent';
+import ContactBlock from 'components/ContactBlock';
 
 const Info = () => (
-	<div className="page__inner">
-		<div className={styles.Info}>
-			<h1>Оплата и Доставка</h1>
+	<div className={styles.Info}>
+		<SideNavContent />
+		<div className={styles.Info__inner}>
 			<h2>СПОСОБ ОПЛАТЫ</h2>
 			<ul className={styles.Info__paylist}>
 				<li>
@@ -49,6 +50,7 @@ const Info = () => (
 				Если вы не нашли удобный для вас способ доставки звоните нам.
 			</p>
 		</div>
+		<ContactBlock />
 	</div>
 );
 

@@ -1,9 +1,12 @@
 import React from 'react';
 import styles from './style.styl';
+import SideNavContent from 'components/SideNavContent';
+import ContactBlock from 'components/ContactBlock';
 
 const Return = () => (
-	<div className="page__inner">
-		<div className={styles.Return}>
+	<div className={styles.Return}>
+		<SideNavContent />
+		<div className={styles.Return__inner}>
 			<h1>ОБМЕН И ВОЗВРАТ</h1>
 			<h2>1. Как вернуть неподошедший размер/товар? </h2>
 			<h3>Для возврата в Ростове-на-Дону</h3>
@@ -60,6 +63,7 @@ const Return = () => (
 			<p>Мы не резервируем и не откладываем товар на обмен до фактического получения вашего возврата на склад. </p>
 			<p>Чтобы не упустить нужный размер, вы можете оформить новый заказ на товар, а после получения возврата, мы вернем вам деньги.</p>
 		</div>
+		<ContactBlock />
 	</div>
 );
 

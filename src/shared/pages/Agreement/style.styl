@@ -1,6 +1,19 @@
 .Agreement {
 	grid-width()
 	margin: 0 auto
+	padding 50px 0
+	@media $phone {
+		padding 24px 16px
+	}
+	&__inner {
+		display inline-block
+		grid-width(6)
+		vertical-align top
+		@media $verticalTablet {
+			grid-width(8)
+		}
+		
+	}
 	@media $phone {
 		padding 0 16px
 	}
@@ -8,9 +21,15 @@
 		font-size 32px
 		font-weight bold
 		margin-bottom 24px
+		line-height 1.1
+		text-transform uppercase
 	}
 	h2 {
-		font-size 24px
+		font-size 20px
 		font-weight bold
+		line-height 1.1
+		text-transform uppercase
+		margin-top 16px
+		margin-bottom 12px
 	}
 }

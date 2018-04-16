@@ -15,6 +15,7 @@ import Agreement from 'pages/Agreement';
 import Info from 'pages/Info';
 import Return from 'pages/Return';
 import Search from 'pages/Search';
+import Contacts from 'pages/Contacts';
 // import Loader from './components/Loader';
 // import NotFound from './components/NotFound';
 
@@ -124,5 +125,10 @@ export default [
 		path: '/search',
 		exact: true,
 		component: Search,
+	},
+	{
+		path: '/contacts',
+		exact: true,
+		component: Contacts,
 	}
 ];

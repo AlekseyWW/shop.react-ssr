@@ -1,0 +1,89 @@
+.ContactBlock {
+	& {
+		grid-width(3)
+		display inline-block
+		vertical-align top
+		padding-left 60px
+		box-sizing border-box
+		@media $verticalTablet {
+			display none
+		}
+	}
+	&__logo {
+		width 229px
+		height 69px
+		margin-bottom 20px
+		fill #191919
+		margin-left -20px
+	}
+	&__social {
+		margin-bottom 16px
+		&__item {
+			display inline-block
+			margin-right 16px
+			@media $tablet {
+				margin-right 12px
+			}
+			.Icon {
+				width 30px
+				height auto
+				fill #191919
+				@media $tablet {
+					width 22px
+				}
+			}
+		}
+	}
+	&__phone {
+		margin-bottom 20px
+		&__item {
+			display block
+		}
+		&__label {
+			font-size 20px
+			color:  #191919
+			line-height 1
+			font-weight $bold
+			@media $tablet {
+				font-size 18px
+			}
+		}
+		&__title {
+			color:  #191919
+			display block
+		}
+		&__value  {
+			font-size 22px
+			color:  #191919
+			font-weight bold
+			display block
+			@media $tablet {
+				font-size 18px
+			}
+		}
+	}
+	&__mail {
+		a {
+			color $borderColor
+			background-color #fff
+			border 1px solid $borderColor
+			border-radius: 4px
+			padding 4px 8px
+			&:hover {
+				color #191919
+				background-color $borderColor
+			}
+		}
+	}
+	&__address {
+		font-size 20px
+		margin-bottom 16px
+		line-height 1.1
+		a {
+			color #191919
+			@media $tablet {
+				font-size 18px
+			}
+		}
+	}
+}

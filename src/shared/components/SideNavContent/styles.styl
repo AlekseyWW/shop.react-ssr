@@ -1,0 +1,32 @@
+.SideNavContent {
+	& {
+		grid-width(3)
+		display inline-block
+		vertical-align top
+		padding-right 60px
+		box-sizing border-box
+		@media $tablet {
+			padding-right 40px
+		}
+		@media $verticalTablet {
+			grid-width(4)
+			padding-right 32px
+		}
+		@media $phone {
+			display none
+		}
+	}
+	&__inner {
+		display block
+	}
+	&__item {
+		color $textColor
+		padding 8px
+		display: block
+		border-bottom 1px solid $textColor
+		line-height 1
+		&_active {
+			font-weight $bold
+		}
+	}
+}
