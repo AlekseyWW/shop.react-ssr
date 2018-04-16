@@ -48,7 +48,7 @@ class Order extends Component {
 		}
 	}
 	getOptions(input, callback) {
-		const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
+		const url = 'http://api-shop.abo-soft.com/sdek/cities';
 		axios({
 			method: 'get',
 			url,

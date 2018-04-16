@@ -170,7 +170,6 @@ class Header extends Component {
 	}
 	render() {
 		const { items, cart, favorites, profile, logout, accessToken } = this.props;
-		console.log(profile);
 		
 		return (
 			<div className={style.Header}>

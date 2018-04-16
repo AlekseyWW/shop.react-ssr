@@ -48,7 +48,7 @@ class OrderForm extends Component {
 	}
 	componentDidMount() {
 		
-		if (this.props.initialValues && this.props.initialValues.sity) {
+		if (this.props.deliveryCity && this.props.deliveryCity.id) {
 			const productsForDelivery = this.props.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
@@ -58,11 +58,15 @@ class OrderForm extends Component {
 			}))
 			
 			// this.props.getDeliveryCoast(data.value, productsForDelivery);
-			this.props.getDeliveryCoast(this.props.initialValues.sity, productsForDelivery)
+			
+			if (this.props.deliveryCity.id) {
+				this.props.getDeliveryCoast(this.props.deliveryCity.id, productsForDelivery)
+			}
 		}
 	}
 	componentWillReceiveProps(nextProps) {
-		if (!this.props.initialValues.city && nextProps.initialValues.city) {
+		
+		if (!this.props.deliveryCity && nextProps.deliveryCity) {
 			const productsForDelivery = nextProps.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
@@ -70,15 +74,15 @@ class OrderForm extends Component {
 					id: product.sizeId
 				}
 			}))
-			if (nextProps.initialValues.city.id) {
-				this.props.getDeliveryCoast(nextProps.initialValues.city.id, productsForDelivery);
+			if (nextProps.deliveryCity.id) {
+				this.props.getDeliveryCoast(nextProps.deliveryCity.id, productsForDelivery);
 				this.props.change('deliveryType', null)
 			}
 		}
 
 	}
 	getOptions(input, callback) {
-		const url = 'http://test-api-shop.abo-soft.com/sdek/cities';
+		const url = 'http://api-shop.abo-soft.com/sdek/cities';
 		axios({
 			method: 'get',
 			url,

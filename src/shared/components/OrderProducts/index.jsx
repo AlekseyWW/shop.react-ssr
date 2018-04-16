@@ -5,7 +5,6 @@ import styles from './styles.styl';
 class OrderProducts extends PureComponent {
 	render() {
 		const { products, price, sum } = this.props;
-		console.log(this.props);
 		
 		return (
 			<div className={styles.OrderProducts}>

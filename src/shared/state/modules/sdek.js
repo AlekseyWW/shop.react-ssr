@@ -21,7 +21,11 @@ const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
 const initialState = {
 	isLoading: false,
 	isLoaded: false,
+	isDeliveryLoading: false,
+	isDeliveryLoaded: false,
 	cities: [],
+	paymentTypes: undefined,
+	deliveryTypes: undefined,
 	price: 0,
 	error: null,
 };

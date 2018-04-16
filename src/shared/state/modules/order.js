@@ -91,7 +91,6 @@ export const fetchOrder = (data, redirect=true) => {
 	return dispatch => {
 		dispatch(requestOrderStart());
 		const url = getAccessToken() ? `/users/${getAccessToken()}/orders` : '/orders';
-		console.log({data});
 		
 		return post(
 			url,
