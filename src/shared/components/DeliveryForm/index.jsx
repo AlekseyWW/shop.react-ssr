@@ -48,16 +48,6 @@ class DeliveryForm extends Component {
 				<div className={style.DeliveryForm__container}>
 					<div className={style.DeliveryForm__row}>
 						<Field
-							name="phone"
-							component={Input}
-							type="text"
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
-							label="Телефон"
-							numberFormat
-						/>
-					</div>
-					<div className={style.DeliveryForm__row}>
-						<Field
 							name="firstName"
 							component={Input}
 							type="text"
@@ -100,6 +90,14 @@ class DeliveryForm extends Component {
 						/>
 					</div>
 					<div className={style.DeliveryForm__row}>
+						<Field
+							name="phone"
+							component={Input}
+							type="text"
+							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
+							label="Телефон"
+							numberFormat
+						/>
 						<div className={style.DeliveryForm__button}>
 							<Button type="submit">
 								Сохранить

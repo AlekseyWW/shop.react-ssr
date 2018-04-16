@@ -119,6 +119,8 @@ export default [
 		path: '/return',
 		exact: true,
 		component: Return,
+	},
+	{
 		path: '/search',
 		exact: true,
 		component: Search,
