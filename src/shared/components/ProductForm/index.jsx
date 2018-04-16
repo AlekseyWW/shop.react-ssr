@@ -113,7 +113,6 @@ class ProductForm extends Component {
 			[style.ProductForm__favorite__heart_active]: _.find(this.props.favorites, { id: activeColor.id })
 		})
 		const sizeImg = product.category ? sizeImages[product.category.name.trim()] : '';
-		console.log(this.props.cart, product);
 		
 		// : 'tablica_man_odegda-01.jpg' : 'tablica_obuv_rus-01.jpg' ;
 		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity), 'sex') : [];
@@ -226,11 +225,11 @@ class ProductForm extends Component {
 									/>
 								}
 							</div>
-							<Button
+							{/* <Button
 								className={style.ProductForm__button}
 								text={_.find(this.props.cart, { id: activeColor.id }) ? 'В корзине' : "Добавить в корзину"}
 								disabled={_.find(this.props.cart, { id: activeColor.id }) || this.props.isFetching? true : false}
-								onClick={() => this.addToCart()}/>
+								onClick={() => this.addToCart()}/> */}
 							<div className={style.ProductForm__fastOrder}>
 								<p className={style.ProductForm__fastOrder__title}>Купить в&nbsp;один клик</p>
 								<div className={style.ProductForm__fastOrder__form}>
