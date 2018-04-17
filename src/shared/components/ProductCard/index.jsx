@@ -50,8 +50,8 @@ class ProductCard extends Component {
 						</span>
 					</Link>
 					<span className={style.ProductCard__price}>
-						{isSale && <span>{price}&nbsp;&#8381;</span>}
-						{oldPrice && <span>{oldPrice}&nbsp;&#8381;</span> }
+						{isSale && <span className={`${style.ProductCard__price__current}`}>{price}&nbsp;&#8381;</span>}
+						{oldPrice && <span className={style.ProductCard__price__old}>{oldPrice}&nbsp;&#8381;</span> }
 					</span>
 				</div>
 				<div className={style.ProductCard__overlay} style={{bottom: this.state.sizesHeigth}}>
