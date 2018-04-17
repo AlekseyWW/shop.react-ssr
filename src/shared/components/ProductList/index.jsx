@@ -59,25 +59,6 @@ class ProductList extends Component {
 		return (
 			<div className={style.ProductList}>
 				<Filter categoryId={categoryId} allCount={allCount} handleChange={this.handleClick}/>
-				<div className={style.ProductList__nav}>
-					<ReactPaginate
-						previousLabel={'Пред.'}
-						nextLabel={'След.'}
-						breakLabel={<a href="">...</a>}
-						breakClassName={'break-me'}
-						forcePage={pageNum}
-						pageCount={countPage}
-						marginPagesDisplayed={2}
-						pageRangeDisplayed={3}
-						onPageChange={e => this.handleClick({ offset: e.selected * count, count: count })}
-						containerClassName={style.ProductList__nav__pages}
-						pageClassName={style.ProductList__nav__pages__item}
-						activeClassName={style.ProductList__nav__pages__item_active}
-						previousClassName={style.ProductList__nav__pages__item}
-						nextClassName={style.ProductList__nav__pages__item}
-						subContainerClassName={'pages pagination'}
-					/>
-				</div>
 				<div className={style.ProductList__container}>
 					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard sex={sex} key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'}	 />)}
 					{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}

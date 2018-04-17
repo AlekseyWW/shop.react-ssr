@@ -33,8 +33,8 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }
 				<div className={subStyles}>
 					{ category.items.map(item => {
 						const itemStyles = classNames({
-							[`${style.SideBar__filter__list__item}`]: true,
-							[`${style.SideBar__filter__list__item_active}`]: subCategoryId === item.slug,
+							[`${style.SideBar__filter__sublist__item}`]: true,
+							[`${style.SideBar__filter__sublist__item_active}`]: subCategoryId === item.slug,
 						});
 						const subPath = historyLocation ? `${category.slug}/${item.slug}${historyLocation}` : `${category.slug}/${item.slug}`;
 						const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
@@ -130,6 +130,20 @@ class SideBar extends Component {
 							{categories.map(category => <BarItem category={category} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.slug} subCategoryId={subCategoryId} historyLocation={location.search} />)}
 							<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
 						</div>
+						{gender.length > 0 &&
+							<div className={style.SideBar__filter__list}>
+							<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Пол</div>
+							<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active}`}>
+									{gender.map(gender => {
+										const itemStyle = classNames({
+											[`${style.SideBar__filter__sublist__item}`]: true,
+											[`${style.SideBar__filter__sublist__item_active}`]: sex === genderSize[gender][0].sex.name
+										})
+										return <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={itemStyle}>{gender}</div>
+									})}
+								</div>
+							</div>
+						}
 					</div>
 					<div className={style.SideBar__filter__item}>
 						{/* <BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
