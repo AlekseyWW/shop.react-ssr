@@ -75,7 +75,7 @@ class Filter extends Component {
 			} 
 		}
 		const requestData = this.props.query ? { ...this.props.query, ...data }: data;
-		this.props.getProducts(requestData, this.props.subCategoryId || this.props.categoryId);
+		// this.props.getProducts(requestData, this.props.subCategoryId || this.props.categoryId);
 		this.props.history.push({
 			pathname,
 			search: `${qs.stringify(requestData)}`
@@ -109,7 +109,7 @@ class Filter extends Component {
 							query.count = this.props.query.count || 12;
 							if (this.props.location.search !== `?${qs.stringify(query)}`) {
 								this.historyPush(query);
-								getProducts(query, this.props.subCategoryId || this.props.categoryId);
+								// getProducts(query, this.props.subCategoryId || this.props.categoryId);
 							}
 						}} />
 					</div>

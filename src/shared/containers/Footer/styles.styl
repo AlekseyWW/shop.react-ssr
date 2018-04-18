@@ -9,9 +9,13 @@
 		margin 0 auto
 		display flex
 		justify-content space-between
-		align-items center
 		@media $phone {
-			padding 0 24px
+			padding 0 16px
+			// flex-wrap wrap
+			// flex-direction column
+			// align-items flex-start
+		}
+		@media $middlePhone {
 			flex-wrap wrap
 			flex-direction column
 			align-items flex-start
@@ -20,13 +24,31 @@
 	&__column {
 		display block
 		&:first-child {
-			grid-width(2.5)
+			grid-width(3.5)
+			@media $verticalTablet {
+				padding-right 32px
+			}
+			@media $middlePhone {
+				margin-bottom 18px
+			}
 		}
 		&:nth-child(2){
 			flex 1
 		}
 		&:last-child {
-			grid-width(3.2)
+			box-sizing border-box
+			padding-left 40px
+			grid-width(3.8)
+			@media $verticalTablet {
+				width auto
+			}
+			@media $phone {
+				padding-left 20px
+				// max-width 270px
+			}
+			@media $middlePhone {
+				padding-left 0
+			}
 		}
 		a {
 			margin-right 16px
@@ -37,11 +59,20 @@
 	}
 	&__phone {
 		font-size 20px
+		margin-bottom: 16px
 		display flex
+		flex-direction: column
 		justify-content space-between
 		// margin-bottom 24px
 		a {
 			color #FFFFFF
+			font-weight bold
+			font-size 18px
+			line-height 0.9
+			margin-bottom 12px
+			@media $phone {
+				font-size 15px
+			}
 		}
 		div {
 			&:last-child {
@@ -69,24 +100,31 @@
 	}
 	&__logo {
 		// margin-bottom 24px
+		// margin-left -15px
 		&__img {
 			fill: #F5F5F5;
-			width 100px;
+			width 200px;
+			height auto
 			display block
-		}
-		@media $phone {
-			margin-right 16px
+			@media $phone {
+				width 170px
+				margin-right 16px
+			}
 		}
 	}
 	&__address a{
 		color #ffffff
 	}
 	&__social {
-		// margin-bottom 32px
-		text-align right
+		margin-bottom 32px
+		// text-align right
 		&__title {
 			margin-bottom 10px
-			font-size 20px
+			font-size 16px
+			display block
+			@media $phone {
+				font-size 14px
+			}
 		}
 		&__icons {
 		}
@@ -109,17 +147,32 @@
 	&__buyer {
 		&__title {
 			font-size 20px
+			line-height 1
 			margin-bottom 20px
+			font-weight bold
 			text-transform uppercase
 		}
 	}
 	&__links {
 		display flex
+		@media $verticalTablet {
+			flex-direction column
+		}
+
+		@media $middlePhone {
+			flex-direction row
+		}
+		@media $verticalPhone {
+			flex-direction column
+		}
 		&__column {
 			width 50%
-			padding-right 40px
+			padding-right 24px
 			&:last-child {
 				padding-right 0
+			}
+			@media $verticalTablet {
+				width 100%
 			}
 			@media $phone {
 				padding-right 16px
@@ -127,7 +180,10 @@
 		}
 	}
 	&__link {
-
+		font-size 16px
+		color #ffffff
+		display block
+		line-height 1.3
 	}
 	&__feedback {
 		&__title {
@@ -136,14 +192,22 @@
 		}
 		&__field {
 			width 250px !important
-			height 36px !important
+			height 34px !important
 			border-radius 0 !important
 			border 0 !important
 			background #F5F5F5
+			padding-left: 8px
 			span {
 				font-size 18px
 				bottom 7px
 			}
+			@media $phone {
+				width calc(100% - 35px) !important
+				max-width 230px
+				height 36px !important
+				box-sizing border-box
+			}
+			
 		}
 		&__input {
 			display flex
@@ -159,10 +223,24 @@
 		&__text {
 			font-size 15px
 			margin-bottom 16px
+			line-height 1.1
 		}
 		&__note {
-			font-size 20px
+			font-size 18px
+			line-height 1.1
 			text-transform uppercase
+		}
+	}
+	&__payimg {
+		display flex
+		align-items: center
+		margin-top: 16px
+		img {
+			width 60px
+			margin-right 20px
+			&:last-child {
+				margin-right 0
+			}
 		}
 	}
 }

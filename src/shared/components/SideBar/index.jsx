@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import find from 'lodash/find';
 import { withRouter } from 'react-router';
 import { change } from 'redux-form';
 import BarFilter from 'components/BarFilter/';
@@ -21,24 +22,61 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }
 	})
 	const subStyles = classNames({
 		[`${style.SideBar__filter__sublist}`]: true,
-		[`${style.SideBar__filter__sublist_active}`]: isActive,
+		[`${style.SideBar__filter__sublist_active}`]: isActive && !stockId,
 	})
 	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
-	const url = stockId ? `/${stockId}/catalog/${path}` : `/catalog/${path}`;
-	
+	const url = `/catalog/${path}`;
+	const sublist = category.items || category.category;
 	return (
 		<div>
 			<Link to={url} key={category.id} className={styles}>{category.name}</Link>
-			{category.items &&
+			{sublist &&
 				<div className={subStyles}>
-					{ category.items.map(item => {
+					{sublist.map(item => {
 						const itemStyles = classNames({
 							[`${style.SideBar__filter__sublist__item}`]: true,
 							[`${style.SideBar__filter__sublist__item_active}`]: subCategoryId === item.slug,
 						});
+						
 						const subPath = historyLocation ? `${category.slug}/${item.slug}${historyLocation}` : `${category.slug}/${item.slug}`;
 						const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
-						return <Link to={subUrl} key={item.id} className={itemStyles}>{item.name}</Link>
+						return <Link to={subUrl} key={item.id} className={itemStyles} replace>{item.name}</Link>
+						})
+					}
+				</div>
+			}
+		</div>
+	);
+}
+
+const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, categories }) => {
+	const styles = classNames({
+		[`${style.SideBar__filter__list__item}`]: true,
+		[`${style.SideBar__filter__list__item_active}`]: isActive,
+	})
+	const subStyles = classNames({
+		[`${style.SideBar__filter__sublist}`]: true,
+		[`${style.SideBar__filter__sublist_active}`]: stockId === category.slug,
+	})
+	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
+	const url = `/${path}/catalog`;
+	const sublist = category.items || category.categories;
+	console.log({ sublist});
+	
+	return (
+		<div>
+			<Link to={url} key={category.id} className={styles}>{category.name}</Link>
+			{sublist.length &&
+				<div className={subStyles}>
+					{sublist.map(item => {
+							const itemStyles = classNames({
+								[`${style.SideBar__filter__sublist__item}`]: true,
+								[`${style.SideBar__filter__sublist__item_active}`]: subCategoryId === item.slug,
+							});
+							const parentCategory = find(categories, b => find(b.items, { slug: item.slug }));
+							const subPath = historyLocation ? `${parentCategory.slug}/${item.slug}${historyLocation}` : `${parentCategory.slug}/${item.slug}`;
+							const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
+							return <Link to={subUrl} key={item.id} className={itemStyles} replace>{item.name}</Link>
 						})
 					}
 				</div>
@@ -52,6 +90,16 @@ BarItem.defaultProps = {
 };
 
 BarItem.propTypes = {
+	isActive: PropTypes.bool.isRequired,
+	category: PropTypes.object.isRequired,
+	subCategoryId: PropTypes.string
+};
+
+SubBarItem.defaultProps = {
+	subCategoryId: ''
+};
+
+SubBarItem.propTypes = {
 	isActive: PropTypes.bool.isRequired,
 	category: PropTypes.object.isRequired,
 	subCategoryId: PropTypes.string
@@ -111,7 +159,7 @@ class SideBar extends Component {
 						<div className={style.SideBar__filter__title}>
 							{title} {stockTitle && `/${stockTitle}`}
 						</div>
-						{gender.length > 0 &&
+						{/* {gender.length > 0 &&
 							<div className={style.SideBar__sex}>
 								{gender.map(gender => {
 									const itemStyle = classNames({
@@ -121,14 +169,48 @@ class SideBar extends Component {
 									return <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={itemStyle}>{gender}</div>
 								})}
 							</div>
-						}
-						<div className={style.SideBar__stock}>
+						} */}
+						{/* <div className={style.SideBar__stock}>
 							<NavLink to={`/catalog`} onClick={this.resetForm} className={style.SideBar__stock__item} activeClassName={style.SideBar__stock__item_active}>Все товары</NavLink>
-							{stockCategories && stockCategories.map(category => <NavLink to={`/${category.slug}/catalog`} onClick={this.resetForm} key={category.id} className={style.SideBar__stock__item} activeClassName={style.SideBar__stock__item_active}>{category.name}</NavLink>)}
+							{stockCategories && stockCategories.map(category => 
+								<NavLink
+									to={`/${category.slug}/catalog`}
+									onClick={this.resetForm}
+									key={category.id}
+									className={style.SideBar__stock__item}
+									activeClassName={style.SideBar__stock__item_active}
+								>
+									{category.name}
+								</NavLink>
+							)}
+						</div> */}
+						<div className={style.SideBar__filter__list}>
+							{categories.map(category => 
+								<BarItem
+									category={category}
+									key={category.id}
+									className={style.SideBar__filter__list__item}
+									isActive={categoryId === category.slug}
+									subCategoryId={subCategoryId}
+									historyLocation={location.search}
+									stockId={stockId}
+								/>
+							)}
+							<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
 						</div>
 						<div className={style.SideBar__filter__list}>
-							{categories.map(category => <BarItem category={category} key={category.id} className={style.SideBar__filter__list__item} isActive={categoryId === category.slug} subCategoryId={subCategoryId} historyLocation={location.search} />)}
-							<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
+							{stockCategories && stockCategories.map(category =>
+								<SubBarItem
+									category={category}
+									key={category.id}
+									className={style.SideBar__filter__list__item}
+									isActive={categoryId === category.slug}
+									subCategoryId={subCategoryId}
+									historyLocation={location.search}
+									stockId={stockId}
+									categories={categories}
+								/>
+							)}
 						</div>
 						{gender.length > 0 &&
 							<div className={style.SideBar__filter__list}>
@@ -198,7 +280,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { isLoaded, isLoading, products, allCount, sizes, countView, category: slug } = state.products;
 	const title = category ? category.title || category.name : '';
 	const stockTitle = stockCategories && stockId && _.find(stockCategories, { slug: stockId }) ? _.find(stockCategories, { slug: stockId }).name : ''
-
+	
 	return {
 		isLoaded,
 		isLoading,

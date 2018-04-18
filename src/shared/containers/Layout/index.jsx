@@ -26,6 +26,8 @@ class Layout extends Component {
 			fbq('track', 'PageView');
 			fbq('init', '419221801838794');
 			fbq('track', 'PageView');
+			fbq('init', '161382741218409');
+			fbq('track', 'PageView');
 		}
 	}
 	componentDidMount() {
@@ -43,6 +45,8 @@ class Layout extends Component {
 		fbq('init', '199269670850457');
 		fbq('track', 'PageView');
 		fbq('init', '419221801838794');
+		fbq('track', 'PageView');
+		fbq('init', '161382741218409');
 		fbq('track', 'PageView');
 		(function (d, w, c) {
 			(w[c] = w[c] || []).push(function () {

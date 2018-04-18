@@ -29,6 +29,8 @@ class Catalog extends Component {
 			offset: parsedQuery.offset || 0,
 			count: parsedQuery.count || 12,
 		};
+		console.log({ 'mount': productConfig});
+		
 		const category = this.props.subCategoryId || this.props.categoryId;
 		if (!isLoading && !isLoaded || category!== slug || JSON.stringify(this.props.config) !== JSON.stringify(productConfig) ) getProducts(productConfig, category);
 		if (!brands.isLoaded && !brands.isLoading) getBrands();
@@ -41,6 +43,7 @@ class Catalog extends Component {
 			offset: query.offset || 0,
 			count: query.count || 12,
 		};
+		
 		const category = params.subCategoryId || params.categoryId;
 		return Promise.all([
 			store.dispatch(productsAction.getProducts(productConfig, category)),
@@ -63,6 +66,8 @@ class Catalog extends Component {
 				offset: parsedQuery.offset || 0,
 				count: parsedQuery.count || 12,
 			};
+			console.log({ 'mocomponentDidUpdateunt': productConfig });
+			
 			this.props.getProducts(productConfig, category);
 		}
 	}
@@ -76,11 +81,13 @@ class Catalog extends Component {
 			} = this.props;
 			const productConfig = {
 				sort: 'date',
-				'custom-category': this.props.stockId,
+				'custom-category': nextProps.props.stockId,
 				...parsedQuery,
 				offset: parsedQuery.offset || 0,
 				count: parsedQuery.count || 12,
 			};
+			console.log({ 'componentWillReceiveProps': productConfig });
+			
 			this.props.getProducts(productConfig, nextProps.categoryId);
 		}
 	}
