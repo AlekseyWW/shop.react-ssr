@@ -34,7 +34,7 @@ const HeaderInfo = ({ data, loginModalOpen, logout }) => {
 					<span>{ data.contacts.workTime.end }</span>
 				</p>
 			</div> */}
-			{/* <div className={style.HeaderInfo__brands}>
+			<div className={style.HeaderInfo__brands}>
 				{brands.map(item => {
 					const viewBox = IconsArray[item.icon].default.viewBox.split(' ');
 					const width = Number(viewBox[2]);
@@ -48,7 +48,7 @@ const HeaderInfo = ({ data, loginModalOpen, logout }) => {
 				<div className={style.HeaderInfo__brands__item}>
 					<span>{'& more'}</span>
 				</div>
-			</div> */}
+			</div>
 			<div className={style.HeaderInfo__nav}>
 				<a href={data.contacts.phone.url} className={textStyle}>
 					<span>Ростовская обл.:</span>

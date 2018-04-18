@@ -11,6 +11,7 @@ import { post } from 'utils/api';
 import style from './styles.styl';
 import deliveryText from './delivery.json';
 import * as favoritesAction from 'actions/favorites/';
+import Icon from 'components/Icon';
 import ModalExample from '../../components/ModalExample';
 import { withRouter } from 'react-router';
 import { InstagramIcon } from 'components/Icon';
@@ -20,6 +21,13 @@ import contactData from 'config/header.json';
 
 import InstagramEmbed from 'react-instagram-embed';
 import { actions } from '../../state/modules/modal.js';
+
+function requireAll(requireContext) {
+	return requireContext.keys().map(requireContext);
+}
+const brandImages = requireAll(require.context('../HeaderInfo/icons', true, /^\.\/.*\.svg$/));
+const IconsArray = [];
+brandImages.map(brand => { IconsArray[brand.default.id] = brand });
 
 const sizeImages = {
 	sneakers: '/tablica_obuv_rus-01.jpg',
@@ -36,6 +44,22 @@ const sizeImages = {
 	Tracksuits:'/tablica_man_odegda-01.jpg',
 	SportsTrousers: '/tablica_man_odegda-01.jpg',
 	'T-shirts':'/tablica_man_odegda-01.jpg',
+}
+
+const logos = {
+	"Puma": "puma",
+
+	"Adidas": "adidas",
+
+	"Reebok": "reebok",
+
+	"Nike": "nike",
+
+	"Mont Blanc": "mon",
+
+	"Vans": "vans",
+
+	"New Balance": "nb"
 }
 class ProductForm extends Component {
 	state = {
@@ -128,8 +152,8 @@ class ProductForm extends Component {
 		}))
 		const { activeSize } = this.state;
 		const value = activeSize && activeSize.value;
-		
-		console.log(activeColor);
+		const icon = product && product.brand && logos[product.brand.name] ? IconsArray[logos[product.brand.name]].default : '';
+		console.log({ icon }, product.brand.name);
 		
 		return (
 			<div className={style.ProductForm}>
@@ -137,7 +161,7 @@ class ProductForm extends Component {
 					<div className={style.ProductForm__head}>
 						<p className={style.ProductForm__title}>{product.name}</p>
 						{/* <p className={style.ProductForm__subline}>{product.name}</p> */}
-						
+						{icon && <Icon glyph={icon} width={40} height={20} className={style.HeaderInfo__brands__icon} />}
 					</div>
 					{activeColor &&
 						<div className={style.ProductForm__priceblock}>
