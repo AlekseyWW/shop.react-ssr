@@ -231,7 +231,7 @@ class ProductForm extends Component {
 								disabled={_.find(this.props.cart, { id: activeColor.id }) || this.props.isFetching? true : false}
 								onClick={() => this.addToCart()}/>
 							<div className={style.ProductForm__fastOrder}>
-								<p className={style.ProductForm__fastOrder__title}>Купить в&nbsp;один клик</p>
+								<p className={style.ProductForm__fastOrder__title}>Звонок менеджера за&nbsp;один клик</p>
 								<div className={style.ProductForm__fastOrder__form}>
 									<InputMask
 										type="text"
