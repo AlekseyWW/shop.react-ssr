@@ -5,7 +5,7 @@
   right: 8px;
   top: 10px;
   display: none;
-  z-index: 18 !important    ;
+  z-index: 15 !important    ;
 }
 
 
@@ -15,7 +15,7 @@
 }
 .bm-menu-wrap {
     top: 0;
-      z-index: 12 !important;
+      z-index: 16 !important;
     
 }
 /* Position and sizing of clickable cross button */
@@ -45,6 +45,7 @@
 /* Wrapper for item list */
 .bm-item-list {
   color: #b8b7ad;
+
 }
 .bm-item-list .SideBar  {
     display: block;
@@ -59,7 +60,11 @@
 }
 .bm-item-list .SideBar__filter__list__item {
     color: #FFFFFF;
-    display: inline-block;
+    display: inline-block;  
+}
+.bm-item-list .SideBar__filter__sublist__item {
+    color: #FFFFFF;
+    display: inline-block;  
 }
 .bm-item-list .SideBar__filter__list__item_active {
     border-bottom: 1px solid #FFFFFF;
@@ -85,7 +90,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 18 !important;
+  z-index: 16 !important;
 }
 @media screen and (max-width: 992px) {
     .bm-burger-button {
