@@ -27,10 +27,10 @@ const deliveryData = {
 const payData = {
 	cash: {
 		name: "Наличный расчет",
-		price: "Оплата наличными при замовывозе или доставке заказа курьером"
+		price: "Оплата наличными при доставке заказа курьером"
 	},
 	electronic_payment: {
-		name: "Предоплата дебетовой или кредитной картой"
+		name: "Оплата дебетовой или кредитной картой"
 	},
 	payment_on_delivery: {
 		name: "Наложенным платежом при получении"
@@ -184,7 +184,7 @@ class OrderForm extends Component {
 								component={Input}
 								type="text"
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
-								label="E-mail"
+								label="E-mail*"
 								validate={[required, email]}
 							/>
 							<Field
@@ -192,7 +192,7 @@ class OrderForm extends Component {
 								component={Input}
 								type="text"
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
-								label="Телефон"
+								label="Телефон*"
 								numberFormat
 								validate={[required]}
 							/>
@@ -255,8 +255,7 @@ class OrderForm extends Component {
 						<div className={style.OrderDeliver__column}>
 							{sdek && sdek.deliveryTypes ? filter(sdek.deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
 								const key = `item-${id}`;
-
-								return (
+								return type.code !== 'self_delivery' ? (
 									<div key={key} className={style.OrderDeliver__item}>
 										<Field
 											name="deliveryType"
@@ -272,7 +271,7 @@ class OrderForm extends Component {
 											validate={[required]}
 										/>
 									</div>
-								)
+								) : null
 							}): 
 								<p>После выбора города, здесь появятся доступные методы доставки.</p>
 							}

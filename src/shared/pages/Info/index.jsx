@@ -27,12 +27,12 @@ const Info = () => (
 			<div className={styles.Info__deliverylist}>
 				<p>Доставку осуществляют:</p>
 				<ul>
-					<li>EMS, Почта России</li>
 					<li>Служба доставки Сдек</li>
+					<li>EMS, Почта России</li>
 				</ul>
 				<div className={styles.Info__deliverylist__images}>
-					<img src="/ems.png" alt=""/>
 					<img src="/sdek.png" alt=""/>
+					<img src="/ems.png" alt=""/>
 				</div>
 			</div>
 			<img className={styles.Info__cureer} src="/cureer.png" alt=""/>
@@ -43,9 +43,6 @@ const Info = () => (
 				<li>Стоимость доставки по Ростову-на-Дону – 290 руб.</li>
 				<li>Обратите, пожалуйста, внимание, что в период распродаж сроки доставки заказов могут увеличиваться.</li>
 			</ul>
-			<h2>ЗАБРАТЬ САМОСТОЯТЕЛЬНО ИЗ МАГАЗИНА</h2>
-			<p>Мы откладываем товар после предварительной оплаты.</p>
-			<p>Услуга бесплатная.</p>
 			<p>
 				<img className={styles.Info__attention} src="/attention.png" alt=""/>
 				Если вы не нашли удобный для вас способ доставки звоните нам.

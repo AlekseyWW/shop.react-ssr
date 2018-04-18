@@ -54,17 +54,36 @@
 			}
 		}
 	}
+	&__priceblock {
+		margin-bottom 16px
+
+		&__content {
+			display flex
+			align-items center
+			span {
+				font-size 12px
+				line-height 1
+				white-space: nowrap
+				margin-left 12px
+				font-weight normal
+			}
+		}
+	}
 	&__price {
-		font-size 20px
+		margin-bottom 8px
+		display flex
+		align-items: center
+		font-size 16px
+		white-space: nowrap
 		font-weight bold
-		margin-bottom 12px
+		font-size 20px
 		@media $phone {
 			display none
 		}
 		&__value {
 			color: #BD2D21
 			display inline-block
-			margin-right 2px
+			margin-right 20px
 			padding 0 5px
 			&:last-child {
 				margin-right 0
@@ -90,17 +109,17 @@
 	&__action {
 		margin-bottom 25px
 	}
-	&__select {
-		display inline-block
-		margin-right 50px
-	}
+
 	&__button {
-		padding 8px 16px
-		font-size 18px !important
+		padding 10px 16px
+		font-weight: bold
+		line-height: 1
+		font-size 12px !important
 		width auto !important
 		height auto !important
 		margin-bottom 16px
 		white-space: nowrap
+		text-transform: none !important
 		&.Button_disabled {
 			pointer-events: none
 		}
@@ -177,9 +196,9 @@
 		box-sizing border-box
 		display inline-block
 		font-size 0
-		margin-right 8px
 		display flex
 		align-items center
+		border 1px solid $borderColor
 		background #ffffff
 		&:last-child {
 			margin-right 0
@@ -226,7 +245,6 @@
 		}
 	}
 	&__fastOrder {
-
 		&__form {
 			display flex
 			margin-bottom 16px
@@ -237,7 +255,7 @@
 			}
 		}
 		&__title {
-			font-size 20px
+			font-size 16px
 			margin-bottom 12px
 		}
 		&__input {
@@ -284,14 +302,18 @@
 	}
 	&__favorite {
 		display block
+		flex: 1
 		padding 0
 		margin-left 16px
+		margin-left: 30px
 		border none 
 		background transparent
 		position relative
 		cursor pointer
 		.Icon {
 			display block
+			width 20px
+			height auto
 		}
 		&__heart {
 			position absolute
@@ -304,6 +326,39 @@
 			&_active {
 				transform scale(1)
 			}
+		}
+	}
+	&__sizeblock {
+		display flex
+		align-items center
+		.Button {
+			white-space: nowrap
+		}
+	}
+	&__select {
+		display block
+		margin-right: 32px
+		flex 1
+		min-width: 170px
+		max-width: 170px
+		.Select-control {
+			border-radius: 6px
+		}
+		.Select-placeholder, .Select-value {
+			color #ffffff
+			background-color #676766
+			font-size 12px
+			font-weight bold
+		}
+		.Select-value-label {
+			color: #fff !important
+		}
+		.Select-option-group-label {
+			padding-left 10px
+			font-weight bold
+		}
+		&__option {
+			// padding 10px
 		}
 	}
 }

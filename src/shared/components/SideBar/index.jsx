@@ -73,7 +73,7 @@ const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockI
 								[`${style.SideBar__filter__sublist__item}`]: true,
 								[`${style.SideBar__filter__sublist__item_active}`]: subCategoryId === item.slug,
 							});
-							const parentCategory = find(categories, b => find(b.items, { slug: item.slug }));
+							const parentCategory = find(categories, b => find(b.items, { slug: item.slug })) ? find(categories, b => find(b.items, { slug: item.slug })) : {};
 							const subPath = historyLocation ? `${parentCategory.slug}/${item.slug}${historyLocation}` : `${parentCategory.slug}/${item.slug}`;
 							const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
 							return <Link to={subUrl} key={item.id} className={itemStyles} replace>{item.name}</Link>

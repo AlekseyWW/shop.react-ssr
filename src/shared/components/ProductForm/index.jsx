@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import htmlParser from 'react-html-parser';
 import Button from 'components/Button';
+import Select from 'react-select-plus';
 import _ from 'lodash';
 import { post } from 'utils/api';
 import style from './styles.styl';
@@ -42,7 +43,10 @@ class ProductForm extends Component {
 		status: 'order',
 		error: null,
 		activeSize: '',
+		selectedOption: '',
+		
 	}
+
 	componentDidMount() {
 		// Modal.setAppElement('#app');
 	}
@@ -90,6 +94,9 @@ class ProductForm extends Component {
 			this.props.addToFavorites(product)
 		}
 	}
+	handleChange = (selectedOption) => {
+		this.setState({ activeSize: selectedOption });
+	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
 		const activeColor = color && _.find(product.colors, { name: color }) ? _.find(product.colors, { name: color }) : product.colors[0];
@@ -114,23 +121,37 @@ class ProductForm extends Component {
 		})
 		const sizeImg = product.category ? sizeImages[product.category.name.trim()] : '';
 		
-		// : 'tablica_man_odegda-01.jpg' : 'tablica_obuv_rus-01.jpg' ;
 		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity), 'sex') : [];
+		const options = Object.keys(groupSizes).map(sex => ({
+			label: sex,
+			options: groupSizes[sex].map(size => ({ value: size.id, label: size.name }))
+		}))
+		const { activeSize } = this.state;
+		const value = activeSize && activeSize.value;
+		
+		console.log(activeColor);
+		
 		return (
 			<div className={style.ProductForm}>
 				<div className={style.ProductForm__container}>
 					<div className={style.ProductForm__head}>
 						<p className={style.ProductForm__title}>{product.name}</p>
 						{/* <p className={style.ProductForm__subline}>{product.name}</p> */}
-						<button className={favClass} onClick={this.toogleFavotite}>
-							<HurtIcon />
-							<HeartSold className={heartClass} />
-						</button>
+						
 					</div>
 					{activeColor &&
-						<div className={style.ProductForm__price}>
-						<p className={style.ProductForm__price__value}>{activeColor && activeColor.isSale ? activeColor.price : activeColor.oldPrice} руб.</p>
-						{activeColor && activeColor.isSale && <p className={style.ProductForm__price__old}>{activeColor.oldPrice} руб.</p>}
+						<div className={style.ProductForm__priceblock}>
+							<div className={style.ProductForm__price}>
+								<p className={style.ProductForm__price__value}>{activeColor && activeColor.isSale ? activeColor.price : activeColor.oldPrice} ₽.</p>
+								{activeColor && activeColor.isSale && <p className={style.ProductForm__price__old}>{activeColor.oldPrice} ₽.</p>}
+								<div className={style.ProductForm__priceblock__content}>
+									<button className={favClass} onClick={this.toogleFavotite}>
+										<HurtIcon />
+										<HeartSold className={heartClass} />
+									</button>
+									<span>Колличество ограничено</span>
+								</div>
+							</div>
 							<span className={style.ProductForm__callback__note}>Наличие товара вашего размера и понравившегося цвета можно уточнить оформив заявку, или написав нам в <a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank">WhatsApp.</a></span>
 						</div>
 					}
@@ -157,7 +178,7 @@ class ProductForm extends Component {
 										)}
 									)} */}
 
-									{groupSizes['Мужской'] && (
+									{/* {groupSizes['Мужской'] && (
 										<div className={style.ProductForm__sizes__row}>
 											<p>Мужские</p>
 											<div className={style.ProductForm__sizes__rowContainer}>
@@ -172,8 +193,8 @@ class ProductForm extends Component {
 												})}
 											</div>
 										</div>
-									)}
-									{groupSizes['Женский'] && (
+									)} */}
+									{/* {groupSizes['Женский'] && (
 										<div className={style.ProductForm__sizes__row}>
 											<p>Женские</p>
 											<div className={style.ProductForm__sizes__rowContainer}>
@@ -188,8 +209,8 @@ class ProductForm extends Component {
 												})}
 											</div>
 										</div>
-									)}
-									{groupSizes['Детский'] && (
+									)} */}
+									{/* {groupSizes['Детский'] && (
 										<div className={style.ProductForm__sizes__row}>
 											<p>Детские</p>
 											<div className={style.ProductForm__sizes__rowContainer}>
@@ -204,26 +225,38 @@ class ProductForm extends Component {
 												})}
 											</div>
 										</div>
-									)}
+									)} */}
 								</div>
-								{sizeImg &&
-									<Button
-										text="Подобрать размер"
-										small
-										onClick={
-											() => this.props.openModal({
-												modalType: ModalExample,
-												modalProps: {
-													className: style.ProductForm__sizesModal,
-													text: (
-														<img src={sizeImg} alt=""/>
-													),
-													hasClose: true
-												}
-											})
-										}
+								<div className={style.ProductForm__sizeblock}>
+
+									<Select
+										className={style.ProductForm__select}
+										optionClassName={style.ProductForm__select__option}
+										value={value}
+										closeOnSelect={false}
+										onChange={this.handleChange}
+										options={options}
+										placeholder="Выберите размер"
 									/>
-								}
+									{sizeImg &&
+										<Button
+											text="Подобрать размер"
+											small
+											onClick={
+												() => this.props.openModal({
+													modalType: ModalExample,
+													modalProps: {
+														className: style.ProductForm__sizesModal,
+														text: (
+															<img src={sizeImg} alt=""/>
+														),
+														hasClose: true
+													}
+												})
+											}
+										/>
+									}
+								</div>
 							</div>
 							<Button
 								className={style.ProductForm__button}
@@ -254,7 +287,7 @@ class ProductForm extends Component {
 												`/colors/${id}/request`,
 												{
 													phone: this.phone.value,
-													size: this.state.activeSize,
+													size: _.find(activeColor.sizes, { id: activeSize.value }),
 													...utm,
 												},
 												response => this.onSuccess(),

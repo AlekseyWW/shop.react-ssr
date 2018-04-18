@@ -93,6 +93,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-select-plus": "^1.2.0",
     "react-svg-inline-loader": "^0.2.2",
     "react-textarea-autosize": "^5.2.1",
     "react-transition-group": "^2.2.1",

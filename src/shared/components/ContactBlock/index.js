@@ -39,14 +39,6 @@ const ContactBlock = () => {
 					</span>
 				</a>
 			</div>
-			<div className={style.ContactBlock__address}>
-				<a href={data.contacts.location.url}>{data.contacts.location.text}</a>
-			</div>
-			<div className={style.ContactBlock__mail}>
-				<a href="mailto:newstep.adm@gmail.com">
-					Написать нам
-				</a>
-			</div>
 		</div>
 	);
 };
