@@ -103,7 +103,7 @@ class ProductForm extends Component {
 			color: this.props.color,
 			slug: this.props.product.slug,
 			price: currentColor && currentColor.isSale ? currentColor.price : currentColor.oldPrice,
-			size: _.omit(this.state.activeSize, 'group')
+			size: _.find(currentColor.sizes, { id: this.state.activeSize.value })
 		}
 		this.props.addToCart(product)
 	}
