@@ -103,7 +103,7 @@ class ProductForm extends Component {
 			color: this.props.color,
 			slug: this.props.product.slug,
 			price: currentColor && currentColor.isSale ? currentColor.price : currentColor.oldPrice,
-			size: this.state.activeSize
+			size: _.omit(this.state.activeSize, 'group')
 		}
 		this.props.addToCart(product)
 	}
@@ -153,7 +153,6 @@ class ProductForm extends Component {
 		const { activeSize } = this.state;
 		const value = activeSize && activeSize.value;
 		const icon = product && product.brand && logos[product.brand.name] ? IconsArray[logos[product.brand.name]].default : '';
-		console.log({ icon }, product.brand.name);
 		
 		return (
 			<div className={style.ProductForm}>
@@ -257,7 +256,6 @@ class ProductForm extends Component {
 										className={style.ProductForm__select}
 										optionClassName={style.ProductForm__select__option}
 										value={value}
-										closeOnSelect={false}
 										onChange={this.handleChange}
 										options={options}
 										placeholder="Выберите размер"

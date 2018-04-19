@@ -76,7 +76,7 @@ body.scroll-locked {
 }
 @media screen and (max-width: 480px) {
 	.ModalContainer__content {
-		margin: 10px;
+		margin: 32px 10px;
 	}
 }
 

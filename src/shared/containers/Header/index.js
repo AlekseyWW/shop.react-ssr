@@ -55,7 +55,7 @@ class Header extends Component {
 		if (!accessTokenStorage) {
 			setTimeout(() => {
 				this.openRegisterModal()
-			}, 1200);
+			}, 15000);
 		}
 		const { orderId } = qs.parse(this.props.history.location.search);
 		
