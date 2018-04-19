@@ -56,11 +56,18 @@
 	&__group {
 		display flex
 		margin-bottom 16px
+		position relative
+		
 		&:last-child {
 			margin-bottom 0
 		}
 		@media $phone {
 			flex-direction column
+		}
+		&__note {
+			position absolute
+			top 100%
+			left 0
 		}
 	}
 	&__input {
