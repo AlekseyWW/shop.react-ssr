@@ -36,7 +36,7 @@ export const addToCart = (product, remove, removeAll) => (dispatch) => {
 				return dispatch(setCartSuccess(response.map(item => ({
 						id: item.sizeForColor.color.id,
 						name: item.sizeForColor.color.product.name,
-						image: item.sizeForColor.color.product.img,
+						image: item.sizeForColor.color.img,
 						slug: item.sizeForColor.color.product.slug,
 						color: item.sizeForColor.color.name,
 						price: item.sizeForColor.color.price,

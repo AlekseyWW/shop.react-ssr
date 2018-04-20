@@ -16,6 +16,7 @@ const Cart = ({ added, addToCart, removeFromCart }) => {
 		[`${style.Cart__count}`]: true,
 		[`${style.Cart__count_empty}`]: added.length <= 0,
 	})
+	
 	return (
 		<div className={style.Cart} >
 			<Link to="/cart">
@@ -33,7 +34,8 @@ const Cart = ({ added, addToCart, removeFromCart }) => {
 								<td className={style.Cart__table__cell}>Цена</td>
 								<td className={style.Cart__table__cell}>Колл-во</td>
 							</tr>
-							{added.map((item, id) => (
+							{added.map((item, id) => {
+								return(
 								<tr key={`key-${id}`} className={style.Cart__table__row}>
 									<td className={style.Cart__table__cell}>
 										<img src={item.image} />
@@ -61,7 +63,7 @@ const Cart = ({ added, addToCart, removeFromCart }) => {
 										</button>
 									</td>
 								</tr>
-							))}
+							)})}
 							<tr className={style.Cart__table__row}>
 								<td className={style.Cart__table__cell} colSpan="2">
 									<Link to="/cart">

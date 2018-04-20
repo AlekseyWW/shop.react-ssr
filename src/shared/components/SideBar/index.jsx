@@ -40,7 +40,7 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }
 						
 						const subPath = historyLocation ? `${category.slug}/${item.slug}${historyLocation}` : `${category.slug}/${item.slug}`;
 						const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
-						return <Link to={subUrl} key={item.id} className={itemStyles} replace>{item.name}</Link>
+						return <Link to={subUrl} key={item.id} className={itemStyles}>{item.name}</Link>
 						})
 					}
 				</div>
@@ -61,7 +61,6 @@ const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockI
 	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
 	const url = `/${path}/catalog`;
 	const sublist = category.items || category.categories;
-	console.log({ sublist});
 	
 	return (
 		<div>
@@ -147,7 +146,7 @@ class SideBar extends Component {
 		const url = (item) => {
 			const query = {
 				...query,
-				sex: item
+				sex: item === sex ? item : ''
 			}
 			this.historyPush(query)
 			getProducts(query, subCategoryId || categoryId);
@@ -221,6 +220,8 @@ class SideBar extends Component {
 											[`${style.SideBar__filter__sublist__item}`]: true,
 											[`${style.SideBar__filter__sublist__item_active}`]: sex === genderSize[gender][0].sex.name
 										})
+										console.log({sex});
+										
 										return <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={itemStyle}>{gender}</div>
 									})}
 								</div>

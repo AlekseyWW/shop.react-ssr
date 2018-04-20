@@ -29,7 +29,6 @@ class Catalog extends Component {
 			offset: parsedQuery.offset || 0,
 			count: parsedQuery.count || 12,
 		};
-		console.log({ 'mount': productConfig});
 		
 		const category = this.props.subCategoryId || this.props.categoryId;
 		if (!isLoading && !isLoaded || category!== slug || JSON.stringify(this.props.config) !== JSON.stringify(productConfig) ) getProducts(productConfig, category);

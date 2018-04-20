@@ -17,6 +17,7 @@ const CartItem = ({ product, add, remove }) => {
 			</td>
 			<td className={`${styles.CartTable__cell} ${styles.CartTable__cell_name}`}>
 				<Link to={`/products/${product.slug}?color=${product.color}`}>{product.name}</Link>
+				<p>{product.color}</p>
 				<span>{product.size.name}</span>
 				<span>Колличество: {product.count}</span>
 				<span>Цена: {product.price} ₽</span>
