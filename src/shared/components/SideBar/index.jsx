@@ -146,7 +146,7 @@ class SideBar extends Component {
 		const url = (item) => {
 			const query = {
 				...query,
-				sex: item === sex ? item : ''
+				sex: item !== sex ? item : ''
 			}
 			this.historyPush(query)
 			getProducts(query, subCategoryId || categoryId);
