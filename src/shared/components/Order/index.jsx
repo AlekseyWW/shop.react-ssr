@@ -111,7 +111,7 @@ class Order extends Component {
 									</div>
 									<div className={style.Order__delivery}>
 										<p className={style.Order__note}>Стоимость доставки</p>
-									<p className={style.Order__value}>{order.deliveryType === 'post' ? 'Стоимость уточняется после оформления' : order.deliveryPrice}</p>
+									<p className={style.Order__value}>{order.deliveryPrice ? order.deliveryPrice : 'Бесплатно'}</p>
 									</div>
 								</div>
 							</div>

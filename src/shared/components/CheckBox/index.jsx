@@ -49,8 +49,8 @@ const CheckBox = ({ input, item, className, index, type, meta, single}) => {
 			/>
 			<label className={style.CheckBox__label} htmlFor={item.name ? item.name : item}>
 				{HtmlParser(item.name ? item.name : item)}
-				{item.price && <span>{item.price} ₽</span>}
-				{item.id === 'post' && <span className={style.CheckBox__note} >При выборе доставки почты россии, стоимость уточняется у администрации магазина, после оформления заказа</span>}
+				{item.price && <span>{item.price}</span>}
+				{/* {item.id === 'post' && <span className={style.CheckBox__note} >При выборе доставки почты россии, стоимость уточняется у администрации магазина, после оформления заказа</span>} */}
 			</label>
 		</div>
 	);

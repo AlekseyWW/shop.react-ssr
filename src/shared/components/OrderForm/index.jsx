@@ -66,7 +66,7 @@ class OrderForm extends Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		
-		if (!this.props.deliveryCity && nextProps.deliveryCity) {
+		if (!this.props && nextProps) {
 			const productsForDelivery = nextProps.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
@@ -79,7 +79,6 @@ class OrderForm extends Component {
 				this.props.change('deliveryType', null)
 			}
 		}
-
 	}
 	getOptions(input, callback) {
 		const url = 'http://api-shop.abo-soft.com/sdek/cities';
@@ -109,7 +108,7 @@ class OrderForm extends Component {
 		}))
 		
 		const currentSumm = paymentType ? find(sdek.deliveryTypes, b => b.delivery === paymentType && b.code === delivery) : find(sdek.deliveryTypes, b => b.delivery !== 'electronic_payment' && b.code === delivery)
-		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 ? profile.promocodes[0].amount : 0;
+		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 && getCartSummM(products) > 3000 ? profile.promocodes[0].amount : 0;
 		
 		if (delivery == 'post') {
 			this.props.change('paymentType', 'payment_on_delivery')
@@ -251,7 +250,7 @@ class OrderForm extends Component {
 					<div className={style.OrderDeliver}>
 						<div className={style.OrderDeliver__column}>
 							<p>Доставка</p>
-							<p>При заказе от&nbsp;на&nbsp;сумму 1&nbsp;500&nbsp;рублей, доставку почтой россии - БЕСПЛАТНАЯ, и&nbsp;при заказе от&nbsp;7&nbsp;500 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
+							<p>При заказе на&nbsp;сумму от&nbsp;1&nbsp;500&nbsp;рублей, доставку почтой россии - БЕСПЛАТНАЯ, и&nbsp;при заказе от&nbsp;7&nbsp;500 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
 						</div>
 						<div className={style.OrderDeliver__column}>
 							{sdek && sdek.deliveryTypes ? filter(sdek.deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
@@ -264,7 +263,7 @@ class OrderForm extends Component {
 											item={{
 												id: type.code,
 												name: deliveryData[type.code],
-												price: type.price > 0 ? type.price : ''
+												price: type.priceWithDiscount > 0 ? `${type.priceWithDiscount} ₽` : 'Бесплатно'
 											}}
 											index={0}
 											type="option"
@@ -289,9 +288,9 @@ class OrderForm extends Component {
 						</div>
 						{sdek && sdek.paymentTypes ? 
 							<div>
-								{ delivery == 'post' ? 
-								<p>Вы выбрали доставку Почтой России, стоимость уточняется после оформления заказа</p> : 
-								sdek.paymentTypes.map((type, id) => {
+								{/* { delivery == 'post' ?  */}
+								{/* <p>Вы выбрали доставку Почтой России, стоимость уточняется после оформления заказа</p> :  */}
+								{sdek.paymentTypes.map((type, id) => {
 								const key = `item-${id}`;
 									
 									return type.code !== 'payment_on_delivery' ? (
