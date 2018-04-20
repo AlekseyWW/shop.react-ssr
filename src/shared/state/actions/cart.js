@@ -108,7 +108,7 @@ export const getCart = (accessTokenStorage) => (dispatch) => {
 					color: item.sizeForColor.color.name,
 					slug: item.sizeForColor.color.product.slug,
 					price: item.sizeForColor.color.price,
-					image: item.sizeForColor.color.product.img,
+					image: item.sizeForColor.color.img,
 					price: item.sizeForColor.color.price,
 					size: item.sizeForColor.size,
 					sizeId: item.sizeForColor.id,
