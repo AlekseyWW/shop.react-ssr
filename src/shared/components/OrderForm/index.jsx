@@ -251,7 +251,7 @@ class OrderForm extends Component {
 					<div className={style.OrderDeliver}>
 						<div className={style.OrderDeliver__column}>
 							<p>Доставка</p>
-							<p>При заказе на&nbsp;сумму от&nbsp;1&nbsp;500&nbsp;рублей, доставку почтой россии - БЕСПЛАТНО, и&nbsp;при заказе от&nbsp;7&nbsp;500 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
+							<p>При заказе на&nbsp;сумму от&nbsp;1&nbsp;500&nbsp;рублей, доставку почтой россии - БЕСПЛАТНО, и&nbsp;при заказе от&nbsp;4&nbsp;500 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
 						</div>
 						<div className={style.OrderDeliver__column}>
 							{sdek && sdek.deliveryTypes ? filter(sdek.deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
