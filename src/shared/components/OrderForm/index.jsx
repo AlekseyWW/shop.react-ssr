@@ -60,13 +60,14 @@ class OrderForm extends Component {
 			// this.props.getDeliveryCoast(data.value, productsForDelivery);
 			
 			if (this.props.deliveryCity.id) {
+				
 				this.props.getDeliveryCoast(this.props.deliveryCity.id, productsForDelivery)
 			}
 		}
 	}
 	componentWillReceiveProps(nextProps) {
-		
-		if (!this.props && nextProps) {
+		if (nextProps.deliveryCity && (nextProps.products !== this.props.products) && (nextProps.deliveryCity !== this.props.deliveryCity)) {
+			console.log(nextProps);
 			const productsForDelivery = nextProps.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
