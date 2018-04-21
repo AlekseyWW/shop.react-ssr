@@ -104,7 +104,7 @@ class OrderFormPage extends Component {
 		const { profile, products, deliveryTypes, paymentType, delivery, paymentTypes, isDeliveryLoading, initialValues } = this.props;
 		const { cartSumm } = this.state;
 		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 && cartSumm > 3000 ? profile.promocodes[0].amount : 0;
-		const deliveryCost = paymentType && deliveryTypes && delivery && deliveryTypes.length > 0 ? find(deliveryTypes, b => b.delivery === paymentType && b.code === delivery).priceWithDiscount : 0;
+		const deliveryCost = deliveryTypes && delivery && deliveryTypes.length > 0 ? find(deliveryTypes, b => b.delivery === 'electronic_payment' && b.code === delivery).priceWithDiscount : 0;
 		
 		const productsForDelivery = products.map(product => ({
 			id: product.id,
