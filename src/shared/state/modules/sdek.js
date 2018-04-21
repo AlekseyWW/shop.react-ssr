@@ -23,10 +23,9 @@ const initialState = {
 	isLoaded: false,
 	isDeliveryLoading: false,
 	isDeliveryLoaded: false,
-	cities: [],
 	paymentTypes: undefined,
 	deliveryTypes: undefined,
-	price: 0,
+	cities: [],
 	error: null,
 };
 
@@ -97,7 +96,6 @@ export default function (state = initialState, action = {}) {
 				...state,
 				isDeliveryLoading: false,
 				isDeliveryLoaded: false,
-				price: 0,
 				error: action.error,
 			};
 
