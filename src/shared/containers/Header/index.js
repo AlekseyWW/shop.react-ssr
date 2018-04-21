@@ -57,35 +57,35 @@ class Header extends Component {
 				this.openRegisterModal()
 			}, 15000);
 		}
-		const { orderId } = qs.parse(this.props.history.location.search);
+		const { orderId, deliveryType } = qs.parse(this.props.history.location.search);
+		console.log({ orderId, orderStorage});
 		
 		if (orderStorage === orderId) {
-			
-			const text = `Ваш заказ №${orderStorage} будет доставлен в течение 8 дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.` ;
+			const time = deliveryType === 'post' ? '7-15' : '2-8';
+			const text = deliveryType === 'courier' ? 'В течении 15 минут с Вами свяжется менеджер, для уточнения деталей доставки.' : `Ваш заказ №${order.id} будет доставлен в течение ${time} дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.`;
 			localStorage.setItem('orderId', '')
-			if (!accessTokenStorage) {
-				yaCounter47068560.reachGoal('PAYMENT');
-				this.props.openModal({
-					modalType: ModalExample,
-					onClose: () => {
-						this.props.history.push('/')
-						this.props.clearCart();
-						localStorage.setItem("order", "");
-					},
-					modalProps: {
-						title: `Спасибо, Ваш заказ оформлен`,
-						status: 'order',
-						text: (
-							<p>
-								{text}
-							</p>
-						),
-						subTitle: '',
-						hasClose: true,
-						// confirm: true,
-					}
-				});
-			}
+			localStorage.setItem('deliveryType', '')
+			yaCounter47068560.reachGoal('PAYMENT');
+			this.props.openModal({
+				modalType: ModalExample,
+				onClose: () => {
+					this.props.history.push('/')
+					this.props.clearCart();
+					localStorage.setItem("order", "");
+				},
+				modalProps: {
+					title: `Спасибо, Ваш заказ оформлен`,
+					status: 'order',
+					text: (
+						<p>
+							{text}
+						</p>
+					),
+					subTitle: '',
+					hasClose: true,
+					// confirm: true,
+				}
+			});
 		}
 	}
 	componentWillReceiveProps(nextProps) {

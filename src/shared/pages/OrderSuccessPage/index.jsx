@@ -91,6 +91,7 @@ class OrderPage extends Component {
 					});
 				} else {
 					localStorage.setItem('orderId', order.id)
+					localStorage.setItem('deliveryType', order.deliveryType)
 					window.location = data
 				}
 			})
