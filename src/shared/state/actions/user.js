@@ -29,8 +29,11 @@ export const redirect = role => {
 }
 
 const loginStart = () => {
-	return {
-		type: types.LOGIN_START
+	return dispatch => {
+		dispatch(actions.closeModal())
+		dispatch({
+			type: types.LOGIN_START
+		})
 	}
 }
 
@@ -41,7 +44,6 @@ export const loginSuccess = (token) => {
 			type: types.LOGIN_SUCCESS,
 			token,
 		});
-		dispatch(actions.closeModal())
 		// dispatch(replace('/user'));
 	}
 }

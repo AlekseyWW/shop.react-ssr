@@ -116,22 +116,25 @@ class OrderFormPage extends Component {
 		
 		return (
 			<div className={styles.CartContainer}>
-				<OrderForm
-					onSubmit={ data => this.handleSubmit(data) }
-					getOptions={ this.getOptions}
-					productsForDelivery={ productsForDelivery }
-					getCartSummM={ this.getCartSummM }
-					deliveryCost={ deliveryCost }
-					cartSumm={ cartSumm }
-					deliveryTypes={ deliveryTypes }
-					paymentTypes={ paymentTypes }
-					products={ products }
-					orderSumm={cartSumm + deliveryCost - promoAmount }
-					initialValues={initialValues}
-					productsForDelivery={productsForDelivery}
-					isDeliveryLoading={ isDeliveryLoading }
-					getDeliveryCoast={this.props.getDeliveryCoast}
-				/>
+				{products && products.length > 0 ? 
+					<OrderForm
+						onSubmit={ data => this.handleSubmit(data) }
+						getOptions={ this.getOptions}
+						productsForDelivery={ productsForDelivery }
+						getCartSummM={ this.getCartSummM }
+						deliveryCost={ deliveryCost }
+						cartSumm={ cartSumm }
+						deliveryTypes={ deliveryTypes }
+						paymentTypes={ paymentTypes }
+						products={ products }
+						orderSumm={cartSumm + deliveryCost - promoAmount }
+						initialValues={initialValues}
+						productsForDelivery={productsForDelivery}
+						isDeliveryLoading={ isDeliveryLoading }
+						getDeliveryCoast={this.props.getDeliveryCoast}
+					/> :
+					<h2>Сначала добавьте товары в корзину</h2>
+				}
 			</div>
 		);
 	}

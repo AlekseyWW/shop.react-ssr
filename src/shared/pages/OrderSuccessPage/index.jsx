@@ -91,8 +91,6 @@ class OrderPage extends Component {
 					});
 				} else {
 					localStorage.setItem('orderId', order.id)
-					this.props.clearCart()
-					localStorage.setItem("order", "");
 					window.location = data
 				}
 			})
@@ -110,12 +108,12 @@ class OrderPage extends Component {
 			<div className={style.Checkout}>
 			
 				<div className={style.Checkout__title}>
-					<h1>Подтверждение заказа</h1>
+					<h1>{order ? 'Подтверждение заказа' : 'Нет активных заказов'}</h1>
 				</div>
 				{order && order.paymentType &&
 					<Order order={order} withoutPrice />
 				}
-				<Button onClick={this.onClick}>{text}</Button>
+				{order && <Button onClick={this.onClick}>{text}</Button>}
 			</div>
 		);
 	}

@@ -41,7 +41,7 @@ class LogoLine extends Component {
 		})
 	}
 	render() {
-		const { isFavorite, loginModalOpen, profile, logout, searchProducts} = this.props;
+		const { isFavorite, loginModalOpen, profile, logout, searchProducts, isFetching} = this.props;
 		const heartClass = classNames(style.LogoLine__action__heart,{
 			[style.LogoLine__action__heart_active]: isFavorite
 		})
@@ -92,7 +92,7 @@ class LogoLine extends Component {
 							<NavLink to="/return" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 								Возврат
 							</NavLink>
-							{!profile &&
+							{!profile && !isFetching &&
 								<div className={style.LogoLine__nav__item} onClick={loginModalOpen}>
 									Вход/Регистрация
 								</div>

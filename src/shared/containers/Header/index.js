@@ -54,7 +54,9 @@ class Header extends Component {
 		}
 		if (!accessTokenStorage) {
 			setTimeout(() => {
-				this.openRegisterModal()
+				if (!accessTokenStorage) {
+					this.openRegisterModal()
+				}
 			}, 15000);
 		}
 		const { orderId } = qs.parse(this.props.history.location.search);
@@ -169,12 +171,12 @@ class Header extends Component {
 		})
 	}
 	render() {
-		const { items, cart, favorites, profile, logout, accessToken } = this.props;
+		const { items, cart, favorites, profile, logout, accessToken, isFetching } = this.props;
 		
 		return (
 			<div className={style.Header}>
 				<HeaderInfo data={headerData} loginModalOpen={!profile ? this.loginModalOpen : () => this.props.history.push('/user')} logout={logout}/>
-				<LogoLine searchProducts={this.search} logout={logout} cart={cart} isFavorite={favorites.length > 0} loginModalOpen={this.loginModalOpen} profile={profile}/>
+				<LogoLine isFetching={isFetching} searchProducts={this.search} logout={logout} cart={cart} isFavorite={favorites.length > 0} loginModalOpen={this.loginModalOpen} profile={profile}/>
 			</div>
 		);
 	}
@@ -193,9 +195,9 @@ const mapStateToProps = (state) => {
 	const { isLoaded, isLoading, items } = state.category.categories;
 	const { getStockCategories } = state.category;
 	const { added: favorites } = state.favorites;
-	const { profile, profileIsLoaded, profileIsLoading, accessToken, error } = state.user;
+	const { profile, isFetching, profileIsLoaded, profileIsLoading, accessToken, error } = state.user;
 	const cart = state.cart.added;
-	return { isLoaded, isLoading, accessToken, items, cart, error, favorites, profile, profileIsLoaded, profileIsLoading };
+	return { isLoaded, isLoading, isFetching, accessToken, items, cart, error, favorites, profile, profileIsLoaded, profileIsLoading };
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -14,9 +14,10 @@ class OrderProducts extends PureComponent {
 					return (
 						<div key={key} className={styles.OrderProducts__item}>
 							<div className={styles.OrderProducts__item__id}>{id + 1}</div>
-							<div className={styles.OrderProducts__item__img}><img src={color.product.img} alt="" /></div>
+							<div className={styles.OrderProducts__item__img}><img src={color.img} alt="" /></div>
 							<div className={styles.OrderProducts__item__size}>{color.size.name}</div>
 							<div className={styles.OrderProducts__item__name}>{color.product.name}</div>
+							<div className={styles.OrderProducts__item__size}>{color.name}</div>
 							<div className={styles.OrderProducts__item__price}>{color.price} ₽</div>
 						</div>
 					)
