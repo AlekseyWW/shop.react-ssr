@@ -24,6 +24,7 @@ import card from './card.svg';
 import adress from './adress.svg';
 import logout from './logout.svg';
 import gift from './gift.svg';
+import cross from './cross.svg';
 // import fbIcon from './facebook.svg';
 // import notesLogo from './chulakov-logo.svg';
 // import lab from './chula-lab.svg';
@@ -85,6 +86,7 @@ export const PresentIcon = props => <Icon glyph={present} {...props} />;
 export const LogoutIcon = props => <Icon glyph={logout} {...props} />;
 export const GiftIcon = props => <Icon glyph={gift} {...props} />;
 export const LeftArrow = props => <Icon glyph={leftArrow} {...props} />;
+export const CrossIcon = props => <Icon glyph={cross} {...props} />;
 
 // export const FbIcon = props => <Icon glyph={fbIcon} width={24} height={24} {...props} />;
 

@@ -52,6 +52,14 @@
 			&_active {
 				display block
 			}
+			&_sizes {
+				display flex
+				flex-wrap: wrap
+				.SideBar__filter__sublist__item {
+					width 55px
+					max-width 55px
+				}
+			}
 			&__item {
 				font-size 14px
 				position: relative
@@ -72,6 +80,9 @@
 					background-color #fff
 					// border 1px solid $borderColor
 					border-radius: 2px
+				}
+				&:last-child {
+					margin-bottom 0
 				}
 				&_active {
 					// color $linkColor

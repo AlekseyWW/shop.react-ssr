@@ -11,7 +11,8 @@ import qs from 'query-string';
 import Button from 'components/Button/';
 import * as productsAction from 'actions/products';
 import { Link, NavLink } from 'react-router-dom';
-
+import sortBy from "lodash/sortBy";
+import uniqBy from "lodash/uniqBy";
 import style from './styles.styl';
 import { blur } from 'redux-form';
 
@@ -50,6 +51,40 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }
 }
 
 const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, categories }) => {
+	const styles = classNames({
+		[`${style.SideBar__filter__list__item}`]: true,
+		[`${style.SideBar__filter__list__item_active}`]: isActive,
+	})
+	const subStyles = classNames({
+		[`${style.SideBar__filter__sublist}`]: true,
+		[`${style.SideBar__filter__sublist_active}`]: stockId === category.slug,
+	})
+	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
+	const url = `/${path}/catalog`;
+	const sublist = category.items || category.categories;
+	
+	return (
+		<div>
+			<Link to={url} key={category.id} className={styles}>{category.name}</Link>
+			{sublist.length &&
+				<div className={subStyles}>
+					{sublist.map(item => {
+							const itemStyles = classNames({
+								[`${style.SideBar__filter__sublist__item}`]: true,
+								[`${style.SideBar__filter__sublist__item_active}`]: subCategoryId === item.slug,
+							});
+							const parentCategory = find(categories, b => find(b.items, { slug: item.slug })) ? find(categories, b => find(b.items, { slug: item.slug })) : {};
+							const subPath = historyLocation ? `${parentCategory.slug}/${item.slug}${historyLocation}` : `${parentCategory.slug}/${item.slug}`;
+							const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
+							return <Link to={subUrl} key={item.id} className={itemStyles} replace>{item.name}</Link>
+						})
+					}
+				</div>
+			}
+		</div>
+	);
+}
+const FilterItem = ({ category, isActive, subCategoryId, historyLocation, stockId, categories }) => {
 	const styles = classNames({
 		[`${style.SideBar__filter__list__item}`]: true,
 		[`${style.SideBar__filter__list__item_active}`]: isActive,
@@ -151,6 +186,25 @@ class SideBar extends Component {
 			this.historyPush(query)
 			getProducts(query, subCategoryId || categoryId);
 		};
+		
+		const brandUrl = (item, type) => {
+			const pathname = this.props.location.pathname;
+			
+			var array = this.props[type] ? this.props[type].split(',') : [];
+			var index = array.indexOf(item);
+			if (index > -1) {
+				array.splice(index, 1);
+			} else {
+				array.push(item);
+			}
+			const editedQuery = { ...this.props.parsedQuery };
+			editedQuery[type] = array.length > 0 ? array.join(',') : '';
+			this.props.history.push({
+				pathname,
+				search: `${qs.stringify(editedQuery)}`
+			})
+		};
+		
 		return (
 			<div className={style.SideBar}>
 				<div className={style.SideBar__filter} ref={el => this.block = el}>
@@ -213,37 +267,71 @@ class SideBar extends Component {
 						</div>
 						{gender.length > 0 &&
 							<div className={style.SideBar__filter__list}>
-							<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Пол</div>
-							<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active}`}>
+								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Пол</div>
+								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active}`}>
 									{gender.map(gender => {
 										const itemStyle = classNames({
 											[`${style.SideBar__filter__sublist__item}`]: true,
 											[`${style.SideBar__filter__sublist__item_active}`]: sex === genderSize[gender][0].sex.name
 										})
-										console.log({sex});
-										
 										return <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={itemStyle}>{gender}</div>
 									})}
 								</div>
 							</div>
 						}
+						{brands.brands &&
+							<div className={style.SideBar__filter__list}>
+								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Бренд</div>
+								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active}`}>
+									{sortBy(brands.brands, 'name').map((brand, id) => {
+										const key = `brand-${id}`;
+										var array = this.props.brand ? this.props.brand.split(',') : [];
+										var index = array.indexOf(brand.name);
+										const itemStyle = classNames({
+											[`${style.SideBar__filter__sublist__item}`]: true,
+											[`${style.SideBar__filter__sublist__item_active}`]: index > -1
+										})
+										return <div key={key} onClick={() => brandUrl(brand.name, 'brand')} className={itemStyle}>{brand.name}</div>
+									})}
+								</div>
+							</div>
+						}
+						{currentSizes &&
+							<div className={style.SideBar__filter__list}>
+								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Размер</div>
+								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active} ${style.SideBar__filter__sublist_sizes}`}>
+								{sortBy(uniqBy(currentSizes, 'name'), 'name').map((size, id) => {
+										const key = `size-${id}`;
+										var array = this.props.size ? this.props.size.split(',') : [];
+										var index = array.indexOf(size.name);
+										const itemStyle = classNames({
+											[`${style.SideBar__filter__sublist__item}`]: true,
+											[`${style.SideBar__filter__sublist__item_active}`]: index > -1
+										})
+										
+										return <div key={key} onClick={() => brandUrl(size.name, 'size')} className={itemStyle}>{size.name}</div>
+									})}
+								</div>
+							</div>
+						}
 					</div>
-					<div className={style.SideBar__filter__item}>
-						{/* <BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
-							const query = {};
+					{/* <div className={style.SideBar__filter__item}>
 							
-							Object.keys(data).forEach(element => {
-								if (data[element]) {
-									query[element] = data[element].join(',')
-								}
-							});
-							query.sex = sex;
-							query.offset = this.props.query.offset || 0;
-							query.count = this.props.query.count || 12;
-							this.historyPush(query);
-							getProducts(query, subCategoryId || categoryId);
-						}} /> */}
-					</div>
+							<BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
+								const query = {};
+								
+								Object.keys(data).forEach(element => {
+									if (data[element]) {
+										query[element] = data[element].join(',')
+									}
+								});
+								query.sex = sex;
+								query.offset = this.props.query.offset || 0;
+								query.count = this.props.query.count || 12;
+								this.historyPush(query);
+								getProducts(query, subCategoryId || categoryId);
+							}} />
+					</div> */}
 				</div>
 			</div>
 		)
@@ -269,6 +357,7 @@ SideBar.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
 	const { brand, size, sex } = qs.parse(ownProps.location.search);
+	const parsedQuery = qs.parse(ownProps.location.search);
 	const query = qs.parse(ownProps.location.search);
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
@@ -297,6 +386,7 @@ const mapStateToProps = (state, ownProps) => {
 		brand,
 		query,
 		size,
+		parsedQuery,
 		sizes,
 		sex,
 		slug,

@@ -15,7 +15,7 @@ export default function includeMenu(ComposedComponent) {
 			return (
 				<div>
 					<Menu right>
-						{typeof window !== 'undefined' && window.innerWidth <= 992 && <SideBar />}
+						{typeof window !== 'undefined' && window.innerWidth <= 992 && <SideBar isMobile/>}
 					</Menu>
 					<ComposedComponent {...this.props} />
 				</div>

@@ -153,7 +153,7 @@ class ProductForm extends Component {
 		}))
 		const { activeSize } = this.state;
 		const value = activeSize && activeSize.value;
-		const icon = product && product.brand && logos[product.brand.name] ? IconsArray[logos[product.brand.name]].default : '';
+		const icon = product && product.brand && logos[product.brand.name] && IconsArray[logos[product.brand.name]] ? IconsArray[logos[product.brand.name]].default : '';
 		
 		return (
 			<div className={style.ProductForm}>

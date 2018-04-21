@@ -8,6 +8,28 @@
 			margin 0 -16px 24px
 		}
 	}
+	&__list {
+		display flex
+
+		&__item {
+			margin-right 14px
+			display: flex
+			align-items center
+			line-height 1
+			&:last-child {
+				margin-right 0
+			}
+			color $textColor
+			cursor pointer
+			padding 4px
+			font-size: 12px
+			.Icon {
+				margin-right 8px
+				width 8px
+				height 8px
+			}
+		}
+	}
 	&__inner {
 		transform: translateZ(0)
 		position relative

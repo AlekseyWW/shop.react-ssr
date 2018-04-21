@@ -6,6 +6,8 @@ import { withRouter } from 'react-router-dom';
 import * as productsAction from 'actions/products';
 import * as paginationAction from '../../state/modules/pagination';
 import qs from 'query-string';
+import { CrossIcon } from 'components/Icon';
+
 import FilterBlock from 'components/FilterBlock';
 import BarFilter from 'components/BarFilter';
 
@@ -89,13 +91,54 @@ class Filter extends Component {
 			this.props.changeForm('size', '')
 		}
 	}
+	removeFilter = (item, type) => {
+		const pathname = this.props.location.pathname;
+
+		if (type === 'brand' || type === 'size') {
+			var array = this.props[type].split(',');
+			var index = array.indexOf(item);
+			if (index > -1) {
+				array.splice(index, 1);
+			}
+			const editedQuery = { ...this.props.parsedQuery };
+			editedQuery[type] = array.length > 0 ? array.join(',') : '';
+
+			this.props.history.push({
+				pathname: pathname,
+				search: `${qs.stringify(editedQuery)}`
+			})
+		}
+		if (type === 'sex') {
+			var array = this.props[type].split(',');
+			var index = array.indexOf(item);
+			if (index > -1) {
+				array.splice(index, 1);
+			}
+			const editedQuery = { ...this.props.parsedQuery };
+			editedQuery[type] = array.length > 0 ? array.join(',') : '';
+			
+			this.props.history.push({
+				pathname: pathname,
+				search: `${qs.stringify(editedQuery)}`
+			})
+		}
+		if (type === 'stockId') {
+			console.log(`${pathname}`.replace(`/${item}`, ''));
+			const editedQuery = { ...this.props.parsedQuery };
+
+			this.props.history.push({
+				pathname: `${pathname}`.replace(`/${item}`, ''),
+				search: `${qs.stringify(this.props.parsedQuery)}`
+			})
+		}
+	}
 	render() {
-		const { getProducts, allCount, sex, sizes, brands } = this.props;
+		const { getProducts, allCount, sizes, brands, brand, size, sex, stockId } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		return (
 			<div className={style.Filter} id="filter">
 				<div className={style.Filter__inner} ref={el => this.block = el}>
-					<div className={style.Filter__filters}>
+					{/* <div className={style.Filter__filters}>
 						<BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
 							const query = {};
 
@@ -112,6 +155,12 @@ class Filter extends Component {
 								// getProducts(query, this.props.subCategoryId || this.props.categoryId);
 							}
 						}} />
+					</div> */}
+					<div className={style.Filter__list}>
+						{brand && brand.length > 0 && brand.split(',').map(item => <p className={style.Filter__list__item} onClick={() => this.removeFilter(item, 'brand')} key={item}><CrossIcon />{item}</p>)}
+						{size && size.length > 0 && size.split(',').map(item => <p className={style.Filter__list__item} onClick={() => this.removeFilter(item, 'size')} key={item}><CrossIcon />{item}</p>)}
+						{sex && <p className={style.Filter__list__item} onClick={() => this.removeFilter(sex, 'sex')}><CrossIcon />{sex}</p>}
+						{stockId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(stockId, 'stockId')}><CrossIcon />{stockId}</p>}
 					</div>
 					<div className={style.Filter__sorting}>
 						{filterdata.map(item => (
@@ -140,11 +189,13 @@ Filter.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
 	const { brand, size, sex } = qs.parse(ownProps.location.search);
+	const parsedQuery = qs.parse(ownProps.location.search);
+	
 	const brands = state.brands;
 	const { sizes } = state.products;
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const query = qs.parse(ownProps.location.search);
-	return { categoryId, subCategoryId, stockId, query, brands, brand, size, sex, sizes };
+	return { categoryId, parsedQuery, subCategoryId, stockId, query, brands, brand, size, sex, sizes };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

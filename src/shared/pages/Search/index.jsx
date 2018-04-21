@@ -119,8 +119,8 @@ class Search extends Component {
 					Результаты поиска
 				</div>
 				{isSearching && <Preloader />}
-				{searchProducts.length > 0 && isSearched && !isSearching && searchProducts.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'} />)}
-				{searchProducts.length === 0 && isSearched && !isSearching && <p>По заданным параметрам товаров не найдено</p>}
+				{searchProducts && searchProducts.length > 0 && isSearched && !isSearching && searchProducts.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'} />)}
+				{searchProducts && searchProducts.length === 0 && isSearched && !isSearching && <p>По заданным параметрам товаров не найдено</p>}
 			</div>
 		);
 	}

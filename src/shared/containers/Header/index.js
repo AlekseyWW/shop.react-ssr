@@ -88,17 +88,17 @@ class Header extends Component {
 			}
 		}
 	}
-	// componentWillReceiveProps(nextProps) {
-	// 	const { profileIsLoaded, profileIsLoading, error } = this.props;
-	// 	if (nextProps.accessToken && !profileIsLoaded && !profileIsLoading && !error) {
-	// 		this.props.getProfile(nextProps.accessToken);
-	// 	}
-	// 	if (nextProps.accessToken && !this.props.accessToken) {
-	// 		this.props.getCart(nextProps.accessToken);
-	// 		this.props.getFavorites(nextProps.accessToken);
-	// 	}
+	componentWillReceiveProps(nextProps) {
+		const { profileIsLoaded, profileIsLoading, error } = this.props;
+		if (nextProps.accessToken && !profileIsLoaded && !profileIsLoading && !error) {
+			this.props.getProfile(nextProps.accessToken);
+		}
+		if (nextProps.accessToken && !this.props.accessToken) {
+			this.props.getCart(nextProps.accessToken);
+			this.props.getFavorites(nextProps.accessToken);
+		}
 		
-	// }
+	}
 	setTimeout = null;
 	search = (input, val) => {
 		const value = input ? input.target.value : val;

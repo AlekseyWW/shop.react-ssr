@@ -90,6 +90,13 @@ class Catalog extends Component {
 			this.props.getProducts(productConfig, nextProps.categoryId);
 		}
 	}
+	historyPush = query => {
+		this.props.history.push({
+			pathname: subCategoryId ? `/catalog/${categoryId}/${subCategoryId}` : `/catalog/${categoryId}`,
+			search: `${qs.stringify(query)}`
+		})
+	}
+
 	render() {
 		const {
 			products,
@@ -103,32 +110,32 @@ class Catalog extends Component {
 			title,
 			stockTitle,
 			getProducts,
+			brand,
+			size,
+			sex,
+			stockId,
 			isLoaded
 		} = this.props;
-		const historyPush = query => {
-			this.props.history.push({
-				pathname: subCategoryId ? `/catalog/${categoryId}/${subCategoryId}` : `/catalog/${categoryId}`,
-				search: `${qs.stringify(query)}`
-			})
-		}
 		return (
-			<MainBlock
-				title={title}
-				stockTitle={stockTitle}
-				products={products}
-				categoryId={categoryId}
-				subCategoryId={subCategoryId}
-				allCount={allCount}
-				countView={countView}
-				categories={categories}
-				brands={brands.brands}
-				sizes={sizes}
-				isLoaded={isLoaded}
-				getProducts={getProducts}
-				historyPush={historyPush}
-				historyLocation={this.props.location.search}
-				subCategoryId={subCategoryId}
-			/>
+			<div>
+				<MainBlock
+					title={title}
+					stockTitle={stockTitle}
+					products={products}
+					categoryId={categoryId}
+					subCategoryId={subCategoryId}
+					allCount={allCount}
+					countView={countView}
+					categories={categories}
+					brands={brands.brands}
+					sizes={sizes}
+					isLoaded={isLoaded}
+					getProducts={getProducts}
+					historyPush={this.historyPush}
+					historyLocation={this.props.location.search}
+					subCategoryId={subCategoryId}
+				/>
+			</div>
 		);
 	}
 }
@@ -149,7 +156,7 @@ Catalog.propTypes = {
 	categories: PropTypes.array.isRequired,
 	brands: PropTypes.object.isRequired,
 	brand: PropTypes.string,
-	size: PropTypes.string,
+	size: PropTypes.any,
 	sizes: PropTypes.array.isRequired,
 	categoryId: PropTypes.string,
 	title: PropTypes.string.isRequired,
