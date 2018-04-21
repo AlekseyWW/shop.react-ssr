@@ -174,7 +174,7 @@ class SideBar extends Component {
 	// 	}
 	// }
 	render() {
-		const { stockTitle, query, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match } = this.props;
+		const { stockTitle, query, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
 		const gender = Object.keys(genderSize);
@@ -212,6 +212,23 @@ class SideBar extends Component {
 						<div className={style.SideBar__filter__title}>
 							{title} {stockTitle && `/${stockTitle}`}
 						</div>
+						{isMobile && <div className={style.SideBar__filter__item}>
+
+							<BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
+								const query = {};
+
+								Object.keys(data).forEach(element => {
+									if (data[element]) {
+										query[element] = data[element].join(',')
+									}
+								});
+								query.sex = sex;
+								query.offset = this.props.query.offset || 0;
+								query.count = this.props.query.count || 12;
+								this.historyPush(query);
+								getProducts(query, subCategoryId || categoryId);
+							}} />
+						</div>}
 						{/* {gender.length > 0 &&
 							<div className={style.SideBar__sex}>
 								{gender.map(gender => {
@@ -222,8 +239,8 @@ class SideBar extends Component {
 									return <div onClick={() => url(genderSize[gender][0].sex.name)} key={gender} className={itemStyle}>{gender}</div>
 								})}
 							</div>
-						} */}
-						{/* <div className={style.SideBar__stock}>
+						}
+						<div className={style.SideBar__stock}>
 							<NavLink to={`/catalog`} onClick={this.resetForm} className={style.SideBar__stock__item} activeClassName={style.SideBar__stock__item_active}>Все товары</NavLink>
 							{stockCategories && stockCategories.map(category => 
 								<NavLink
@@ -279,7 +296,7 @@ class SideBar extends Component {
 								</div>
 							</div>
 						}
-						{brands.brands &&
+						{brands.brands && !isMobile &&
 							<div className={style.SideBar__filter__list}>
 								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Бренд</div>
 								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active}`}>
@@ -296,7 +313,7 @@ class SideBar extends Component {
 								</div>
 							</div>
 						}
-						{currentSizes &&
+						{currentSizes && !isMobile &&
 							<div className={style.SideBar__filter__list}>
 								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Размер</div>
 								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active} ${style.SideBar__filter__sublist_sizes}`}>
@@ -315,23 +332,7 @@ class SideBar extends Component {
 							</div>
 						}
 					</div>
-					{/* <div className={style.SideBar__filter__item}>
-							
-							<BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
-								const query = {};
-								
-								Object.keys(data).forEach(element => {
-									if (data[element]) {
-										query[element] = data[element].join(',')
-									}
-								});
-								query.sex = sex;
-								query.offset = this.props.query.offset || 0;
-								query.count = this.props.query.count || 12;
-								this.historyPush(query);
-								getProducts(query, subCategoryId || categoryId);
-							}} />
-					</div> */}
+					
 				</div>
 			</div>
 		)

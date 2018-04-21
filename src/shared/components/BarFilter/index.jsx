@@ -37,6 +37,7 @@ class BarFilter extends Component {
 			[`${style.BarFilter__brand}`]: true,
 			[`${style.BarFilter__brand_active}`]: this.state.isBrandOpen,
 		})
+		
 		return (
 			<form onSubmit={handleSubmit} className={style.BarFilter}>
 				<div className={style.BarFilter__item}>

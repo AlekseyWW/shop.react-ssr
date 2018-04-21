@@ -33,6 +33,8 @@ const CheckBox = ({ input, item, className, index, type, meta, single}) => {
 		}
 		isChecked = input.value ? true : false;
 	}
+	console.log(item);
+	
 	return (
 		<div className={styles}>
 			<input
