@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import * as productsAction from 'actions/products';
 import * as paginationAction from '../../state/modules/pagination';
 import qs from 'query-string';
+import find from 'lodash/find';
 import { CrossIcon } from 'components/Icon';
 
 import FilterBlock from 'components/FilterBlock';
@@ -123,7 +124,6 @@ class Filter extends Component {
 			})
 		}
 		if (type === 'stockId') {
-			console.log(`${pathname}`.replace(`/${item}`, ''));
 			const editedQuery = { ...this.props.parsedQuery };
 
 			this.props.history.push({
@@ -131,10 +131,35 @@ class Filter extends Component {
 				search: `${qs.stringify(this.props.parsedQuery)}`
 			})
 		}
+		if (type === 'subCategoryId') {
+			const editedQuery = { ...this.props.parsedQuery };
+
+			this.props.history.push({
+				pathname: `${pathname}`.replace(`/${item}`, ''),
+				search: `${qs.stringify(this.props.parsedQuery)}`
+			})
+		}
+		if (type === 'categoryId') {
+			let newPath = `${pathname}`.replace(`/${item}`, '')
+			if(this.props.subCategoryId) {
+				newPath = `${newPath}`.replace(`/${this.props.subCategoryId}`, '')
+			}
+			
+			const editedQuery = { ...this.props.parsedQuery };
+
+			this.props.history.push({
+				pathname: newPath,
+				search: `${qs.stringify(this.props.parsedQuery)}`
+			})
+		}
 	}
 	render() {
-		const { getProducts, allCount, sizes, brands, brand, size, sex, stockId } = this.props;
+		const { getProducts, allCount, sizes, brands, brand, size, sex, stockId, subCategoryId, categoryId, categories } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
+		const category = categories && categoryId && find(categories.items, { slug: categoryId }) ? find(categories.items, { slug: categoryId }): null;
+		const subCategory = categories && category && subCategoryId && find(category.items, { slug: subCategoryId }) ? find(category.items, { slug: subCategoryId }).name : subCategoryId
+		console.log({ category, categoryId, categories});
+		
 		return (
 			<div className={style.Filter} id="filter">
 				<div className={style.Filter__inner} ref={el => this.block = el}>
@@ -157,10 +182,12 @@ class Filter extends Component {
 						}} />
 					</div> */}
 					<div className={style.Filter__list}>
+						{stockId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(stockId, 'stockId')}><CrossIcon />{stockId}</p>}
+						{categoryId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(categoryId, 'categoryId')}><CrossIcon />{category ? category.name : ''}</p>}
+						{subCategoryId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(subCategoryId, 'subCategoryId')}><CrossIcon />{subCategory}</p>}
 						{brand && brand.length > 0 && brand.split(',').map(item => <p className={style.Filter__list__item} onClick={() => this.removeFilter(item, 'brand')} key={item}><CrossIcon />{item}</p>)}
 						{size && size.length > 0 && size.split(',').map(item => <p className={style.Filter__list__item} onClick={() => this.removeFilter(item, 'size')} key={item}><CrossIcon />{item}</p>)}
 						{sex && <p className={style.Filter__list__item} onClick={() => this.removeFilter(sex, 'sex')}><CrossIcon />{sex}</p>}
-						{stockId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(stockId, 'stockId')}><CrossIcon />{stockId}</p>}
 					</div>
 					<div className={style.Filter__sorting}>
 						{filterdata.map(item => (
@@ -193,9 +220,10 @@ const mapStateToProps = (state, ownProps) => {
 	
 	const brands = state.brands;
 	const { sizes } = state.products;
+	const { categories } = state.category;
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const query = qs.parse(ownProps.location.search);
-	return { categoryId, parsedQuery, subCategoryId, stockId, query, brands, brand, size, sex, sizes };
+	return { categoryId, parsedQuery, subCategoryId, stockId, query, brands, brand, size, sex, sizes, categories };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
