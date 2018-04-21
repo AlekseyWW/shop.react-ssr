@@ -178,11 +178,12 @@ export default function user(state = initialState, action) {
 		case types.LOGOUT_SUCCESS:
 			return {
 				...state,
-				logoutIsFetching: false,
-				profileIsLoaded: false,
-				profile: {},
+				isFetching: false,
 				role: '',
 				accessToken: '',
+				profile: undefined,
+				profileIsLoading: false,
+				profileIsLoaded: false,
 				error: null
 			};
 

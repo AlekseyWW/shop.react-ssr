@@ -104,7 +104,8 @@ class OrderFormPage extends Component {
 		const { profile, products, deliveryTypes, paymentType, delivery, paymentTypes, isDeliveryLoading, initialValues } = this.props;
 		const { cartSumm } = this.state;
 		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 && cartSumm > 3000 ? profile.promocodes[0].amount : 0;
-		const deliveryCost = paymentType && deliveryTypes && deliveryTypes.length > 0 ? find(deliveryTypes, b => b.delivery === paymentType && b.code === delivery).priceWithDiscount : 0;
+		const deliveryCost = paymentType && deliveryTypes && delivery && deliveryTypes.length > 0 ? find(deliveryTypes, b => b.delivery === paymentType && b.code === delivery).priceWithDiscount : 0;
+		
 		const productsForDelivery = products.map(product => ({
 			id: product.id,
 			quantity: product.count,
@@ -176,8 +177,8 @@ const mapStateToProps = (state) => {
 	const { order } = state.form;
 
 	const val = order ? order.values : {};
-	const initialValues = accessToken && profileIsLoaded && profile ? { ...profile, promocode: profile.promocodes && profile.promocodes[0] ? profile.promocodes[0].code : '', city: profile.city ? { id: profile.city.id, label: profile.city.name } : null, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) };
-
+	const initialValues = accessToken && profileIsLoaded && profile && profile.id ? { ...profile, promocode: profile.promocodes && profile.promocodes[0] ? profile.promocodes[0].code : '', city: profile.city ? { id: profile.city.id, label: profile.city.name } : null, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) };
+	
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');

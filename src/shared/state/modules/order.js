@@ -128,6 +128,7 @@ export default function postsReducer(state = initialState, action) {
 			return {
 				...state,
 				isFetching: false,
+				order: undefined,
 				error: action.error,
 			};
 		default:

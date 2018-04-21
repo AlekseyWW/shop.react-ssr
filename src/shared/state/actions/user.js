@@ -3,6 +3,8 @@ import { post, get, patch, setAccessToken, getAccessToken, setCart, setFavorites
 import { replace } from 'react-router-redux';
 import { setUserRole } from 'utils/helpers';
 import { actions } from '../modules/modal';
+import { requestOrderFail } from '../modules/order';
+import { clearCart } from './cart';
 import { reset } from 'redux-form';
 import axios from 'axios';
 
@@ -46,11 +48,15 @@ export const loginSuccess = (token) => {
 
 const loginFailure = error => {
 
-	clearLocalStorage();
-
-	return {
-		type: types.LOGIN_FAILURE,
-		error
+	return dispatch => {
+		clearLocalStorage();
+		dispatch(clearCart())
+		dispatch(requestOrderFail());
+		dispatch(reset('order'));
+		dispatch({
+			type: types.LOGIN_FAILURE,
+			error
+		})
 	}
 }
 
@@ -292,6 +298,8 @@ const logoutStart = () => {
 
 export const logoutSuccess = () => {
 	return dispatch => {
+		dispatch(clearCart())
+		dispatch(requestOrderFail());
 		dispatch({ type: types.LOGOUT_SUCCESS });
 		clearLocalStorage();
 		// dispatch(replace('/login'));

@@ -64,8 +64,10 @@ class Order extends Component {
 				console.log(err.message);
 			});
 	}
+	
 	render() {
 		const { handleSubmit, products, deliveryCost, deliveryCity, delivery, order, paymentType, sdek, orders } = this.props;
+		console.log({ order });
 		return (
 			<div className={style.Order}>
 				{order &&
