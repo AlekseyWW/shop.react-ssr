@@ -73,8 +73,6 @@ class OrderPage extends Component {
 						modalType: ModalExample,
 						onClose: () => {
 							this.props.history.push('/')
-							this.props.clearCart();
-							localStorage.setItem("order", "");
 						},
 						modalProps: {
 							title: `Спасибо, Ваш заказ оформлен`,
