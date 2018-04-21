@@ -124,7 +124,8 @@ class ProductForm extends Component {
 	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
-		const activeColor = color && _.find(product.colors, { name: color }) ? _.find(product.colors, { name: color }) : product.colors[0];
+		const filtredColors = _.filter(product.colors, b => b.sizes.length > 0)
+		const activeColor = color && _.find(filtredColors, { name: color }) ? _.find(filtredColors, { name: color }) : filtredColors[0];
 		const id = activeColor ? activeColor.id : 0;
 		const propsModal = {
 			title: product.name,

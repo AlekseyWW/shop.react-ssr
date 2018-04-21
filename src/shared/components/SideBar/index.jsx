@@ -40,7 +40,7 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }
 						});
 						
 						const subPath = historyLocation ? `${category.slug}/${item.slug}${historyLocation}` : `${category.slug}/${item.slug}`;
-						const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
+						const subUrl = `/catalog/${subPath}`;
 						return <Link to={subUrl} key={item.id} className={itemStyles}>{item.name}</Link>
 						})
 					}
@@ -75,7 +75,7 @@ const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockI
 							});
 							const parentCategory = find(categories, b => find(b.items, { slug: item.slug })) ? find(categories, b => find(b.items, { slug: item.slug })) : {};
 							const subPath = historyLocation ? `${parentCategory.slug}/${item.slug}${historyLocation}` : `${parentCategory.slug}/${item.slug}`;
-							const subUrl = stockId ? `/${stockId}/catalog/${subPath}` : `/catalog/${subPath}`;
+							const subUrl = `/${category.slug}/catalog/${subPath}`;
 							return <Link to={subUrl} key={item.id} className={itemStyles} replace>{item.name}</Link>
 						})
 					}
@@ -266,7 +266,6 @@ class SideBar extends Component {
 									stockId={stockId}
 								/>
 							)}
-							<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
 						</div>
 						<div className={style.SideBar__filter__list}>
 							{stockCategories && stockCategories.map(category =>
@@ -331,6 +330,8 @@ class SideBar extends Component {
 								</div>
 							</div>
 						}
+						<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
+						
 					</div>
 					
 				</div>
