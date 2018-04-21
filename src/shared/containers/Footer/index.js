@@ -12,7 +12,7 @@ class Footer extends Component {
 		this.fetchDistribution = this.fetchDistribution.bind(this)
 	}
 	fetchDistribution = () => {
-		const url = 'http://api-shop.abo-soft.com/email-subscription';
+		const url = `${process.env.API_URL}/email-subscription`;
 		if (this.input.value) {
 			return axios({
 				method: 'post',

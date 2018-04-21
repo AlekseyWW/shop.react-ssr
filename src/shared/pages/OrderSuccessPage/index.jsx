@@ -44,7 +44,7 @@ class OrderPage extends Component {
 		}
 	}
 	succseOrder() {
-		const url = `http://api-shop.abo-soft.com/orders/${this.props.order.id}/accept`
+		const url = `${process.env.API_URL}/orders/${this.props.order.id}/accept`
 		axios({
 			method: 'post',
 			url,
@@ -57,7 +57,7 @@ class OrderPage extends Component {
 	}
 	onClick = () => {
 		const { order } = this.props;
-		const url = `http://api-shop.abo-soft.com/payment-url/order/${order.id}`;
+		const url = `${process.env.API_URL}/payment-url/order/${order.id}`;
 		const time = order.deliveryType === 'post' ? '7-15' : '2-8';
 		const text = order.deliveryType === 'courier' ? 'В течении 15 минут с Вами свяжется менеджер, для уточнения деталей доставки.' : `Ваш заказ №${order.id} будет доставлен в течение ${time} дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.`;
 		axios({

@@ -54,9 +54,7 @@ class Header extends Component {
 		}
 		if (!accessTokenStorage) {
 			setTimeout(() => {
-				if (!accessTokenStorage) {
-					this.openRegisterModal()
-				}
+				this.openRegisterModal()
 			}, 15000);
 		}
 		const { orderId } = qs.parse(this.props.history.location.search);
@@ -127,7 +125,7 @@ class Header extends Component {
 		this.props.history.replace('/success')
 	}
 	fetchDistribution = (data) => {
-		const url = 'http://api-shop.abo-soft.com/email-subscription';
+		const url = `${process.env.API_URL}/email-subscription`;
 		return axios({
 			method: 'post',
 			url,
@@ -142,18 +140,20 @@ class Header extends Component {
 			});
 	}
 	openRegisterModal() {
-		this.props.openModal({
-			modalType: ModalExample,
-			modalProps: {
-				className: "RegisterForm__wrapper",
-				title: 'Регистрация',
-				loginModalOpen: this.loginModalOpen,
-				text: (
-					<RegisterForm onSubmit={this.props.register}/>
-				),
-				hasClose: true
-			}
-		})
+		if (!localStorage.getItem("accessToken")) {
+			this.props.openModal({
+				modalType: ModalExample,
+				modalProps: {
+					className: "RegisterForm__wrapper",
+					title: 'Регистрация',
+					loginModalOpen: this.loginModalOpen,
+					text: (
+						<RegisterForm onSubmit={this.props.register}/>
+					),
+					hasClose: true
+				}
+			})
+		}
 	}
 	
 	loginModalOpen() {

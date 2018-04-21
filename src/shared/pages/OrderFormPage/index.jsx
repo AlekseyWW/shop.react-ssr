@@ -83,7 +83,7 @@ class OrderFormPage extends Component {
 	}
 
 	getOptions(input, callback) {
-		const url = 'http://api-shop.abo-soft.com/sdek/cities';
+		const url = `${process.env.API_URL}/sdek/cities`;
 		axios({
 			method: 'get',
 			url,
