@@ -38,7 +38,8 @@ const promocode = [{
 class OrderForm extends Component {
 
 	render() {
-		const { handleSubmit, products, isDeliveryLoading, orderSumm, cartSumm, deliveryTypes, getDeliveryCoast, paymentTypes, productsForDelivery } = this.props;
+		const { handleSubmit, products, isDeliveryLoading, isDeliveryLoaded, orderSumm, cartSumm, deliveryTypes, getDeliveryCoast, paymentTypes, productsForDelivery } = this.props;
+		console.log({ isDeliveryLoaded});
 		
 		return (
 			<form onSubmit={handleSubmit} className={style.OrderForm}>
@@ -179,7 +180,7 @@ class OrderForm extends Component {
 							<p>При заказе на&nbsp;сумму от&nbsp;1&nbsp;500&nbsp;рублей, доставку почтой россии - БЕСПЛАТНО, и&nbsp;при заказе от&nbsp;4&nbsp;500 рублей&nbsp;&mdash; скидка 500&nbsp;на доставку службой СДЕК.</p>
 						</div>
 						<div className={style.OrderDeliver__column}>
-							{deliveryTypes && !isDeliveryLoading ? filter(deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
+							{deliveryTypes && !isDeliveryLoading && isDeliveryLoaded ? filter(deliveryTypes, b => b.delivery !== "electronic_payment").map((type, id) => {
 								const key = `item-${id}`;
 								return type.code !== 'self_delivery' ? (
 									<div key={key} className={style.OrderDeliver__item}>
@@ -199,7 +200,7 @@ class OrderForm extends Component {
 									</div>
 								) : null
 							}): 
-								isDeliveryLoading ? <p>загрузка...</p> : <p>После выбора города, здесь появятся доступные методы доставки.</p>
+								isDeliveryLoading  ? <p>загрузка...</p> : <p>После выбора города, здесь появятся доступные методы доставки.</p>
 							}
 						</div>
 					</div>
@@ -212,7 +213,7 @@ class OrderForm extends Component {
 						<div className={style.OrderPay__title}>
 							<p>Выберите способ оплаты</p>
 						</div>
-						{ paymentTypes && !isDeliveryLoading ? 
+						{paymentTypes && !isDeliveryLoading && isDeliveryLoaded ? 
 							<div>
 								{paymentTypes.map((type, id) => {
 								const key = `item-${id}`;
@@ -256,8 +257,7 @@ OrderForm.propTypes = {
 
 OrderForm = reduxForm({
 	form: 'order',
-	enableReinitialize: true,
-	destroyOnUnmount: false
+	enableReinitialize: true
 })(OrderForm);
 
 export default OrderForm;

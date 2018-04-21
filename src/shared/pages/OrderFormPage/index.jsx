@@ -6,7 +6,7 @@ import { BasketIcon } from 'components/Icon';
 import { formValueSelector, change } from 'redux-form';
 import axios from 'axios';
 import find from 'lodash/find';
-import { loadCities, getDeliveryCoast } from '../../state/modules/sdek';
+import { loadCities, getDeliveryCoast, clearDeliveryCoast } from '../../state/modules/sdek';
 import Button from 'components/Button';
 import OrderForm from 'components/OrderForm';
 import * as cartAtions from 'actions/cart';
@@ -43,6 +43,9 @@ class OrderFormPage extends Component {
 		}
 		if (this.props.products.length > 0) {
 			this.getCartSumm()
+		}
+		if (!this.props.deliveryCity) {
+			this.props.clearDeliveryCoast()
 		}
 	}
 	getCartSumm = () => {
@@ -101,7 +104,7 @@ class OrderFormPage extends Component {
 	}
 
 	render() {
-		const { profile, products, deliveryTypes, paymentType, delivery, paymentTypes, isDeliveryLoading, initialValues } = this.props;
+		const { profile, products, deliveryTypes, isDeliveryLoaded, paymentType, delivery, paymentTypes, isDeliveryLoading, initialValues } = this.props;
 		const { cartSumm } = this.state;
 		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 && cartSumm > 3000 ? profile.promocodes[0].amount : 0;
 		const deliveryCost = deliveryTypes && delivery && deliveryTypes.length > 0 ? find(deliveryTypes, b => b.delivery === 'electronic_payment' && b.code === delivery).priceWithDiscount : 0;
@@ -127,6 +130,7 @@ class OrderFormPage extends Component {
 						deliveryTypes={ deliveryTypes }
 						paymentTypes={ paymentTypes }
 						products={ products }
+						isDeliveryLoaded={isDeliveryLoaded}
 						orderSumm={cartSumm + deliveryCost - promoAmount }
 						initialValues={initialValues}
 						productsForDelivery={productsForDelivery}
@@ -175,7 +179,7 @@ const selector = formValueSelector('order')
 
 const mapStateToProps = (state) => {
 	const { isFetched, isFetching, added: products } = state.cart;
-	const { price, isDeliveryLoading, paymentTypes, deliveryTypes } = state.sdek;
+	const { price, isDeliveryLoading, isDeliveryLoaded, paymentTypes, deliveryTypes } = state.sdek;
 	const { accessToken, profile, profileIsLoaded, profileIsLoading } = state.user;
 	const { order } = state.form;
 
@@ -205,7 +209,8 @@ const mapStateToProps = (state) => {
 		deliveryCity,
 		promocode,
 		deliveryTypes,
-		isDeliveryLoading
+		isDeliveryLoading,
+		isDeliveryLoaded
 	};
 };
 
@@ -215,7 +220,8 @@ const mapDispatchToProps = dispatch => ({
 	addToCart: (product, ) => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.removeFromCart(product)),
 	getCities: (name) => dispatch(loadCities(name)),
-	getDeliveryCoast: (id, data) => dispatch(getDeliveryCoast(id, data))
+	getDeliveryCoast: (id, data) => dispatch(getDeliveryCoast(id, data)),
+	clearDeliveryCoast: () => dispatch(clearDeliveryCoast())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderFormPage);

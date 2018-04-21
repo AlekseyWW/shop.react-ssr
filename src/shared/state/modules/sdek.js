@@ -12,6 +12,7 @@ const LOAD_CITIES_FAILURE = 'LOAD_CITIES_FAILURE';
 const GET_DELIVERY_COAST_START = 'GET_DELIVERY_COAST_START';
 const GET_DELIVERY_COAST_SUCCESS = 'GET_DELIVERY_COAST_SUCCESS';
 const GET_DELIVERY_COAST_FAILURE = 'GET_DELIVERY_COAST_FAILURE';
+const CLEAR_DELIVERY_COAST = 'CLEAR_DELIVERY_COAST';
 
 /// Пост по id
 const LOAD_SINGLE_POST_START = 'LOAD_SINGLE_POST_START';
@@ -99,6 +100,13 @@ export default function (state = initialState, action = {}) {
 				error: action.error,
 			};
 
+		case CLEAR_DELIVERY_COAST:
+			return {
+				...state,
+				isDeliveryLoading: false,
+				isDeliveryLoaded: false
+			};
+
 		default:
 			return state;
 	}
@@ -136,6 +144,10 @@ export const loadCities = data => dispatch => {
 
 const getDeliveryCoastStart = () => ({
 	type: GET_DELIVERY_COAST_START,
+});
+
+export const clearDeliveryCoast = () => ({
+	type: CLEAR_DELIVERY_COAST,
 });
 
 const getDeliveryCoastSuccess = data => ({
