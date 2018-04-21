@@ -8,6 +8,7 @@ import axios from 'axios';
 import find from 'lodash/find';
 import { loadCities, getDeliveryCoast, clearDeliveryCoast } from '../../state/modules/sdek';
 import Button from 'components/Button';
+import Preloader from 'components/Preloader';
 import OrderForm from 'components/OrderForm';
 import * as cartAtions from 'actions/cart';
 import * as orderAtions from '../../state/modules/order';
@@ -104,7 +105,7 @@ class OrderFormPage extends Component {
 	}
 
 	render() {
-		const { profile, products, deliveryTypes, isDeliveryLoaded, paymentType, delivery, paymentTypes, isDeliveryLoading, initialValues } = this.props;
+		const { profile, orderState, products, deliveryTypes, isDeliveryLoaded, paymentType, delivery, paymentTypes, isDeliveryLoading, initialValues } = this.props;
 		const { cartSumm } = this.state;
 		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 && cartSumm > 3000 ? profile.promocodes[0].amount : 0;
 		const deliveryCost = deliveryTypes && delivery && deliveryTypes.length > 0 ? find(deliveryTypes, b => b.delivery === 'electronic_payment' && b.code === delivery).priceWithDiscount : 0;
@@ -119,7 +120,7 @@ class OrderFormPage extends Component {
 		
 		return (
 			<div className={styles.CartContainer}>
-				{products && products.length > 0 ? 
+				{products && products.length > 0 && !orderState.isFetching ? 
 					<OrderForm
 						onSubmit={ data => this.handleSubmit(data) }
 						getOptions={ this.getOptions}
@@ -139,6 +140,7 @@ class OrderFormPage extends Component {
 					/> :
 					<h2>Сначала добавьте товары в корзину</h2>
 				}
+				{orderState.isFetching && <Preloader />}
 			</div>
 		);
 	}
@@ -179,6 +181,7 @@ const selector = formValueSelector('order')
 
 const mapStateToProps = (state) => {
 	const { isFetched, isFetching, added: products } = state.cart;
+	const orderState = state.order;
 	const { price, isDeliveryLoading, isDeliveryLoaded, paymentTypes, deliveryTypes } = state.sdek;
 	const { accessToken, profile, profileIsLoaded, profileIsLoading } = state.user;
 	const { order } = state.form;
@@ -203,6 +206,7 @@ const mapStateToProps = (state) => {
 		initialValues,
 		paymentTypes,
 		deliveryTypes,
+		orderState,
 		paymentType,
 		price,
 		profile,

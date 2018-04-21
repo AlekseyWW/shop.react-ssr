@@ -163,7 +163,7 @@ const getDeliveryCoastFailure = error => ({
 export const getDeliveryCoast = (id, colors) => dispatch => {
 	dispatch(getDeliveryCoastStart());
 
-	const url = `payment/by-city/${id}/info`;
+	const url = `/payment/by-city/${id}/info`;
 	return post(
 		url,
 		{ colors },
