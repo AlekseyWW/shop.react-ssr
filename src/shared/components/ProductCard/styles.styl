@@ -1,6 +1,12 @@
 @import '../../styles/common.styl'
 
 .ProductCard {
+	&:before {
+		padding-top 100%
+		display block
+		content: ''
+		margin-bottom 12px
+	}
 	& {
 		position relative
 		padding 0 10px
@@ -16,6 +22,7 @@
 		padding 0 12px
 		text-align left
 		margin-bottom 40px
+		
 		@media $tablet {
 		}
 		@media $phone {
@@ -169,21 +176,17 @@
 		}
 	}
 	&__image {
-		position relative
+		padding 0 10px
+		position absolute
+		top 0
+		left: 0
 		z-index 2
-		background-color #C3C3C3
-		width auto
+		width 100%
 		display flex
 		justify-content flex-end
 		flex-direction column
 		box-sizing border-box
 		margin-bottom 10px
-		&:before {
-			content ''
-			padding-bottom 100%
-			background-color #fff
-			z-index -1
-		}
 		img {
 			display block
 		}
@@ -191,11 +194,8 @@
 			display block
 		}
 		img {
+			background-color #C3C3C3
 			max-width 100%
-			position absolute
-			top 0
-			left 0
-			width 100%
 		}
 		@media $phone {
 		}	
@@ -293,6 +293,7 @@
 			padding 0 12px
 			padding-top 12px
 			padding-bottom 8px
+			margin-top: 12px
 		}
 		&__sizes {
 			font-size 12px

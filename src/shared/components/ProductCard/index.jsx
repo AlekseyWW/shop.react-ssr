@@ -36,9 +36,11 @@ class ProductCard extends Component {
 		
 		return (
 			<div className={className}>
-				<Link className={imgClass} to={url}>
-					<img src={img} alt="item" />
-				</Link>
+				<div className={imgClass}>
+					<Link to={url}>
+						<img src={img} alt="item" />
+					</Link>
+				</div>
 				<div className={style.ProductCard__content}>
 					<Link className={style.ProductCard__inner} to={url}>
 						<span className={style.ProductCard__name}>
