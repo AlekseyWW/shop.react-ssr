@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import filter from 'lodash/filter';
+import { pluralize } from 'utils/helpers';
 import { ShadowIcon, HurtIcon } from 'components/Icon';
 
 import style from './styles.styl';
@@ -23,6 +24,8 @@ class ProductCard extends Component {
 			[`${style.ProductCard}`]: true,
 			[`${style.ProductCard_sm}`]: sm
 		});
+		console.log(this.props);
+		
 		const url = name ? `/products/${slug ? slug : product.slug}?color=${name}` : `/products/${slug ? slug : product.slug}`;
 		
 		const favClass = classNames(style.ProductCard__overlay__button, {
@@ -42,6 +45,9 @@ class ProductCard extends Component {
 					</Link>
 				</div>
 				<div className={style.ProductCard__content}>
+					<span className={style.ProductCard__countColors}>
+						{product && product.colors && <span >{product.colors.length} {pluralize(product.colors.length, ['цвет', 'цвета', 'цветов'])}</span>}
+					</span>
 					<Link className={style.ProductCard__inner} to={url}>
 						<span className={style.ProductCard__name}>
 							{product.name ? product.name : name}

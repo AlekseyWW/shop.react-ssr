@@ -1,5 +1,12 @@
 import _ from 'lodash';
 
+export const pluralize = (n, forms) => {
+	return forms[
+		n % 10 === 1 && n % 100 !== 11
+			? 0
+			: n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2
+	];
+};
 export const getExtendedList = (currentList, id, data, replace = false, remove=false) => {
 	// copy list
 	const list = currentList.slice();

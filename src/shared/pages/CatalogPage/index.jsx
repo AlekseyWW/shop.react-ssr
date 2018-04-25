@@ -117,7 +117,7 @@ class Catalog extends Component {
 			isLoaded
 		} = this.props;
 		return (
-			<div>
+			<div className="page__inner">
 				<MainBlock
 					title={title}
 					stockTitle={stockTitle}
