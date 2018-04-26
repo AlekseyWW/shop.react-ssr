@@ -10,13 +10,13 @@ import { reset } from 'redux-form';
 import qs from 'query-string';
 import Button from 'components/Button/';
 import * as productsAction from 'actions/products';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import sortBy from "lodash/sortBy";
 import uniqBy from "lodash/uniqBy";
 import style from './styles.styl';
 import { blur } from 'redux-form';
 
-const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }) => {
+const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, query }) => {
 	const styles = classNames({
 		[`${style.SideBar__filter__list__item}`]: true,
 		[`${style.SideBar__filter__list__item_active}`]: isActive,
@@ -26,7 +26,11 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }
 		[`${style.SideBar__filter__sublist_active}`]: isActive && !stockId,
 	})
 	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
-	const url = `/catalog/${path}`;
+	const url = {
+		pathname:`/catalog/${path}`,
+		search: query ? qs.stringify(query) : ''
+	};
+	
 	const sublist = category.items || category.category;
 	return (
 		<div>
@@ -50,7 +54,7 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId }
 	);
 }
 
-const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, categories }) => {
+const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, categories, query }) => {
 	const styles = classNames({
 		[`${style.SideBar__filter__list__item}`]: true,
 		[`${style.SideBar__filter__list__item_active}`]: isActive,
@@ -60,7 +64,10 @@ const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockI
 		[`${style.SideBar__filter__sublist_active}`]: stockId === category.slug,
 	})
 	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
-	const url = `/${path}/catalog`;
+	const url = {
+		pathname: `/${path}/catalog`,
+		search: query ? qs.stringify(query) : ''
+	};
 	const sublist = category.items || category.categories;
 	
 	return (
@@ -174,13 +181,14 @@ class SideBar extends Component {
 	// 	}
 	// }
 	render() {
-		const { stockTitle, query, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
+		const { stockTitle, parsedQuery, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
 		const gender = Object.keys(genderSize);
 		const url = (item) => {
 			const query = {
-				...query,
+				...parsedQuery,
+				size: '',
 				sex: item !== sex ? item : ''
 			}
 			this.historyPush(query)
@@ -264,6 +272,7 @@ class SideBar extends Component {
 									subCategoryId={subCategoryId}
 									historyLocation={location.search}
 									stockId={stockId}
+									query={this.props.parsedQuery}
 								/>
 							)}
 						</div>
@@ -278,6 +287,7 @@ class SideBar extends Component {
 									historyLocation={location.search}
 									stockId={stockId}
 									categories={categories}
+									query={this.props.parsedQuery}
 								/>
 							)}
 						</div>
@@ -360,7 +370,6 @@ SideBar.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	const { brand, size, sex } = qs.parse(ownProps.location.search);
 	const parsedQuery = qs.parse(ownProps.location.search);
-	const query = qs.parse(ownProps.location.search);
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const { items: categories } = state.category.categories;
 	const { items: stockCategories } = state.category.stockCategories;
@@ -386,7 +395,6 @@ const mapStateToProps = (state, ownProps) => {
 		brands,
 		sizes,
 		brand,
-		query,
 		size,
 		parsedQuery,
 		sizes,

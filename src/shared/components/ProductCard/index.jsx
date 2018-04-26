@@ -24,7 +24,6 @@ class ProductCard extends Component {
 			[`${style.ProductCard}`]: true,
 			[`${style.ProductCard_sm}`]: sm
 		});
-		console.log(this.props);
 		
 		const url = name ? `/products/${slug ? slug : product.slug}?color=${name}` : `/products/${slug ? slug : product.slug}`;
 		

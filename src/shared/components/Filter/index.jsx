@@ -158,7 +158,6 @@ class Filter extends Component {
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		const category = categories && categoryId && find(categories.items, { slug: categoryId }) ? find(categories.items, { slug: categoryId }): null;
 		const subCategory = categories && category && subCategoryId && find(category.items, { slug: subCategoryId }) ? find(category.items, { slug: subCategoryId }).name : subCategoryId
-		console.log({ category, categoryId, categories});
 		
 		return (
 			<div className={style.Filter} id="filter">
