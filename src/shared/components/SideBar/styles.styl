@@ -56,8 +56,8 @@
 				display flex
 				flex-wrap: wrap
 				.SideBar__filter__sublist__item {
-					width 55px
-					max-width 55px
+					width 80px
+					max-width 80px
 				}
 			}
 			&__item {
@@ -68,6 +68,8 @@
 				padding-left: 20px
 				margin-bottom: 4px
 				cursor: pointer
+				padding-right: 12px
+				box-sizing: border-box
 				&:before {
 					content ''
 					position absolute
@@ -80,6 +82,11 @@
 					background-color #fff
 					// border 1px solid $borderColor
 					border-radius: 2px
+				}
+				p {
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
 				}
 				&:last-child {
 					margin-bottom 0

@@ -335,7 +335,7 @@ class SideBar extends Component {
 											[`${style.SideBar__filter__sublist__item_active}`]: index > -1
 										})
 										
-										return <div key={key} onClick={() => brandUrl(size.name, 'size')} className={itemStyle}>{size.name}</div>
+										return <div key={key} onClick={() => brandUrl(size.name, 'size')} className={itemStyle}><p>{size.name}</p></div>
 									})}
 								</div>
 							</div>
