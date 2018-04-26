@@ -25,6 +25,7 @@
 		height 100%
 		box-sizing border-box
 		display flex
+		align-items: flex-start
 		@media $verticalTablet {
 			padding 16px
 		}
@@ -47,7 +48,10 @@
 		}
 	}
 	&__title {
-		width 55%
+		background-color rgba(0,0,0,0.2)
+		padding 12px
+		margin-left -12px
+		margin-top -12px
 	}
 	@media $phone {
 		float none
