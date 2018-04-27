@@ -15,9 +15,9 @@ const SideNavContent = () => {
 				<NavLink to="/return" className={style.SideNavContent__item} activeClassName={style.SideNavContent__item_active}>
 					Обмен и возврат
 				</NavLink>
-				<NavLink to="/contacts" className={style.SideNavContent__item} activeClassName={style.SideNavContent__item_active}>
+				{/* <NavLink to="/contacts" className={style.SideNavContent__item} activeClassName={style.SideNavContent__item_active}>
 					Контакты
-				</NavLink>
+				</NavLink> */}
 				<NavLink to="/agreement" className={style.SideNavContent__item} activeClassName={style.SideNavContent__item_active}>
 					Конфиденциальность
 				</NavLink>

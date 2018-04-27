@@ -101,9 +101,9 @@ class Footer extends Component {
 									<NavLink to="/catalog" className={style.Footer__link} activeClassName={style.Footer__link_active}>
 										Магазин
 									</NavLink>
-									<NavLink to="/contacts" className={style.Footer__link} activeClassName={style.Footer__link_active}>
+									{/* <NavLink to="/contacts" className={style.Footer__link} activeClassName={style.Footer__link_active}>
 										Контакты
-									</NavLink>
+									</NavLink> */}
 									<NavLink to="/info" className={style.Footer__link} activeClassName={style.Footer__link_active}>
 										Оплата и доставка
 									</NavLink>

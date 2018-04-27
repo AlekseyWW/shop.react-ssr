@@ -38,6 +38,12 @@ const ContactBlock = () => {
 						{data.contacts.phoneRussia.text}
 					</span>
 				</a>
+				<a href="mailto:newstep.adm@gmail.com">
+					<span className={style.ContactBlock__phone__title}>Email:</span>
+					<span className={style.ContactBlock__phone__value}>
+						newstep.adm@gmail.com
+					</span>
+					</a>
 			</div>
 		</div>
 	);

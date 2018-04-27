@@ -40,8 +40,9 @@ class UserPage extends Component {
 								</div>
 							</div>
 							<div className={styles.UserPage__contacts}>
-								<p>ЕСТЬ ВОПРОСЫ? ЗВОНИТЕ ПО&nbsp;ТЕЛ.: <nobr className="phone">+7 (928) 620-64-04</nobr></p>
-								<p>МЫ&nbsp;РАБОТАЕМ ЕЖЕДНЕВНО С&nbsp;10.30&nbsp;ДО 20.00</p>
+								<p>Оформление заказа круглосуточно</p>
+								<p>Работа отдела продажс 9:00 до 18:00 вторник-воскресенье.</p>
+								<p>Понедельник выходной</p>
 							</div>
 						</div>
 					)}
