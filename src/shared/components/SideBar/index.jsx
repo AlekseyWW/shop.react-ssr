@@ -343,7 +343,7 @@ class SideBar extends Component {
 						<Link to='/cart' className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_cart}`}>Перейти в&nbsp;корзину</Link>
 						
 					</div>
-					
+					<Button to='/catalog'>Сбросить</Button>
 				</div>
 			</div>
 		)
