@@ -61,7 +61,7 @@ class Header extends Component {
 		console.log({ orderId, orderStorage});
 		
 		if (orderStorage === orderId) {
-			const time = deliveryType === 'post' ? '7-15' : '2-8';
+			const time = deliveryType === 'post' ? '6-15' : '2-6';
 			const text = deliveryType === 'courier' ? 'В течении 15 минут с Вами свяжется менеджер, для уточнения деталей доставки.' : `Ваш заказ №${order.id} будет доставлен в течение ${time} дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.`;
 			localStorage.setItem('orderId', '')
 			localStorage.setItem('deliveryType', '')

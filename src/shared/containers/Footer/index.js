@@ -86,10 +86,10 @@ class Footer extends Component {
 								<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.Footer__social__icon}>
 									<WhatsupIcon />
 								</a>
-		
+{/* 		
 								<a href="https://t.me/Kross_zakazbot" target="_blank" className={style.Footer__social__icon}>
 									<TelegrammIcon />
-								</a>
+								</a> */}
 							</div>
 						</div>
 						<div className={style.Footer__buyer}>

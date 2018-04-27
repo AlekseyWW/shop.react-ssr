@@ -14,7 +14,7 @@ import * as favoritesAction from 'actions/favorites/';
 import Icon from 'components/Icon';
 import ModalExample from '../../components/ModalExample';
 import { withRouter } from 'react-router';
-import { InstagramIcon } from 'components/Icon';
+import { InstagramIcon, CartIcon } from 'components/Icon';
 import InputMask from 'react-input-mask';
 import { HurtIcon, HeartSold } from 'components/Icon';
 import contactData from 'config/header.json';
@@ -286,7 +286,9 @@ class ProductForm extends Component {
 								className={style.ProductForm__button}
 								text={_.find(this.props.cart, { id: activeColor.id }) ? 'В корзине' : "Добавить в корзину"}
 								disabled={_.find(this.props.cart, { id: activeColor.id }) || this.props.isFetching? true : false}
-								onClick={() => this.addToCart()}/>
+								onClick={() => this.addToCart()}>
+								<CartIcon />
+							</Button>
 							<div className={style.ProductForm__fastOrder}>
 								<p className={style.ProductForm__fastOrder__title}>Звонок менеджера за&nbsp;один клик</p>
 								<div className={style.ProductForm__fastOrder__form}>

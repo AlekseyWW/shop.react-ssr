@@ -18,9 +18,9 @@ const ContactBlock = () => {
 				<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.ContactBlock__social__item}>
 					<WhatsupIcon />
 				</a>
-				<a href="https://t.me/Kross_zakazbot" target="_blank" className={style.ContactBlock__social__item}>
+				{/* <a href="https://t.me/Kross_zakazbot" target="_blank" className={style.ContactBlock__social__item}>
 					<TelegrammIcon />
-				</a>
+				</a> */}
 			</div>
 			<div className={style.ContactBlock__phone}>
 				<span className={style.ContactBlock__phone__label}>Телофоны:</span>
