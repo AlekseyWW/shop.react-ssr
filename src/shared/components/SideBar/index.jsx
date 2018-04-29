@@ -221,7 +221,7 @@ class SideBar extends Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (this.props.brands.brands.length !== prevProps.brands.brands.length) {
 			this.heightBrands = this.brandList.getBoundingClientRect().height
-			if (this.brandList && this.props.brands.length > 10) {
+			if (this.props.brands.brands.length > 10) {
 				TweenMax.set(this.brandList, { height: "250px" });
 				this.setState({
 					openedBrands:false
