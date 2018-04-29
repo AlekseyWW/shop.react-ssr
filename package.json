@@ -75,6 +75,7 @@
     "compression": "^1.7.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.5",
+    "gsap": "^1.20.4",
     "history": "^4.7.2",
     "instafeed.js": "^1.4.1",
     "prop-types": "^15.6.0",

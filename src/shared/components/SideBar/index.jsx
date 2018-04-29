@@ -10,11 +10,67 @@ import { reset } from 'redux-form';
 import qs from 'query-string';
 import Button from 'components/Button/';
 import * as productsAction from 'actions/products';
+import { TweenMax, Power2, TimelineLite } from "gsap";
 import { Link } from 'react-router-dom';
 import sortBy from "lodash/sortBy";
 import uniqBy from "lodash/uniqBy";
 import style from './styles.styl';
 import { blur } from 'redux-form';
+
+const brandTest = [
+	{
+		name: "Nike",
+		slug: "nike"
+	},
+	{
+		name: "Nike1",
+		slug: "nike1"
+	},
+	{
+		name: "Nike2",
+		slug: "nike2"
+	},
+	{
+		name: "Nike3",
+		slug: "nike3"
+	},
+	{
+		name: "Nike4",
+		slug: "nike4"
+	},
+	{
+		name: "Nike5",
+		slug: "nike5"
+	},
+	{
+		name: "Nike6",
+		slug: "nike6"
+	},
+	{
+		name: "Nike7",
+		slug: "nike7"
+	},
+	{
+		name: "Nike8",
+		slug: "nike8"
+	},
+	{
+		name: "Nike9",
+		slug: "nike9"
+	},
+	{
+		name: "Nike10",
+		slug: "nike10"
+	},
+	{
+		name: "Nike11",
+		slug: "nike11"
+	},
+	{
+		name: "Nike12",
+		slug: "nike12"
+	}
+]
 
 const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, query }) => {
 	const styles = classNames({
@@ -151,6 +207,26 @@ class SideBar extends Component {
 	constructor(props) {
 		super(props);
 		this.resetForm = this.resetForm.bind(this);
+		this.state = {
+			openedBrands: false
+		}
+	}
+	componentDidMount() {
+		// this.timeline = new
+		this.heightBrands = this.brandList.getBoundingClientRect().height
+		if (this.brandList && this.props.brands.length > 10) {
+			TweenMax.set(this.brandList, { height: "250px" });
+		}
+	}
+	toggleBrands() {
+		if (!this.state.openedBrands) {
+			TweenMax.to(this.brandList, 0.35, { height: this.heightBrands });
+		} else {
+			TweenMax.to(this.brandList, 0.35, { height: "250px" });
+		}
+		this.setState({
+			openedBrands: !this.state.openedBrands
+		})
 	}
 	historyPush = query => {
 		const slug = this.props.subCategoryId ? `${this.props.categoryId}/${this.props.subCategoryId}` : `${this.props.categoryId}`;
@@ -180,6 +256,7 @@ class SideBar extends Component {
 	// 		}, 0);
 	// 	}
 	// }
+
 	render() {
 		const { stockTitle, parsedQuery, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
@@ -212,7 +289,7 @@ class SideBar extends Component {
 				search: `${qs.stringify(editedQuery)}`
 			})
 		};
-		
+		const brandToogleText = this.state.openedBrands ? 'скрыть' : 'показать все';
 		return (
 			<div className={style.SideBar}>
 				<div className={style.SideBar__filter} ref={el => this.block = el}>
@@ -308,8 +385,9 @@ class SideBar extends Component {
 						{brands.brands && !isMobile &&
 							<div className={style.SideBar__filter__list}>
 								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Бренд</div>
-								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active}`}>
-									{sortBy(brands.brands, 'name').map((brand, id) => {
+								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active} ${style.SideBar__brands}`} ref={el => { this.brandList = el }}>
+									{/* {sortBy(brands.brands, 'name').map((brand, id) => { */}
+									{brands.brands.map((brand, id) => {
 										const key = `brand-${id}`;
 										var array = this.props.brand ? this.props.brand.split(',') : [];
 										var index = array.indexOf(brand.name);
@@ -320,6 +398,7 @@ class SideBar extends Component {
 										return <div key={key} onClick={() => brandUrl(brand.name, 'brand')} className={itemStyle}>{brand.name}</div>
 									})}
 								</div>
+								{brands.brands.length > 10 &&<div className={style.SideBar__brands__button} onClick={() => this.toggleBrands()}>{brandToogleText}</div>}
 							</div>
 						}
 						{currentSizes && !isMobile &&
