@@ -213,6 +213,7 @@ class SideBar extends PureComponent {
 		}
 	}
 	componentDidMount() {
+		this.heightBrands = '250px'
 		// this.timeline = new
 		if (this.brandList) {
 			
