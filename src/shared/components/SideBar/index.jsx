@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
 import { withRouter } from 'react-router';
+import { push } from 'react-router-redux';
 import { change } from 'redux-form';
 import BarFilter from 'components/BarFilter/';
 import { reset } from 'redux-form';
@@ -16,7 +17,7 @@ import sortBy from "lodash/sortBy";
 import uniqBy from "lodash/uniqBy";
 import style from './styles.styl';
 import { blur } from 'redux-form';
-
+let openedBrands = false;
 const brandTest = [
 	{
 		name: "Nike",
@@ -203,7 +204,7 @@ SubBarItem.propTypes = {
 };
 
 
-class SideBar extends Component {
+class SideBar extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.resetForm = this.resetForm.bind(this);
@@ -213,15 +214,17 @@ class SideBar extends Component {
 	}
 	componentDidMount() {
 		// this.timeline = new
+		console.log(this.state, openedBrands, 'mount');
+		
 		this.heightBrands = this.brandList.getBoundingClientRect().height
-		if (this.brandList && this.props.brands.brands.length > 10) {
+		if (this.props.brands.brands.length > 10 && !openedBrands) {
 			TweenMax.set(this.brandList, { height: "250px" });
 		}
 	}
 	componentDidUpdate(prevProps, prevState) {
 		if (this.props.brands.brands.length !== prevProps.brands.brands.length) {
 			this.heightBrands = this.brandList.getBoundingClientRect().height
-			if (this.props.brands.brands.length > 10) {
+			if (this.props.brands.brands.length > 10 && !openedBrands) {
 				TweenMax.set(this.brandList, { height: "250px" });
 				this.setState({
 					openedBrands:false
@@ -229,20 +232,26 @@ class SideBar extends Component {
 			}
 		}
 	}
+	componentWillUnmount() {
+		console.log('unmount');
+		return false;
+	}
 	toggleBrands() {
-		if (!this.state.openedBrands) {
+		if (!openedBrands) {
 			TweenMax.to(this.brandList, 0.35, { height: this.heightBrands });
 		} else {
 			TweenMax.to(this.brandList, 0.35, { height: "250px" });
 		}
+		openedBrands = !openedBrands
 		this.setState({
 			openedBrands: !this.state.openedBrands
 		})
 	}
 	historyPush = query => {
+		
 		const slug = this.props.subCategoryId ? `${this.props.categoryId}/${this.props.subCategoryId}` : `${this.props.categoryId}`;
 		const pathname = slug ? this.props.stockId ? `/${this.props.stockId}/catalog/${slug}` : `/catalog/${slug}` : this.props.stockId ? `/${this.props.stockId}/catalog` : `/catalog`;
-		this.props.history.push({
+		this.props.pushHistory({
 			pathname,
 			search: `${qs.stringify(query)}`
 		})
@@ -269,6 +278,8 @@ class SideBar extends Component {
 	// }
 
 	render() {
+		console.log(this.props.history);
+		
 		const { stockTitle, parsedQuery, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
@@ -295,14 +306,14 @@ class SideBar extends Component {
 			}
 			const editedQuery = { ...this.props.parsedQuery };
 			editedQuery[type] = array.length > 0 ? array.join(',') : '';
-			this.props.history.push({
+			this.props.pushHistory({
 				pathname,
 				search: `${qs.stringify(editedQuery)}`
 			})
 		};
-		const brandToogleText = this.state.openedBrands ? 'скрыть' : 'показать все';
+		const brandToogleText = openedBrands ? 'скрыть' : 'показать все';
 		return (
-			<div className={style.SideBar}>
+			<div key="sidebar" className={style.SideBar}>
 				<div className={style.SideBar__filter} ref={el => this.block = el}>
 					<div className={style.SideBar__filter__item}>
 						<div className={style.SideBar__filter__title}>
@@ -409,7 +420,7 @@ class SideBar extends Component {
 										return <div key={key} onClick={() => brandUrl(brand.name, 'brand')} className={itemStyle}>{brand.name}</div>
 									})}
 								</div>
-								{brands.brands.length > 10 &&<div className={style.SideBar__brands__button} onClick={() => this.toggleBrands()}>{brandToogleText}</div>}
+								{brands.brands.length > 1 &&<div className={style.SideBar__brands__button} onClick={() => this.toggleBrands()}>{brandToogleText}</div>}
 							</div>
 						}
 						{currentSizes && !isMobile &&
@@ -499,6 +510,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => ({
 	getProducts: (productConfig, category) => dispatch(productsAction.getProducts(productConfig, category)),
 	changeForm: (field, value) => dispatch(change('filter', field, value)),
+	pushHistory: (value) => dispatch(push(value)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SideBar));

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -10,8 +10,10 @@ import PageInfo from 'containers/PageInfo/';
 import qs from 'query-string';
 
 
-class Catalog extends Component {
+class Catalog extends PureComponent {
 	componentDidMount() {
+		console.log('render');
+		
 		const {
 			isLoading,
 			isLoaded,
@@ -117,7 +119,7 @@ class Catalog extends Component {
 			isLoaded
 		} = this.props;
 		return (
-			<div className="page__inner">
+			<div key="catalog" className="page__inner">
 				<MainBlock
 					title={title}
 					stockTitle={stockTitle}
