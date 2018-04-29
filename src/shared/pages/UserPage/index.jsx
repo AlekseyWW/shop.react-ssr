@@ -26,6 +26,7 @@ class UserPage extends Component {
 	}
 	render() {
 		const { products, addToCart, removeFromCart, profile, favorites, orders } = this.props;
+		console.log({orders});
 		
 		return (
 			<div className="page__inner">
