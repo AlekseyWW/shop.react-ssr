@@ -218,6 +218,14 @@ class SideBar extends Component {
 			TweenMax.set(this.brandList, { height: "250px" });
 		}
 	}
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.brands !== prevProps.brands) {
+			this.heightBrands = this.brandList.getBoundingClientRect().height
+			if (this.brandList && this.props.brands.length > 10) {
+				TweenMax.set(this.brandList, { height: "250px" });
+			}
+		}
+	}
 	toggleBrands() {
 		if (!this.state.openedBrands) {
 			TweenMax.to(this.brandList, 0.35, { height: this.heightBrands });
