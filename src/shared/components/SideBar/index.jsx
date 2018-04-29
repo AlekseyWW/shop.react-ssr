@@ -282,11 +282,11 @@ class SideBar extends PureComponent {
 	// }
 
 	render() {
-		console.log(this.props.history);
 		
 		const { stockTitle, parsedQuery, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
+		const renderedStockCategories = _.filter(stockCategories, b => b.slug !== 'forsneakers')
 		const gender = Object.keys(genderSize);
 		const url = (item) => {
 			const query = {
@@ -380,7 +380,7 @@ class SideBar extends PureComponent {
 							)}
 						</div>
 						<div className={style.SideBar__filter__list}>
-							{stockCategories && stockCategories.map(category =>
+							{renderedStockCategories && renderedStockCategories.map(category =>
 								<SubBarItem
 									category={category}
 									key={category.id}

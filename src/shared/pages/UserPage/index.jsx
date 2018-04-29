@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { omit } from 'lodash';
+import _ from 'lodash';
 import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
 import RecoveryForm from 'components/RecoveryForm';
@@ -26,8 +27,8 @@ class UserPage extends Component {
 	}
 	render() {
 		const { products, addToCart, removeFromCart, profile, favorites, orders } = this.props;
-		console.log({orders});
-		
+		console.log(orders,_.filter(orders, {status: "formed"}));
+		const currentOrders = _.filter(orders, { status: "formed" }).length > 0 ? _.filter(orders, { status: "formed" }) : orders
 		return (
 			<div className="page__inner">
 				<div className={styles.UserPage}>
@@ -104,7 +105,7 @@ class UserPage extends Component {
 										Последний заказ
 									</div>
 									<div className={styles.UserPage__item__text}>
-										{orders && orders[0] ? (
+										{currentOrders && currentOrders[0] ? (
 											<Link to={`order/${orders[0].id}`}>
 												<OrderProducts products={orders[0].colors} price={orders[0].deliveryPrice} sum={orders[0].sum}/>
 											</Link>

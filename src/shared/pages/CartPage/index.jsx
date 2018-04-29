@@ -6,6 +6,8 @@ import { omit } from 'lodash';
 import { BasketIcon } from 'components/Icon';
 import Button from 'components/Button';
 import * as cartAtions from 'actions/cart';
+import * as productsAction from 'actions/products/';
+
 import styles from './style.styl';
 
 const CartItem = ({ product, add, remove }) => {
@@ -46,9 +48,13 @@ const CartItem = ({ product, add, remove }) => {
 
 class CartPage extends Component {
 	getCartSumm = () => (this.props.products.length ? (this.props.products.reduce((summ, item) => (summ + item.count * item.price), 0)) : '');
-
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.product && this.props.product.category && this.props.product.category.name) {
+			this.props.getForProducts(`for${this.props.product.category.name}`);
+		}
+	}
 	render() {
-		const { products, addToCart, removeFromCart } = this.props;
+		const { products, addToCart, removeFromCart, isForLoaded, isForLoading, forProducts } = this.props;
 		return (
 			<div className="page__inner">
 				<div className={styles.CartContainer}>
@@ -72,6 +78,8 @@ class CartPage extends Component {
 						<Button text="Оформить заказ" to="/order" />
 					</div>
 				</div>
+				{isForLoaded && !isForLoading && <NewPropducts products={forProducts} title="С этим также покупают" mod="for" />}
+				
 			</div>
 		);
 	}
@@ -99,6 +107,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
 	// getCart: () => dispatch(cartAction.getCart()),
+	getForProducts: (slug) => dispatch(productsAction.getForProducts(slug)),
 	addToCart: (product, remove) => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.addToCart(product, true, true))
 });

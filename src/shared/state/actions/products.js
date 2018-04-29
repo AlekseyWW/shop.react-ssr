@@ -99,6 +99,39 @@ export const getProducts = (data, category = false) => (dispatch) => {
 		error => dispatch(getProductsError(error.message))
 	);
 };
+const getForProductsStart = () => ({
+	type: types.GET_FOR_PRODUCTS_START
+});
+const getForProductsSuccess = (products, allCount, sizes, category, data) => (dispatch) => {
+	dispatch({
+		type: types.GET_FOR_PRODUCTS_SUCCESS,
+		products,
+		allCount,
+		sizes,
+		category,
+		data
+	});
+};
+
+const getForProductsError = error => {
+	return ({
+		type: types.GET_FOR_PRODUCTS_FAILURE,
+		error
+	})
+};
+
+export const getForProducts = (slug) => (dispatch) => {
+	dispatch(getProductsStart());
+	const url = '/colors';
+	return get(
+		url,
+		{'custom-category': slug},
+		response => dispatch(getForProductsSuccess(
+			response.colors,
+		)),
+		error => dispatch(getForProductsError(error.message))
+	);
+};
 
 const getPromoProductsStart = () => ({
 	type: types.GET_PROMO_PRODUCTS_START

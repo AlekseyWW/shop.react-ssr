@@ -6,6 +6,8 @@ const initialState = {
 	isLoaded: false,
 	isPromoLoading: false,
 	isPromoLoaded: false,
+	isForLoading: false,
+	isForLoaded: false,
 	error: null,
 	products: [],
 	allCount: 0,
@@ -18,7 +20,8 @@ const initialState = {
 	isSearching: false,
 	isSearched: false,
 	searchProducts: [],
-	promoProducts: []
+	promoProducts: [],
+	forProducts: []
 };
 export default function products(state = initialState, action) {
 	switch (action.type) {
@@ -56,6 +59,31 @@ export default function products(state = initialState, action) {
 				isLoaded: false,
 				error: action.error,
 				products: []
+			};
+
+		case types.GET_FOR_PRODUCTS_START:
+			return {
+				...state,
+				isForLoading: true
+			};
+
+		case types.GET_FOR_PRODUCTS_SUCCESS:
+			return {
+				...state,
+				isForLoading: false,
+				isForLoaded: true,
+				forProducts: action.products,
+				error: null
+			};
+
+
+		case types.GET_FOR_PRODUCTS_FAILURE:
+			return {
+				...state,
+				isForLoading: false,
+				isForLoaded: false,
+				error: action.error,
+				forProducts: []
 			};
 
 		case types.GET_PROMO_PRODUCTS_START:

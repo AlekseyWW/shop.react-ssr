@@ -11,10 +11,10 @@ const params = {
 	loopedSlides: 5,
 	grabCursor: true
 }
-const NewProducts = ({ products }) => (
-	<div className={style.NewProducts}>
+const NewProducts = ({ products, title, mod }) => (
+	<div className={`${style.NewProducts} ${style[`NewProducts_${mod}`]}`}>
 		<div className={style.NewProducts__title}>
-			<h2>Топ продаж</h2>
+			<h2>{title ? title: 'Топ продаж'}</h2>
 		</div>
 		<div className={style.NewProducts__list}>
 			<Swiper className={style.NewProducts__container} {...params} ref={el => { this.swiper = el }}>
