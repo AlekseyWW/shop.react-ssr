@@ -214,9 +214,10 @@ class SideBar extends PureComponent {
 	}
 	componentDidMount() {
 		// this.timeline = new
-		console.log(this.state, openedBrands, 'mount');
-		
-		this.heightBrands = this.brandList.getBoundingClientRect().height
+		if (this.brandList) {
+			
+			this.heightBrands = this.brandList.getBoundingClientRect().height
+		}
 		if (this.props.brands.brands.length > 10 && !openedBrands) {
 			TweenMax.set(this.brandList, { height: "250px" });
 		}
