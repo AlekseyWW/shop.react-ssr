@@ -1,21 +1,40 @@
 import * as types from '../constants/cart';
 import { post, get, del, patch, setAccessToken, getAccessToken } from 'utils/api';
-
-
-
+import { push } from 'react-router-redux'
+let alertify = undefined;
 const addToCartStart = productId => ({
 	type: types.ADD_TO_CART_START,
 	productId
 });
 
-const addToCartSuccess = (product, remove) => ({
-	type: types.ADD_TO_CART_SUCCESS,
-	product,
-	remove
-});
+const addToCartSuccess = (product, remove) => {
+	if(typeof alertyfy === 'undefined') {
+		alertify = require('alertify.js')
+	}
+	
+	return dispatch => {
+		alertify.okBtn("В корзину")
+			.cancelBtn("Продолжить").confirm(`<p>Товар "${product.name}" добавлен в корзину</p>`,
+			function () {
+				dispatch(push('/cart'));
+			})
+		dispatch({
+			type: types.ADD_TO_CART_SUCCESS,
+			product,
+			remove
+		})
+	}
+	// return dipatch => {
+	// 	dispatch({
+	// 		type: types.ADD_TO_CART_SUCCESS,
+	// 		product,
+	// 		remove
+	// 	})
+	// }
+};
 const setCartSuccess = data => ({
-	type: types.SET_CART_SUCCESS,
-	data
+		type: types.SET_CART_SUCCESS,
+		data
 });
 
 const addToCartError = error => ({

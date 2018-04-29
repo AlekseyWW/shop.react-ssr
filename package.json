@@ -67,6 +67,7 @@
     ]
   },
   "dependencies": {
+    "alertify.js": "^1.0.12",
     "alertifyjs": "^1.11.1",
     "axios": "^0.16.2",
     "bluebird": "^3.5.0",

@@ -21,10 +21,11 @@ class ProductPage extends Component {
 	}
 	render() {
 		const { product, addToCart, isLoaded, color } = this.props;
+		
 		return (
 			<div className="page__inner">
 				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : <Preloader />}
-				<Reviews />
+				{isLoaded ? <Reviews pageId={product.slug}/> :''}
 			</div>
 		);
 	}

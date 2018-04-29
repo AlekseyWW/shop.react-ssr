@@ -9,6 +9,7 @@ import * as favoritesAction from 'actions/favorites/';
 import * as productsAction from 'actions/products';
 import * as paginationAction from '../../state/modules/pagination';
 import Filter from 'components/Filter/';
+import Preloader from 'components/Preloader/';
 import qs from 'query-string';
 
 import style from './styles.styl';
@@ -59,10 +60,15 @@ class ProductList extends Component {
 		return (
 			<div className={style.ProductList}>
 				<Filter categoryId={categoryId} allCount={allCount} handleChange={this.handleClick}/>
-				<div className={style.ProductList__container}>
-					{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard sex={sex} key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'}	 />)}
-					{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}
-				</div>
+				{isLoading ?
+						<div className={style.ProductList__preloader}>
+							<Preloader />
+						</div>:
+						<div className={style.ProductList__container}>
+							{products.length > 0 && isLoaded && !isLoading && products.map(product => <ProductCard sex={sex} key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'}	 />)}
+							{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}
+						</div>
+				}
 				<div className={style.ProductList__nav}>
 					<ReactPaginate
 						previousLabel={'Пред.'}

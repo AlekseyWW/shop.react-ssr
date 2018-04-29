@@ -35,6 +35,9 @@ const Input = ({
 			<label htmlFor={input.name} className="Input__label">
 				{label}
 			</label>
+			{meta.touched &&
+				((meta.error && <span className={style.Input__error}>{meta.error}</span>) ||
+					(meta.warning && <span className={style.Input__error}>{meta.warning}</span>))}
 			{textArea || numberFormat || email ? (
 				(textArea && <Textarea {...input} {...rest} />) ||
 				(numberFormat && (
@@ -57,6 +60,7 @@ const Input = ({
 			) : (
 					<InputElement type={type || 'text'} className={styleInput} {...input} {...rest} />
 				)}
+			
 		</div>
 	);
 };

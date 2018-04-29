@@ -58,7 +58,6 @@ class Header extends Component {
 			}, 15000);
 		}
 		const { orderId, deliveryType } = qs.parse(this.props.history.location.search);
-		console.log({ orderId, orderStorage});
 		
 		if (orderStorage === orderId) {
 			const time = deliveryType === 'post' ? '6-15' : '2-6';

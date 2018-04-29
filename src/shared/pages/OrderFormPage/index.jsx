@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { omit } from 'lodash';
 import { BasketIcon } from 'components/Icon';
-import { formValueSelector, change } from 'redux-form';
+import { formValueSelector, change, SubmissionError } from 'redux-form';
 import axios from 'axios';
 import find from 'lodash/find';
 import { loadCities, getDeliveryCoast, clearDeliveryCoast } from '../../state/modules/sdek';

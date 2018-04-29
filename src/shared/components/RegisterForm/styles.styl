@@ -3,7 +3,6 @@
 		display flex
 		font-size 12px
 		margin 0 -24px
-		padding-bottom 60px
 		@media $phone {
 			margin 0
 			flex-direction column
@@ -30,6 +29,9 @@
 		@media $phone {
 			width auto
 			margin-bottom 16px
+			.Icon {
+				display none
+			}
 		}
 		&__title {
 			font-weight bold
@@ -48,6 +50,12 @@
 			@media $verticalTablet {
 				font-size 14px
 				line-height 1.1
+			}
+		}
+		&__content {
+			@media $phone {
+				display flex
+				align-items center
 			}
 		}
 	}

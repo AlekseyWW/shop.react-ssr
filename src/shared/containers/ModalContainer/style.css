@@ -82,15 +82,15 @@ body.scroll-locked {
 
 .ModalContainer__close {
 	position: absolute;
-	top: 20px;
-	right: 20px;
+	top: 0;
+	right: 0;
+	padding: 20px;
 	font-size: 40px;
 	font-weight: bold;
 	line-height: 24px;
 	cursor: pointer;
 	background: none;
 	border: none;
-	padding: 0;
 	z-index: 100;
 }
 .ModalContainer__inner {

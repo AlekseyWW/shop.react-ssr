@@ -36,10 +36,17 @@ const promocode = [{
 	"amount": 500
 }]
 class OrderForm extends Component {
-
+	componentDidMount() {
+		this.alertify = require('alertify.js');
+	}
+	submit() {
+		if (!this.props.valid) {
+			this.alertify.alert("Форма заполнена неверно! Пожалуста заполните все обязательные поля корректными данными.");
+		}
+	}
 	render() {
 		const { handleSubmit, products, isDeliveryLoading, isDeliveryLoaded, orderSumm, cartSumm, deliveryTypes, getDeliveryCoast, paymentTypes, productsForDelivery } = this.props;
-		console.log({ isDeliveryLoaded});
+		// console.log(this.props.valid);
 		
 		return (
 			<form onSubmit={handleSubmit} className={style.OrderForm}>
@@ -239,7 +246,7 @@ class OrderForm extends Component {
 							isDeliveryLoading ? <p>загрузка...</p> : <p>После выбора города, здесь появятся доступные методы оплаты.</p>
 						}
 					</div>
-					<Button text="Оформить заказ" className={style.OrderPay__button} type="submit" />
+					<Button text="Оформить заказ" className={style.OrderPay__button} type="submit" onClick={() => this.submit()}/>
 					<p>нажимая кнопку "Оформить заказ", Вы подтверждаете, что предоставляете свое согласие c <Link to="/agreement">политикой обработки персональных данных</Link></p>
 				</div>
 			</form>
