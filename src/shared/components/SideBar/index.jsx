@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
+import omit from 'lodash/omit';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { change } from 'redux-form';
@@ -83,9 +84,10 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, 
 		[`${style.SideBar__filter__sublist_active}`]: isActive && !stockId,
 	})
 	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
+	
 	const url = {
 		pathname:`/catalog/${path}`,
-		search: query ? qs.stringify(query) : ''
+		search: query ? qs.stringify(omit(query, 'size')) : ''
 	};
 	
 	const sublist = category.items || category.category;
@@ -123,7 +125,7 @@ const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockI
 	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
 	const url = {
 		pathname: `/${path}/catalog`,
-		search: query ? qs.stringify(query) : ''
+		search: query ? qs.stringify(omit(query, 'size')) : ''
 	};
 	const sublist = category.items || category.categories;
 	
@@ -286,7 +288,9 @@ class SideBar extends PureComponent {
 		const { stockTitle, parsedQuery, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
 		const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
-		const renderedStockCategories = _.filter(stockCategories, b => b.slug !== 'forsneakers')
+		const renderedStockCategories = _.filter(stockCategories, b => { 
+			return !(/for/.test(b.slug))
+		})
 		const gender = Object.keys(genderSize);
 		const url = (item) => {
 			const query = {
@@ -424,7 +428,7 @@ class SideBar extends PureComponent {
 										return <div key={key} onClick={() => brandUrl(brand.name, 'brand')} className={itemStyle}>{brand.name}</div>
 									})}
 								</div>
-								{brands.brands.length > 1 &&<div className={style.SideBar__brands__button} onClick={() => this.toggleBrands()}>{brandToogleText}</div>}
+								{brands.brands.length > 10 &&<div className={style.SideBar__brands__button} onClick={() => this.toggleBrands()}>{brandToogleText}</div>}
 							</div>
 						}
 						{currentSizes && !isMobile &&

@@ -16,9 +16,13 @@ class ProductPage extends Component {
 	componentDidMount() {
 		const { isLoaded, isLoading, isForLoaded, isForLoading, getForProducts, getProductInfo, product } = this.props;
 		if (!isLoaded && !isLoading) getProductInfo();
+		if (this.props.product && this.props.product.category) {
+			this.props.getForProducts(`for${this.props.product.category.name}`);
+		}
 	}
 	componentDidUpdate(prevProps, prevState) {
-		if (this.props.product && this.props.product.category && this.props.product.category.name && this.props.product !== prevProps.product) {
+		
+		if (this.props.product && this.props.product.category && this.props.product.category.name && this.props.product.name !== prevProps.product.name) {
 			this.props.getForProducts(`for${this.props.product.category.name}`);
 		}
 	}
@@ -32,7 +36,7 @@ class ProductPage extends Component {
 		return (
 			<div className="page__inner">
 				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : <Preloader />}
-				{isForLoaded && !isForLoading && <NewPropducts products={forProducts} title="С этим также покупают" mod="for"/>}
+				{isForLoaded && !isForLoading && forProducts && forProducts.length > 0 && <NewPropducts products={forProducts} title="С этим также покупают" mod="for"/>}
 				{isLoaded ? <Reviews pageId={product.slug}/> :''}
 			</div>
 		);

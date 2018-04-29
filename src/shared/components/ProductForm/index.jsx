@@ -94,7 +94,6 @@ class ProductForm extends Component {
 		}
 		const currentColor = _.find(this.props.product.colors, { name: this.props.color }) ? _.find(this.props.product.colors, { name: this.props.color }) : this.props.product.colors[0]
 		const id = _.find(currentColor.sizes, { id: _.find(currentColor.sizes, { id: this.state.activeSize.value }).id }).id
-		console.log({currentColor});
 		
 		const product = {
 			id: currentColor.id,

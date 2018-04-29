@@ -51,7 +51,6 @@ class OrderFormPage extends Component {
 	}
 	getCartSumm = () => {
 		const summ = this.props.products.reduce((summ, item) => (summ + item.count * item.price), 0)
-		console.log(summ, this.props.products);
 		
 		this.setState({
 			cartSumm: summ

@@ -12,7 +12,6 @@ import qs from 'query-string';
 
 class Catalog extends PureComponent {
 	componentDidMount() {
-		console.log('render');
 		
 		const {
 			isLoading,
@@ -67,7 +66,6 @@ class Catalog extends PureComponent {
 				offset: parsedQuery.offset || 0,
 				count: parsedQuery.count || 12,
 			};
-			console.log({ 'mocomponentDidUpdateunt': productConfig });
 			
 			this.props.getProducts(productConfig, category);
 		}
@@ -87,7 +85,6 @@ class Catalog extends PureComponent {
 				offset: parsedQuery.offset || 0,
 				count: parsedQuery.count || 12,
 			};
-			console.log({ 'componentWillReceiveProps': productConfig });
 			
 			this.props.getProducts(productConfig, nextProps.categoryId);
 		}

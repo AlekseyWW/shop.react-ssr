@@ -27,7 +27,6 @@ class UserPage extends Component {
 	}
 	render() {
 		const { products, addToCart, removeFromCart, profile, favorites, orders } = this.props;
-		console.log(orders,_.filter(orders, {status: "formed"}));
 		const currentOrders = _.filter(orders, { status: "formed" }).length > 0 ? _.filter(orders, { status: "formed" }) : orders
 		return (
 			<div className="page__inner">
