@@ -18,7 +18,7 @@ class ProductPage extends Component {
 		if (!isLoaded && !isLoading) getProductInfo();
 	}
 	componentDidUpdate(prevProps, prevState) {
-		if (this.props.product && this.props.product.category && this.props.product.category.name) {
+		if (this.props.product && this.props.product.category && this.props.product.category.name && this.props.product !== prevProps.product) {
 			this.props.getForProducts(`for${this.props.product.category.name}`);
 		}
 	}
