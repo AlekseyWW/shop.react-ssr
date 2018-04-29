@@ -47,7 +47,7 @@ class ProductView extends Component {
 			}
 		}
 		const currentColor = activeSlider !== null ? product.colors[activeSlider] : _.find(product.colors, { name: color }) || product.colors[1];
-		console.log({ activeSlider, currentColor, color});
+		console.log({ activeSlider, currentColor, color }, _.find(product.colors, { name: color }));
 		
 		this.swiper && this.swiper.swiper.update();
 		return (
