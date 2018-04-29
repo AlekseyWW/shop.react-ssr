@@ -57,6 +57,8 @@ class ProductList extends Component {
 		const offset = this.props.query.offset || 0;
 		const countPage = Math.ceil(allCount / (count||12));
 		const pageNum = ((parseInt(count) + parseInt(offset)) / parseInt(count)) - 1;
+		console.log({ isLoading, isLoaded});
+		
 		return (
 			<div className={style.ProductList}>
 				<Filter categoryId={categoryId} allCount={allCount} handleChange={this.handleClick}/>

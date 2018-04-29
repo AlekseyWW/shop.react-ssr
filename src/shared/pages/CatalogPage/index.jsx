@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import PageInfo from 'containers/PageInfo/';
 import qs from 'query-string';
 
 
-class Catalog extends PureComponent {
+class Catalog extends Component {
 	componentDidMount() {
 		
 		const {

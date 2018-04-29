@@ -35,7 +35,8 @@ export default function products(state = initialState, action) {
 		case types.GET_PRODUCTS_START:
 			return {
 				...state,
-				isLoading: true
+				isLoading: true,
+				isLoaded: false
 			};
 
 		case types.GET_PRODUCTS_SUCCESS:

@@ -121,7 +121,7 @@ const getForProductsError = error => {
 };
 
 export const getForProducts = (slug) => (dispatch) => {
-	dispatch(getProductsStart());
+	dispatch(getForProductsStart());
 	const url = '/colors';
 	return get(
 		url,

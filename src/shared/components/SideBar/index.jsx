@@ -87,7 +87,7 @@ const BarItem = ({ category, isActive, subCategoryId, historyLocation, stockId, 
 	
 	const url = {
 		pathname:`/catalog/${path}`,
-		search: query ? qs.stringify(omit(query, 'size')) : ''
+		// search: query ? qs.stringify(omit(query, 'size')) : ''
 	};
 	
 	const sublist = category.items || category.category;
@@ -125,7 +125,7 @@ const SubBarItem = ({ category, isActive, subCategoryId, historyLocation, stockI
 	const path = historyLocation ? `${category.slug}` : `${category.slug}`;
 	const url = {
 		pathname: `/${path}/catalog`,
-		search: query ? qs.stringify(omit(query, 'size')) : ''
+		// search: query ? qs.stringify(omit(query, 'size')) : ''
 	};
 	const sublist = category.items || category.categories;
 	
@@ -237,10 +237,6 @@ class SideBar extends PureComponent {
 				})
 			}
 		}
-	}
-	componentWillUnmount() {
-		console.log('unmount');
-		return false;
 	}
 	toggleBrands() {
 		if (!openedBrands) {
