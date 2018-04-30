@@ -36,7 +36,7 @@ class ProductPage extends Component {
 		return (
 			<div className="page__inner">
 				{isLoaded ? <ProductContainer product={product} addToCart={addToCart} color={color} /> : <Preloader />}
-				{isForLoaded && !isForLoading && forProducts && forProducts.length > 0 && <NewPropducts products={forProducts} title="С этим также покупают" mod="for"/>}
+				{isForLoaded && !isForLoading && forProducts && forProducts.length > 0 && <NewPropducts products={forProducts} title="Так же вам может понравиться" mod="for"/>}
 				{isLoaded ? <Reviews pageId={product.slug}/> :''}
 			</div>
 		);
