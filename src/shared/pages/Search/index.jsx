@@ -112,6 +112,7 @@ class Search extends Component {
 				search: `${qs.stringify(query)}`
 			})
 		}
+		const renderedProducts = _.filter(searchProducts, b => _.filter(b.sizes, a => a.quantity > 0).length > 0);
 		
 		return (
 			<div className={styles.Search}>
@@ -119,7 +120,7 @@ class Search extends Component {
 					Результаты поиска
 				</div>
 				{isSearching && <Preloader />}
-				{searchProducts && searchProducts.length > 0 && isSearched && !isSearching && searchProducts.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'} />)}
+				{searchProducts && searchProducts.length > 0 && isSearched && !isSearching && renderedProducts.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.toogleFavotite(product)} isFavorite={typeof find(this.props.favorites, { id: product.id }) !== 'undefined'} />)}
 				{searchProducts && searchProducts.length === 0 && isSearched && !isSearching && <p>По заданным параметрам товаров не найдено</p>}
 			</div>
 		);

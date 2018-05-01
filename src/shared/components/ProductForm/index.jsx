@@ -176,7 +176,7 @@ class ProductForm extends Component {
 									<span>Колличество ограничено</span>
 								</div>
 							</div>
-							<span className={style.ProductForm__callback__note}>Наличие товара вашего размера и понравившегося цвета можно уточнить оформив заявку, или написав нам в <a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank">WhatsApp.</a></span>
+							{/* <span className={style.ProductForm__callback__note}>Наличие товара вашего размера и понравившегося цвета можно уточнить оформив заявку, или написав нам в <a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank">WhatsApp.</a></span> */}
 						</div>
 					}
 					<div className={style.ProductForm__action}>
