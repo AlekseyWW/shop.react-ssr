@@ -95,6 +95,14 @@ export default function renderHtml({ preloadedState, markup, styleTags, styles, 
 		${isDev ? dllString : empty}
 		${scripts}
 		${helmet.script.toString()}
+		<script>
+		(function(w, d, s, h, id) {
+			w.roistatProjectId = id; w.roistatHost = h;
+			var p = d.location.protocol == "https:" ? "https://" : "http://";
+			var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
+			var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+		})(window, document, 'script', 'cloud.roistat.com', '62a5d96a38a843b04c9e38586d05a2fe');
+		</script>
 		<link rel="stylesheet" href="https://cdn.callbackkiller.com/widget/cbk.css">
 		<script type="text/javascript" src="https://cdn.callbackkiller.com/widget/cbk.js?cbk_code=1b5ec5fdc525a0d65e4fe107c9022bef" charset="UTF-8" async></script>
 		<script type="text/javascript" src="//cdn.callbackhunter.com/cbh.js?hunter_code=ff62d257709043693a0f6345ef64f77b" charset="UTF-8"></script>
