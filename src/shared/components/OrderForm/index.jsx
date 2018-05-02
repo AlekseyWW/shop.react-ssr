@@ -41,7 +41,7 @@ class OrderForm extends Component {
 	}
 	submit() {
 		if (!this.props.valid) {
-			this.alertify.alert("Форма заполнена неверно! Пожалуста заполните все обязательные поля корректными данными.");
+			this.alertify.okBtn("Закрыть").alert("Форма заполнена неверно! Пожалуста заполните все обязательные поля корректными данными.");
 		}
 	}
 	render() {

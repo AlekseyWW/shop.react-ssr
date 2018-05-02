@@ -35,6 +35,7 @@ class Header extends Component {
 		if (!getStockCategories.isLoaded && !getStockCategories.isLoading) getStockCategories();
 		const cart = localStorage.getItem("cart");
 		const orderStorage = localStorage.getItem("orderId");
+		const deliveryType = localStorage.getItem("orderId");
 		const favorites = localStorage.getItem("favorites");
 		const accessTokenStorage = localStorage.getItem("accessToken");
 		
@@ -57,11 +58,11 @@ class Header extends Component {
 				this.openRegisterModal()
 			}, 15000);
 		}
-		const { orderId, deliveryType } = qs.parse(this.props.history.location.search);
+		const { orderId } = qs.parse(this.props.history.location.search);
 		
 		if (orderStorage === orderId) {
 			const time = deliveryType === 'post' ? '6-15' : '2-6';
-			const text = deliveryType === 'courier' ? 'В течении 15 минут с Вами свяжется менеджер, для уточнения деталей доставки.' : `Ваш заказ №${order.id} будет доставлен в течение ${time} дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.`;
+			const text = deliveryType === 'courier' ? 'В течении 15 минут с Вами свяжется менеджер, для уточнения деталей доставки.' : `Ваш заказ №${orderId} будет доставлен в течение ${time} дней. Вам поступит SMS уведомление с трек номером заказа – для отслеживания.`;
 			localStorage.setItem('orderId', '')
 			localStorage.setItem('deliveryType', '')
 			yaCounter47068560.reachGoal('PAYMENT');

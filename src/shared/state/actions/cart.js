@@ -11,6 +11,7 @@ const addToCartSuccess = (product, remove) => {
 	if(typeof alertyfy === 'undefined') {
 		alertify = require('alertify.js')
 	}
+	console.log('add');
 	
 	return dispatch => {
 		alertify.okBtn("В корзину")
@@ -43,6 +44,9 @@ const addToCartError = error => ({
 });
 
 export const addToCart = (product, remove, removeAll) => (dispatch) => {
+	if (typeof alertyfy === 'undefined') {
+		alertify = require('alertify.js')
+	}
 	if (getAccessToken()) {
 		const url = remove && !removeAll ? `users/${getAccessToken()}/carts/size-for-colors/${product.sizeId}/decrease` : `users/${getAccessToken()}/carts/size-for-colors/${product.sizeId}`
 		dispatch(addToCartStart(product.id, remove));
@@ -51,7 +55,13 @@ export const addToCart = (product, remove, removeAll) => (dispatch) => {
 			url,
 			{ removeAll },
 			response => {
-				
+				if (!remove && !removeAll) {
+					alertify.okBtn("В корзину")
+						.cancelBtn("Продолжить").confirm(`<p>Товар "${product.name}" добавлен в корзину</p>`,
+							function () {
+								dispatch(push('/cart'));
+							})
+				}
 				return dispatch(setCartSuccess(response.map(item => ({
 						id: item.sizeForColor.color.id,
 						name: item.sizeForColor.color.product.name,
