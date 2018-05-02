@@ -92,7 +92,11 @@ class ProductForm extends Component {
 			alert('Выберите размер')
 			return false;
 		}
-		const currentColor = _.find(this.props.product.colors, b => b.name.trim() === this.props.color.trim()) ? _.find(this.props.product.colors, b => b.name.trim() === this.props.color.trim()) : this.props.product.colors[0]
+		const currentColor = _.find(this.props.product.colors, b => {
+			return b.name.trim() === this.props.color.trim()
+		}) ? _.find(this.props.product.colors, b => {
+			return b.name.trim() === this.props.color.trim()
+		}) : this.props.product.colors[0]
 		const id = _.find(currentColor.sizes, { id: _.find(currentColor.sizes, { id: this.state.activeSize.value }).id }).id
 		
 		const product = {
@@ -109,14 +113,13 @@ class ProductForm extends Component {
 	}
 
 	toogleFavotite = () => {
-		const product = {..._.find(this.props.product.colors, { name: this.props.color })};
+		const product = {..._.find(this.props.product.colors, b => {
+			return b.name.trim() === this.props.color.trim()
+		})};
 		product.img = product.thumb;
 		product.product = this.props.product;
-		if (_.find(this.props.favorites, { id: product.id })) {
-			this.props.removeFromFavorites(product.id)
-		} else {
-			this.props.addToFavorites(product)
-		}
+		const remove = _.find(this.props.favorites, { id: product.id }) ? true : false
+		this.props.addToFavorites(product, remove)
 	}
 	handleChange = (selectedOption) => {
 		this.setState({ activeSize: selectedOption });
@@ -124,7 +127,13 @@ class ProductForm extends Component {
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
 		const filtredColors = _.filter(product.colors, b => b.sizes.length > 0)
-		const activeColor = color && _.find(filtredColors, { name: color }) ? _.find(filtredColors, { name: color }) : filtredColors[0];
+		const activeColor = color && _.find(filtredColors, b => {
+			return b.name.trim() === color.trim()
+		}) ? _.find(filtredColors, b => {
+			return b.name.trim() === color.trim()
+		}) : filtredColors[0];
+		
+		
 		const id = activeColor ? activeColor.id : 0;
 		const propsModal = {
 			title: product.name,
@@ -180,9 +189,9 @@ class ProductForm extends Component {
 						</div>
 					}
 					<div className={style.ProductForm__action}>
-						{product.colors.length > 1 &&
+						{filtredColors.length > 1 &&
 							<div className={style.ProductForm__colors}>
-								{product.colors.map((color, id) => (
+								{filtredColors.map((color, id) => (
 									<NavLink key={color.name} className={style.ProductForm__color} to={`/products/${product.slug}?color=${color.name}`} replace>
 										<img src={color.thumb} />
 									</NavLink>
@@ -381,7 +390,7 @@ const mapDispatchToProps = dispatch => {
 		openModal: modalParams => dispatch(actions.openModal(modalParams)),
 		closeModal: () => dispatch(actions.closeModal()),
 		setStatusModal: (status) => dispatch(actions.setStatusModal(status)),
-		addToFavorites: (product) => dispatch(favoritesAction.addToFavorites(product)),
+		addToFavorites: (product, remove) => dispatch(favoritesAction.addToFavorites(product, remove)),
 		removeFromFavorites: (productId) => dispatch(favoritesAction.removeFromFavorites(productId))
 	};
 };

@@ -37,7 +37,7 @@ export const addToFavorites = (product, remove) => (dispatch) => {
 		)
 	} else {
 		if (remove) {
-			dispatch(removeFromFavoritesSuccess(product));
+			dispatch(removeFromFavoritesSuccess(product.id));
 		} else {
 			dispatch(addToFavoritesSuccess(product));
 		}

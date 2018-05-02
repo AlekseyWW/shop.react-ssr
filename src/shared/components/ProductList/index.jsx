@@ -45,11 +45,8 @@ class ProductList extends Component {
 		})
 	}
 	toogleFavotite = (product) => {
-		if (find(this.props.favorites, { id: product.id })) {
-			this.props.removeFromFavorites(product.id)
-		} else {
-			this.props.addToFavorites(product)
-		}
+		const remove = find(this.props.favorites, { id: product.id }) ? true : false
+			this.props.addToFavorites(product, remove)
 	}
 	render() {
 		const { sex, categoryId, allCount, products, isLoaded, isLoading, addToFavorites} = this.props;
@@ -125,7 +122,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return ({
 		getProducts: data => dispatch(productsAction.getProducts(data, categoryId)),
 		setPagination: (offset, countView) => dispatch(paginationAction.setPagination(offset, countView)),
-		addToFavorites: (product) => dispatch(favoritesAction.addToFavorites(product)),
+		addToFavorites: (product, remove) => dispatch(favoritesAction.addToFavorites(product, remove)),
 		removeFromFavorites: (productId) => dispatch(favoritesAction.addToFavorites(productId, true))
 	});
 };

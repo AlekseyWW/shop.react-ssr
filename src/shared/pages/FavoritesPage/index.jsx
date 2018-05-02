@@ -22,7 +22,7 @@ class FavoritesPage extends Component {
 					<h1><HeartSold />Избранное</h1>
 				</div>
 				<div className={style.Page__container}>
-					{products.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.props.removeFromFavorites(product.id)} actionText="убрать из избранного" sm />)}
+					{products.map(product => <ProductCard key={product.id} {...product} toogleFavotite={() => this.props.removeFromFavorites(product)} actionText="убрать из избранного" sm />)}
 				</div>
 			</div>
 		);

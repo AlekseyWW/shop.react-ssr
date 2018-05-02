@@ -4,13 +4,11 @@ import style from './styles.styl';
 
 class Reviews extends Component {
 	componentDidMount() {
-		console.log('mount', this.props.pageId);
 		
-		VK.Widgets.Comments("vk_comments", { limit: 10, attach: "*", pageUrl: 'http://newstep.store' }, this.props.pageId ? this.props.pageId : null);
+		VK.Widgets.Comments("vk_comments", { limit: 10, attach: "*", pageUrl: 'http://newstep.store' });
 
 	}
 	componentDidUpdate(prevProps, prevState) {
-		console.log('update');
 		
 	}
 	render() {

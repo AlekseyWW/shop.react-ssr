@@ -16,14 +16,14 @@ export const getExtendedList = (currentList, id, data, replace = false, remove=f
 	// create item with new data
 	const item = _.extend({}, (replace ? {} : currentItem), data, { id });
 	// insert to list
-	if (index >= 0) {
-		if (remove) {
-			_.remove(list, { id })
-		} else {
-			list[index] = item;
-		}
+	if (remove) {
+		_.remove(list, { id })
 	} else {
-		list.push(item);
+		if (index >= 0) {
+				list[index] = item;
+		} else {
+			list.push(item);
+		}
 	}
 	// return updated items
 	return list;

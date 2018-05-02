@@ -11,8 +11,6 @@ const addToCartSuccess = (product, remove) => {
 	if(typeof alertyfy === 'undefined') {
 		alertify = require('alertify.js')
 	}
-	console.log('add');
-	
 	return dispatch => {
 		alertify.okBtn("В корзину")
 			.cancelBtn("Продолжить").confirm(`<p>Товар "${product.name}" добавлен в корзину</p>`,
