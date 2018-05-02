@@ -10,7 +10,14 @@ import qs from 'query-string';
 class Layout extends Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.location.pathname !== this.props.location.pathname) {
-			fbq('track', 'PageView');
+			///счетчик ройстат
+				(function (w, d, s, h, id) {
+					w.roistatProjectId = id; w.roistatHost = h;
+					var p = d.location.protocol == "https:" ? "https://" : "http://";
+					var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/" + id + "/init";
+					var js = d.createElement(s); js.charset = "UTF-8"; js.async = 1; js.src = p + h + u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+				})(window, document, 'script', 'cloud.roistat.com', '62a5d96a38a843b04c9e38586d05a2fe');
+			///счетчик ройстат
 			!function (f, b, e, v, n, t, s) {
 				if (f.fbq) return; n = f.fbq = function () {
 					n.callMethod ?
@@ -28,6 +35,7 @@ class Layout extends Component {
 			fbq('track', 'PageView');
 			fbq('init', '161382741218409');
 			fbq('track', 'PageView');
+			
 		}
 	}
 	componentDidMount() {
@@ -77,6 +85,14 @@ class Layout extends Component {
 		const ScrollMagic = require('scrollmagic');
 		window.controller = new ScrollMagic.Controller();
 		const parsedQuery = qs.parse(this.props.location.search);
+		///счетчик ройстат
+		(function(w, d, s, h, id) {
+				w.roistatProjectId = id; w.roistatHost = h;
+			var p = d.location.protocol == "https:" ? "https://" : "http://";
+			var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
+			var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+		})(window, document, 'script', 'cloud.roistat.com', '62a5d96a38a843b04c9e38586d05a2fe');
+		///счетчик ройстат
 		if (parsedQuery['utm_campaign']) {
 			window.utm = {
 				utm_campaign: parsedQuery['utm_campaign'],
