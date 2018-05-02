@@ -19,8 +19,8 @@ function App() {
 			<Helmet titleTemplate="NEWSTEP - %s">
 				<html lang="en" />
 				<title>Магазин</title>
-				<meta name="application-name" content="React Universal Boiler" />
-				<meta name="description" content="A server rendering React project." />
+				<meta name="application-name" content="Newsetep" />
+				<meta name="description" content="Магазин мужских и женских кроссовок." />
 				<meta charSet="utf-8" />
 				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
