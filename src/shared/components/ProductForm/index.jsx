@@ -126,7 +126,9 @@ class ProductForm extends Component {
 	}
 	render() {
 		const { addToCart, product, setSlider, color } = this.props;
-		const filtredColors = _.filter(product.colors, b => b.sizes.length > 0)
+		console.log(product.colors);
+		
+		const filtredColors = _.filter(product.colors, b => _.filter(b.sizes, d => d.quantity > 0).length > 0)
 		const activeColor = color && _.find(filtredColors, b => {
 			return b.name.trim() === color.trim()
 		}) ? _.find(filtredColors, b => {
@@ -155,7 +157,7 @@ class ProductForm extends Component {
 		})
 		const sizeImg = product.category ? sizeImages[product.category.name.trim()] : '';
 		
-		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity), 'sex') : [];
+		const groupSizes = activeColor && activeColor.sizes ? _.groupBy(_.filter(activeColor.sizes, b => b.quantity > 0), 'sex') : [];
 		const options = Object.keys(groupSizes).map(sex => ({
 			label: sex,
 			options: groupSizes[sex].map(size => ({ value: size.id, label: size.name }))

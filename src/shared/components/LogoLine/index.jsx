@@ -84,7 +84,7 @@ class LogoLine extends Component {
 					<div className={style.LogoLine__content}>
 						<div className={navClass}>
 							<NavLink to="/catalog" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
-								Каталог
+								Магазин
 							</NavLink>
 							<NavLink to="/info" className={style.LogoLine__nav__item} activeClassName={style.LogoLine__nav__item_active}>
 								Оплата и доставка
