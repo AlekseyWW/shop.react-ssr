@@ -427,7 +427,7 @@ class SideBar extends PureComponent {
 								{brands.brands.length > 10 &&<div className={style.SideBar__brands__button} onClick={() => this.toggleBrands()}>{brandToogleText}</div>}
 							</div>
 						}
-						{currentSizes && !isMobile &&
+						{currentSizes && !isMobile && (subCategoryId || categoryId) &&
 							<div className={style.SideBar__filter__list}>
 								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Размер</div>
 								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active} ${style.SideBar__filter__sublist_sizes}`}>
