@@ -334,8 +334,8 @@ class SideBar extends PureComponent {
 									}
 								});
 								query.sex = sex;
-								query.offset = this.props.query.offset || 0;
-								query.count = this.props.query.count || 12;
+								query.offset = this.props.parsedQuery.offset || 0;
+								query.count = this.props.parsedQuery.count || 12;
 								this.historyPush(query);
 								getProducts(query, subCategoryId || categoryId);
 							}} />
