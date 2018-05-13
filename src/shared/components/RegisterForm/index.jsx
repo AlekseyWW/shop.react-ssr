@@ -23,13 +23,13 @@ class RegisterForm extends Component {
 		
 		return (
 			<form onSubmit={handleSubmit} className={style.RegisterForm}>
-				<div className={style.RegisterForm__promo}>
+				{/* <div className={style.RegisterForm__promo}>
 					<div className={style.RegisterForm__promo__content}>
 						<GiftIcon />
 						<p className={style.RegisterForm__promo__title}><span>500 рублей в подарок</span> на шоппинг</p>
 					</div>
 					<p className={style.RegisterForm__promo__text}>Зарегистриуйтесь на&nbsp;сайте и&nbsp;получите промокод на&nbsp;скидку!</p>
-				</div>
+				</div> */}
 				<div className={style.RegisterForm__container}>
 					<Field
 						name="email"

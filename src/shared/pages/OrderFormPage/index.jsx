@@ -131,7 +131,7 @@ class OrderFormPage extends Component {
 						paymentTypes={ paymentTypes }
 						products={ products }
 						isDeliveryLoaded={isDeliveryLoaded}
-						orderSumm={cartSumm + deliveryCost - promoAmount }
+						orderSumm={cartSumm + deliveryCost }
 						initialValues={initialValues}
 						productsForDelivery={productsForDelivery}
 						isDeliveryLoading={ isDeliveryLoading }
@@ -186,7 +186,7 @@ const mapStateToProps = (state) => {
 	const { order } = state.form;
 
 	const val = order ? order.values : {};
-	const initialValues = accessToken && profileIsLoaded && profile && profile.id ? { ...profile, promocode: profile.promocodes && profile.promocodes[0] ? profile.promocodes[0].code : '', city: profile.city ? { id: profile.city.id, label: profile.city.name } : null, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) };
+	const initialValues = accessToken && profileIsLoaded && profile && profile.id ? { ...profile, city: profile.city ? { id: profile.city.id, label: profile.city.name } : null, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) };
 	
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');

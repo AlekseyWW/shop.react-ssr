@@ -131,13 +131,13 @@ class OrderForm extends Component {
 							/>
 						</div>
 						<div className={style.OrderForm__group}>
-							<Field
+							{/* <Field
 								name="promocode"
 								component={Input}
 								type="text"
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
 								label="Промокод"
-							/>
+							/> */}
 							<Field
 								name="comment"
 								component={Input}
@@ -145,7 +145,7 @@ class OrderForm extends Component {
 								className={`${style.OrderForm__input} ${style.OrderForm__input_wide}`}
 								label="Комментарий"
 							/>
-							<p className={style.OrderForm__group__note}>*Промокод десйтвует только при покупке от 3000 рублей.</p>
+							{/* <p className={style.OrderForm__group__note}>*Промокод десйтвует только при покупке от 3000 рублей.</p> */}
 						</div>
 					</div>
 				</div>

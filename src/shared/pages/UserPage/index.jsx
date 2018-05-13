@@ -50,7 +50,7 @@ class UserPage extends Component {
 					{profile && (
 						<div className={styles.UserPage__container}>
 							<div className={styles.UserPage__column}>
-								{profile.promocodes && profile.promocodes[0] &&
+								{/* {profile.promocodes && profile.promocodes[0] &&
 									<div className={styles.UserPage__item}>
 										<div className={styles.UserPage__item__title}>
 											<AdressIcon />
@@ -65,7 +65,7 @@ class UserPage extends Component {
 											</div>
 										</div>
 									</div>
-								}
+								} */}
 								<div className={styles.UserPage__item}>
 									<div className={styles.UserPage__item__title}>
 										<AdressIcon />
