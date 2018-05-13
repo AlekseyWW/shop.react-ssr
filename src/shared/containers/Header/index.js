@@ -53,11 +53,6 @@ class Header extends Component {
 		} else if(cart) {
 			setCart(JSON.parse(cart));
 		}
-		if (!accessTokenStorage) {
-			setTimeout(() => {
-				this.openRegisterModal()
-			}, 15000);
-		}
 		const { orderId } = qs.parse(this.props.history.location.search);
 		
 		if (orderStorage === orderId) {
