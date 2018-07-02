@@ -72,7 +72,7 @@ class ProductView extends Component {
 					</div>
 				</div>
 				<div className={style.ProductView__image}>
-					<Swiper className={style.ProductView__container} {...params} ref={el => {this.swiper = el}}>
+					<Swiper className={style.ProductView__container} {...params} ref={this.swiper = el}>
 						{currentColor && currentColor.img.map(photo =>(
 							<div  key={uuid.v4()}  className={style.ProductView__slide}>
 

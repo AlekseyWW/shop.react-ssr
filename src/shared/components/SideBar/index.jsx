@@ -283,7 +283,7 @@ class SideBar extends PureComponent {
 		
 		const { stockTitle, parsedQuery, stockCategories, stockId, categories, brands, size, sex, brand, getProducts, categoryId, sizes, subCategoryId, title, history, location, match, isMobile } = this.props;
 		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
-		const genderSize = sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
+		const genderSize = sizes && sizes[0] && sizes[0].sex && sizes[0].sex.whom ? _.groupBy(sizes, b => b.sex.whom) : [];
 		const renderedStockCategories = _.filter(stockCategories, b => { 
 			return !(/for/.test(b.slug))
 		})
@@ -318,7 +318,7 @@ class SideBar extends PureComponent {
 		const brandToogleText = openedBrands ? 'скрыть' : 'показать все';
 		return (
 			<div key="sidebar" className={style.SideBar}>
-				<div className={style.SideBar__filter} ref={el => this.block = el}>
+				<div className={style.SideBar__filter} ref={this.block}>
 					<div className={style.SideBar__filter__item}>
 						<div className={style.SideBar__filter__title}>
 							{title} {stockTitle && `/${stockTitle}`}
@@ -411,7 +411,7 @@ class SideBar extends PureComponent {
 						{brands.brands && !isMobile &&
 							<div className={style.SideBar__filter__list}>
 								<div className={`${style.SideBar__filter__list__item} ${style.SideBar__filter__list__item_active}`}>Бренд</div>
-								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active} ${style.SideBar__brands}`} ref={el => { this.brandList = el }}>
+								<div className={`${style.SideBar__filter__sublist} ${style.SideBar__filter__sublist_active} ${style.SideBar__brands}`} ref={this.brandList}>
 									{/* {sortBy(brands.brands, 'name').map((brand, id) => { */}
 									{brands.brands.map((brand, id) => {
 										const key = `brand-${id}`;

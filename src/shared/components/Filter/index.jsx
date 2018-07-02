@@ -161,7 +161,7 @@ class Filter extends Component {
 		
 		return (
 			<div className={style.Filter} id="filter">
-				<div className={style.Filter__inner} ref={el => this.block = el}>
+				<div className={style.Filter__inner} ref={this.block}>
 					{/* <div className={style.Filter__filters}>
 						<BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
 							const query = {};

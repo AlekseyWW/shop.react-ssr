@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Promo from 'components/Promo/';
 import Category from 'containers/Category/';
 import BrandList from 'components/BrandList/';
-import Reviews from 'components/Reviews/';
 import NewPropducts from 'containers/NewPropducts/';
 import InstagrammGallery from 'components/InstagrammGallery';
 import * as productsAction from 'actions/products';
@@ -45,8 +44,6 @@ class MainPage extends Component {
 				{slider && slider.slider.length > 0 && <Promo categories={categories.items} slides={slider.slider} content={text.promo}/>}
 				{promoCategories.items && categories.items && <Category items={promoCategories.items} categories={categories.items}/>}
 				{promoProducts && <NewPropducts products={promoProducts} />}
-				<InstagrammGallery />
-				<Reviews />
 			</div>
 		);
 	}

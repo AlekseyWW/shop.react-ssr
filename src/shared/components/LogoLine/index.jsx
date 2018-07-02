@@ -149,7 +149,7 @@ class LogoLine extends Component {
 						</div>
 					</div>
 					<div className={mobileSearch}>
-						<input placeholder="Поиск" onBlur={searchProducts} ref={el => this.searchInput = el}/>
+						<input placeholder="Поиск" onBlur={searchProducts} ref={this.searchInput}/>
 						<GlassIcon onClick={this.searchProducts} />
 						<div onClick={() =>this.setState({ searchOpened: false})}></div>
 					</div>

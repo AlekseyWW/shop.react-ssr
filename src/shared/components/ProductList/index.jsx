@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactPaginate from 'react-paginate';
+// import ReactPaginate from 'react-paginate';
 import ProductCard from 'components/ProductCard/';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -67,7 +67,7 @@ class ProductList extends Component {
 							{products.length === 0 && isLoaded && !isLoading && <p>По заданным параметрам товаров не найдено</p>}
 						</div>
 				}
-				<div className={style.ProductList__nav}>
+				{/* <div className={style.ProductList__nav}>
 					<ReactPaginate
 						previousLabel={'Пред.'}
 						nextLabel={'След.'}
@@ -85,7 +85,7 @@ class ProductList extends Component {
 						nextClassName={style.ProductList__nav__pages__item}
 						subContainerClassName={'pages pagination'}
 					/>
-				</div>
+				</div> */}
 			</div>
 		)
 	}

@@ -98,7 +98,7 @@ export default function products(state = initialState, action) {
 				...state,
 				isPromoLoading: false,
 				isPromoLoaded: true,
-				promoProducts: action.products.colors,
+				promoProducts: action.products,
 				error: null
 			};
 

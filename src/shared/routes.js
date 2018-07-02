@@ -29,7 +29,7 @@ export default [
 	{
 		path: '/',
 		exact: true,
-		component: CatalogPage,
+		component: MainPage,
 	},
 	{
 		path: '/catalog',

@@ -35,7 +35,7 @@ class ProductCard extends Component {
 		})
 		const text = actionText ? actionText : isFavorite ? "В избранном" : "В избранное"
 		const currentSizes = sex ? filter(sizes, b => b.sex === sex && b.quantity > 0) : filter(sizes, b => b.quantity > 0);
-		
+	
 		return (
 			<div className={className}>
 				<div className={imgClass}>

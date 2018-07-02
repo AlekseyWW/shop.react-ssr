@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
 import dotenv from 'dotenv';
-import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
@@ -18,8 +18,8 @@ const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 import {
 	StatsPlugin,
 	happyPackPlugin,
-	ProgressPlugin,
 	WebpackDigestHash,
+	ProgressPlugin,
 	getNodeExternals,
 } from './plugins';
 
@@ -152,7 +152,7 @@ export default function createWebpackConfig(options) {
 		},
 	};
 	const stylysLoaderRule = {
-		loader: 'stylus-loader',
+		loader: 'stylus-loader?resolve url',
 		options: {
 			sourceMap: _IS_DEV_,
 			minimize: _IS_DEV_ ? false : true,
@@ -181,6 +181,20 @@ export default function createWebpackConfig(options) {
 
 	return {
 		name,
+		mode: config.env,
+
+		stats: {
+			children: false,
+			entrypoints: false,
+		},
+		serve: {
+			dev: {
+				stats: {
+					children: false,
+					entrypoints: false,
+				}
+			}
+		},
 		// pass either node or web
 		target,
 		// user's project root
@@ -257,15 +271,12 @@ export default function createWebpackConfig(options) {
 		},
 		module: {
 			strictExportPresence: true,
-
+			
 			rules: [
 				{
 					test: JS_FILES,
-					loader: 'source-map-loader',
-					enforce: 'pre',
-					options: {
-						quiet: true,
-					},
+					use: ["source-map-loader"],
+					enforce: "pre",
 					// these can be problematic loading sourcemaps that may/may not exist
 					exclude: [/apollo-/, /zen-observable-ts/, /react-apollo/, /intl-/],
 				},
@@ -344,66 +355,58 @@ export default function createWebpackConfig(options) {
 					test: /\.css$/,
 					include: NODE_DIR,
 					exclude: SRC_DIR,
-					use: _IS_CLIENT_
-						? ExtractCssChunks.extract({
-								use: [
-									{
-										loader: 'css-loader',
-										options: {
-											modules: false,
-											localIdentName: LOCAL_IDENT,
-											import: 3,
-											minimize: !_IS_DEV_,
-											sourceMap: _IS_DEV_,
-										},
-									},
-									{
-										loader: 'resolve-url-loader',
-									},
-								].filter(Boolean),
-							})
+					use: _IS_CLIENT_ ? 
+						[
+							MiniCssExtractPlugin.loader,
+							{
+								loader: 'css-loader',
+								options: {
+									modules: false,
+									localIdentName: LOCAL_IDENT,
+									import: 3,
+									minimize: !_IS_DEV_,
+									sourceMap: _IS_DEV_,
+								},
+							},
+							{
+								loader: 'resolve-url-loader',
+							},
+						].filter(Boolean)
 						: [
-								cacheLoader,
-								{
-									loader: 'css-loader/locals',
-									options: {
-										modules: false,
-										localIdentName: LOCAL_IDENT,
-										import: 3,
-										minimize: _IS_DEV_ ? false : true,
-										sourceMap: _IS_DEV_,
-									},
+							cacheLoader,
+							{
+								loader: 'css-loader/locals',
+								options: {
+									modules: false,
+									localIdentName: LOCAL_IDENT,
+									import: 3,
+									minimize: _IS_DEV_ ? false : true,
+									sourceMap: _IS_DEV_,
 								},
-								{
-									loader: 'resolve-url-loader',
-								},
-							].filter(Boolean),
+							},
+							{
+								loader: 'resolve-url-loader',
+							},
+						].filter(Boolean),
 				},
 				{
 					test: STYLE_FILES,
 					include: SRC_DIR,
 					exclude: /node_modules/,
 					use: _IS_CLIENT_
-						? ExtractCssChunks.extract({
-								use: [
+						?  [
+								MiniCssExtractPlugin.loader,
 									{
 										loader: 'css-loader',
 										options: cssLoaderOptions,
 									},
-									{
-										loader: 'resolve-url-loader',
-									},
 									postCSSLoaderRule,
 									stylysLoaderRule,
-								].filter(Boolean),
-							})
+							].filter(Boolean)
 						: [
 								{
 									loader: 'css-loader/locals',
 									options: cssLoaderOptions,
-								},
-								{
-									loader: 'resolve-url-loader',
 								},
 								postCSSLoaderRule,
 								stylysLoaderRule,
@@ -411,6 +414,27 @@ export default function createWebpackConfig(options) {
 				},
 			].filter(Boolean),
 		},
+		optimization: _IS_CLIENT_ ? {
+			splitChunks: {
+				chunks: 'async',
+				minSize: 30000,
+				maxAsyncRequests: 5,
+				maxInitialRequests: 3,
+				automaticNameDelimiter: '~',
+				minChunks: Infinity,
+				cacheGroups: {
+					vendors: {
+						test: /[\\/]node_modules[\\/]/,
+						priority: -10
+					},
+					default: {
+						minChunks: 2,
+						priority: -20,
+						reuseExistingChunk: true
+					}
+				}
+			}
+		} : {},
 		plugins: [
 			new webpack.LoaderOptionsPlugin({
 				minimize: _IS_PROD_,
@@ -434,29 +458,13 @@ export default function createWebpackConfig(options) {
 					})
 				: null,
 			_IS_CLIENT_
-				? new ExtractCssChunks({
-						filename: _IS_DEV_ ? '[name].css' : '[name]-[contenthash:base62:8].css',
+				? new MiniCssExtractPlugin({
+						filename: _IS_DEV_ ? '[name].css' : '[name]-[contenthash:base62:8].css'
 					})
 				: null,
 			// explicit named vendor chunk
-			_IS_CLIENT_
-				? new webpack.optimize.CommonsChunkPlugin({
-						names: ['vendor'],
-						//   // needed to put webpack bootstrap code before chunks
-						filename: _IS_PROD_ ? '[name]-[chunkhash].js' : '[name].js',
-						minChunks: Infinity,
-					})
-				: null,
 			// Extract Webpack bootstrap code with knowledge about chunks into separate cachable package.
-			// explicit-webpack-runtime-chunk
-			_IS_CLIENT_
-				? new webpack.optimize.CommonsChunkPlugin({
-						names: ['bootstrap'],
-						//   // needed to put webpack bootstrap code before chunks
-						filename: _IS_PROD_ ? '[name]-[chunkhash].js' : '[name].js',
-						minChunks: Infinity,
-					})
-				: null,
+
 			// Custom progress plugin
 			new ProgressPlugin({ prefix: PREFIX }),
 			// Subresource Integrity (SRI) is a security feature that enables browsers to verify that

@@ -4,7 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-import ConnectedRouter from 'react-router-redux/ConnectedRouter';
+// import ConnectedRouter from 'react-router-redux/ConnectedRouter';
+import { Router } from 'react-router'
+
 // internal
 import configureStore from '../shared/state/store';
 import App from '../shared/components/App';
@@ -27,12 +29,13 @@ const renderApp = App => {
 	const MOUNT_POINT = document.getElementById('app');
 	// in React 16 ReactDOM.render becomes ReactDOM.hydrate
 	// when used for SSR.
+	console.log({ReactDOM});
 	ReactDOM.hydrate(
 		<ReactHotLoader>
 			<Provider store={store}>
-				<ConnectedRouter history={history}>
+				<Router history={history}>
 					<App />
-				</ConnectedRouter>
+				</Router>
 			</Provider>
 		</ReactHotLoader>,
 		MOUNT_POINT,

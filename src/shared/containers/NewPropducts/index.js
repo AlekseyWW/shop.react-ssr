@@ -17,7 +17,7 @@ const NewProducts = ({ products, title, mod }) => (
 			<h2>{title ? title: 'Топ продаж'}</h2>
 		</div>
 		<div className={style.NewProducts__list}>
-			<Swiper className={style.NewProducts__container} {...params} ref={el => { this.swiper = el }}>
+			<Swiper className={style.NewProducts__container} {...params} >
 				{products.map(product => <div key={product.id} className={style.NewProducts__item}><ProductCard  {...product}/></div>)}
 			</Swiper>
 		</div>

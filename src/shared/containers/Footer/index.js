@@ -125,7 +125,7 @@ class Footer extends Component {
 							рассылка
 							</div>
 							<div className={style.Footer__feedback__input}>
-								<input className={style.Footer__feedback__field} placeholder="Твой e-mail" ref={el => this.input = el} />
+								<input className={style.Footer__feedback__field} placeholder="Твой e-mail" ref={this.input} />
 								<button className={style.Footer__feedback__button} onClick={this.fetchDistribution}>ок</button>
 							</div>
 							<div className={style.Footer__feedback__text}>

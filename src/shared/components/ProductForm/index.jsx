@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import htmlParser from 'react-html-parser';
 import Button from 'components/Button';
-import Select from 'react-select-plus';
+import Select from 'react-select';
 import _ from 'lodash';
 import { post } from 'utils/api';
 import style from './styles.styl';

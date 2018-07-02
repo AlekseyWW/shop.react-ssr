@@ -34,7 +34,7 @@ class Promo extends Component {
 		return (
 			<div className={style.Promo}>
 				{slides.length > 1 && 
-					<Swiper className={style.Promo__container} {...params} ref={el => { this.swiper = el }}>
+					<Swiper className={style.Promo__container} {...params} ref={this.swiper}>
 						{slides.map((item, id) => {
 							const key = `item-${id}`;
 							const slug = item.category ? this.getSlug(item.category.slug) : '';
