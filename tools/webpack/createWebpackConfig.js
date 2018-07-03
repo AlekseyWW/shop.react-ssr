@@ -15,13 +15,8 @@ import { getHashDigest } from 'loader-utils';
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 // import svgoConfig from './svgoConfig';
-import {
-	StatsPlugin,
-	happyPackPlugin,
-	WebpackDigestHash,
-	ProgressPlugin,
-	getNodeExternals,
-} from './plugins';
+import AutoDllPlugin from 'autodll-webpack-plugin';
+import { StatsPlugin, happyPackPlugin, WebpackDigestHash } from './plugins';
 
 import rootModuleRelativePath from '../utils/rootModuleRelativePath';
 
@@ -182,19 +177,6 @@ export default function createWebpackConfig(options) {
 	return {
 		name,
 		mode: config.env,
-
-		stats: {
-			children: false,
-			entrypoints: false,
-		},
-		serve: {
-			dev: {
-				stats: {
-					children: false,
-					entrypoints: false,
-				}
-			}
-		},
 		// pass either node or web
 		target,
 		// user's project root
@@ -225,7 +207,6 @@ export default function createWebpackConfig(options) {
 		cache: _IS_DEV_,
 		// true if prod & enabled in settings
 		profile: false,
-		externals: _IS_SERVER_ ? getNodeExternals(useLightNodeBundle) : undefined,
 		// Include polyfills and/or mocks for node features unavailable in browser
 		// environments. These are typically necessary because package's will
 		// occasionally include node only code.
@@ -445,10 +426,12 @@ export default function createWebpackConfig(options) {
 			new webpack.DefinePlugin({
 				__DEV__: JSON.stringify(_IS_DEV_),
 				__SERVER__: JSON.stringify(_IS_SERVER_),
+				__PUB_PATH__: JSON.stringify(process.env.PUBLIC_PATH),
 				'process.env.NODE_ENV': JSON.stringify(options.env),
 				'process.env.API_URL': JSON.stringify(process.env.API_URL),
 				'process.env.TARGET': JSON.stringify(webpackTarget),
 			}),
+			
 			_IS_DEV_
 				? new WriteFilePlugin({
 						exitOnErrors: false,
@@ -465,8 +448,6 @@ export default function createWebpackConfig(options) {
 			// explicit named vendor chunk
 			// Extract Webpack bootstrap code with knowledge about chunks into separate cachable package.
 
-			// Custom progress plugin
-			new ProgressPlugin({ prefix: PREFIX }),
 			// Subresource Integrity (SRI) is a security feature that enables browsers to verify that
 			// files they fetch (for example, from a CDN) are delivered without unexpected manipulation.
 			// https://www.npmjs.com/package/webpack-subresource-integrity
@@ -476,13 +457,36 @@ export default function createWebpackConfig(options) {
 				enabled: _IS_PROD_ && _IS_CLIENT_,
 			}),
 			new SpriteLoaderPlugin(),
+			_IS_DEV_ && _IS_CLIENT_
+				? new AutoDllPlugin({
+					context: ROOT,
+					filename: '[name].js',
+					entry: {
+						vendor: [
+							'react',
+							'react-dom',
+							'react-router-dom',
+							'redux',
+							'react-redux',
+							'redux-thunk',
+							'redux-logger',
+							'styled-components',
+							'react-helmet',
+							'serialize-javascript',
+							'prop-types',
+							'history',
+							'react-universal-component',
+						],
+					},
+				})
+				: null,
 			/**
-       * HappyPack Plugins are used as caching mechanisms to reduce the amount
-       * of time Webpack spends rebuilding, during your bundling during
-       * development.
-       * @see https://github.com/amireh/happypack for more info
-       * @type {String}   The HappyPack loader id
-       */
+				* HappyPack Plugins are used as caching mechanisms to reduce the amount
+				* of time Webpack spends rebuilding, during your bundling during
+				* development.
+				* @see https://github.com/amireh/happypack for more info
+				* @type {String}   The HappyPack loader id
+			*/
 			happyPackPlugin({
 				name: 'hp-js',
 				loaders: [
@@ -553,6 +557,7 @@ export default function createWebpackConfig(options) {
 					},
 				],
 			}),
+			
 
 			// Improve OS compatibility
 			// https://github.com/Urthen/case-sensitive-paths-webpack-plugin
@@ -578,42 +583,48 @@ export default function createWebpackConfig(options) {
 			// Via: https://github.com/webpack/webpack.js.org/issues/652#issuecomment-273023082
 			_IS_DEV_ ? new webpack.NamedModulesPlugin() : null,
 			// Analyse bundle in production
-			_IS_CLIENT_ && _IS_PROD_
+			_IS_CLIENT_ && _IS_PROD_ && config.analyzeClientBundle
 				? new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
-						analyzerMode: 'static',
-						defaultSizes: 'gzip',
-						logLevel: 'silent',
-						openAnalyzer: false,
-						reportFilename: 'report.html',
-					})
+					analyzerMode: 'static',
+					defaultSizes: 'gzip',
+					logLevel: 'silent',
+					openAnalyzer: false,
+					reportFilename: 'report.html',
+				})
+				: null,
+			_IS_SERVER_ && _IS_PROD_ && config.analyzeServerBundle
+				? new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
+					analyzerMode: 'static',
+					defaultSizes: 'parsed',
+					logLevel: 'silent',
+					openAnalyzer: false,
+					reportFilename: 'report.html',
+				})
 				: null,
 
-			// Analyse bundle in production
-			_IS_SERVER_ && _IS_PROD_
-				? new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
-						analyzerMode: 'static',
-						defaultSizes: 'parsed',
-						logLevel: 'silent',
-						openAnalyzer: false,
-						reportFilename: 'report.html',
-					})
+			_IS_SERVER_
+				? new webpack.BannerPlugin({
+					banner: 'require("source-map-support").install();',
+					raw: true,
+					entryOnly: false,
+				})
 				: null,
 			_IS_SERVER_ ? new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }) : null,
-
-			_IS_PROD_ && _IS_CLIENT_
-				? new UglifyJsPlugin({ sourceMap: false })
+			_IS_PROD_ && _IS_CLIENT_ ? new BabelMinifyPlugin({}, { comments: false }) : null,
+			_IS_PROD_ && _IS_SERVER_
+				? new BabelMinifyPlugin(
+					{
+						booleans: false,
+						deadcode: true,
+						flipComparisons: false,
+						mangle: false,
+						mergeVars: false,
+					},
+					{ comments: false },
+				)
 				: null,
 
 			_IS_PROD_ ? new webpack.optimize.ModuleConcatenationPlugin() : null,
-			// Dll reference speeds up development by grouping all of your vendor dependencies
-			// in a DLL file. This is not compiled again, unless package.json contents
-			// have changed.
-			_IS_DEV_ && _IS_CLIENT_
-				? new webpack.DllReferencePlugin({
-						context: ROOT,
-						manifest: require(path.resolve(CLIENT_OUTPUT, '__vendor_dlls__.json')),
-					})
-				: null,
 			_IS_DEV_ ? new webpack.NoEmitOnErrorsPlugin() : null,
 			_IS_CLIENT_ && _IS_DEV_ ? new webpack.HotModuleReplacementPlugin() : null,
 		].filter(Boolean),

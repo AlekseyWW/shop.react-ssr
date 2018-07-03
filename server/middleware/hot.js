@@ -4,15 +4,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
 import createWebpackConfig from '../../tools/webpack/createWebpackConfig';
-import buildWebpackDlls from '../../tools/utils/buildWebpackDlls';
 
-async function setupHotDev(app) {
-	try {
-		await buildWebpackDlls();
-	} catch (err) {
-		throw Error(`Unable to build dlls ${err}`);
-	}
-
+function setupHotDev(app) {
 	const clientConfig = createWebpackConfig({
 		target: 'client',
 		env: 'development',
@@ -33,8 +26,13 @@ async function setupHotDev(app) {
 			// required
 			publicPath,
 			// display no info to console (only warnings and errors)
-			noInfo: true,
-			quiet: true,
+			// noInfo: true,
+			// quiet: true,
+			stats: {
+				entrypoints: false,
+				children: false,
+				version: false
+			},
 			// prevent loading before bundle is done
 			serverSideRender: true,
 		}),
@@ -49,10 +47,8 @@ async function setupHotDev(app) {
 		}),
 	);
 
-	multiCompiler.plugin('invalid', () => {
-		console.log('Compiling...');
-	});
-	multiCompiler.plugin('done', stats => {
+
+	multiCompiler.hooks.done.tap('done', stats => {
 		const rawMessages = stats.toJson({}, true);
 		const messages = formatWebpackMessages(rawMessages);
 

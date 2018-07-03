@@ -46,48 +46,10 @@ export default function renderHtml({ preloadedState, markup, styleTags, styles, 
 		${helmet.link.toString()}
 		${styleTags}
 		${styles}
-		<!-- Put this script tag to the <head> of your page -->
-		<script type="text/javascript" src="//vk.com/js/api/openapi.js?152"></script>
-
-		<script type="text/javascript">
-		VK.init({apiId: 6416838, onlyWidgets: true});
-		</script>
-
-		<!-- Put this div tag to the place, where the Comments block will be -->
-
 		</head>
 		<body ${helmet.bodyAttributes.toString()}>
-		
-		<!-- Yandex.Metrika counter -->
-		<script type="text/javascript" >
-			(function (d, w, c) {
-				(w[c] = w[c] || []).push(function() {
-					try {
-						w.yaCounter47068560 = new Ya.Metrika({
-							id:47068560,
-							clickmap:true,
-							trackLinks:true,
-							accurateTrackBounce:true,
-							webvisor:true,
-							trackHash:true
-						});
-					} catch(e) { }
-				});
-
-				var n = d.getElementsByTagName("script")[0],
-					s = d.createElement("script"),
-					f = function () { n.parentNode.insertBefore(s, n); };
-				s.type = "text/javascript";
-				s.async = true;
-				s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-				if (w.opera == "[object Opera]") {
-					d.addEventListener("DOMContentLoaded", f, false);
-				} else { f(); }
-			})(document, window, "yandex_metrika_callbacks");
-		</script>
+	
 		<noscript><div><img src="https://mc.yandex.ru/watch/47068560" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-		<!-- /Yandex.Metrika counter -->
 		<div id="app">${markup}</div>
 		<script type="text/javascript">
 			window.__PRELOADED_STATE__=${serialize(preloadedState, { json: true })}
@@ -95,17 +57,6 @@ export default function renderHtml({ preloadedState, markup, styleTags, styles, 
 		${isDev ? dllString : empty}
 		${scripts}
 		${helmet.script.toString()}
-		<script>
-		(function(w, d, s, h, id) {
-			w.roistatProjectId = id; w.roistatHost = h;
-			var p = d.location.protocol == "https:" ? "https://" : "http://";
-			var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
-			var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
-		})(window, document, 'script', 'cloud.roistat.com', '62a5d96a38a843b04c9e38586d05a2fe');
-		</script>
-		<link rel="stylesheet" href="https://cdn.callbackkiller.com/widget/cbk.css">
-		<script type="text/javascript" src="https://cdn.callbackkiller.com/widget/cbk.js?cbk_code=1b5ec5fdc525a0d65e4fe107c9022bef" charset="UTF-8" async></script>
-		<script type="text/javascript" src="//cdn.callbackhunter.com/cbh.js?hunter_code=ff62d257709043693a0f6345ef64f77b" charset="UTF-8"></script>
 		</body>
 	</html>`;
 }

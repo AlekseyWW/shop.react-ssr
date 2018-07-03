@@ -1,13 +1,24 @@
 // Included here so we can babel-node various scripts. The real babel
 // configuration happens in each specific Webpack config.
 {
-  "presets": [["env", {
-    "targets": {
-      "node": "8.5"
-    }
-  }], "react"],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "8.6"
+        }
+      }
+    ],
+    "react"
+  ],
   "plugins": [
     "syntax-dynamic-import",
+    "transform-flow-strip-types",
     "transform-object-rest-spread"
+  ],
+  "ignore": [
+    "node_modules",
+    "build"
   ]
 }
