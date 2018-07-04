@@ -13,6 +13,7 @@
 		"react"
 	],
 	"plugins": [
+		"module:fast-async",
 		"syntax-dynamic-import",
 		"transform-flow-strip-types",
 		"transform-object-rest-spread"

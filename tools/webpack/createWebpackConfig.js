@@ -183,12 +183,9 @@ export default function createWebpackConfig(options) {
 
 	return {
 		name,
-		mode: config.env,
-		// pass either node or web
-		target,
-		// user's project root
-		context: ROOT,
-		// sourcemap
+		mode: config.env, // pass either node or web
+		target, // user's project root
+		context: ROOT, // sourcemap
 		devtool,
 		entry: _IS_SERVER_ ? getServerEntry() : getClientEntry(),
 		output: {
@@ -198,33 +195,22 @@ export default function createWebpackConfig(options) {
 			filename:
 				_IS_DEV_ || _IS_SERVER_ ? '[name].js' : '[name]-[chunkhash].js',
 			chunkFilename:
-				_IS_DEV_ || _IS_SERVER_ ? '[name].js' : '[name]-[chunkhash].js',
-			// Full URL in dev otherwise we expect our bundled output to be served from /assets/
-			publicPath: '/assets/',
-			// only dev
-			pathinfo: _IS_DEV_,
-			// Enable cross-origin loading without credentials - Useful for loading files from CDN
+				_IS_DEV_ || _IS_SERVER_ ? '[name].js' : '[name]-[chunkhash].js', // Full URL in dev otherwise we expect our bundled output to be served from /assets/
+			publicPath: '/assets/', // only dev
+			pathinfo: _IS_DEV_, // Enable cross-origin loading without credentials - Useful for loading files from CDN
 			crossOriginLoading: 'anonymous',
 			devtoolModuleFilenameTemplate: _IS_DEV_
 				? info => path.resolve(info.absoluteResourcePath)
 				: info => path.resolve(ROOT, info.absoluteResourcePath),
-		},
-		// fail on err
-		bail: !_IS_DEV_,
-		// cache dev
+		}, // fail on err
+		bail: !_IS_DEV_, // cache dev
 		// Cache the generated webpack modules and chunks to improve build speed.
-		cache: _IS_DEV_,
-		// true if prod & enabled in settings
-		profile: false,
-		// Include polyfills and/or mocks for node features unavailable in browser
+		cache: _IS_DEV_, // true if prod & enabled in settings
+		profile: false, // Include polyfills and/or mocks for node features unavailable in browser
 		// environments. These are typically necessary because package's will
 		// occasionally include node only code.
 		node: _IS_CLIENT_
-			? {
-					console: true,
-					__filename: true,
-					__dirname: true,
-			  }
+			? { console: true, __filename: true, __dirname: true }
 			: {
 					Buffer: false,
 					__dirname: false,
@@ -233,20 +219,14 @@ export default function createWebpackConfig(options) {
 					global: true,
 					process: false,
 			  },
-		performance: _IS_DEV_
-			? false
-			: {
-					hints: 'warning',
-			  },
-
+		performance: _IS_DEV_ ? false : { hints: 'warning' },
 		resolve: {
 			// look for files in the descendants of src/ then node_modules
 			modules: [
 				'node_modules',
 				SRC_DIR,
 				path.resolve(ROOT, 'node_modules'),
-			],
-			// Webpack will look for the following fields when searching for libraries
+			], // Webpack will look for the following fields when searching for libraries
 			mainFields: _IS_CLIENT_
 				? [
 						'browser:modern',
@@ -264,8 +244,7 @@ export default function createWebpackConfig(options) {
 						'module',
 						'main',
 				  ],
-			descriptionFiles: ['package.json'],
-			// We want files with the following extensions...
+			descriptionFiles: ['package.json'], // We want files with the following extensions...
 			extensions: ['.js', '.jsx', '.mjs', '.json', '.css', '.scss'],
 			alias: {
 				'babel-runtime': relativeResolve('babel-runtime/package.json'),
@@ -279,21 +258,18 @@ export default function createWebpackConfig(options) {
 		},
 		module: {
 			strictExportPresence: true,
-
 			rules: [
 				{
 					test: JS_FILES,
 					use: ['source-map-loader'],
-					enforce: 'pre',
-					// these can be problematic loading sourcemaps that may/may not exist
+					enforce: 'pre', // these can be problematic loading sourcemaps that may/may not exist
 					exclude: [
 						/apollo-/,
 						/zen-observable-ts/,
 						/react-apollo/,
 						/intl-/,
 					],
-				},
-				// url loader for webfonts
+				}, // url loader for webfonts
 				// {
 				// 	test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/,
 				// 	use: {
@@ -316,20 +292,15 @@ export default function createWebpackConfig(options) {
 					use: [
 						{
 							loader: 'file-loader',
-							options: {
-								name: '/fonts/[name].[ext]',
-							},
+							options: { name: '/fonts/[name].[ext]' },
 						},
 					],
-				},
-				// url loader for images
+				}, // url loader for images
 				{
 					test: /\.(jpe?g|png|gif)$/,
 					exclude: /node_modules/,
 					loader: 'file-loader',
-				},
-
-				// file
+				}, // file
 				// References to images, fonts, movies, music, etc.
 				{
 					test: ASSET_FILES,
@@ -349,23 +320,18 @@ export default function createWebpackConfig(options) {
 					options: {
 						name: _IS_PROD_
 							? 'file-[hash:base62:8].[ext]'
-							: '[name].[ext]',
-						// dont emit a file for the server
+							: '[name].[ext]', // dont emit a file for the server
 						emitFile: _IS_CLIENT_,
 					},
-				},
-				// JS
+				}, // JS
 				{
 					test: JS_FILES,
 					include: SRC_DIR,
 					use: [
 						cacheLoader,
-						{
-							loader: 'happypack/loader?id=hp-js',
-						},
+						{ loader: 'happypack/loader?id=hp-js' },
 					].filter(Boolean),
-				},
-				// Stylys
+				}, // Stylys
 				{
 					test: /\.css$/,
 					include: NODE_DIR,
@@ -383,9 +349,7 @@ export default function createWebpackConfig(options) {
 										sourceMap: _IS_DEV_,
 									},
 								},
-								{
-									loader: 'resolve-url-loader',
-								},
+								{ loader: 'resolve-url-loader' },
 						  ].filter(Boolean)
 						: [
 								cacheLoader,
@@ -399,9 +363,7 @@ export default function createWebpackConfig(options) {
 										sourceMap: _IS_DEV_,
 									},
 								},
-								{
-									loader: 'resolve-url-loader',
-								},
+								{ loader: 'resolve-url-loader' },
 						  ].filter(Boolean),
 				},
 				{
@@ -457,8 +419,7 @@ export default function createWebpackConfig(options) {
 				minimize: _IS_PROD_,
 				debug: _IS_DEV_,
 				context: ROOT,
-			}),
-			// Whatever is passed here will be inlined during the bundling process.
+			}), // Whatever is passed here will be inlined during the bundling process.
 			new webpack.DefinePlugin({
 				__DEV__: JSON.stringify(_IS_DEV_),
 				__SERVER__: JSON.stringify(_IS_SERVER_),
@@ -467,7 +428,6 @@ export default function createWebpackConfig(options) {
 				'process.env.API_URL': JSON.stringify(process.env.API_URL),
 				'process.env.TARGET': JSON.stringify(webpackTarget),
 			}),
-
 			_IS_DEV_
 				? new WriteFilePlugin({
 						exitOnErrors: false,
@@ -482,8 +442,7 @@ export default function createWebpackConfig(options) {
 							? '[name].css'
 							: '[name]-[contenthash:base62:8].css',
 				  })
-				: null,
-			// explicit named vendor chunk
+				: null, // explicit named vendor chunk
 			// Extract Webpack bootstrap code with knowledge about chunks into separate cachable package.
 
 			// Subresource Integrity (SRI) is a security feature that enables browsers to verify that
@@ -524,8 +483,7 @@ export default function createWebpackConfig(options) {
 			 * development.
 			 * @see https://github.com/amireh/happypack for more info
 			 * @type {String}   The HappyPack loader id
-			 */
-			happyPackPlugin({
+			 */ happyPackPlugin({
 				name: 'hp-js',
 				loaders: [
 					{
@@ -556,7 +514,7 @@ export default function createWebpackConfig(options) {
 							plugins: [
 								'syntax-dynamic-import',
 								[
-									'fast-async',
+									'module:fast-async',
 									{
 										spec: true,
 									},
@@ -596,12 +554,9 @@ export default function createWebpackConfig(options) {
 						},
 					},
 				],
-			}),
-
-			// Improve OS compatibility
+			}), // Improve OS compatibility
 			// https://github.com/Urthen/case-sensitive-paths-webpack-plugin
-			new CaseSensitivePathsPlugin(),
-			// Detect modules with circular dependencies when bundling with webpack.
+			new CaseSensitivePathsPlugin(), // Detect modules with circular dependencies when bundling with webpack.
 			// @see https://github.com/aackerman/circular-dependency-plugin
 			_IS_DEV_
 				? new CircularDependencyPlugin({
@@ -610,18 +565,14 @@ export default function createWebpackConfig(options) {
 						failOnError: false,
 				  })
 				: null,
-			_IS_PROD_ && _IS_CLIENT_ ? new WebpackDigestHash() : null,
-			// Let the server side renderer know about our client side assets
+			_IS_PROD_ && _IS_CLIENT_ ? new WebpackDigestHash() : null, // Let the server side renderer know about our client side assets
 			// https://github.com/FormidableLabs/webpack-stats-plugin
-			_IS_PROD_ && _IS_CLIENT_ ? new StatsPlugin('stats.json') : null,
-			// Use HashedModuleIdsPlugin to generate IDs that preserves over builds
+			_IS_PROD_ && _IS_CLIENT_ ? new StatsPlugin('stats.json') : null, // Use HashedModuleIdsPlugin to generate IDs that preserves over builds
 			// @see https://github.com/webpack/webpack.js.org/issues/652#issuecomment-273324529
 			// @NOTE: if using flushChunkNames rather than flushModuleIds you must disable this...
-			_IS_PROD_ ? new webpack.HashedModuleIdsPlugin() : null,
-			// I would recommend using NamedModulesPlugin during development (better output).
+			_IS_PROD_ ? new webpack.HashedModuleIdsPlugin() : null, // I would recommend using NamedModulesPlugin during development (better output).
 			// Via: https://github.com/webpack/webpack.js.org/issues/652#issuecomment-273023082
-			_IS_DEV_ ? new webpack.NamedModulesPlugin() : null,
-			// Analyse bundle in production
+			_IS_DEV_ ? new webpack.NamedModulesPlugin() : null, // Analyse bundle in production
 			_IS_CLIENT_ && _IS_PROD_ && config.analyzeClientBundle
 				? new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
 						analyzerMode: 'static',
@@ -640,7 +591,6 @@ export default function createWebpackConfig(options) {
 						reportFilename: 'report.html',
 				  })
 				: null,
-
 			_IS_SERVER_
 				? new webpack.BannerPlugin({
 						banner: 'require("source-map-support").install();',
@@ -666,7 +616,6 @@ export default function createWebpackConfig(options) {
 						{ comments: false }
 				  )
 				: null,
-
 			_IS_PROD_ ? new webpack.optimize.ModuleConcatenationPlugin() : null,
 			_IS_DEV_ ? new webpack.NoEmitOnErrorsPlugin() : null,
 			_IS_CLIENT_ && _IS_DEV_

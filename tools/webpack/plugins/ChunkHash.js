@@ -1,50 +1,86 @@
-import { getHashDigest } from 'loader-utils';
+var crypto = require('crypto');
 
-function compareModules(left, right) {
-  if (left.resource < right.resource) {
-    return -1;
-  }
-  if (left.resource > right.resource) {
-    return 1;
-  }
-  return 0;
+module.exports = WebpackChunkHash;
+
+function WebpackChunkHash(options) {
+	options = options || {};
+
+	this.algorithm = options.algorithm || 'md5';
+	this.digest = options.digest || 'hex';
+	this.additionalHashContent =
+		options.additionalHashContent ||
+		function() {
+			return '';
+		};
+}
+
+WebpackChunkHash.prototype.apply = function(compiler) {
+	var _plugin = this;
+
+	var compilerPlugin;
+	var compilationPlugin;
+	if (compiler.hooks) {
+		compilerPlugin = function(fn) {
+			compiler.hooks.compilation.tap('WebpackChunkHash', fn);
+		};
+		compilationPlugin = function(compilation, fn) {
+			compilation.hooks.chunkHash.tap('WebpackChunkHash', fn);
+		};
+	} else {
+		compilerPlugin = function(fn) {
+			compiler.plugin('compilation', fn);
+		};
+		compilationPlugin = function(compilation, fn) {
+			compilation.plugin('chunk-hash', fn);
+		};
+	}
+
+	compilerPlugin(function(compilation) {
+		compilationPlugin(compilation, function(chunk, chunkHash) {
+			var modules;
+			if (chunk.modulesIterable) {
+				modules = Array.from(chunk.modulesIterable, getModuleSource);
+			} else if (chunk.mapModules) {
+				modules = chunk.mapModules(getModuleSource);
+			} else {
+				modules = chunk.modules.map(getModuleSource);
+			}
+			var source = modules.sort(sortById).reduce(concatenateSource, ''),
+				hash = crypto
+					.createHash(_plugin.algorithm)
+					.update(source + _plugin.additionalHashContent(chunk));
+
+			chunkHash.digest = function(digest) {
+				return hash.digest(digest || _plugin.digest);
+			};
+		});
+	});
+};
+
+// helpers
+
+function sortById(a, b) {
+	return a.id - b.id;
 }
 
 function getModuleSource(module) {
-  const source = module._source || {};
-  return source._value || '';
+	return {
+		id: module.id,
+		source: (module._source || {})._value || '',
+		dependencies: (module.dependencies || []).map(function(d) {
+			return d.module ? d.module.id : '';
+		}),
+	};
 }
 
-function concatenateSource(result, moduleSource) {
-  return result + moduleSource;
+function concatenateSource(result, module) {
+	return (
+		result +
+		'#' +
+		module.id +
+		':' +
+		module.source +
+		'$' +
+		module.dependencies.join(',')
+	);
 }
-
-function ChunkHash() {
-  // empty
-}
-
-const hashType = 'sha256';
-const digestType = 'base62';
-const digestLength = 8;
-// eslint-disable-next-line
-ChunkHash.prototype.apply = function(compiler) {
-  compiler.plugin('compilation', compilation => {
-    compilation.plugin('chunk-hash', (chunk, chunkHash) => {
-      // eslint-disable-next-line
-      var source = chunk
-        .mapModules(module => module)
-        .sort(compareModules)
-        .map(getModuleSource)
-        // we provide an initialValue in case there is an empty module source. Ref: http://es5.github.io/#x15.4.4.21
-        .reduce(concatenateSource, '');
-      // eslint-disable-next-line
-      var generatedHash = getHashDigest(source, hashType, digestType, digestLength);
-      // eslint-disable-next-line
-      chunkHash.digest = function() {
-        return generatedHash;
-      };
-    });
-  });
-};
-
-export default ChunkHash;
