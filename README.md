@@ -1,13 +1,15 @@
 ### Development
 
+!!! need Node v8.6 installed
+
 Getting up and running for development is easy.
 
 `git clone https://github.com/AlekseyWW/shop.react-ssr`
 
 `cd shop.react-ssr`
 
-Install the dependencies `yarn`.  
-  
+Install the dependencies `yarn`.
+
 Copy the env file `cp .env.example .env`.
 
 Start development `yarn dev` and your universal React application is running on port 3000.
