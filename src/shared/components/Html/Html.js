@@ -70,7 +70,7 @@ const Html = props => {
 Html.propTypes = {
 	styles: PropTypes.array,
 	cssHash: PropTypes.object,
-	js: PropTypes.string,
+	js: PropTypes.array,
 	component: PropTypes.node,
 	state: PropTypes.object,
 	styleTags: PropTypes.array,
