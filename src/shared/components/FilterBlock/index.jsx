@@ -4,18 +4,15 @@ import classNames from 'classnames';
 import FilterItem from 'components/FilterItem';
 import style from './styles.styl';
 
-const FilterBlock = ({ items, handleClick, title, type, countView, offset, active }) => {
-
+const FilterBlock = ({ items, handleClick, title, offset, active }) => {
 	return (
 		<div className={style.FilterBlock__item}>
-			<span className={style.FilterBlock__title}>
-				{title}
-			</span>
+			<span className={style.FilterBlock__title}>{title}</span>
 			{items.map(item => {
 				const config = { offset, count: item.name };
-				const itemClass = classNames(style.FilterBlock__button,{
-					[style.FilterBlock__button_active]: item.name === active
-				})
+				const itemClass = classNames(style.FilterBlock__button, {
+					[style.FilterBlock__button_active]: item.name === active,
+				});
 				return (
 					<FilterItem
 						key={item.name}
@@ -23,10 +20,10 @@ const FilterBlock = ({ items, handleClick, title, type, countView, offset, activ
 						className={itemClass}
 						onClick={() => handleClick(config)}
 					/>
-				)
+				);
 			})}
 		</div>
-	)
+	);
 };
 
 FilterBlock.propTypes = {
@@ -35,7 +32,7 @@ FilterBlock.propTypes = {
 	title: PropTypes.string.isRequired,
 	type: PropTypes.string.isRequired,
 	countView: PropTypes.any.isRequired,
-	offset: PropTypes.any.isRequired
+	offset: PropTypes.any.isRequired,
 };
 
 export default FilterBlock;

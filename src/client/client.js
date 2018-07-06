@@ -1,13 +1,8 @@
-/* eslint-disable global-require */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-// import ConnectedRouter from 'react-router-redux/ConnectedRouter';
-import { Router } from 'react-router'
-
-// internal
+import { Router } from 'react-router';
 import configureStore from '../shared/state/store';
 import App from '../shared/components/App';
 import ReactHotLoader from './ReactHotLoader';
@@ -24,12 +19,8 @@ history.listen(location => {
 	prevLocation = location;
 });
 
-
 const renderApp = App => {
 	const MOUNT_POINT = document.getElementById('app');
-	// in React 16 ReactDOM.render becomes ReactDOM.hydrate
-	// when used for SSR.
-	console.log({ReactDOM});
 	ReactDOM.hydrate(
 		<ReactHotLoader>
 			<Provider store={store}>
@@ -38,7 +29,7 @@ const renderApp = App => {
 				</Router>
 			</Provider>
 		</ReactHotLoader>,
-		MOUNT_POINT,
+		MOUNT_POINT
 	);
 };
 

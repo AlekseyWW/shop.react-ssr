@@ -2,85 +2,90 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { omit } from 'lodash';
-import { BasketIcon } from 'components/Icon';
-import { formValueSelector, change, SubmissionError } from 'redux-form';
+import { formValueSelector, change } from 'redux-form';
 import axios from 'axios';
 import find from 'lodash/find';
-import { loadCities, getDeliveryCoast, clearDeliveryCoast } from '../../state/modules/sdek';
-import Button from 'components/Button';
+import {
+	loadCities,
+	getDeliveryCoast,
+	clearDeliveryCoast,
+} from '../../state/modules/sdek';
 import Preloader from 'components/Preloader';
 import OrderForm from 'components/OrderForm';
 import * as cartAtions from 'actions/cart';
 import * as orderAtions from '../../state/modules/order';
 import styles from './style.styl';
 
-const deliveryData = {
-	post: "Доставка Почтой России",
-	sdek: "Служба доставки СДЭК",
-	вук: "При выборе доставки почты россии, стоимость уточняется у администрации магазина, после оформления заказа",
-	postRussianТщеу: "При заказе от на сумму 4 500 рублей, действует скидка 500 на доставку почтой россии, и при заказе от 8 000 рублей -  скидка 500 на доставку службой СДЕК.",
-	courier: "Курьер по Ростову-на-Дону",
-	'self_delivery': "Забрать самостоятельно"
-}
 class OrderFormPage extends Component {
 	state = {
 		promocode: 0,
-		cartSumm: 0
-	}
+		cartSumm: 0,
+	};
 	componentWillMount() {
-
 		if (this.props.deliveryCity && this.props.deliveryCity.id) {
 			const productsForDelivery = this.props.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
 				size: {
-					id: product.sizeId
-				}
-			}))
+					id: product.sizeId,
+				},
+			}));
 			if (this.props.deliveryCity.id) {
-
-				this.props.getDeliveryCoast(this.props.deliveryCity.id, productsForDelivery)
+				this.props.getDeliveryCoast(
+					this.props.deliveryCity.id,
+					productsForDelivery
+				);
 			}
 		}
 		if (this.props.products.length > 0) {
-			this.getCartSumm()
+			this.getCartSumm();
 		}
 		if (!this.props.deliveryCity) {
-			this.props.clearDeliveryCoast()
+			this.props.clearDeliveryCoast();
 		}
 	}
 	getCartSumm = () => {
-		const summ = this.props.products.reduce((summ, item) => (summ + item.count * item.price), 0)
-		
+		const summ = this.props.products.reduce(
+			(summ, item) => summ + item.count * item.price,
+			0
+		);
+
 		this.setState({
-			cartSumm: summ
-		})
+			cartSumm: summ,
+		});
 	};
 	componentDidUpdate(prevProps) {
 		if (prevProps.products !== this.props.products) {
-			this.getCartSumm()
+			this.getCartSumm();
 		}
 	}
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.deliveryCity && ((nextProps.products !== this.props.products) || (nextProps.deliveryCity !== this.props.deliveryCity))) {
+		if (
+			nextProps.deliveryCity &&
+			(nextProps.products !== this.props.products ||
+				nextProps.deliveryCity !== this.props.deliveryCity)
+		) {
 			const productsForDelivery = nextProps.products.map(product => ({
 				id: product.id,
 				quantity: product.count,
 				size: {
-					id: product.sizeId
-				}
-			}))
+					id: product.sizeId,
+				},
+			}));
 			if (nextProps.deliveryCity.id && !nextProps.isDeliveryLoading) {
-				nextProps.getDeliveryCoast(nextProps.deliveryCity.id, productsForDelivery);
-				nextProps.deliveryTypeChange('deliveryType', null)
+				nextProps.getDeliveryCoast(
+					nextProps.deliveryCity.id,
+					productsForDelivery
+				);
+				nextProps.deliveryTypeChange('deliveryType', null);
 			}
 		}
 	}
 	handleSubmit(data) {
 		if (data.city) {
 			data.city = {
-				id: data.city.value || data.city.id
-			}
+				id: data.city.value || data.city.id,
+			};
 		}
 		this.props.fetchOrder(omit(data, ['promocodes']));
 	}
@@ -92,53 +97,73 @@ class OrderFormPage extends Component {
 			url,
 			params: { name: input },
 		})
-		.then(res => {
-			const { data } = res;
-			callback(null, {
-				options: data.map(option => ({ label: option.name, value: option.id }))
+			.then(res => {
+				const { data } = res;
+				callback(null, {
+					options: data.map(option => ({
+						label: option.name,
+						value: option.id,
+					})),
+				});
 			})
-		})
-		.catch(err => {
-			console.log(err.message);
-		});
+			.catch(err => {
+				console.log(err.message);
+			});
 	}
 
 	render() {
-		const { profile, orderState, products, deliveryTypes, isDeliveryLoaded, paymentType, delivery, paymentTypes, isDeliveryLoading, initialValues } = this.props;
+		const {
+			orderState,
+			products,
+			deliveryTypes,
+			isDeliveryLoaded,
+			delivery,
+			paymentTypes,
+			isDeliveryLoading,
+			initialValues,
+		} = this.props;
 		const { cartSumm } = this.state;
-		const promoAmount = profile && profile.promocodes && profile.promocodes.length > 0 && cartSumm > 3000 ? profile.promocodes[0].amount : 0;
-		const deliveryCost = deliveryTypes && delivery && deliveryTypes.length > 0 ? find(deliveryTypes, b => b.delivery === 'electronic_payment' && b.code === delivery).priceWithDiscount : 0;
-		
+		const deliveryCost =
+			deliveryTypes && delivery && deliveryTypes.length > 0
+				? find(
+						deliveryTypes,
+						b =>
+							b.delivery === 'electronic_payment' &&
+							b.code === delivery
+				  ).priceWithDiscount
+				: 0;
+
 		const productsForDelivery = products.map(product => ({
 			id: product.id,
 			quantity: product.count,
 			size: {
-				id: product.sizeId
-			}
+				id: product.sizeId,
+			},
 		}));
-		
+
 		return (
 			<div className={styles.CartContainer}>
-				{products && products.length > 0 && !orderState.isFetching ? 
+				{products && products.length > 0 && !orderState.isFetching ? (
 					<OrderForm
-						onSubmit={ data => this.handleSubmit(data) }
-						getOptions={ this.getOptions}
-						productsForDelivery={ productsForDelivery }
-						getCartSummM={ this.getCartSummM }
-						deliveryCost={ deliveryCost }
-						cartSumm={ cartSumm }
-						deliveryTypes={ deliveryTypes }
-						paymentTypes={ paymentTypes }
-						products={ products }
+						onSubmit={data => this.handleSubmit(data)}
+						getOptions={this.getOptions}
+						productsForDelivery={productsForDelivery}
+						getCartSummM={this.getCartSummM}
+						deliveryCost={deliveryCost}
+						cartSumm={cartSumm}
+						deliveryTypes={deliveryTypes}
+						paymentTypes={paymentTypes}
+						products={products}
 						isDeliveryLoaded={isDeliveryLoaded}
-						orderSumm={cartSumm + deliveryCost }
+						orderSumm={cartSumm + deliveryCost}
 						initialValues={initialValues}
 						productsForDelivery={productsForDelivery}
-						isDeliveryLoading={ isDeliveryLoading }
+						isDeliveryLoading={isDeliveryLoading}
 						getDeliveryCoast={this.props.getDeliveryCoast}
-					/> :
+					/>
+				) : (
 					<h2>Сначала добавьте товары в корзину</h2>
-				}
+				)}
 				{orderState.isFetching && <Preloader />}
 			</div>
 		);
@@ -169,30 +194,56 @@ OrderFormPage.propTypes = {
 	deliveryTypes: PropTypes.array,
 	paymentTypes: PropTypes.array,
 	initialValues: PropTypes.object.isRequired,
-	// paymentType: PropTypes.object.isRequired,
-	// price: PropTypes.number.isRequired,
-	// profile: PropTypes.object.isRequired,
-	// deliveryCity: PropTypes.string.isRequired,
-	// promocode: PropTypes.string.isRequired,
 };
 
-const selector = formValueSelector('order')
+const selector = formValueSelector('order');
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
 	const { isFetched, isFetching, added: products } = state.cart;
 	const orderState = state.order;
-	const { price, isDeliveryLoading, isDeliveryLoaded, paymentTypes, deliveryTypes } = state.sdek;
-	const { accessToken, profile, profileIsLoaded, profileIsLoading } = state.user;
+	const {
+		price,
+		isDeliveryLoading,
+		isDeliveryLoaded,
+		paymentTypes,
+		deliveryTypes,
+	} = state.sdek;
+	const {
+		accessToken,
+		profile,
+		profileIsLoaded,
+		profileIsLoading,
+	} = state.user;
 	const { order } = state.form;
 
 	const val = order ? order.values : {};
-	const initialValues = accessToken && profileIsLoaded && profile && profile.id ? { ...profile, city: profile.city ? { id: profile.city.id, label: profile.city.name } : null, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) } : { ...val, colors: products.map(product => ({ id: product.id, quantity: product.count, size: { id: product.sizeId } })) };
-	
+	const initialValues =
+		accessToken && profileIsLoaded && profile && profile.id
+			? {
+					...profile,
+					city: profile.city
+						? { id: profile.city.id, label: profile.city.name }
+						: null,
+					colors: products.map(product => ({
+						id: product.id,
+						quantity: product.count,
+						size: { id: product.sizeId },
+					})),
+			  }
+			: {
+					...val,
+					colors: products.map(product => ({
+						id: product.id,
+						quantity: product.count,
+						size: { id: product.sizeId },
+					})),
+			  };
+
 	const delivery = selector(state, 'deliveryType');
 	const deliveryCity = selector(state, 'city');
 	const paymentType = selector(state, 'paymentType');
 	const promocode = selector(state, 'promocode');
-	
+
 	return {
 		isFetched,
 		isFetching,
@@ -213,18 +264,22 @@ const mapStateToProps = (state) => {
 		promocode,
 		deliveryTypes,
 		isDeliveryLoading,
-		isDeliveryLoaded
+		isDeliveryLoaded,
 	};
 };
 
 const mapDispatchToProps = dispatch => ({
-	deliveryTypeChange: (value) => dispatch(change('form', 'deliveryType', value)),
+	deliveryTypeChange: value =>
+		dispatch(change('form', 'deliveryType', value)),
 	fetchOrder: data => dispatch(orderAtions.fetchOrder(data)),
-	addToCart: (product, ) => dispatch(cartAtions.addToCart(product, remove)),
+	addToCart: product => dispatch(cartAtions.addToCart(product, remove)),
 	removeFromCart: product => dispatch(cartAtions.removeFromCart(product)),
-	getCities: (name) => dispatch(loadCities(name)),
+	getCities: name => dispatch(loadCities(name)),
 	getDeliveryCoast: (id, data) => dispatch(getDeliveryCoast(id, data)),
-	clearDeliveryCoast: () => dispatch(clearDeliveryCoast())
+	clearDeliveryCoast: () => dispatch(clearDeliveryCoast()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderFormPage);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(OrderFormPage);

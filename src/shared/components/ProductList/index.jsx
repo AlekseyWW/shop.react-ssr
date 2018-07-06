@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ReactPaginate from 'react-paginate';
 import ProductCard from 'components/ProductCard/';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -67,13 +66,7 @@ class ProductList extends Component {
 			products,
 			isLoaded,
 			isLoading,
-			addToFavorites,
 		} = this.props;
-		const count = this.props.query.count || 12;
-		const offset = this.props.query.offset || 0;
-		const countPage = Math.ceil(allCount / (count || 12));
-		const pageNum =
-			(parseInt(count) + parseInt(offset)) / parseInt(count) - 1;
 
 		return (
 			<div className={style.ProductList}>

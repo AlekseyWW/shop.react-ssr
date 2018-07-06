@@ -1,5 +1,4 @@
 import * as types from '../constants/user';
-import { getUserRole } from 'utils/helpers';
 import { getAccessToken } from 'utils/api';
 
 const initialState = {
@@ -20,7 +19,7 @@ const initialState = {
 	changeIsFetched: false,
 	changeError: null,
 
-	error: null
+	error: null,
 };
 
 export default function user(state = initialState, action) {
@@ -28,7 +27,7 @@ export default function user(state = initialState, action) {
 		case types.LOGIN_START:
 			return {
 				...state,
-				isFetching: true
+				isFetching: true,
 			};
 
 		case types.LOGIN_SUCCESS:
@@ -37,7 +36,7 @@ export default function user(state = initialState, action) {
 				isFetching: false,
 				role: action.role,
 				accessToken: action.token,
-				error: null
+				error: null,
 			};
 
 		case types.LOGIN_FAILURE:
@@ -49,13 +48,13 @@ export default function user(state = initialState, action) {
 				profile: undefined,
 				profileIsLoading: false,
 				profileIsLoaded: false,
-				error: action.error
+				error: action.error,
 			};
 
 		case types.REGISTER_START:
 			return {
 				...state,
-				isFetching: true
+				isFetching: true,
 			};
 
 		case types.REGISTER_SUCCESS:
@@ -64,7 +63,7 @@ export default function user(state = initialState, action) {
 				isFetching: false,
 				role: action.role,
 				accessToken: action.token,
-				error: null
+				error: null,
 			};
 
 		case types.REGISTER_FAILURE:
@@ -73,13 +72,13 @@ export default function user(state = initialState, action) {
 				isFetching: false,
 				role: '',
 				accessToken: '',
-				error: action.error
+				error: action.error,
 			};
 
 		case types.GET_PROFILE_START:
 			return {
 				...state,
-				profileIsLoading: true
+				profileIsLoading: true,
 			};
 
 		case types.GET_PROFILE_SUCCESS:
@@ -88,7 +87,7 @@ export default function user(state = initialState, action) {
 				profileIsLoading: false,
 				profileIsLoaded: true,
 				profile: action.profile,
-				error: null
+				error: null,
 			};
 
 		case types.GET_PROFILE_FAILURE:
@@ -97,13 +96,13 @@ export default function user(state = initialState, action) {
 				profileIsLoading: false,
 				profileIsLoaded: false,
 				profile: {},
-				error: action.error
+				error: action.error,
 			};
 
 		case types.GET_ORDERS_START:
 			return {
 				...state,
-				orderIsLoading: true
+				orderIsLoading: true,
 			};
 
 		case types.GET_ORDERS_SUCCESS:
@@ -112,7 +111,7 @@ export default function user(state = initialState, action) {
 				orderIsLoading: false,
 				orderIsLoaded: true,
 				orders: action.orders,
-				error: null
+				error: null,
 			};
 
 		case types.GET_ORDERS_FAILURE:
@@ -121,13 +120,13 @@ export default function user(state = initialState, action) {
 				orderIsLoading: false,
 				orderIsLoaded: false,
 				orders: {},
-				error: action.error
+				error: action.error,
 			};
 
 		case types.SET_PROFILE_START:
 			return {
 				...state,
-				profileIsFetching: true
+				profileIsFetching: true,
 			};
 
 		case types.SET_PROFILE_SUCCESS:
@@ -135,7 +134,7 @@ export default function user(state = initialState, action) {
 				...state,
 				profileIsFetching: false,
 				profileIsFetched: true,
-				error: null
+				error: null,
 			};
 
 		case types.SET_PROFILE_FAILURE:
@@ -144,13 +143,13 @@ export default function user(state = initialState, action) {
 				profileIsFetching: false,
 				profileIsFetched: false,
 				profile: {},
-				error: action.error
+				error: action.error,
 			};
 
 		case types.CHANGE_PASSWORD_START:
 			return {
 				...state,
-				changeIsFetching: true
+				changeIsFetching: true,
 			};
 
 		case types.CHANGE_PASSWORD_SUCCESS:
@@ -158,7 +157,7 @@ export default function user(state = initialState, action) {
 				...state,
 				changeIsFetching: false,
 				changeIsFetched: true,
-				changeError: null
+				changeError: null,
 			};
 
 		case types.CHANGE_PASSWORD_FAILURE:
@@ -166,13 +165,13 @@ export default function user(state = initialState, action) {
 				...state,
 				changeIsFetching: false,
 				changeIsFetched: false,
-				changeError: action.error
+				changeError: action.error,
 			};
 
 		case types.LOGOUT_START:
 			return {
 				...state,
-				logoutIsFetching: true
+				logoutIsFetching: true,
 			};
 
 		case types.LOGOUT_SUCCESS:
@@ -184,14 +183,14 @@ export default function user(state = initialState, action) {
 				profile: undefined,
 				profileIsLoading: false,
 				profileIsLoaded: false,
-				error: null
+				error: null,
 			};
 
 		case types.LOGOUT_FAILURE:
 			return {
 				...state,
 				logoutIsFetching: false,
-				error: action.error
+				error: action.error,
 			};
 
 		default:

@@ -5,27 +5,30 @@ const initialState = {
 	isFetching: false,
 	isFetched: false,
 	error: null,
-	added: []
+	added: [],
 };
 export default function cart(state = initialState, action) {
 	switch (action.type) {
 		case types.ADD_TO_FAVORITES_START:
 			return {
 				...state,
-				isFetching: true
+				isFetching: true,
 			};
 
 		case types.ADD_TO_FAVORITES_SUCCESS:
-			
-			const newList = getExtendedCartList(state.added, { ...action.product }, action.remove);
-			localStorage.setItem("favorites", JSON.stringify(newList));
-			
+			const newList = getExtendedCartList(
+				state.added,
+				{ ...action.product },
+				action.remove
+			);
+			localStorage.setItem('favorites', JSON.stringify(newList));
+
 			return {
 				...state,
 				isFetching: false,
 				isFetched: true,
 				added: newList,
-				error: null
+				error: null,
 			};
 
 		case types.SET_FAVORITES_SUCCESS:
@@ -34,7 +37,7 @@ export default function cart(state = initialState, action) {
 				isFetching: false,
 				isFetched: true,
 				added: action.data,
-				error: null
+				error: null,
 			};
 
 		case types.ADD_TO_FAVORITES_FAILURE:
@@ -42,25 +45,31 @@ export default function cart(state = initialState, action) {
 				...state,
 				isFetching: false,
 				isFetched: false,
-				error: action.error
+				error: action.error,
 			};
 
 		case types.REMOVE_FROM_FAVORITES_START:
 			return {
 				...state,
-				isFetching: true
+				isFetching: true,
 			};
 
 		case types.REMOVE_FROM_FAVORITES_SUCCESS:
-			const editedList = getExtendedList(state.added, action.product ,{}, false, true);
-			localStorage.setItem("favorites", JSON.stringify(editedList));
-			
+			const editedList = getExtendedList(
+				state.added,
+				action.product,
+				{},
+				false,
+				true
+			);
+			localStorage.setItem('favorites', JSON.stringify(editedList));
+
 			return {
 				...state,
 				isFetching: false,
 				isFetched: true,
 				added: editedList,
-				error: null
+				error: null,
 			};
 
 		case types.REMOVE_FROM_FAILURE:
@@ -68,13 +77,13 @@ export default function cart(state = initialState, action) {
 				...state,
 				isFetching: false,
 				isFetched: false,
-				error: action.error
+				error: action.error,
 			};
 
 		case types.GET_FAVORITES_START:
 			return {
 				...state,
-				isFetching: true
+				isFetching: true,
 			};
 
 		case types.GET_FAVORITES_SUCCESS:
@@ -83,9 +92,8 @@ export default function cart(state = initialState, action) {
 				isFetching: false,
 				isFetched: true,
 				added: action.product,
-				error: null
+				error: null,
 			};
-
 
 		case types.GET_FAVORITES_FAILURE:
 			return {

@@ -2,22 +2,17 @@ import axios from 'axios';
 import { getExtendedList } from 'utils/helpers';
 import { post, get } from 'utils/api';
 
-
-// Constants
 const LOAD_CITIES_START = 'LOAD_CITIES_START';
 const LOAD_CITIES_SUCCESS = 'LOAD_CITIES_SUCCESS';
 const LOAD_CITIES_FAILURE = 'LOAD_CITIES_FAILURE';
 
-/// Последний пост из каждого канала
 const GET_DELIVERY_COAST_START = 'GET_DELIVERY_COAST_START';
 const GET_DELIVERY_COAST_SUCCESS = 'GET_DELIVERY_COAST_SUCCESS';
 const GET_DELIVERY_COAST_FAILURE = 'GET_DELIVERY_COAST_FAILURE';
 const CLEAR_DELIVERY_COAST = 'CLEAR_DELIVERY_COAST';
 
-/// Пост по id
 const LOAD_SINGLE_POST_START = 'LOAD_SINGLE_POST_START';
 const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
-const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
 
 const initialState = {
 	isLoading: false,
@@ -31,7 +26,7 @@ const initialState = {
 };
 
 // Reducer
-export default function (state = initialState, action = {}) {
+export default function(state = initialState, action = {}) {
 	switch (action.type) {
 		case LOAD_CITIES_START:
 			return {
@@ -40,7 +35,6 @@ export default function (state = initialState, action = {}) {
 			};
 
 		case LOAD_CITIES_SUCCESS:
-			
 			return {
 				...state,
 				isLoading: false,
@@ -64,7 +58,7 @@ export default function (state = initialState, action = {}) {
 					state.items,
 					action.id,
 					{ isLoading: true, isLoaded: false },
-					true,
+					true
 				),
 			};
 
@@ -104,7 +98,7 @@ export default function (state = initialState, action = {}) {
 			return {
 				...state,
 				isDeliveryLoading: false,
-				isDeliveryLoaded: false
+				isDeliveryLoaded: false,
 			};
 
 		default:
@@ -168,10 +162,8 @@ export const getDeliveryCoast = (id, colors) => dispatch => {
 		url,
 		{ colors },
 		res => {
-			const { data } = res;
-
 			return dispatch(getDeliveryCoastSuccess(res));
 		},
-		error => dispatch(getDeliveryCoastFailure(err.message))
+		error => dispatch(getDeliveryCoastFailure(error.message))
 	);
 };

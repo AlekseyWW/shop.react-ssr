@@ -1,5 +1,3 @@
-// import universal from 'react-universal-component';
-import Menu from 'pages/Menu';
 import MainPage from 'pages/MainPage';
 import CatalogPage from 'pages/CatalogPage';
 import ProductPage from 'pages/ProductPage';
@@ -16,14 +14,6 @@ import Info from 'pages/Info';
 import Return from 'pages/Return';
 import Search from 'pages/Search';
 import Contacts from 'pages/Contacts';
-// import Loader from './components/Loader';
-// import NotFound from './components/NotFound';
-
-// const Menu = universal(() => import('./pages/Menu'), {
-// 	minDelay: 1200,
-// 	loading: Loader,
-// 	error: NotFound,
-// });
 
 export default [
 	{
@@ -130,5 +120,5 @@ export default [
 		path: '/contacts',
 		exact: true,
 		component: Contacts,
-	}
+	},
 ];

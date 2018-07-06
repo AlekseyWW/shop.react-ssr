@@ -14,15 +14,9 @@ import { required, email } from 'utils/validation';
 import style from './styles.styl';
 
 class DeliveryForm extends Component {
-
 	state = {
-		options: null
-	}
-	componentDidMount() {
-		// this.props.change('city', this.props.initialValues.city[0])
-
-		
-	}
+		options: null,
+	};
 	getOptions(input, callback) {
 		const url = `${process.env.API_URL}/sdek/cities`;
 		axios({
@@ -33,16 +27,19 @@ class DeliveryForm extends Component {
 			.then(res => {
 				const { data } = res;
 				callback(null, {
-					options: data.map(option => ({ label: option.name, value: option.id }))
-				})
+					options: data.map(option => ({
+						label: option.name,
+						value: option.id,
+					})),
+				});
 			})
 			.catch(err => {
 				console.log(err.message);
 			});
 	}
 	render() {
-		const { handleSubmit, openRegisterModal } = this.props;
-		
+		const { handleSubmit } = this.props;
+
 		return (
 			<form onSubmit={handleSubmit} className={style.DeliveryForm}>
 				<div className={style.DeliveryForm__container}>
@@ -51,14 +48,18 @@ class DeliveryForm extends Component {
 							name="firstName"
 							component={Input}
 							type="text"
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
+							className={`${style.DeliveryForm__input} ${
+								style.DeliveryForm__input_wide
+							}`}
 							label="Имя"
 						/>
 						<Field
 							name="lastName"
 							component={Input}
 							type="text"
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
+							className={`${style.DeliveryForm__input} ${
+								style.DeliveryForm__input_wide
+							}`}
 							label="Фамилия"
 						/>
 					</div>
@@ -69,14 +70,18 @@ class DeliveryForm extends Component {
 							options={this.props.cities}
 							type="text"
 							getOptions={this.getOptions}
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
+							className={`${style.DeliveryForm__input} ${
+								style.DeliveryForm__input_wide
+							}`}
 							label="Город, населенный пункт*"
 						/>
 						<Field
 							name="postIndex"
 							component={Input}
 							type="text"
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
+							className={`${style.DeliveryForm__input} ${
+								style.DeliveryForm__input_wide
+							}`}
 							label="Почтовый индекс"
 						/>
 					</div>
@@ -85,7 +90,9 @@ class DeliveryForm extends Component {
 							name="address"
 							component={Input}
 							type="text"
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
+							className={`${style.DeliveryForm__input} ${
+								style.DeliveryForm__input_wide
+							}`}
 							label="Адрес (улица, дом, строение, квартира)"
 						/>
 					</div>
@@ -94,14 +101,14 @@ class DeliveryForm extends Component {
 							name="phone"
 							component={Input}
 							type="text"
-							className={`${style.DeliveryForm__input} ${style.DeliveryForm__input_wide}`}
+							className={`${style.DeliveryForm__input} ${
+								style.DeliveryForm__input_wide
+							}`}
 							label="Телефон"
 							numberFormat
 						/>
 						<div className={style.DeliveryForm__button}>
-							<Button type="submit">
-								Сохранить
-							</Button>
+							<Button type="submit">Сохранить</Button>
 						</div>
 					</div>
 				</div>
@@ -110,13 +117,11 @@ class DeliveryForm extends Component {
 	}
 }
 
-
 DeliveryForm = reduxForm({
 	// a unique name for the form
 	form: 'delivery',
 	enableReinitialize: true,
-	destroyOnUnmount: false
+	destroyOnUnmount: false,
 })(DeliveryForm);
 
 export default DeliveryForm;
-

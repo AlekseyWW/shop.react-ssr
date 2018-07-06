@@ -21,75 +21,75 @@ const filterdata = [
 		items: [
 			{
 				name: '12',
-				title: '12'
-			}, {
+				title: '12',
+			},
+			{
 				name: '48',
-				title: '48'
-			}, {
+				title: '48',
+			},
+			{
 				name: '96',
-				title: '96'
-			}
-		]
-	}
+				title: '96',
+			},
+		],
+	},
 ];
 
 class Filter extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.handleClick = this.handleClick.bind(this);
 		this.resetForm = this.resetForm.bind(this);
 	}
 	historyPush = query => {
-		const { subCategoryId, categoryId, stockId, history} = this.props;
-		const slug = subCategoryId ? `${categoryId}/${subCategoryId}` : categoryId;
-		const pathname = slug ? stockId ? `/${stockId}/catalog/${slug}` : `/catalog/${slug}` : stockId ? `/${stockId}/catalog` : `/catalog`;
+		const { subCategoryId, categoryId, stockId, history } = this.props;
+		const slug = subCategoryId
+			? `${categoryId}/${subCategoryId}`
+			: categoryId;
+		const pathname = slug
+			? stockId
+				? `/${stockId}/catalog/${slug}`
+				: `/catalog/${slug}`
+			: stockId
+				? `/${stockId}/catalog`
+				: `/catalog`;
 		history.push({
 			pathname,
-			search: `${qs.stringify(query)}`
-		})
-	}
-	componentDidMount() {
-		const ScrollMagic = require('scrollmagic');
-		setTimeout(() => {
-			this.scene = new ScrollMagic.Scene({
-				offset: window.innerWidth <= 992 ? -40 : 0,
-				triggerElement: '#filter',
-				triggerHook: 'onLeave',
-			})
-				.setPin(this.block)
-				.setClassToggle(this.block, 'active')
-				.addTo(window.controller);
-		}, 0);
-	}
+			search: `${qs.stringify(query)}`,
+		});
+	};
 	handleClick(data) {
-		const slug = this.props.subCategoryId ? `${this.props.categoryId}/${this.props.subCategoryId}` : `${this.props.categoryId}`;
-		let pathname = ''
+		const slug = this.props.subCategoryId
+			? `${this.props.categoryId}/${this.props.subCategoryId}`
+			: `${this.props.categoryId}`;
+		let pathname = '';
 		if (slug) {
 			if (this.props.stockId) {
-				pathname = `/${this.props.stockId}/catalog/${slug}`
+				pathname = `/${this.props.stockId}/catalog/${slug}`;
 			} else {
-				`/catalog/${slug}`
-			} 
+				`/catalog/${slug}`;
+			}
 		} else {
 			if (this.props.stockId) {
-				pathname = `/${this.props.stockId}/catalog`
+				pathname = `/${this.props.stockId}/catalog`;
 			} else {
-				`/catalog`
-			} 
+				`/catalog`;
+			}
 		}
-		const requestData = this.props.query ? { ...this.props.query, ...data }: data;
-		// this.props.getProducts(requestData, this.props.subCategoryId || this.props.categoryId);
+		const requestData = this.props.query
+			? { ...this.props.query, ...data }
+			: data;
 		this.props.history.push({
 			pathname,
-			search: `${qs.stringify(requestData)}`
-		})
+			search: `${qs.stringify(requestData)}`,
+		});
 	}
 	resetForm(name) {
 		if (name) {
-			this.props.changeForm(name, '')
+			this.props.changeForm(name, '');
 		} else {
-			this.props.changeForm('brand', '')
-			this.props.changeForm('size', '')
+			this.props.changeForm('brand', '');
+			this.props.changeForm('size', '');
 		}
 	}
 	removeFilter = (item, type) => {
@@ -106,8 +106,8 @@ class Filter extends Component {
 
 			this.props.history.push({
 				pathname: pathname,
-				search: `${qs.stringify(editedQuery)}`
-			})
+				search: `${qs.stringify(editedQuery)}`,
+			});
 		}
 		if (type === 'sex') {
 			var array = this.props[type].split(',');
@@ -117,76 +117,147 @@ class Filter extends Component {
 			}
 			const editedQuery = { ...this.props.parsedQuery };
 			editedQuery[type] = array.length > 0 ? array.join(',') : '';
-			
+
 			this.props.history.push({
 				pathname: pathname,
-				search: `${qs.stringify(editedQuery)}`
-			})
+				search: `${qs.stringify(editedQuery)}`,
+			});
 		}
 		if (type === 'stockId') {
 			const editedQuery = { ...this.props.parsedQuery };
 
 			this.props.history.push({
 				pathname: `${pathname}`.replace(`/${item}`, ''),
-				search: `${qs.stringify(this.props.parsedQuery)}`
-			})
+				search: `${qs.stringify(this.props.parsedQuery)}`,
+			});
 		}
 		if (type === 'subCategoryId') {
 			const editedQuery = { ...this.props.parsedQuery };
 
 			this.props.history.push({
 				pathname: `${pathname}`.replace(`/${item}`, ''),
-				search: `${qs.stringify(this.props.parsedQuery)}`
-			})
+				search: `${qs.stringify(this.props.parsedQuery)}`,
+			});
 		}
 		if (type === 'categoryId') {
-			let newPath = `${pathname}`.replace(`/${item}`, '')
-			if(this.props.subCategoryId) {
-				newPath = `${newPath}`.replace(`/${this.props.subCategoryId}`, '')
+			let newPath = `${pathname}`.replace(`/${item}`, '');
+			if (this.props.subCategoryId) {
+				newPath = `${newPath}`.replace(
+					`/${this.props.subCategoryId}`,
+					''
+				);
 			}
-			
+
 			const editedQuery = { ...this.props.parsedQuery };
 
 			this.props.history.push({
 				pathname: newPath,
-				search: `${qs.stringify(this.props.parsedQuery)}`
-			})
+				search: `${qs.stringify(this.props.parsedQuery)}`,
+			});
 		}
-	}
+	};
 	render() {
-		const { getProducts, allCount, sizes, brands, brand, size, sex, stockId, subCategoryId, categoryId, categories } = this.props;
-		const currentSizes = sex && sizes.length > 0 && sizes[0].sex && sizes[0].sex.whom ? _.filter(sizes, b => b.sex.name === sex) : sizes;
-		const category = categories && categoryId && find(categories.items, { slug: categoryId }) ? find(categories.items, { slug: categoryId }): null;
-		const subCategory = categories && category && subCategoryId && find(category.items, { slug: subCategoryId }) ? find(category.items, { slug: subCategoryId }).name : subCategoryId
-		
+		const {
+			brand,
+			size,
+			sex,
+			stockId,
+			subCategoryId,
+			categoryId,
+			categories,
+		} = this.props;
+
+		const category =
+			categories &&
+			categoryId &&
+			find(categories.items, { slug: categoryId })
+				? find(categories.items, { slug: categoryId })
+				: null;
+		const subCategory =
+			categories &&
+			category &&
+			subCategoryId &&
+			find(category.items, { slug: subCategoryId })
+				? find(category.items, { slug: subCategoryId }).name
+				: subCategoryId;
+
 		return (
 			<div className={style.Filter} id="filter">
 				<div className={style.Filter__inner} ref={this.block}>
-					{/* <div className={style.Filter__filters}>
-						<BarFilter resetForm={this.resetForm} brands={brands.brands} sizes={currentSizes} onSubmit={(data) => {
-							const query = {};
-
-							Object.keys(data).forEach(element => {
-								if (data[element]) {
-									query[element] = data[element].join(',')
-								}
-							});
-							query.sex = sex;
-							query.offset = this.props.query.offset || 0;
-							query.count = this.props.query.count || 12;
-							if (this.props.location.search !== `?${qs.stringify(query)}`) {
-								this.historyPush(query);
-								// getProducts(query, this.props.subCategoryId || this.props.categoryId);
-							}
-						}} />
-					</div> */}
 					<div className={style.Filter__list}>
-						{stockId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(stockId, 'stockId')}><CrossIcon />{stockId}</p>}
-						{categoryId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(categoryId, 'categoryId')}><CrossIcon />{category ? category.name : ''}</p>}
-						{subCategoryId && <p className={style.Filter__list__item} onClick={() => this.removeFilter(subCategoryId, 'subCategoryId')}><CrossIcon />{subCategory}</p>}
-						{brand && brand.length > 0 && brand.split(',').map(item => <p className={style.Filter__list__item} onClick={() => this.removeFilter(item, 'brand')} key={item}><CrossIcon />{item}</p>)}
-						{size && size.length > 0 && size.split(',').map(item => <p className={style.Filter__list__item} onClick={() => this.removeFilter(item, 'size')} key={item}><CrossIcon />{item}</p>)}
-						{sex && <p className={style.Filter__list__item} onClick={() => this.removeFilter(sex, 'sex')}><CrossIcon />{sex}</p>}
+						{stockId && (
+							<p
+								className={style.Filter__list__item}
+								onClick={() =>
+									this.removeFilter(stockId, 'stockId')
+								}
+							>
+								<CrossIcon />
+								{stockId}
+							</p>
+						)}
+						{categoryId && (
+							<p
+								className={style.Filter__list__item}
+								onClick={() =>
+									this.removeFilter(categoryId, 'categoryId')
+								}
+							>
+								<CrossIcon />
+								{category ? category.name : ''}
+							</p>
+						)}
+						{subCategoryId && (
+							<p
+								className={style.Filter__list__item}
+								onClick={() =>
+									this.removeFilter(
+										subCategoryId,
+										'subCategoryId'
+									)
+								}
+							>
+								<CrossIcon />
+								{subCategory}
+							</p>
+						)}
+						{brand &&
+							brand.length > 0 &&
+							brand.split(',').map(item => (
+								<p
+									className={style.Filter__list__item}
+									onClick={() =>
+										this.removeFilter(item, 'brand')
+									}
+									key={item}
+								>
+									<CrossIcon />
+									{item}
+								</p>
+							))}
+						{size &&
+							size.length > 0 &&
+							size.split(',').map(item => (
+								<p
+									className={style.Filter__list__item}
+									onClick={() =>
+										this.removeFilter(item, 'size')
+									}
+									key={item}
+								>
+									<CrossIcon />
+									{item}
+								</p>
+							))}
+						{sex && (
+							<p
+								className={style.Filter__list__item}
+								onClick={() => this.removeFilter(sex, 'sex')}
+							>
+								<CrossIcon />
+								{sex}
+							</p>
+						)}
 					</div>
 					<div className={style.Filter__sorting}>
 						{filterdata.map(item => (
@@ -204,7 +275,7 @@ class Filter extends Component {
 					</div>
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
@@ -216,22 +287,41 @@ Filter.propTypes = {
 const mapStateToProps = (state, ownProps) => {
 	const { brand, size, sex } = qs.parse(ownProps.location.search);
 	const parsedQuery = qs.parse(ownProps.location.search);
-	
+
 	const brands = state.brands;
 	const { sizes } = state.products;
 	const { categories } = state.category;
 	const { categoryId, subCategoryId, stockId } = ownProps.match.params;
 	const query = qs.parse(ownProps.location.search);
-	return { categoryId, parsedQuery, subCategoryId, stockId, query, brands, brand, size, sex, sizes, categories };
+	return {
+		categoryId,
+		parsedQuery,
+		subCategoryId,
+		stockId,
+		query,
+		brands,
+		brand,
+		size,
+		sex,
+		sizes,
+		categories,
+	};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const { categoryId } = ownProps;
-	return ({
-		getProducts: data => dispatch(productsAction.getProducts(data, categoryId)),
+	return {
+		getProducts: data =>
+			dispatch(productsAction.getProducts(data, categoryId)),
 		changeForm: (field, value) => dispatch(change('filter', field, value)),
-		setPagination: (offset, countView) => dispatch(paginationAction.setPagination(offset, countView))
-	});
+		setPagination: (offset, countView) =>
+			dispatch(paginationAction.setPagination(offset, countView)),
+	};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Filter));
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(Filter)
+);

@@ -7,9 +7,7 @@ import deliver from './deliver.jpg';
 import './style.css';
 
 class SuccessPage extends Component {
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 	render() {
 		return (
 			<div className="SuccessPage">
@@ -22,12 +20,22 @@ class SuccessPage extends Component {
 							{htmlParser('Ваша заявка принята.')}
 						</h1>
 						<h2 className="SuccessPage__subTitle" level={4}>
-							{htmlParser('Ожидайте звонок личного консультанта! А&nbsp;пока загляните к&nbsp;нам в&nbsp;инстаграмм')}
+							{htmlParser(
+								'Ожидайте звонок личного консультанта! А&nbsp;пока загляните к&nbsp;нам в&nbsp;инстаграмм'
+							)}
 						</h2>
 					</div>
 					<div className="SuccessPage__body">
 						<div className="SuccessPage__text">
-							<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className="SuccessPage__instagramm" onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }}>
+							<a
+								href="https://www.instagram.com/newstep_rnd/"
+								target="_blank"
+								className="SuccessPage__instagramm"
+								onClick={() => {
+									yaCounter47068560.reachGoal('ORDER');
+									return true;
+								}}
+							>
 								<InstagramIcon />
 							</a>
 						</div>
@@ -37,19 +45,5 @@ class SuccessPage extends Component {
 		);
 	}
 }
-
-// ProductPage.defaultProps = {
-// 	isLoaded: false,
-// 	isLoading: false,
-// 	product: {}
-// };
-
-// ProductPage.propTypes = {
-// 	isLoaded: PropTypes.bool.isRequired,
-// 	isLoading: PropTypes.bool.isRequired,
-// 	getProductInfo: PropTypes.func.isRequired,
-// 	addToCart: PropTypes.func.isRequired,
-// 	product: PropTypes.object.isRequired
-// };
 
 export default SuccessPage;

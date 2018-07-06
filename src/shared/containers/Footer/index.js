@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Input from 'components/Input';
 import { NavLink } from 'react-router-dom';
-import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon, TelegrammIcon } from 'components/Icon';
+import { LogoIcon, VkIcon, InstagramIcon, WhatsupIcon } from 'components/Icon';
 import data from 'config/header.json';
 import style from './styles.styl';
 
 class Footer extends Component {
 	constructor(props) {
 		super(props);
-		this.fetchDistribution = this.fetchDistribution.bind(this)
+		this.fetchDistribution = this.fetchDistribution.bind(this);
 	}
 	fetchDistribution = () => {
 		const url = `${process.env.API_URL}/email-subscription`;
@@ -17,29 +16,18 @@ class Footer extends Component {
 			return axios({
 				method: 'post',
 				url,
-				data: { email: this.input.value},
+				data: { email: this.input.value },
 			})
 				.then(res => {
 					const { data } = res;
 					return this.onSuccess();
 				})
 				.catch(err => {
-					console.log(err.message)
+					console.log(err.message);
 				});
 		}
-	}
+	};
 	onSuccess() {
-		// this.props.openModal({
-		// 	modalType: ModalExample,
-		// 	modalProps: {
-		// 		className: "DistributionForm__wrapper",
-		// 		text: (
-		// 			<LoginForm onSubmit={this.props.login} />
-		// 		),
-		// 		hasClose: true
-		// 	}
-		// })
-		console.log('успешная подписка');
 		this.input.value = '';
 		yaCounter47068560.reachGoal('DISTRIBUTION');
 	}
@@ -47,29 +35,28 @@ class Footer extends Component {
 		return (
 			<div className={style.Footer}>
 				<div className={style.Footer__container}>
-					{/* <div className={style.Footer__column}>
-						<div className={style.Footer__logo}>
-							<LogoIcon width={160} height={60} className={style.Footer__logo__img} />
-						</div>
-					</div> */}
 					<div className={style.Footer__column}>
 						<div className={style.Footer__phone}>
-							{/* <div>телефон</div> */}
 							<span className={style.Footer__social__title}>
 								<span>Ростовская область</span>
 							</span>
-							<a href={data.contacts.phone.url}>{data.contacts.phone.text}</a>
+							<a href={data.contacts.phone.url}>
+								{data.contacts.phone.text}
+							</a>
 							<span className={style.Footer__social__title}>
 								<span>Россия</span>
 							</span>
-							<a href={data.contacts.phoneRussia.url}>{data.contacts.phoneRussia.text}</a>
-							{/* <a href={data.contacts.location.url} target="_blank">{data.contacts.location.text}</a> */}
+							<a href={data.contacts.phoneRussia.url}>
+								{data.contacts.phoneRussia.text}
+							</a>
 						</div>
 						<div className={style.Footer__logo}>
-							<LogoIcon width={160} height={60} className={style.Footer__logo__img} />
+							<LogoIcon
+								width={160}
+								height={60}
+								className={style.Footer__logo__img}
+							/>
 						</div>
-						{/* <div className={style.Footer__address}>
-						</div> */}
 					</div>
 					<div className={style.Footer__column}>
 						<div className={style.Footer__social}>
@@ -77,19 +64,31 @@ class Footer extends Component {
 								социальный сети
 							</div>
 							<div className={style.Footer__social__icons}>
-								<a href="https://www.instagram.com/newstep_rnd/" target="_blank" className={style.Footer__social__icon} onClick={() => { yaCounter47068560.reachGoal('ORDER'); return true; }}>
+								<a
+									href="https://www.instagram.com/newstep_rnd/"
+									target="_blank"
+									className={style.Footer__social__icon}
+									onClick={() => {
+										yaCounter47068560.reachGoal('ORDER');
+										return true;
+									}}
+								>
 									<InstagramIcon />
 								</a>
-								<a href="https://vk.com/newstep.store" target="_blank" className={style.Footer__social__icon}>
-									<VkIcon/>
+								<a
+									href="https://vk.com/newstep.store"
+									target="_blank"
+									className={style.Footer__social__icon}
+								>
+									<VkIcon />
 								</a>
-								<a href="https://api.whatsapp.com/send?phone=79286206404" target="_blank" className={style.Footer__social__icon}>
+								<a
+									href="https://api.whatsapp.com/send?phone=79286206404"
+									target="_blank"
+									className={style.Footer__social__icon}
+								>
 									<WhatsupIcon />
 								</a>
-{/* 		
-								<a href="https://t.me/Kross_zakazbot" target="_blank" className={style.Footer__social__icon}>
-									<TelegrammIcon />
-								</a> */}
 							</div>
 						</div>
 						<div className={style.Footer__buyer}>
@@ -98,21 +97,43 @@ class Footer extends Component {
 							</div>
 							<div className={style.Footer__links}>
 								<div className={style.Footer__links__column}>
-									<NavLink to="/catalog" className={style.Footer__link} activeClassName={style.Footer__link_active}>
+									<NavLink
+										to="/catalog"
+										className={style.Footer__link}
+										activeClassName={
+											style.Footer__link_active
+										}
+									>
 										Магазин
 									</NavLink>
-									{/* <NavLink to="/contacts" className={style.Footer__link} activeClassName={style.Footer__link_active}>
-										Контакты
-									</NavLink> */}
-									<NavLink to="/info" className={style.Footer__link} activeClassName={style.Footer__link_active}>
+
+									<NavLink
+										to="/info"
+										className={style.Footer__link}
+										activeClassName={
+											style.Footer__link_active
+										}
+									>
 										Оплата и доставка
 									</NavLink>
 								</div>
 								<div className={style.Footer__links__column}>
-									<NavLink to="/agreement" className={style.Footer__link} activeClassName={style.Footer__link_active}>
+									<NavLink
+										to="/agreement"
+										className={style.Footer__link}
+										activeClassName={
+											style.Footer__link_active
+										}
+									>
 										Конфиденциальность
 									</NavLink>
-									<NavLink to="/return" className={style.Footer__link} activeClassName={style.Footer__link_active}>
+									<NavLink
+										to="/return"
+										className={style.Footer__link}
+										activeClassName={
+											style.Footer__link_active
+										}
+									>
 										Обмен и возврат
 									</NavLink>
 								</div>
@@ -122,20 +143,31 @@ class Footer extends Component {
 					<div className={style.Footer__column}>
 						<div className={style.Footer__feedback}>
 							<div className={style.Footer__social__title}>
-							рассылка
+								рассылка
 							</div>
 							<div className={style.Footer__feedback__input}>
-								<input className={style.Footer__feedback__field} placeholder="Твой e-mail" ref={this.input} />
-								<button className={style.Footer__feedback__button} onClick={this.fetchDistribution}>ок</button>
+								<input
+									className={style.Footer__feedback__field}
+									placeholder="Твой e-mail"
+									ref={this.input}
+								/>
+								<button
+									className={style.Footer__feedback__button}
+									onClick={this.fetchDistribution}
+								>
+									ок
+								</button>
 							</div>
 							<div className={style.Footer__feedback__text}>
-							Подписываясь на рассылку, вы соглашаетесь с&nbsp;условиями оферты и&nbsp;политики конфиденциальности
+								Подписываясь на рассылку, вы соглашаетесь
+								с&nbsp;условиями оферты и&nbsp;политики
+								конфиденциальности
 							</div>
 							<div className={style.Footer__feedback__note}>
-							магазин женских и&nbsp;мужских кроссовок
+								магазин женских и&nbsp;мужских кроссовок
 							</div>
 						</div>
-		
+
 						<div className={style.Footer__payimg}>
 							<img src="/mastercard.png" alt="" />
 							<img src="/visa.png" alt="" />
@@ -144,10 +176,8 @@ class Footer extends Component {
 					</div>
 				</div>
 			</div>
-
-		)
+		);
 	}
-};
+}
 
 export default Footer;
-
